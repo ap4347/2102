@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 01 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="Introduction R is a programming language and software environment for statistical analysis, graphics representation and reporting. R was created by Ross Ihaka and Robert Gentleman at the...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 01 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-01.html">
+<meta property="og:description" content="Introduction R is a programming language and software environment for statistical analysis, graphics representation and reporting. R was created by Ross Ihaka and Robert Gentleman at the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 01 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="Introduction R is a programming language and software environment for statistical analysis, graphics representation and reporting. R was created by Ross Ihaka and Robert Gentleman at the...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="active" href="lecture-01.html">Lecture 01</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-01" class="section level1 unnumbered">
+<h1>Lecture 01<a class="anchor" aria-label="anchor" href="#lecture-01"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction" class="section level2 unnumbered">
+<h2>Introduction<a class="anchor" aria-label="anchor" href="#introduction"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>R</code> is a programming language and software environment for statistical analysis, graphics representation and reporting. <code>R</code> was created by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand, and is currently developed by the R Development Core Team. It is <em>free of charge</em> and <em>open-source</em>.</p>
+<p>Nowadays, many companies, universities, and individuals of all backgrounds are shifting towards using <code>R</code>, because (of):</p>
+<ol style="list-style-type: decimal">
+<li>It is free and open-source, and available on every major platform.</li>
+<li>Results produced by <code>R</code> are reproducible.</li>
+<li>
+<code>R</code> has a diverse and supportive community, both online and offline.</li>
+<li>A numerous set of packages for various tasks such as statistical analysis, data science, data visualization, reporting results etc.</li>
+<li>Powerful tools for communication your results.</li>
+<li>RStudio IDE (Integrated Development Environment).</li>
+<li>Deep-seated language support for data analysis.</li>
+<li>A strong foundation of functional programming.</li>
+</ol>
+</div>
+<div id="getting-started-downloading-and-installing-r-rstudio" class="section level2 unnumbered">
+<h2>Getting Started: Downloading and Installing R &amp; RStudio<a class="anchor" aria-label="anchor" href="#getting-started-downloading-and-installing-r-rstudio"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-figure"><img src="images/r_and_rstudio.png"></div>
+<div id="installing-r" class="section level3 unnumbered">
+<h3>Installing R<a class="anchor" aria-label="anchor" href="#installing-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>The first thing we need to do is to install <code>R</code> on your computer. It works on pretty much every platform available, including the widely used Windows, Mac OS, and Linux systems. You can download R <a href="https://cran.r-project.org/">here</a>. Pick your operating system and follow the instructions stated on that page. After you download <code>R</code>, install it on your machine.</p>
+</div>
+<div id="installing-rstudio" class="section level3 unnumbered">
+<h3>Installing RStudio<a class="anchor" aria-label="anchor" href="#installing-rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p>R itself has an old-fashion, old-school interface, which is less intuitive and makes coding harder (especially for beginners). Thus, we will be using RStudio instead. RStudio is an IDE, Integrated Development Environment, which has a user-friendly interface and is equipment with many useful features. It facilitates extensive code editing, development as well as various features that make R an easy language to implement. We will be using RStudio to call <code>R</code>. You can dowload RStudio <a href="https://posit.co/download/rstudio-desktop/#download">here</a>.</p>
+<p>Note, in order to work in RStudio, you first need to download and install <code>R</code>.</p>
+</div>
+</div>
+<div id="rstudio-interface" class="section level2 unnumbered">
+<h2>RStudio Interface<a class="anchor" aria-label="anchor" href="#rstudio-interface"><i class="fas fa-link"></i></a>
+</h2>
+<p>You may be initially overwhelmed by all the different panes and tabs that are available in RStudio. But, as with all things, it will take a little bit to get used to it and eventually you will learn to love this layout.</p>
+<p>RStudio has 4 main panes:</p>
+<div class="figure">
+<span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="images/Rstudio.png" alt="RStudio Interface" width="150%" height="110%"><p class="caption">
+Figure 1: RStudio Interface
+</p>
+</div>
+<div id="code-editor-source-pane" class="section level3 unnumbered">
+<h3>Code Editor (Source Pane)<a class="anchor" aria-label="anchor" href="#code-editor-source-pane"><i class="fas fa-link"></i></a>
+</h3>
+<p>Most likely the pane where you will spend a majority of your time is in the top left corner. It’s called Code Editor (a.k.a Source Pane). This is a place where you create and edit R Scripts (files with an <code>".R"</code> extension that contain your code). When you open RStudio, it will automatically start a new Untitled script. Before you start typing in an untitled R script, you should always save the file under a new file name (for example, <code>"script_1.R"</code>). That way, if something on your computer crashes while you’re working, R will have your code saved when you re-open RStudio.</p>
+<p>As you will notice, typing a code in R scripts does not execute it. To run the entire code, you can click a <code>Run</code> button on the top of the pane. Or, if you want to execute a specific line of the code, then put the cursor on that line and press <code>Command + Return</code> on Mac or <code>Control + Enter</code> on PC.</p>
+</div>
+<div id="console-pane" class="section level3 unnumbered">
+<h3>Console Pane<a class="anchor" aria-label="anchor" href="#console-pane"><i class="fas fa-link"></i></a>
+</h3>
+<p>The bottom left pane is called Console. You will be using the Console as a way to check your work or thoughts. Basically, Console is a place where the R code is being run after executing it in R scripts. It is a place where the output/results will be displayed.</p>
+</div>
+<div id="environmenthistory-pane" class="section level3 unnumbered">
+<h3>Environment/History Pane<a class="anchor" aria-label="anchor" href="#environmenthistory-pane"><i class="fas fa-link"></i></a>
+</h3>
+<p>The Environment (a.k.a Global Environment, a.k.a Working Environment) tab shows you the names of all the data objects that you’ve defined in your current R session. You can also see what information these objects contain.</p>
+<p>The History tab simply shows you a history of all the code you’ve previously evaluated in the Console.</p>
+</div>
+<div id="output-pane" class="section level3 unnumbered">
+<h3>Output Pane<a class="anchor" aria-label="anchor" href="#output-pane"><i class="fas fa-link"></i></a>
+</h3>
+<p>The bottom right pane in RStudio contains the most tabs by default and is a useful place to view a variety of miscellaneous information about your RStudio projects and its files.</p>
+<p><strong>Files:</strong> The leftmost tab here shows the file and folder structure. This shows you where the files are stored, what they are called, and any folders that may exist in your project folder.</p>
+<p><strong>Plots/Viewer:</strong> this shows you the resulting graphs/figures that your R code generated.</p>
+<p><strong>Packages:</strong> this shows you what packages have been downloaded to your computer. You can also see which packages are loaded into the current working environment by looking to see if a check-mark exists next to the package name.</p>
+<p><strong>Help:</strong> this shows you documentations on R functions, datasets, and packages available in R.</p>
+</div>
+</div>
+<div id="r-as-a-calculator-operators" class="section level2 unnumbered">
+<h2>R as a Calculator: Operators<a class="anchor" aria-label="anchor" href="#r-as-a-calculator-operators"><i class="fas fa-link"></i></a>
+</h2>
+<p>An operator is a symbol that tells R to perform specific mathematical or logical manipulations. R language is rich it built-in operators and provides the following types of operators:</p>
+<ul>
+<li>Arithmetic Operators</li>
+<li>Relational Operators</li>
+<li>Logical Operators</li>
+<li>Assignment Operators</li>
+</ul>
+<p>In this lecture we consider arithmetic and assignment operators. Later on, we will discuss relational and logical ones.</p>
+<div id="arithmetic-operators" class="section level3 unnumbered">
+<h3>Arithmetic Operators<a class="anchor" aria-label="anchor" href="#arithmetic-operators"><i class="fas fa-link"></i></a>
+</h3>
+<p>R supports various arithmetic operations. In other words, you can use R as a simple calculator. For instance,</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">3</span></span>
+<span><span class="co">#&gt; [1] 5</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">4</span><span class="op">*</span><span class="fl">5</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="fl">3</span></span>
+<span><span class="co">#&gt; [1] 19.33333</span></span></code></pre></div>
+<p>The following table shows the arithmetic operators supported by R language:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>R Symbol</th>
+<th>Meaning</th>
+<th>Example</th>
+<th>Output</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>+</td>
+<td>Addition</td>
+<td><code>5+3</code></td>
+<td><code>8</code></td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>Subtraction</td>
+<td><code>5-3</code></td>
+<td><code>2</code></td>
+</tr>
+<tr class="odd">
+<td>*</td>
+<td>Multiplication</td>
+<td><code>5*3</code></td>
+<td><code>15</code></td>
+</tr>
+<tr class="even">
+<td>/</td>
+<td>Division</td>
+<td><code>5/3</code></td>
+<td><code>1.666667</code></td>
+</tr>
+<tr class="odd">
+<td>^</td>
+<td>Exponents</td>
+<td><code>5^3</code></td>
+<td><code>125</code></td>
+</tr>
+<tr class="even">
+<td>%%</td>
+<td>Remainder</td>
+<td><code>5%%3</code></td>
+<td><code>2</code></td>
+</tr>
+<tr class="odd">
+<td>sqrt()</td>
+<td>Square Root</td>
+<td><code>sqrt(5)</code></td>
+<td><code>2.236068</code></td>
+</tr>
+<tr class="even">
+<td>log( , base = )</td>
+<td>Logarithm</td>
+<td><code>log(5, base = 3)</code></td>
+<td><code>1.464974</code></td>
+</tr>
+<tr class="odd">
+<td>abs()</td>
+<td>Absolute Value</td>
+<td><code>abs(-5)</code></td>
+<td><code>5</code></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="assignment-operators" class="section level3 unnumbered">
+<h3>Assignment Operators<a class="anchor" aria-label="anchor" href="#assignment-operators"><i class="fas fa-link"></i></a>
+</h3>
+<p>In order to create a variable in R, you can use <code>&lt;-</code> assignment symbol. For example, let’s create a variable <code>x</code> and give it a value of <code>4</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
+<p>Let’s create another variable <code>y</code>, which is equal to 10:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span><span class="va">y</span></span>
+<span><span class="co">#&gt; [1] 10</span></span></code></pre></div>
+<p>Once we create these variables, they will be stored in the global environment and will be available to use for further operations. Now R know that <code>x = 4</code> and <code>y = 10</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span><span class="co">#&gt; [1] 14</span></span></code></pre></div>
+<p>Note, R is case sensitive. What does that mean? This means that for R <code>x</code> and <code>X</code> are different objects. So, now if we call <code>X</code> variable, R will throw an error and will tell you that such an object does exist in the global environment:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">X</span></span>
+<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'X' not found</span></span></code></pre></div>
+</div>
+</div>
+<div id="working-with-the-global-environment" class="section level2 unnumbered">
+<h2>Working with the Global Environment<a class="anchor" aria-label="anchor" href="#working-with-the-global-environment"><i class="fas fa-link"></i></a>
+</h2>
+<div id="saving-the-global-environment" class="section level3 unnumbered">
+<h3>Saving the Global Environment<a class="anchor" aria-label="anchor" href="#saving-the-global-environment"><i class="fas fa-link"></i></a>
+</h3>
+<p>After you’ve run a long code and produced some valuable results, you might want to save your output that is being stored in the global environment now. To do so, you can execute the following line of code, which saves the global environment in the <em>working directory</em> (a place in your computer where R saves your files):</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save.image</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="removing-objects-from-the-global-environment" class="section level3 unnumbered">
+<h3>Removing objects from the Global Environment<a class="anchor" aria-label="anchor" href="#removing-objects-from-the-global-environment"><i class="fas fa-link"></i></a>
+</h3>
+<p>To remove a specific object (suppose a variable <code>x</code>) from the Global Environment, use <code><a href="https://rdrr.io/r/base/rm.html">rm()</a></code> function:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<p>To remove all objects stored in the Global Environment, use <code>rm(list = ls())</code> function:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="listing-objects-stored-in-the-global-environment" class="section level3 unnumbered">
+<h3>Listing objects stored in the Global Environment<a class="anchor" aria-label="anchor" href="#listing-objects-stored-in-the-global-environment"><i class="fas fa-link"></i></a>
+</h3>
+<p>To list the objects stored in the Global Environment, use <code><a href="https://rdrr.io/r/base/ls.html">ls()</a></code> function:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="working-directory" class="section level2 unnumbered">
+<h2>Working Directory<a class="anchor" aria-label="anchor" href="#working-directory"><i class="fas fa-link"></i></a>
+</h2>
+<p>As mentioned, R stores files in the working directory. To check where is the working directory on your machine, use <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> function:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "C:/Users/alexp/OneDrive/Desktop/2102/2102"</span></span></code></pre></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Welcome</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-01">Lecture 01</a></li>
+<li><a class="nav-link" href="#introduction">Introduction</a></li>
+<li>
+<a class="nav-link" href="#getting-started-downloading-and-installing-r-rstudio">Getting Started: Downloading and Installing R &amp; RStudio</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#installing-r">Installing R</a></li>
+<li><a class="nav-link" href="#installing-rstudio">Installing RStudio</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#rstudio-interface">RStudio Interface</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#code-editor-source-pane">Code Editor (Source Pane)</a></li>
+<li><a class="nav-link" href="#console-pane">Console Pane</a></li>
+<li><a class="nav-link" href="#environmenthistory-pane">Environment/History Pane</a></li>
+<li><a class="nav-link" href="#output-pane">Output Pane</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#r-as-a-calculator-operators">R as a Calculator: Operators</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#arithmetic-operators">Arithmetic Operators</a></li>
+<li><a class="nav-link" href="#assignment-operators">Assignment Operators</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#working-with-the-global-environment">Working with the Global Environment</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#saving-the-global-environment">Saving the Global Environment</a></li>
+<li><a class="nav-link" href="#removing-objects-from-the-global-environment">Removing objects from the Global Environment</a></li>
+<li><a class="nav-link" href="#listing-objects-stored-in-the-global-environment">Listing objects stored in the Global Environment</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#working-directory">Working Directory</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/01-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/01-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-22.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>
