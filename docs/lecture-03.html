@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 03 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="We continue exploring different data structures in R programming language. In this lecture we will discuss matrices and data frames. Matrices Matrices are R objects in which the elements are...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 03 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-03.html">
+<meta property="og:description" content="We continue exploring different data structures in R programming language. In this lecture we will discuss matrices and data frames. Matrices Matrices are R objects in which the elements are...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 03 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="We continue exploring different data structures in R programming language. In this lecture we will discuss matrices and data frames. Matrices Matrices are R objects in which the elements are...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="active" href="lecture-03.html">Lecture 03</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-03" class="section level1 unnumbered">
+<h1>Lecture 03<a class="anchor" aria-label="anchor" href="#lecture-03"><i class="fas fa-link"></i></a>
+</h1>
+<p>We continue exploring different data structures in R programming language. In this lecture we will discuss <code>matrices</code> and <code>data frames</code>.</p>
+<div id="matrices" class="section level2 unnumbered">
+<h2>Matrices<a class="anchor" aria-label="anchor" href="#matrices"><i class="fas fa-link"></i></a>
+</h2>
+<p>Matrices are R objects in which the elements are arranged in a two-dimensional rectangular layout (columns and rows). A column is a vertical representation of data, while a row is a horizontal representation of data. Like vectors, matrices work with homogeneous data only.</p>
+<div id="creating-matrices" class="section level3 unnumbered">
+<h3>Creating matrices<a class="anchor" aria-label="anchor" href="#creating-matrices"><i class="fas fa-link"></i></a>
+</h3>
+<p>We use <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function to create a matrix. It has the following arguments (input values):</p>
+<p><code>matrix(data, nrow, ncol, byrow, dimnames)</code></p>
+<ul>
+<li>
+<strong>data</strong> is the input vector which becomes the data elements of the matrix</li>
+<li>
+<strong>nrow</strong> is the number of rows to be created</li>
+<li>
+<strong>ncol</strong> is the number of columns to be created</li>
+<li>
+<strong>byrow</strong> is a logical argument. If <code>TRUE</code> then the input vector elements are arranged by row</li>
+<li>
+<strong>dimname</strong> is the names assigned to the rows and columns</li>
+</ul>
+<p>let’s create a matrix containing <code>c(1:12)</code> elements:</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Elements are arranged sequentially by row</span></span>
+<span></span>
+<span><span class="va">matrix_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_1</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3</span></span>
+<span><span class="co">#&gt; [2,]    4    5    6</span></span>
+<span><span class="co">#&gt; [3,]    7    8    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Elements are arranged sequentially by column</span></span>
+<span></span>
+<span><span class="va">matrix_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_2</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    5    9</span></span>
+<span><span class="co">#&gt; [2,]    2    6   10</span></span>
+<span><span class="co">#&gt; [3,]    3    7   11</span></span>
+<span><span class="co">#&gt; [4,]    4    8   12</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Specifying the number of columns instead</span></span>
+<span></span>
+<span><span class="va">matrix_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_3</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3    4</span></span>
+<span><span class="co">#&gt; [2,]    5    6    7    8</span></span>
+<span><span class="co">#&gt; [3,]    9   10   11   12</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Defining names of columns and rows in a matrix</span></span>
+<span></span>
+<span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"row1"</span>, <span class="st">"row2"</span>, <span class="st">"row3"</span>, <span class="st">"row4"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"col1"</span>, <span class="st">"col2"</span>, <span class="st">"col3"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>, dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_4</span></span>
+<span><span class="co">#&gt;      col1 col2 col3</span></span>
+<span><span class="co">#&gt; row1    1    2    3</span></span>
+<span><span class="co">#&gt; row2    4    5    6</span></span>
+<span><span class="co">#&gt; row3    7    8    9</span></span>
+<span><span class="co">#&gt; row4   10   11   12</span></span></code></pre></div>
+</div>
+<div id="accessing-matrix-elements" class="section level3 unnumbered">
+<h3>Accessing Matrix Elements<a class="anchor" aria-label="anchor" href="#accessing-matrix-elements"><i class="fas fa-link"></i></a>
+</h3>
+<p>Elements of a matrix can be accessed by using the column and row index of the element and square brackets:</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Accessing the element at 3rd columns and 1st row</span></span>
+<span></span>
+<span><span class="va">matrix_1</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 3</span></span>
+<span></span>
+<span><span class="co"># Accessing the element at 2nd column and 4th row</span></span>
+<span></span>
+<span><span class="va">matrix_1</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 11</span></span>
+<span></span>
+<span><span class="co"># Accessing only the 2nd row</span></span>
+<span></span>
+<span><span class="va">matrix_1</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 4 5 6</span></span>
+<span></span>
+<span><span class="co"># Accessing only the 3rd column</span></span>
+<span></span>
+<span><span class="va">matrix_1</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1]  3  6  9 12</span></span>
+<span></span>
+<span><span class="co"># Accessing only the 2nd and 3rd rows </span></span>
+<span></span>
+<span><span class="va">matrix_1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    4    5    6</span></span>
+<span><span class="co">#&gt; [2,]    7    8    9</span></span></code></pre></div>
+</div>
+<div id="adding-and-removing-rows-columns" class="section level3 unnumbered">
+<h3>Adding and Removing Rows &amp; Columns<a class="anchor" aria-label="anchor" href="#adding-and-removing-rows-columns"><i class="fas fa-link"></i></a>
+</h3>
+<p>Use <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code> function to add additional columns in a matrix:</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">matrix_1</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3</span></span>
+<span><span class="co">#&gt; [2,]    4    5    6</span></span>
+<span><span class="co">#&gt; [3,]    7    8    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span>
+<span></span>
+<span><span class="va">matrix_5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">matrix_1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_5</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3   10</span></span>
+<span><span class="co">#&gt; [2,]    4    5    6   20</span></span>
+<span><span class="co">#&gt; [3,]    7    8    9   30</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12   40</span></span></code></pre></div>
+<p>Use <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> function to add additional rows in a matrix:</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">matrix_1</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3</span></span>
+<span><span class="co">#&gt; [2,]    4    5    6</span></span>
+<span><span class="co">#&gt; [3,]    7    8    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span>
+<span></span>
+<span><span class="va">matrix_6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">matrix_1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_6</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3</span></span>
+<span><span class="co">#&gt; [2,]    4    5    6</span></span>
+<span><span class="co">#&gt; [3,]    7    8    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span>
+<span><span class="co">#&gt; [5,]   10   20   30</span></span></code></pre></div>
+<p>Use <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function to remove rows and columns from a matrix:</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Removing the 1st and 2nd rows and 1st column from a matrix</span></span>
+<span></span>
+<span><span class="va">matrix_1</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3</span></span>
+<span><span class="co">#&gt; [2,]    4    5    6</span></span>
+<span><span class="co">#&gt; [3,]    7    8    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span>
+<span></span>
+<span><span class="va">matrix_7</span> <span class="op">&lt;-</span> <span class="va">matrix_1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">matrix_7</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    8    9</span></span>
+<span><span class="co">#&gt; [2,]   11   12</span></span></code></pre></div>
+</div>
+<div id="assigning-values-to-matrix-elements" class="section level3 unnumbered">
+<h3>Assigning Values to Matrix Elements<a class="anchor" aria-label="anchor" href="#assigning-values-to-matrix-elements"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Assigning a single value</span></span>
+<span></span>
+<span><span class="va">matrix_1</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3</span></span>
+<span><span class="co">#&gt; [2,]    4    5    6</span></span>
+<span><span class="co">#&gt; [3,]    7    8    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span>
+<span></span>
+<span><span class="va">matrix_1</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<span></span>
+<span><span class="va">matrix_1</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]  100    2    3</span></span>
+<span><span class="co">#&gt; [2,]    4    5    6</span></span>
+<span><span class="co">#&gt; [3,]    7    8    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span>
+<span></span>
+<span><span class="co"># Assigning a row</span></span>
+<span></span>
+<span><span class="va">matrix_1</span><span class="op">[</span><span class="fl">2</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">22</span>, <span class="fl">33</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_1</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]  100    2    3</span></span>
+<span><span class="co">#&gt; [2,]   11   22   33</span></span>
+<span><span class="co">#&gt; [3,]    7    8    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span>
+<span></span>
+<span><span class="co"># Replace elements that are equal to 8 with 0</span></span>
+<span></span>
+<span><span class="va">matrix_1</span><span class="op">[</span><span class="va">matrix_1</span> <span class="op">==</span> <span class="fl">8</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span></span>
+<span><span class="va">matrix_1</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]  100    2    3</span></span>
+<span><span class="co">#&gt; [2,]   11   22   33</span></span>
+<span><span class="co">#&gt; [3,]    7    0    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span></code></pre></div>
+</div>
+<div id="matrix-operations" class="section level3 unnumbered">
+<h3>Matrix Operations<a class="anchor" aria-label="anchor" href="#matrix-operations"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Assigning a single value</span></span>
+<span></span>
+<span><span class="va">matrix_8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_8</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    1    2</span></span>
+<span><span class="co">#&gt; [2,]    3    4</span></span>
+<span><span class="co">#&gt; [3,]    5    6</span></span>
+<span><span class="co">#&gt; [4,]    7    8</span></span>
+<span></span>
+<span><span class="va">matrix_9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_9</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    1    2</span></span>
+<span><span class="co">#&gt; [2,]    3    4</span></span>
+<span><span class="co">#&gt; [3,]    5    6</span></span>
+<span><span class="co">#&gt; [4,]    7    8</span></span>
+<span></span>
+<span><span class="co"># Addition</span></span>
+<span></span>
+<span><span class="va">matrix_8</span> <span class="op">+</span> <span class="va">matrix_9</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    2    4</span></span>
+<span><span class="co">#&gt; [2,]    6    8</span></span>
+<span><span class="co">#&gt; [3,]   10   12</span></span>
+<span><span class="co">#&gt; [4,]   14   16</span></span>
+<span></span>
+<span><span class="co"># Subtraction</span></span>
+<span></span>
+<span><span class="va">matrix_8</span> <span class="op">-</span> <span class="va">matrix_9</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    0    0</span></span>
+<span><span class="co">#&gt; [2,]    0    0</span></span>
+<span><span class="co">#&gt; [3,]    0    0</span></span>
+<span><span class="co">#&gt; [4,]    0    0</span></span>
+<span></span>
+<span><span class="co"># Multiplication</span></span>
+<span></span>
+<span><span class="va">matrix_8</span> <span class="op">*</span> <span class="va">matrix_9</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    1    4</span></span>
+<span><span class="co">#&gt; [2,]    9   16</span></span>
+<span><span class="co">#&gt; [3,]   25   36</span></span>
+<span><span class="co">#&gt; [4,]   49   64</span></span>
+<span></span>
+<span><span class="co"># Division</span></span>
+<span></span>
+<span><span class="va">matrix_8</span> <span class="op">/</span> <span class="va">matrix_9</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    1    1</span></span>
+<span><span class="co">#&gt; [2,]    1    1</span></span>
+<span><span class="co">#&gt; [3,]    1    1</span></span>
+<span><span class="co">#&gt; [4,]    1    1</span></span>
+<span></span>
+<span><span class="co"># Multiplication by Constant</span></span>
+<span></span>
+<span><span class="fl">2</span> <span class="op">*</span> <span class="va">matrix_8</span></span>
+<span><span class="co">#&gt;      [,1] [,2]</span></span>
+<span><span class="co">#&gt; [1,]    2    4</span></span>
+<span><span class="co">#&gt; [2,]    6    8</span></span>
+<span><span class="co">#&gt; [3,]   10   12</span></span>
+<span><span class="co">#&gt; [4,]   14   16</span></span>
+<span></span>
+<span><span class="co"># Matrix Multiplication</span></span>
+<span></span>
+<span><span class="va">matrix_10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">matrix_10</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3    4</span></span>
+<span><span class="co">#&gt; [2,]    5    6    7    8</span></span>
+<span></span>
+<span><span class="va">matrix_8</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html">%*%</a></span> <span class="va">matrix_10</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]   11   14   17   20</span></span>
+<span><span class="co">#&gt; [2,]   23   30   37   44</span></span>
+<span><span class="co">#&gt; [3,]   35   46   57   68</span></span>
+<span><span class="co">#&gt; [4,]   47   62   77   92</span></span>
+<span></span>
+<span><span class="co"># Matrix Transpose</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">matrix_8</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]    1    3    5    7</span></span>
+<span><span class="co">#&gt; [2,]    2    4    6    8</span></span></code></pre></div>
+</div>
+<div id="matrix-dimensions" class="section level3 unnumbered">
+<h3>Matrix Dimensions<a class="anchor" aria-label="anchor" href="#matrix-dimensions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Use <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> function to check matrix dimensions:</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">matrix_1</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3]</span></span>
+<span><span class="co">#&gt; [1,]  100    2    3</span></span>
+<span><span class="co">#&gt; [2,]   11   22   33</span></span>
+<span><span class="co">#&gt; [3,]    7    0    9</span></span>
+<span><span class="co">#&gt; [4,]   10   11   12</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">matrix_1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 4 3</span></span></code></pre></div>
+<p><code><a href="https://rdrr.io/r/base/length.html">length()</a></code> function, when applied to a matrix, shows how many elements are stored in the matrix:</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">matrix_1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 12</span></span></code></pre></div>
+</div>
+</div>
+<div id="data-frames" class="section level2 unnumbered">
+<h2>Data Frames<a class="anchor" aria-label="anchor" href="#data-frames"><i class="fas fa-link"></i></a>
+</h2>
+<p>A data frame is a table in which each column contains values of one variable and each row contains one set of values from each column. In other words, it is a data structure that represents cases in which there are observations (rows) and measurements (columns). Following are the characteristics of a data frame:</p>
+<ul>
+<li>The column names should be non-empty</li>
+<li>The data stored in a data frame can be of numeric, factor (discussed later), or character type</li>
+<li>Each column should contain same number of data items</li>
+</ul>
+<div id="creating-a-data-frame" class="section level3 unnumbered">
+<h3>Creating a data frame<a class="anchor" aria-label="anchor" href="#creating-a-data-frame"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can use a <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> function to create a data frame from a set of vectors:</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">Name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"James"</span>, <span class="st">"Linda"</span>, <span class="st">"Stacy"</span>, <span class="st">"Mary"</span>, <span class="st">"Tom"</span>, <span class="st">"Anna"</span>, <span class="st">"Bob"</span>, <span class="st">"Jeniffer"</span>, <span class="st">"Lucas"</span>, <span class="st">"Amy"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">22</span>, <span class="fl">56</span>, <span class="fl">34</span>, <span class="fl">48</span>, <span class="fl">19</span>, <span class="fl">31</span>, <span class="fl">68</span>, <span class="fl">72</span>, <span class="fl">39</span>, <span class="fl">52</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">State</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"California"</span>, <span class="st">"New York"</span>, <span class="st">"New York"</span>, <span class="st">"Michigan"</span>, <span class="st">"Texas"</span>, <span class="st">"Ohio"</span>, <span class="st">"Arizona"</span>, <span class="st">"Florida"</span>, <span class="st">"Nebraska"</span>, <span class="st">"Indiana"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Salary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>, <span class="fl">96500</span>, <span class="fl">72000</span>, <span class="fl">54300</span>, <span class="fl">25000</span>, <span class="fl">61000</span>, <span class="fl">74700</span>, <span class="fl">40000</span>, <span class="fl">83000</span>, <span class="fl">92400</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">Name</span>, <span class="va">Age</span>, <span class="va">State</span>, <span class="va">Salary</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span></span>
+<span><span class="co">#&gt;        Name Age      State Salary</span></span>
+<span><span class="co">#&gt; 1     James  22 California  30000</span></span>
+<span><span class="co">#&gt; 2     Linda  56   New York  96500</span></span>
+<span><span class="co">#&gt; 3     Stacy  34   New York  72000</span></span>
+<span><span class="co">#&gt; 4      Mary  48   Michigan  54300</span></span>
+<span><span class="co">#&gt; 5       Tom  19      Texas  25000</span></span>
+<span><span class="co">#&gt; 6      Anna  31       Ohio  61000</span></span>
+<span><span class="co">#&gt; 7       Bob  68    Arizona  74700</span></span>
+<span><span class="co">#&gt; 8  Jeniffer  72    Florida  40000</span></span>
+<span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000</span></span>
+<span><span class="co">#&gt; 10      Amy  52    Indiana  92400</span></span></code></pre></div>
+<p>We can use <code>srt()</code> function to check the structure of the data frame and <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> to get a quick summary on the variables stored in this data frame:</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Data frame structure</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 'data.frame':    10 obs. of  4 variables:</span></span>
+<span><span class="co">#&gt;  $ Name  : chr  "James" "Linda" "Stacy" "Mary" ...</span></span>
+<span><span class="co">#&gt;  $ Age   : num  22 56 34 48 19 31 68 72 39 52</span></span>
+<span><span class="co">#&gt;  $ State : chr  "California" "New York" "New York" "Michigan" ...</span></span>
+<span><span class="co">#&gt;  $ Salary: num  30000 96500 72000 54300 25000 61000 74700 40000 83000 92400</span></span>
+<span></span>
+<span><span class="co"># Summary of variables stored in a data frame</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      Name                Age           State          </span></span>
+<span><span class="co">#&gt;  Length:10          Min.   :19.00   Length:10         </span></span>
+<span><span class="co">#&gt;  Class :character   1st Qu.:31.75   Class :character  </span></span>
+<span><span class="co">#&gt;  Mode  :character   Median :43.50   Mode  :character  </span></span>
+<span><span class="co">#&gt;                     Mean   :44.10                     </span></span>
+<span><span class="co">#&gt;                     3rd Qu.:55.00                     </span></span>
+<span><span class="co">#&gt;                     Max.   :72.00                     </span></span>
+<span><span class="co">#&gt;      Salary     </span></span>
+<span><span class="co">#&gt;  Min.   :25000  </span></span>
+<span><span class="co">#&gt;  1st Qu.:43575  </span></span>
+<span><span class="co">#&gt;  Median :66500  </span></span>
+<span><span class="co">#&gt;  Mean   :62890  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:80925  </span></span>
+<span><span class="co">#&gt;  Max.   :96500</span></span></code></pre></div>
+<p><code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code> functions allow us to view the first and last 6 rows of a data frame, respectively (number of rows can be specified as an argument of a function):</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Name Age      State Salary</span></span>
+<span><span class="co">#&gt; 1 James  22 California  30000</span></span>
+<span><span class="co">#&gt; 2 Linda  56   New York  96500</span></span>
+<span><span class="co">#&gt; 3 Stacy  34   New York  72000</span></span>
+<span><span class="co">#&gt; 4  Mary  48   Michigan  54300</span></span>
+<span><span class="co">#&gt; 5   Tom  19      Texas  25000</span></span>
+<span><span class="co">#&gt; 6  Anna  31       Ohio  61000</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        Name Age    State Salary</span></span>
+<span><span class="co">#&gt; 5       Tom  19    Texas  25000</span></span>
+<span><span class="co">#&gt; 6      Anna  31     Ohio  61000</span></span>
+<span><span class="co">#&gt; 7       Bob  68  Arizona  74700</span></span>
+<span><span class="co">#&gt; 8  Jeniffer  72  Florida  40000</span></span>
+<span><span class="co">#&gt; 9     Lucas  39 Nebraska  83000</span></span>
+<span><span class="co">#&gt; 10      Amy  52  Indiana  92400</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Name Age      State Salary</span></span>
+<span><span class="co">#&gt; 1 James  22 California  30000</span></span>
+<span><span class="co">#&gt; 2 Linda  56   New York  96500</span></span>
+<span><span class="co">#&gt; 3 Stacy  34   New York  72000</span></span></code></pre></div>
+<p>Use <code><a href="https://rdrr.io/r/base/colnames.html">colnames()</a></code> function to get a list of column names or to change the names of columns in a data frame:</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Name"   "Age"    "State"  "Salary"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"NAME"</span></span>
+<span></span>
+<span><span class="va">df</span></span>
+<span><span class="co">#&gt;        NAME Age      State Salary</span></span>
+<span><span class="co">#&gt; 1     James  22 California  30000</span></span>
+<span><span class="co">#&gt; 2     Linda  56   New York  96500</span></span>
+<span><span class="co">#&gt; 3     Stacy  34   New York  72000</span></span>
+<span><span class="co">#&gt; 4      Mary  48   Michigan  54300</span></span>
+<span><span class="co">#&gt; 5       Tom  19      Texas  25000</span></span>
+<span><span class="co">#&gt; 6      Anna  31       Ohio  61000</span></span>
+<span><span class="co">#&gt; 7       Bob  68    Arizona  74700</span></span>
+<span><span class="co">#&gt; 8  Jeniffer  72    Florida  40000</span></span>
+<span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000</span></span>
+<span><span class="co">#&gt; 10      Amy  52    Indiana  92400</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"NAME"</span>, <span class="st">"AGE"</span>, <span class="st">"STATE"</span>, <span class="st">"SALARY"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span></span>
+<span><span class="co">#&gt;        NAME AGE      STATE SALARY</span></span>
+<span><span class="co">#&gt; 1     James  22 California  30000</span></span>
+<span><span class="co">#&gt; 2     Linda  56   New York  96500</span></span>
+<span><span class="co">#&gt; 3     Stacy  34   New York  72000</span></span>
+<span><span class="co">#&gt; 4      Mary  48   Michigan  54300</span></span>
+<span><span class="co">#&gt; 5       Tom  19      Texas  25000</span></span>
+<span><span class="co">#&gt; 6      Anna  31       Ohio  61000</span></span>
+<span><span class="co">#&gt; 7       Bob  68    Arizona  74700</span></span>
+<span><span class="co">#&gt; 8  Jeniffer  72    Florida  40000</span></span>
+<span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000</span></span>
+<span><span class="co">#&gt; 10      Amy  52    Indiana  92400</span></span></code></pre></div>
+</div>
+<div id="subsettingextracting-the-elementscolumnsrows-from-a-data-frame" class="section level3 unnumbered">
+<h3>Subsetting/Extracting the Elements/Columns/Rows from a Data Frame<a class="anchor" aria-label="anchor" href="#subsettingextracting-the-elementscolumnsrows-from-a-data-frame"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can use <code>[]</code>, <code>$</code>, <code>[[]]</code> to extract elements, columns, or rows from a data frame (uses the same rule as matrices):</p>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Extracting the first column using its position; output: data frame</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="co">#&gt;        NAME</span></span>
+<span><span class="co">#&gt; 1     James</span></span>
+<span><span class="co">#&gt; 2     Linda</span></span>
+<span><span class="co">#&gt; 3     Stacy</span></span>
+<span><span class="co">#&gt; 4      Mary</span></span>
+<span><span class="co">#&gt; 5       Tom</span></span>
+<span><span class="co">#&gt; 6      Anna</span></span>
+<span><span class="co">#&gt; 7       Bob</span></span>
+<span><span class="co">#&gt; 8  Jeniffer</span></span>
+<span><span class="co">#&gt; 9     Lucas</span></span>
+<span><span class="co">#&gt; 10      Amy</span></span>
+<span></span>
+<span><span class="co"># Extracting the first column using its position; output: vector</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt;  [1] "James"    "Linda"    "Stacy"    "Mary"     "Tom"     </span></span>
+<span><span class="co">#&gt;  [6] "Anna"     "Bob"      "Jeniffer" "Lucas"    "Amy"</span></span>
+<span></span>
+<span><span class="co"># Extracting a column using its name; output: data frame</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="st">"AGE"</span><span class="op">]</span></span>
+<span><span class="co">#&gt;    AGE</span></span>
+<span><span class="co">#&gt; 1   22</span></span>
+<span><span class="co">#&gt; 2   56</span></span>
+<span><span class="co">#&gt; 3   34</span></span>
+<span><span class="co">#&gt; 4   48</span></span>
+<span><span class="co">#&gt; 5   19</span></span>
+<span><span class="co">#&gt; 6   31</span></span>
+<span><span class="co">#&gt; 7   68</span></span>
+<span><span class="co">#&gt; 8   72</span></span>
+<span><span class="co">#&gt; 9   39</span></span>
+<span><span class="co">#&gt; 10  52</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"AGE"</span>, <span class="st">"STATE"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;    AGE      STATE</span></span>
+<span><span class="co">#&gt; 1   22 California</span></span>
+<span><span class="co">#&gt; 2   56   New York</span></span>
+<span><span class="co">#&gt; 3   34   New York</span></span>
+<span><span class="co">#&gt; 4   48   Michigan</span></span>
+<span><span class="co">#&gt; 5   19      Texas</span></span>
+<span><span class="co">#&gt; 6   31       Ohio</span></span>
+<span><span class="co">#&gt; 7   68    Arizona</span></span>
+<span><span class="co">#&gt; 8   72    Florida</span></span>
+<span><span class="co">#&gt; 9   39   Nebraska</span></span>
+<span><span class="co">#&gt; 10  52    Indiana</span></span>
+<span></span>
+<span><span class="co"># Extracting a column using its name; output: vector</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[[</span><span class="st">"AGE"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt;  [1] 22 56 34 48 19 31 68 72 39 52</span></span>
+<span></span>
+<span><span class="co"># Extracting a column using its name and '$' operator; output: vector</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">AGE</span></span>
+<span><span class="co">#&gt;  [1] 22 56 34 48 19 31 68 72 39 52</span></span>
+<span></span>
+<span><span class="co"># Extracting a single element</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 22</span></span>
+<span></span>
+<span><span class="co"># Extracting multiple elements</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;    NAME      STATE</span></span>
+<span><span class="co">#&gt; 1 James California</span></span>
+<span><span class="co">#&gt; 2 Linda   New York</span></span>
+<span><span class="co">#&gt; 3 Stacy   New York</span></span>
+<span><span class="co">#&gt; 4  Mary   Michigan</span></span>
+<span></span>
+<span><span class="co"># Extracting the first row only</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="fl">1</span>, <span class="op">]</span></span>
+<span><span class="co">#&gt;    NAME AGE      STATE SALARY</span></span>
+<span><span class="co">#&gt; 1 James  22 California  30000</span></span>
+<span></span>
+<span><span class="co"># Extracting the third column only</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[</span>, <span class="fl">3</span><span class="op">]</span></span>
+<span><span class="co">#&gt;  [1] "California" "New York"   "New York"   "Michigan"  </span></span>
+<span><span class="co">#&gt;  [5] "Texas"      "Ohio"       "Arizona"    "Florida"   </span></span>
+<span><span class="co">#&gt;  [9] "Nebraska"   "Indiana"</span></span>
+<span></span>
+<span><span class="co"># Extracting all elements except the second column</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[</span>, <span class="op">-</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="co">#&gt;        NAME      STATE SALARY</span></span>
+<span><span class="co">#&gt; 1     James California  30000</span></span>
+<span><span class="co">#&gt; 2     Linda   New York  96500</span></span>
+<span><span class="co">#&gt; 3     Stacy   New York  72000</span></span>
+<span><span class="co">#&gt; 4      Mary   Michigan  54300</span></span>
+<span><span class="co">#&gt; 5       Tom      Texas  25000</span></span>
+<span><span class="co">#&gt; 6      Anna       Ohio  61000</span></span>
+<span><span class="co">#&gt; 7       Bob    Arizona  74700</span></span>
+<span><span class="co">#&gt; 8  Jeniffer    Florida  40000</span></span>
+<span><span class="co">#&gt; 9     Lucas   Nebraska  83000</span></span>
+<span><span class="co">#&gt; 10      Amy    Indiana  92400</span></span>
+<span></span>
+<span><span class="co"># Extracting elements using logical operator</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">AGE</span> <span class="op">&lt;</span> <span class="fl">50</span>, <span class="op">]</span></span>
+<span><span class="co">#&gt;    NAME AGE      STATE SALARY</span></span>
+<span><span class="co">#&gt; 1 James  22 California  30000</span></span>
+<span><span class="co">#&gt; 3 Stacy  34   New York  72000</span></span>
+<span><span class="co">#&gt; 4  Mary  48   Michigan  54300</span></span>
+<span><span class="co">#&gt; 5   Tom  19      Texas  25000</span></span>
+<span><span class="co">#&gt; 6  Anna  31       Ohio  61000</span></span>
+<span><span class="co">#&gt; 9 Lucas  39   Nebraska  83000</span></span></code></pre></div>
+</div>
+<div id="assigning-new-value-to-data-frame-elements" class="section level3 unnumbered">
+<h3>Assigning new value to data frame elements<a class="anchor" aria-label="anchor" href="#assigning-new-value-to-data-frame-elements"><i class="fas fa-link"></i></a>
+</h3>
+<p>Like in matrices, we can use <code>&lt;-</code> operator to assign values:</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">df</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">100000</span></span>
+<span></span>
+<span><span class="va">df</span></span>
+<span><span class="co">#&gt;        NAME AGE      STATE SALARY</span></span>
+<span><span class="co">#&gt; 1     James  22 California 100000</span></span>
+<span><span class="co">#&gt; 2     Linda  56   New York  96500</span></span>
+<span><span class="co">#&gt; 3     Stacy  34   New York  72000</span></span>
+<span><span class="co">#&gt; 4      Mary  48   Michigan  54300</span></span>
+<span><span class="co">#&gt; 5       Tom  19      Texas  25000</span></span>
+<span><span class="co">#&gt; 6      Anna  31       Ohio  61000</span></span>
+<span><span class="co">#&gt; 7       Bob  68    Arizona  74700</span></span>
+<span><span class="co">#&gt; 8  Jeniffer  72    Florida  40000</span></span>
+<span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000</span></span>
+<span><span class="co">#&gt; 10      Amy  52    Indiana  92400</span></span></code></pre></div>
+</div>
+<div id="addingremoving-columnsrows" class="section level3 unnumbered">
+<h3>Adding/Removing Columns/Rows<a class="anchor" aria-label="anchor" href="#addingremoving-columnsrows"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Adding a new column using `$` operator</span></span>
+<span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">EXPERIENCE</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">30</span>, <span class="fl">10</span>, <span class="fl">22</span>, <span class="fl">1</span>, <span class="fl">12</span>, <span class="fl">40</span>, <span class="fl">55</span>, <span class="fl">15</span>, <span class="fl">22</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span></span>
+<span><span class="co">#&gt;        NAME AGE      STATE SALARY EXPERIENCE</span></span>
+<span><span class="co">#&gt; 1     James  22 California 100000          2</span></span>
+<span><span class="co">#&gt; 2     Linda  56   New York  96500         30</span></span>
+<span><span class="co">#&gt; 3     Stacy  34   New York  72000         10</span></span>
+<span><span class="co">#&gt; 4      Mary  48   Michigan  54300         22</span></span>
+<span><span class="co">#&gt; 5       Tom  19      Texas  25000          1</span></span>
+<span><span class="co">#&gt; 6      Anna  31       Ohio  61000         12</span></span>
+<span><span class="co">#&gt; 7       Bob  68    Arizona  74700         40</span></span>
+<span><span class="co">#&gt; 8  Jeniffer  72    Florida  40000         55</span></span>
+<span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000         15</span></span>
+<span><span class="co">#&gt; 10      Amy  52    Indiana  92400         22</span></span>
+<span></span>
+<span><span class="co"># Adding a new column using `cbind()` function</span></span>
+<span></span>
+<span><span class="va">Sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">Sex</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_2</span></span>
+<span><span class="co">#&gt;        NAME AGE      STATE SALARY EXPERIENCE    Sex</span></span>
+<span><span class="co">#&gt; 1     James  22 California 100000          2   Male</span></span>
+<span><span class="co">#&gt; 2     Linda  56   New York  96500         30 Female</span></span>
+<span><span class="co">#&gt; 3     Stacy  34   New York  72000         10 Female</span></span>
+<span><span class="co">#&gt; 4      Mary  48   Michigan  54300         22 Female</span></span>
+<span><span class="co">#&gt; 5       Tom  19      Texas  25000          1   Male</span></span>
+<span><span class="co">#&gt; 6      Anna  31       Ohio  61000         12 Female</span></span>
+<span><span class="co">#&gt; 7       Bob  68    Arizona  74700         40   Male</span></span>
+<span><span class="co">#&gt; 8  Jeniffer  72    Florida  40000         55 Female</span></span>
+<span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000         15   Male</span></span>
+<span><span class="co">#&gt; 10      Amy  52    Indiana  92400         22 Female</span></span>
+<span></span>
+<span><span class="co"># Adding a new row using `rbind()` function</span></span>
+<span></span>
+<span><span class="va">new_obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>NAME <span class="op">=</span> <span class="st">"Jack"</span>, AGE <span class="op">=</span> <span class="fl">41</span>, STATE <span class="op">=</span> <span class="st">"Texas"</span>, SALARY <span class="op">=</span> <span class="fl">150000</span>, EXPERIENCE <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">new_obs</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_3</span></span>
+<span><span class="co">#&gt;        NAME AGE      STATE SALARY EXPERIENCE</span></span>
+<span><span class="co">#&gt; 1     James  22 California 100000          2</span></span>
+<span><span class="co">#&gt; 2     Linda  56   New York  96500         30</span></span>
+<span><span class="co">#&gt; 3     Stacy  34   New York  72000         10</span></span>
+<span><span class="co">#&gt; 4      Mary  48   Michigan  54300         22</span></span>
+<span><span class="co">#&gt; 5       Tom  19      Texas  25000          1</span></span>
+<span><span class="co">#&gt; 6      Anna  31       Ohio  61000         12</span></span>
+<span><span class="co">#&gt; 7       Bob  68    Arizona  74700         40</span></span>
+<span><span class="co">#&gt; 8  Jeniffer  72    Florida  40000         55</span></span>
+<span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000         15</span></span>
+<span><span class="co">#&gt; 10      Amy  52    Indiana  92400         22</span></span>
+<span><span class="co">#&gt; 11     Jack  41      Texas 150000         20</span></span>
+<span></span>
+<span><span class="co"># Removing columns from a data frame a `c()` function</span></span>
+<span></span>
+<span><span class="va">df_4</span> <span class="op">&lt;-</span> <span class="va">df_3</span><span class="op">[</span>, <span class="op">-</span><span class="fl">4</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">df_4</span></span>
+<span><span class="co">#&gt;        NAME AGE      STATE EXPERIENCE</span></span>
+<span><span class="co">#&gt; 1     James  22 California          2</span></span>
+<span><span class="co">#&gt; 2     Linda  56   New York         30</span></span>
+<span><span class="co">#&gt; 3     Stacy  34   New York         10</span></span>
+<span><span class="co">#&gt; 4      Mary  48   Michigan         22</span></span>
+<span><span class="co">#&gt; 5       Tom  19      Texas          1</span></span>
+<span><span class="co">#&gt; 6      Anna  31       Ohio         12</span></span>
+<span><span class="co">#&gt; 7       Bob  68    Arizona         40</span></span>
+<span><span class="co">#&gt; 8  Jeniffer  72    Florida         55</span></span>
+<span><span class="co">#&gt; 9     Lucas  39   Nebraska         15</span></span>
+<span><span class="co">#&gt; 10      Amy  52    Indiana         22</span></span>
+<span><span class="co">#&gt; 11     Jack  41      Texas         20</span></span>
+<span></span>
+<span><span class="co"># Removing columns by assigning a `NULL` value</span></span>
+<span></span>
+<span><span class="va">df_3</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"AGE"</span>, <span class="st">"SALARY"</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
+<span></span>
+<span><span class="va">df_3</span></span>
+<span><span class="co">#&gt;        NAME      STATE EXPERIENCE</span></span>
+<span><span class="co">#&gt; 1     James California          2</span></span>
+<span><span class="co">#&gt; 2     Linda   New York         30</span></span>
+<span><span class="co">#&gt; 3     Stacy   New York         10</span></span>
+<span><span class="co">#&gt; 4      Mary   Michigan         22</span></span>
+<span><span class="co">#&gt; 5       Tom      Texas          1</span></span>
+<span><span class="co">#&gt; 6      Anna       Ohio         12</span></span>
+<span><span class="co">#&gt; 7       Bob    Arizona         40</span></span>
+<span><span class="co">#&gt; 8  Jeniffer    Florida         55</span></span>
+<span><span class="co">#&gt; 9     Lucas   Nebraska         15</span></span>
+<span><span class="co">#&gt; 10      Amy    Indiana         22</span></span>
+<span><span class="co">#&gt; 11     Jack      Texas         20</span></span>
+<span></span>
+<span><span class="co"># Removing rows from a data frame</span></span>
+<span></span>
+<span><span class="va">df_3</span><span class="op">[</span><span class="op">-</span><span class="fl">11</span>, <span class="op">]</span></span>
+<span><span class="co">#&gt;        NAME      STATE EXPERIENCE</span></span>
+<span><span class="co">#&gt; 1     James California          2</span></span>
+<span><span class="co">#&gt; 2     Linda   New York         30</span></span>
+<span><span class="co">#&gt; 3     Stacy   New York         10</span></span>
+<span><span class="co">#&gt; 4      Mary   Michigan         22</span></span>
+<span><span class="co">#&gt; 5       Tom      Texas          1</span></span>
+<span><span class="co">#&gt; 6      Anna       Ohio         12</span></span>
+<span><span class="co">#&gt; 7       Bob    Arizona         40</span></span>
+<span><span class="co">#&gt; 8  Jeniffer    Florida         55</span></span>
+<span><span class="co">#&gt; 9     Lucas   Nebraska         15</span></span>
+<span><span class="co">#&gt; 10      Amy    Indiana         22</span></span></code></pre></div>
+</div>
+<div id="re-ordering-columnsrows-in-a-data-frame" class="section level3 unnumbered">
+<h3>Re-ordering columns/rows in a data frame<a class="anchor" aria-label="anchor" href="#re-ordering-columnsrows-in-a-data-frame"><i class="fas fa-link"></i></a>
+</h3>
+<p>In order to re-order columns in a data frame, pass a vector with the desired order of columns using <code>[]</code> operator:</p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Re-ordering columns in a data frame</span></span>
+<span></span>
+<span><span class="va">df_3</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"EXPERIENCE"</span>, <span class="st">"NAME"</span>, <span class="st">"STATE"</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;    EXPERIENCE     NAME      STATE</span></span>
+<span><span class="co">#&gt; 1           2    James California</span></span>
+<span><span class="co">#&gt; 2          30    Linda   New York</span></span>
+<span><span class="co">#&gt; 3          10    Stacy   New York</span></span>
+<span><span class="co">#&gt; 4          22     Mary   Michigan</span></span>
+<span><span class="co">#&gt; 5           1      Tom      Texas</span></span>
+<span><span class="co">#&gt; 6          12     Anna       Ohio</span></span>
+<span><span class="co">#&gt; 7          40      Bob    Arizona</span></span>
+<span><span class="co">#&gt; 8          55 Jeniffer    Florida</span></span>
+<span><span class="co">#&gt; 9          15    Lucas   Nebraska</span></span>
+<span><span class="co">#&gt; 10         22      Amy    Indiana</span></span>
+<span><span class="co">#&gt; 11         20     Jack      Texas</span></span>
+<span></span>
+<span><span class="co"># Re-ordering rows in a data frame</span></span>
+<span></span>
+<span><span class="va">df_3</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">df_3</span><span class="op">$</span><span class="va">EXPERIENCE</span><span class="op">)</span>, <span class="op">]</span>     <span class="co"># Ascending order</span></span>
+<span><span class="co">#&gt;        NAME      STATE EXPERIENCE</span></span>
+<span><span class="co">#&gt; 5       Tom      Texas          1</span></span>
+<span><span class="co">#&gt; 1     James California          2</span></span>
+<span><span class="co">#&gt; 3     Stacy   New York         10</span></span>
+<span><span class="co">#&gt; 6      Anna       Ohio         12</span></span>
+<span><span class="co">#&gt; 9     Lucas   Nebraska         15</span></span>
+<span><span class="co">#&gt; 11     Jack      Texas         20</span></span>
+<span><span class="co">#&gt; 4      Mary   Michigan         22</span></span>
+<span><span class="co">#&gt; 10      Amy    Indiana         22</span></span>
+<span><span class="co">#&gt; 2     Linda   New York         30</span></span>
+<span><span class="co">#&gt; 7       Bob    Arizona         40</span></span>
+<span><span class="co">#&gt; 8  Jeniffer    Florida         55</span></span>
+<span></span>
+<span><span class="va">df_3</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span><span class="op">(</span><span class="va">df_3</span><span class="op">$</span><span class="va">EXPERIENCE</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="op">]</span> <span class="co"># Descending order</span></span>
+<span><span class="co">#&gt;        NAME      STATE EXPERIENCE</span></span>
+<span><span class="co">#&gt; 8  Jeniffer    Florida         55</span></span>
+<span><span class="co">#&gt; 7       Bob    Arizona         40</span></span>
+<span><span class="co">#&gt; 2     Linda   New York         30</span></span>
+<span><span class="co">#&gt; 4      Mary   Michigan         22</span></span>
+<span><span class="co">#&gt; 10      Amy    Indiana         22</span></span>
+<span><span class="co">#&gt; 11     Jack      Texas         20</span></span>
+<span><span class="co">#&gt; 9     Lucas   Nebraska         15</span></span>
+<span><span class="co">#&gt; 6      Anna       Ohio         12</span></span>
+<span><span class="co">#&gt; 3     Stacy   New York         10</span></span>
+<span><span class="co">#&gt; 1     James California          2</span></span>
+<span><span class="co">#&gt; 5       Tom      Texas          1</span></span></code></pre></div>
+</div>
+<div id="checking-dimensions-of-a-data-frame" class="section level3 unnumbered">
+<h3>Checking dimensions of a data frame<a class="anchor" aria-label="anchor" href="#checking-dimensions-of-a-data-frame"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Data frame dimensions</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 10  5</span></span>
+<span></span>
+<span><span class="co"># Number of columns in a data frame</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 5</span></span>
+<span></span>
+<span><span class="co"># Number of rows in a data frame</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 10</span></span></code></pre></div>
+</div>
+</div>
+<div id="factors" class="section level2 unnumbered">
+<h2>Factors<a class="anchor" aria-label="anchor" href="#factors"><i class="fas fa-link"></i></a>
+</h2>
+<p>Factor is a special type of vectors used to categorize data and store it as levels. It can store both character and integer types of data. They are useful in the columns which have a limited number of unique values. For instance, <code>Female</code> or <code>Male</code>, <code>TRUE</code> or <code>FALSE</code> etc.</p>
+<div id="creating-factors" class="section level3 unnumbered">
+<h3>Creating Factors<a class="anchor" aria-label="anchor" href="#creating-factors"><i class="fas fa-link"></i></a>
+</h3>
+<p>Use <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> function in R to create a factor:</p>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">vec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"YES"</span>, <span class="st">"NO"</span>, <span class="st">"YES"</span>, <span class="st">"YES"</span>, <span class="st">"YES"</span>, <span class="st">"NO"</span>, <span class="st">"NO"</span>, <span class="st">"YES"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec1</span></span>
+<span><span class="co">#&gt; [1] "YES" "NO"  "YES" "YES" "YES" "NO"  "NO"  "YES"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span></span>
+<span><span class="va">fac1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac1</span></span>
+<span><span class="co">#&gt; [1] YES NO  YES YES YES NO  NO  YES</span></span>
+<span><span class="co">#&gt; Levels: NO YES</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span><span class="op">(</span><span class="va">fac1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Jazz"</span>, <span class="st">"Rock"</span>, <span class="st">"Classic"</span>, <span class="st">"Pop"</span>, <span class="st">"Classic"</span>, <span class="st">"Jazz"</span>, <span class="st">"Jazz"</span>, <span class="st">"Rock"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">vec2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac2</span></span>
+<span><span class="co">#&gt; [1] Jazz    Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
+<span><span class="co">#&gt; [8] Rock   </span></span>
+<span><span class="co">#&gt; Levels: Classic Jazz Pop Rock</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="va">vec3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">vec3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac3</span></span>
+<span><span class="co">#&gt;  [1] 1 2 3 2 2 3 1 3 2 3 1 1</span></span>
+<span><span class="co">#&gt; Levels: 1 2 3</span></span></code></pre></div>
+<p>To create an ordered factor, use <code>order</code> argument inside a <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> function:</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fac4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">vec3</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac4</span></span>
+<span><span class="co">#&gt;  [1] 1 2 3 2 2 3 1 3 2 3 1 1</span></span>
+<span><span class="co">#&gt; Levels: 1 &lt; 2 &lt; 3</span></span></code></pre></div>
+<p>You can convert a numeric variable into a factor by dividing it intervals (segments) using a <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code> function:</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">age_factored</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">df_4</span><span class="op">$</span><span class="va">AGE</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">age_factored</span></span>
+<span><span class="co">#&gt;  [1] (18.9,36.7] (54.3,72.1] (18.9,36.7] (36.7,54.3]</span></span>
+<span><span class="co">#&gt;  [5] (18.9,36.7] (18.9,36.7] (54.3,72.1] (54.3,72.1]</span></span>
+<span><span class="co">#&gt;  [9] (36.7,54.3] (36.7,54.3] (36.7,54.3]</span></span>
+<span><span class="co">#&gt; Levels: (18.9,36.7] (36.7,54.3] (54.3,72.1]</span></span></code></pre></div>
+<p>You can even add labels for these groups:</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">age_factored</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">df_4</span><span class="op">$</span><span class="va">AGE</span>, <span class="fl">3</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Group1"</span>, <span class="st">"Group2"</span>, <span class="st">"Group3"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">age_factored</span></span>
+<span><span class="co">#&gt;  [1] Group1 Group3 Group1 Group2 Group1 Group1 Group3 Group3</span></span>
+<span><span class="co">#&gt;  [9] Group2 Group2 Group2</span></span>
+<span><span class="co">#&gt; Levels: Group1 Group2 Group3</span></span></code></pre></div>
+</div>
+<div id="levels-of-a-factor" class="section level3 unnumbered">
+<h3>Levels of a Factor<a class="anchor" aria-label="anchor" href="#levels-of-a-factor"><i class="fas fa-link"></i></a>
+</h3>
+<p>Use <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> function to see what levels a factor variable has:</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">fac1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "NO"  "YES"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">fac2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Classic" "Jazz"    "Pop"     "Rock"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">fac3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1" "2" "3"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">fac4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "1" "2" "3"</span></span></code></pre></div>
+<p>You can also set the levels by adding the <code>levels</code> argument inside the <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> function:</p>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Jazz"</span>, <span class="st">"Rock"</span>, <span class="st">"Classic"</span>, <span class="st">"Pop"</span>, <span class="st">"Classic"</span>, <span class="st">"Jazz"</span>, <span class="st">"Jazz"</span>, <span class="st">"Rock"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">vec2</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Classic"</span>, <span class="st">"Jazz"</span>, <span class="st">"Pop"</span>, <span class="st">"Rock"</span>, <span class="st">"Other"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac5</span></span>
+<span><span class="co">#&gt; [1] Jazz    Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
+<span><span class="co">#&gt; [8] Rock   </span></span>
+<span><span class="co">#&gt; Levels: Classic Jazz Pop Rock Other</span></span></code></pre></div>
+<p>You can change the order of levels by passing the <code>level</code> argument to a <code>factor</code> function with the desired order of levels:</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="va">fac3</span></span>
+<span><span class="co">#&gt;  [1] 1 2 3 2 2 3 1 3 2 3 1 1</span></span>
+<span><span class="co">#&gt; Levels: 1 2 3</span></span>
+<span></span>
+<span><span class="va">fac6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">vec3</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac6</span></span>
+<span><span class="co">#&gt;  [1] 1 2 3 2 2 3 1 3 2 3 1 1</span></span>
+<span><span class="co">#&gt; Levels: 3 1 2</span></span></code></pre></div>
+</div>
+<div id="accessing-factor-elements" class="section level3 unnumbered">
+<h3>Accessing Factor Elements<a class="anchor" aria-label="anchor" href="#accessing-factor-elements"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can access elements stored in a factor the same way as it was done with vectors, using <code>[]</code>.</p>
+</div>
+<div id="assigningchanging-values-to-factor-elements" class="section level3 unnumbered">
+<h3>Assigning/Changing Values to Factor Elements<a class="anchor" aria-label="anchor" href="#assigningchanging-values-to-factor-elements"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can assign a new value to factor elements using the assignment sign <code>&lt;-</code>:</p>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="va">fac2</span></span>
+<span><span class="co">#&gt; [1] Jazz    Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
+<span><span class="co">#&gt; [8] Rock   </span></span>
+<span><span class="co">#&gt; Levels: Classic Jazz Pop Rock</span></span>
+<span></span>
+<span><span class="va">fac2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Classic"</span></span>
+<span></span>
+<span><span class="va">fac2</span></span>
+<span><span class="co">#&gt; [1] Classic Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
+<span><span class="co">#&gt; [8] Rock   </span></span>
+<span><span class="co">#&gt; Levels: Classic Jazz Pop Rock</span></span></code></pre></div>
+<p>But what happens when you assign a new value that is not already specified in the factor?</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="va">fac2</span></span>
+<span><span class="co">#&gt; [1] Classic Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
+<span><span class="co">#&gt; [8] Rock   </span></span>
+<span><span class="co">#&gt; Levels: Classic Jazz Pop Rock</span></span>
+<span></span>
+<span><span class="va">fac2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Opera"</span></span>
+<span><span class="co">#&gt; Warning in `[&lt;-.factor`(`*tmp*`, 1, value = "Opera"):</span></span>
+<span><span class="co">#&gt; invalid factor level, NA generated</span></span>
+<span></span>
+<span><span class="va">fac2</span></span>
+<span><span class="co">#&gt; [1] &lt;NA&gt;    Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
+<span><span class="co">#&gt; [8] Rock   </span></span>
+<span><span class="co">#&gt; Levels: Classic Jazz Pop Rock</span></span></code></pre></div>
+<p>It will generate <code>NA</code>, because there is no <code>Opera</code> option among the levels specified in the variable. To add this value, we first need to add it to the levels.</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="va">fac7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">fac2</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Classic"</span>, <span class="st">"Jazz"</span>, <span class="st">"Pop"</span>, <span class="st">"Rock"</span>, <span class="st">"Other"</span>, <span class="st">"Opera"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac7</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Opera"</span></span>
+<span></span>
+<span><span class="va">fac7</span></span>
+<span><span class="co">#&gt; [1] Opera   Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
+<span><span class="co">#&gt; [8] Rock   </span></span>
+<span><span class="co">#&gt; Levels: Classic Jazz Pop Rock Other Opera</span></span></code></pre></div>
+</div>
+<div id="generating-factors" class="section level3 unnumbered">
+<h3>Generating Factors<a class="anchor" aria-label="anchor" href="#generating-factors"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can generate factor levels by using the <code><a href="https://rdrr.io/r/base/gl.html">gl()</a></code> function. It takes two integers as input which indicates how many levels and how many times each level.</p>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="va">fac8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html">gl</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fall"</span>, <span class="st">"Winter"</span>, <span class="st">"Spring"</span>, <span class="st">"Summer"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac8</span></span>
+<span><span class="co">#&gt;  [1] Fall   Fall   Fall   Fall   Fall   Winter Winter Winter</span></span>
+<span><span class="co">#&gt;  [9] Winter Winter Spring Spring Spring Spring Spring Summer</span></span>
+<span><span class="co">#&gt; [17] Summer Summer Summer Summer</span></span>
+<span><span class="co">#&gt; Levels: Fall Winter Spring Summer</span></span></code></pre></div>
+</div>
+<div id="counting-elements-of-a-factorfrequency-of-levels" class="section level3 unnumbered">
+<h3>Counting Elements of a Factor/Frequency of levels<a class="anchor" aria-label="anchor" href="#counting-elements-of-a-factorfrequency-of-levels"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="co"># Calculating the number of elements stored in a factor</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">fac2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 8</span></span>
+<span></span>
+<span><span class="co"># Displaying the frequency of each level of a factor</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">fac2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; fac2</span></span>
+<span><span class="co">#&gt; Classic    Jazz     Pop    Rock </span></span>
+<span><span class="co">#&gt;       2       2       1       2</span></span></code></pre></div>
+</div>
+<div id="converting-numeric-data-into-factors-and-back" class="section level3 unnumbered">
+<h3>Converting Numeric Data into Factors and Back<a class="anchor" aria-label="anchor" href="#converting-numeric-data-into-factors-and-back"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="co"># Converting numeric data into factors using as.factor() function</span></span>
+<span></span>
+<span><span class="va">vec3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">vec3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fac9</span></span>
+<span><span class="co">#&gt; [1] 0 1 2 2 1 0 2 1 0</span></span>
+<span><span class="co">#&gt; Levels: 0 1 2</span></span>
+<span></span>
+<span><span class="co"># Converting factors back into numeric data using as.numeric() function (part I)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">fac9</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 3 2 1 3 2 1</span></span>
+<span></span>
+<span><span class="co"># Converting factors back into numeric data using as.numeric() function (part II)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">fac9</span><span class="op">)</span><span class="op">[</span><span class="va">fac9</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0 1 2 2 1 0 2 1 0</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-02.html">Lecture 02</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-03">Lecture 03</a></li>
+<li>
+<a class="nav-link" href="#matrices">Matrices</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-matrices">Creating matrices</a></li>
+<li><a class="nav-link" href="#accessing-matrix-elements">Accessing Matrix Elements</a></li>
+<li><a class="nav-link" href="#adding-and-removing-rows-columns">Adding and Removing Rows &amp; Columns</a></li>
+<li><a class="nav-link" href="#assigning-values-to-matrix-elements">Assigning Values to Matrix Elements</a></li>
+<li><a class="nav-link" href="#matrix-operations">Matrix Operations</a></li>
+<li><a class="nav-link" href="#matrix-dimensions">Matrix Dimensions</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#data-frames">Data Frames</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-a-data-frame">Creating a data frame</a></li>
+<li><a class="nav-link" href="#subsettingextracting-the-elementscolumnsrows-from-a-data-frame">Subsetting/Extracting the Elements/Columns/Rows from a Data Frame</a></li>
+<li><a class="nav-link" href="#assigning-new-value-to-data-frame-elements">Assigning new value to data frame elements</a></li>
+<li><a class="nav-link" href="#addingremoving-columnsrows">Adding/Removing Columns/Rows</a></li>
+<li><a class="nav-link" href="#re-ordering-columnsrows-in-a-data-frame">Re-ordering columns/rows in a data frame</a></li>
+<li><a class="nav-link" href="#checking-dimensions-of-a-data-frame">Checking dimensions of a data frame</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#factors">Factors</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-factors">Creating Factors</a></li>
+<li><a class="nav-link" href="#levels-of-a-factor">Levels of a Factor</a></li>
+<li><a class="nav-link" href="#accessing-factor-elements">Accessing Factor Elements</a></li>
+<li><a class="nav-link" href="#assigningchanging-values-to-factor-elements">Assigning/Changing Values to Factor Elements</a></li>
+<li><a class="nav-link" href="#generating-factors">Generating Factors</a></li>
+<li><a class="nav-link" href="#counting-elements-of-a-factorfrequency-of-levels">Counting Elements of a Factor/Frequency of levels</a></li>
+<li><a class="nav-link" href="#converting-numeric-data-into-factors-and-back">Converting Numeric Data into Factors and Back</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/03-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/03-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 02 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="Data Types In programming, data types is an important concept. Variables can store data of different types, and different types can do different things. For correct processing, a programming...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 02 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-02.html">
+<meta property="og:description" content="Data Types In programming, data types is an important concept. Variables can store data of different types, and different types can do different things. For correct processing, a programming...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 02 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="Data Types In programming, data types is an important concept. Variables can store data of different types, and different types can do different things. For correct processing, a programming...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="active" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="" href="lecture-03.html">Lecture 03</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-02" class="section level1 unnumbered">
+<h1>Lecture 02<a class="anchor" aria-label="anchor" href="#lecture-02"><i class="fas fa-link"></i></a>
+</h1>
+<div id="data-types" class="section level2 unnumbered">
+<h2>Data Types<a class="anchor" aria-label="anchor" href="#data-types"><i class="fas fa-link"></i></a>
+</h2>
+<p>In programming, data types is an important concept. Variables can store data of different types, and different types can do different things. For correct processing, a programming language must know what can and cannot be done to a particular value. For example, addition cannot be preformed on the words <code>Hello</code> and <code>world</code>. Similarly, you cannot change the numbers <code>5</code> or <code>-22</code> from lower to uppercase.</p>
+<p>Due to this, R has a feature called the <code>data types</code>. Different kinds of values are assigned different data types that help differentiate them. These types have certain characteristics and rules associated with them that define their properties.</p>
+<p>In this course we will consider the following data types:</p>
+<ul>
+<li>Numeric</li>
+<li>Integers</li>
+<li>Complex</li>
+<li>Logical</li>
+<li>Characters</li>
+</ul>
+<p>There are more data types available in R, but it is beyond the scope of this class. Let’s got through these data types one-by-one.</p>
+<div id="numeric-data-type" class="section level3 unnumbered">
+<h3>Numeric Data Type<a class="anchor" aria-label="anchor" href="#numeric-data-type"><i class="fas fa-link"></i></a>
+</h3>
+<p>As you may expect, <code>numeric data type</code> is for numerical values. To create a variable of a numeric data types, simply assign any numeric value to the variable.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x_num</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="va">x_num</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">y_num</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">2.35</span></span>
+<span></span>
+<span><span class="va">y_num</span></span>
+<span><span class="co">#&gt; [1] -2.35</span></span></code></pre></div>
+<p>Use <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> function to find out what is the type of any variable.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_num</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "numeric"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "numeric"</span></span></code></pre></div>
+</div>
+<div id="integers-data-type" class="section level3 unnumbered">
+<h3>Integers Data Type<a class="anchor" aria-label="anchor" href="#integers-data-type"><i class="fas fa-link"></i></a>
+</h3>
+<p>An <code>integers data type</code> is a special case of the <code>numeric data type</code> and is used for integer values. To store a value as an integer, we need to specify it as such using <code><a href="https://rdrr.io/r/base/integer.html">as.integer()</a></code> function:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x_int</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">x_int</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_int</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "integer"</span></span></code></pre></div>
+<p>If an input value is not an integer itself (for example, 2.85), <code><a href="https://rdrr.io/r/base/integer.html">as.integer()</a></code> function will remove the decimal points and will keep integers only.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">y_int</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fl">2.85</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">y_int</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_int</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "integer"</span></span></code></pre></div>
+<p>Another way of creating a variable of the <code>integer data type</code> is to use an integer followed by <code>L</code> letter:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">z_int</span> <span class="op">&lt;-</span> <span class="fl">4L</span></span>
+<span></span>
+<span><span class="va">z_int</span></span>
+<span><span class="co">#&gt; [1] 4</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">z_int</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "integer"</span></span></code></pre></div>
+</div>
+<div id="complex-data-type" class="section level3 unnumbered">
+<h3>Complex Data Type<a class="anchor" aria-label="anchor" href="#complex-data-type"><i class="fas fa-link"></i></a>
+</h3>
+<p><code>Complex data types</code> are used to store numbers with an imaginary component. For instance, <code>1 + 3i</code>, <code>2 - 5i</code>, and <code>3 - 4i</code>. In this class we are not going to use this data type, but it is good to know about them.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x_comp</span> <span class="op">&lt;-</span> <span class="fl">20</span> <span class="op">+</span> <span class="fl">6i</span></span>
+<span></span>
+<span><span class="va">x_comp</span></span>
+<span><span class="co">#&gt; [1] 20+6i</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_comp</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "complex"</span></span></code></pre></div>
+</div>
+<div id="logical-data-type" class="section level3 unnumbered">
+<h3>Logical Data Type<a class="anchor" aria-label="anchor" href="#logical-data-type"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>logical data type</code> stores <em>logical</em> (also known as <em>boolean</em>) values of <code>TRUE</code> and <code>FALSE</code>:</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x_logical</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
+<span></span>
+<span><span class="va">x_logical</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_logical</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "logical"</span></span>
+<span></span>
+<span><span class="va">y_logical</span> <span class="op">&lt;-</span> <span class="cn">FALSE</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">y_logical</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "logical"</span></span>
+<span></span>
+<span><span class="va">z_logical</span> <span class="op">&lt;-</span> <span class="cn">T</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">z_logical</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "logical"</span></span></code></pre></div>
+</div>
+<div id="character-data-type" class="section level3 unnumbered">
+<h3>Character Data Type<a class="anchor" aria-label="anchor" href="#character-data-type"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>character data type</code> stores character values or strings. Strings in R can contain the alphabet, numbers, and symbols. The easiest way to denote that a value is of <code>character type</code> in R is to wrap the value inside single or double quotes:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x_char</span> <span class="op">&lt;-</span> <span class="st">"2102"</span></span>
+<span></span>
+<span><span class="va">x_char</span></span>
+<span><span class="co">#&gt; [1] "2102"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "character"</span></span>
+<span></span>
+<span><span class="va">y_char</span> <span class="op">&lt;-</span> <span class="st">"Welcome to STAT 2102!"</span></span>
+<span></span>
+<span><span class="va">y_char</span></span>
+<span><span class="co">#&gt; [1] "Welcome to STAT 2102!"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "character"</span></span></code></pre></div>
+</div>
+<div id="converting-data-types" class="section level3 unnumbered">
+<h3>Converting Data Types<a class="anchor" aria-label="anchor" href="#converting-data-types"><i class="fas fa-link"></i></a>
+</h3>
+<p>In R we can convert values from one data type to another. R has certain rules that govern these conversions.</p>
+<div id="converting-into-numeric-data-type" class="section level4 unnumbered">
+<h4>Converting into Numeric Data Type<a class="anchor" aria-label="anchor" href="#converting-into-numeric-data-type"><i class="fas fa-link"></i></a>
+</h4>
+<p>Before we discuss how to convert any other data type into numeric, let’s first introduce <code><a href="https://rdrr.io/r/base/numeric.html">is.numeric()</a></code> function that checks whether a variable is of numeric data type:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">x_num</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<p>To convert any other data type into numeric, we can use <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> function. When converting integer type data into numeric, <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> changes its type and keeps the value as it is; when converting a complex data type, it removes the imaginary part of the number; when converting logical data type, the <code>TRUE</code> value is converted to <code>1</code>, and <code>FALSE</code> is converted to <code>0</code>; finally, character values can similarly be converted into numerical values but if the string contains letters or other symbols then the numeric value becomes <code>NA</code>:</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">######################################</span></span>
+<span><span class="va">x_comp</span></span>
+<span><span class="co">#&gt; [1] 20+6i</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">x_comp</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span></span>
+<span><span class="va">num1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">x_comp</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: imaginary parts discarded in coercion</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">num1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "numeric"</span></span>
+<span></span>
+<span><span class="va">num1</span></span>
+<span><span class="co">#&gt; [1] 20</span></span>
+<span></span>
+<span><span class="co">######################################</span></span>
+<span></span>
+<span><span class="va">x_logical</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span></span>
+<span><span class="va">logical1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">x_logical</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logical1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "numeric"</span></span>
+<span></span>
+<span><span class="va">logical1</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span></span>
+<span><span class="co">######################################</span></span>
+<span></span>
+<span><span class="va">y_logical</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span></span>
+<span><span class="va">logical2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">y_logical</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logical1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "numeric"</span></span>
+<span></span>
+<span><span class="va">logical2</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span></span>
+<span><span class="co">######################################</span></span>
+<span></span>
+<span><span class="va">y_char</span></span>
+<span><span class="co">#&gt; [1] "Welcome to STAT 2102!"</span></span>
+<span></span>
+<span><span class="va">char1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: NAs introduced by coercion</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">char1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "numeric"</span></span>
+<span></span>
+<span><span class="va">char1</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span></span>
+<span><span class="co">######################################</span></span>
+<span></span>
+<span><span class="va">x_char</span></span>
+<span><span class="co">#&gt; [1] "2102"</span></span>
+<span></span>
+<span><span class="va">char2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">char2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "numeric"</span></span>
+<span></span>
+<span><span class="va">char2</span></span>
+<span><span class="co">#&gt; [1] 2102</span></span></code></pre></div>
+</div>
+<div id="converting-into-integer-data-type" class="section level4 unnumbered">
+<h4>Converting into Integer Data Type<a class="anchor" aria-label="anchor" href="#converting-into-integer-data-type"><i class="fas fa-link"></i></a>
+</h4>
+<p>To convert any other data type into integer, we can use <code><a href="https://rdrr.io/r/base/integer.html">as.integer()</a></code> function. The properties of this function are similar to those stated above, so we will skip them here. (Try it yourself!)</p>
+</div>
+<div id="converting-into-logical-data-type" class="section level4 unnumbered">
+<h4>Converting into Logical Data Type<a class="anchor" aria-label="anchor" href="#converting-into-logical-data-type"><i class="fas fa-link"></i></a>
+</h4>
+<p>To convert any other data type into logical, we can utilize <code><a href="https://rdrr.io/r/base/logical.html">as.logical()</a></code> function. It return <code>FALSE</code> if the value is zero and <code>TRUE</code> if it anything else. Character values when converted by the <code><a href="https://rdrr.io/r/base/logical.html">as.logical()</a></code> function, always return <code>NA</code>:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">######################################</span></span>
+<span><span class="va">y_num</span></span>
+<span><span class="co">#&gt; [1] -2.35</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">is.logical</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span></span>
+<span><span class="va">logi1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logi1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "logical"</span></span>
+<span></span>
+<span><span class="va">logi1</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co">######################################</span></span>
+<span></span>
+<span><span class="va">y_char</span></span>
+<span><span class="co">#&gt; [1] "Welcome to STAT 2102!"</span></span>
+<span></span>
+<span><span class="va">logi2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logi2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "logical"</span></span>
+<span></span>
+<span><span class="va">logi2</span></span>
+<span><span class="co">#&gt; [1] NA</span></span>
+<span></span>
+<span><span class="co">######################################</span></span>
+<span></span>
+<span><span class="va">x_char</span></span>
+<span><span class="co">#&gt; [1] "2102"</span></span>
+<span></span>
+<span><span class="va">logi3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logi3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "logical"</span></span>
+<span></span>
+<span><span class="va">logi3</span></span>
+<span><span class="co">#&gt; [1] NA</span></span></code></pre></div>
+</div>
+<div id="converting-into-character-data-type" class="section level4 unnumbered">
+<h4>Converting into Character Data Type<a class="anchor" aria-label="anchor" href="#converting-into-character-data-type"><i class="fas fa-link"></i></a>
+</h4>
+<p>We can convert any data type into character data type using the <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code> function. It converts the original value into a character string.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">######################################</span></span>
+<span><span class="va">y_num</span></span>
+<span><span class="co">#&gt; [1] -2.35</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span>
+<span></span>
+<span><span class="va">char1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">char1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "character"</span></span>
+<span></span>
+<span><span class="va">char1</span></span>
+<span><span class="co">#&gt; [1] "-2.35"</span></span>
+<span></span>
+<span><span class="co">######################################</span></span>
+<span></span>
+<span><span class="va">x_comp</span></span>
+<span><span class="co">#&gt; [1] 20+6i</span></span>
+<span></span>
+<span><span class="va">char2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x_comp</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">char2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "character"</span></span>
+<span></span>
+<span><span class="va">char2</span></span>
+<span><span class="co">#&gt; [1] "20+6i"</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="data-structures" class="section level2 unnumbered">
+<h2>Data Structures<a class="anchor" aria-label="anchor" href="#data-structures"><i class="fas fa-link"></i></a>
+</h2>
+<p>In any programming language, you need to use different variables to store different data. Unlike other programming languages like <code>C</code> and <code>Java</code>, R doesn’t have variables declared as some data type. Further, the variables are appointed with R-objects and the knowledge form of the R-object becomes the datatype of the variable. There are many types of R-objects (data structures). The commonly used ones are:</p>
+<ul>
+<li>Vectors</li>
+<li>Lists</li>
+<li>Matrices</li>
+<li>Data Frames</li>
+<li>Factors</li>
+</ul>
+<p>In this lecture, we will discuss <code>vectors</code> and <code>lists</code>. Later, we will go over other data structures as well.</p>
+<div id="vectors" class="section level3 unnumbered">
+<h3>Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
+</h3>
+<div id="creating-vectors" class="section level4 unnumbered">
+<h4>Creating Vectors<a class="anchor" aria-label="anchor" href="#creating-vectors"><i class="fas fa-link"></i></a>
+</h4>
+<p>Vector is the most basic data structure in R programming language. There are various ways of <strong>creating a vector</strong>. The most common way is using <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">vec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec1</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4 5</span></span>
+<span></span>
+<span><span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fall"</span>, <span class="st">"winter"</span>, <span class="st">"spring"</span>, <span class="st">"summer"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec2</span></span>
+<span><span class="co">#&gt; [1] "fall"   "winter" "spring" "summer"</span></span></code></pre></div>
+<p>You can also use <code>:</code> operator to create a vector:</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">vec3</span> <span class="op">&lt;-</span> <span class="fl">3</span><span class="op">:</span><span class="fl">11</span></span>
+<span></span>
+<span><span class="va">vec3</span></span>
+<span><span class="co">#&gt; [1]  3  4  5  6  7  8  9 10 11</span></span></code></pre></div>
+<p>Another way is to use <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> function:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">vec4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec4</span></span>
+<span><span class="co">#&gt; [1] 1.0 1.7 2.4 3.1 3.8 4.5</span></span>
+<span></span>
+<span></span>
+<span><span class="va">vec5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">5</span>, length.out <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec5</span></span>
+<span><span class="co">#&gt; [1] 1.000000 1.571429 2.142857 2.714286 3.285714 3.857143</span></span>
+<span><span class="co">#&gt; [7] 4.428571 5.000000</span></span></code></pre></div>
+<p>We can consider one more function, <code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>, to create a vector:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">vec6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">5</span>, times <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec6</span></span>
+<span><span class="co">#&gt; [1] 5 5 5</span></span>
+<span></span>
+<span><span class="va">vec7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec7</span></span>
+<span><span class="co">#&gt; [1] 1 3 4 1 3 4</span></span>
+<span></span>
+<span><span class="va">vec8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"orange"</span>, <span class="st">"mango"</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">2</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec8</span></span>
+<span><span class="co">#&gt;  [1] "apple"  "apple"  "apple"  "orange" "orange" "orange"</span></span>
+<span><span class="co">#&gt;  [7] "mango"  "mango"  "mango"  "apple"  "apple"  "apple" </span></span>
+<span><span class="co">#&gt; [13] "orange" "orange" "orange" "mango"  "mango"  "mango"</span></span></code></pre></div>
+</div>
+<div id="how-many-elements-does-your-vector-contain" class="section level4 unnumbered">
+<h4>How many elements does your vector contain?<a class="anchor" aria-label="anchor" href="#how-many-elements-does-your-vector-contain"><i class="fas fa-link"></i></a>
+</h4>
+<p>We can use the <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> function to check how many elements are stored in vectors:</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">vec7</span></span>
+<span><span class="co">#&gt; [1] 1 3 4 1 3 4</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">vec7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 6</span></span></code></pre></div>
+</div>
+<div id="adding-elements-to-vectors" class="section level4 unnumbered">
+<h4>Adding Elements to Vectors<a class="anchor" aria-label="anchor" href="#adding-elements-to-vectors"><i class="fas fa-link"></i></a>
+</h4>
+<p>In order to add new elements to an existing vector, we can utilize <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function once again:</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Adding three elements, c(15, 3, 4), to vec1</span></span>
+<span></span>
+<span><span class="va">vec9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">vec1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec9</span></span>
+<span><span class="co">#&gt; [1]  1  2  3  4  5 15  3  4</span></span>
+<span></span>
+<span><span class="co"># Merging vec1 and vec3</span></span>
+<span></span>
+<span><span class="va">vec10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">vec1</span>, <span class="va">vec3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec10</span></span>
+<span><span class="co">#&gt;  [1]  1  2  3  4  5  3  4  5  6  7  8  9 10 11</span></span></code></pre></div>
+<p>If you would like to insert an element(s) at the specific position(s) in the vector, use <code><a href="https://rdrr.io/r/base/append.html">append()</a></code> function:</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Insert 55 to vec1 at the 2nd position</span></span>
+<span></span>
+<span><span class="va">vec11</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span><span class="va">vec1</span>, <span class="fl">55</span>, after <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">vec11</span></span>
+<span><span class="co">#&gt; [1]  1 55  2  3  4  5</span></span></code></pre></div>
+</div>
+<div id="subsettingindexing-vectors" class="section level4 unnumbered">
+<h4>Subsetting/Indexing Vectors<a class="anchor" aria-label="anchor" href="#subsettingindexing-vectors"><i class="fas fa-link"></i></a>
+</h4>
+<p>We use square brackets, <code>[]</code>, to extract specific elements from vectors:</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># selects the first element of the vec1</span></span>
+<span></span>
+<span><span class="va">vec1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>  </span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span></span>
+<span><span class="co"># selects the 1st, 5th, and 8th elements of the vec9</span></span>
+<span></span>
+<span><span class="va">vec9</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">5</span>,<span class="fl">8</span><span class="op">)</span><span class="op">]</span>  </span>
+<span><span class="co">#&gt; [1] 1 5 4</span></span>
+<span></span>
+<span><span class="co"># selects the 6th, 7th, and 8th elements of the vec9</span></span>
+<span></span>
+<span><span class="va">vec9</span><span class="op">[</span><span class="fl">4</span><span class="op">:</span><span class="fl">7</span><span class="op">]</span> </span>
+<span><span class="co">#&gt; [1]  4  5 15  3</span></span>
+<span></span>
+<span><span class="co"># selects the first and second elements of vec1</span></span>
+<span></span>
+<span><span class="va">vec1</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">T</span>, <span class="cn">T</span>, <span class="cn">F</span>, <span class="cn">F</span>, <span class="cn">F</span>,<span class="cn">F</span><span class="op">)</span><span class="op">]</span>  </span>
+<span><span class="co">#&gt; [1] 1 2</span></span>
+<span></span>
+<span><span class="co"># select all elements of vec1 that are greater than 2.5</span></span>
+<span></span>
+<span><span class="va">vec1</span><span class="op">[</span><span class="va">vec1</span> <span class="op">&gt;</span> <span class="fl">2.5</span><span class="op">]</span> </span>
+<span><span class="co">#&gt; [1] 3 4 5</span></span>
+<span></span>
+<span><span class="co"># select all elements of vec1 that are not equal to 3</span></span>
+<span></span>
+<span><span class="va">vec1</span><span class="op">[</span><span class="va">vec1</span> <span class="op">!=</span> <span class="fl">3</span><span class="op">]</span> </span>
+<span><span class="co">#&gt; [1] 1 2 4 5</span></span>
+<span></span>
+<span><span class="co"># selects all elements of vec1 except 4th one</span></span>
+<span></span>
+<span><span class="va">vec2</span><span class="op">[</span><span class="op">-</span><span class="fl">4</span><span class="op">]</span>  </span>
+<span><span class="co">#&gt; [1] "fall"   "winter" "spring"</span></span>
+<span></span>
+<span><span class="co"># selects all elements of vec1 except the 1st and 2nd ones</span></span>
+<span></span>
+<span><span class="va">vec2</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span>                </span>
+<span><span class="co">#&gt; [1] "spring" "summer"</span></span></code></pre></div>
+</div>
+<div id="assigning-new-values-to-the-elements-of-the-existing-vector" class="section level4 unnumbered">
+<h4>Assigning new values to the elements of the existing vector<a class="anchor" aria-label="anchor" href="#assigning-new-values-to-the-elements-of-the-existing-vector"><i class="fas fa-link"></i></a>
+</h4>
+<p>Use the assignment sign, <code>&lt;-</code>, to assign new values to the elements of the existing vector:</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Assigning a new value to the first element of vec1</span></span>
+<span></span>
+<span><span class="va">vec1</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4 5</span></span>
+<span></span>
+<span><span class="va">vec1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
+<span></span>
+<span><span class="va">vec1</span></span>
+<span><span class="co">#&gt; [1] 100   2   3   4   5</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="vectorization" class="section level2 unnumbered">
+<h2>Vectorization<a class="anchor" aria-label="anchor" href="#vectorization"><i class="fas fa-link"></i></a>
+</h2>
+<p>The main advantage of vectors in R is that you can perform vectorized operations on them:</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Adding 1 to each element of vec1</span></span>
+<span></span>
+<span><span class="va">vec1</span> <span class="op">+</span> <span class="fl">1</span> </span>
+<span><span class="co">#&gt; [1] 101   3   4   5   6</span></span>
+<span></span>
+<span><span class="co"># For each element of the vector (1:3), raising 2 to the power of its elements</span></span>
+<span></span>
+<span><span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; [1] 2 4 8</span></span>
+<span></span>
+<span><span class="co"># Doing elementwise addition (you can do it with all arithmetic operations)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span>  </span>
+<span><span class="co">#&gt; [1] 5 7 9</span></span>
+<span></span>
+<span><span class="co"># Be careful! vectors should have the same length</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span>  </span>
+<span><span class="co">#&gt; Warning in c(1, 2, 3) + c(4, 5, 6, 7): longer object length</span></span>
+<span><span class="co">#&gt; is not a multiple of shorter object length</span></span>
+<span><span class="co">#&gt; [1] 5 7 9 8</span></span>
+<span></span>
+<span><span class="co"># Checking whether 2 is in vec1 using %in% function</span></span>
+<span></span>
+<span><span class="fl">2</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">vec1</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+</div>
+<div id="vectors-are-homogeneous" class="section level2 unnumbered">
+<h2>Vectors are Homogeneous!<a class="anchor" aria-label="anchor" href="#vectors-are-homogeneous"><i class="fas fa-link"></i></a>
+</h2>
+<p>The main disadvantage of vectors in R is that they can store homogeneous data only (data of the same type). If the elements of a vector are of different data types, then the vector will convert their types so that all elements are of the same type:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># R will convert all elements of vec12 into characters, because vectors can only </span></span>
+<span><span class="co">#contain homogeneous data</span></span>
+<span></span>
+<span><span class="va">vec12</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3.5</span>, <span class="st">"fall"</span>, <span class="fl">2.7</span><span class="op">)</span>   </span>
+<span></span>
+<span><span class="va">vec12</span></span>
+<span><span class="co">#&gt; [1] "2"    "3.5"  "fall" "2.7"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">vec12</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "character"</span></span></code></pre></div>
+<p> </p>
+<p><em>Question</em>: What if I want to store heterogeneous data (data of different types)?</p>
+<p><em>Solution</em>: Use <code>Lists</code>.</p>
+<div id="lists" class="section level3 unnumbered">
+<h3>Lists<a class="anchor" aria-label="anchor" href="#lists"><i class="fas fa-link"></i></a>
+</h3>
+<div id="creating-lists" class="section level4 unnumbered">
+<h4>Creating Lists<a class="anchor" aria-label="anchor" href="#creating-lists"><i class="fas fa-link"></i></a>
+</h4>
+<p>You can create a list using <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> function:</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">list1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3.5</span>, <span class="st">"fall"</span>, <span class="fl">2.7</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">list1</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 3.5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] "fall"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1] 2.7</span></span>
+<span></span>
+<span></span>
+<span><span class="va">list2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"one"</span>, <span class="st">"two"</span>, <span class="st">"three"</span><span class="op">)</span>, <span class="fl">45</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">list2</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1]  2  4 10</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] "one"   "two"   "three"</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 45</span></span></code></pre></div>
+</div>
+<div id="subsettingindexing-lists-using-square-brackets-single-and-double-and" class="section level4 unnumbered">
+<h4>Subsetting/Indexing lists using square brackets (single and double), [] and [[]]<a class="anchor" aria-label="anchor" href="#subsettingindexing-lists-using-square-brackets-single-and-double-and"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Selecting the first element of the list2 as a list</span></span>
+<span></span>
+<span><span class="va">list2</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> </span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1]  2  4 10</span></span>
+<span></span>
+<span><span class="co"># Selecting the first element of the list2 as it is</span></span>
+<span></span>
+<span><span class="va">list2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>                                    </span>
+<span><span class="co">#&gt; [1]  2  4 10</span></span>
+<span></span>
+<span><span class="co"># Selecting the second element of the first element of the list2</span></span>
+<span></span>
+<span><span class="va">list2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>                                 </span>
+<span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
+</div>
+<div id="merging-lists" class="section level4 unnumbered">
+<h4>Merging Lists<a class="anchor" aria-label="anchor" href="#merging-lists"><i class="fas fa-link"></i></a>
+</h4>
+<p>You can merge lists using both <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> and <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> functions. Can you tell the difference between the outputs these functions produce?</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span> <span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">merged_list1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">merged_list1</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1] 4</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[5]]</span></span>
+<span><span class="co">#&gt; [1] 5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[6]]</span></span>
+<span><span class="co">#&gt; [1] 6</span></span>
+<span></span>
+<span><span class="va">merged_list2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span>  </span>
+<span></span>
+<span><span class="va">merged_list2</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [[1]][[1]]</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[1]][[2]]</span></span>
+<span><span class="co">#&gt; [1] 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[1]][[3]]</span></span>
+<span><span class="co">#&gt; [1] 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [[2]][[1]]</span></span>
+<span><span class="co">#&gt; [1] 4</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]][[2]]</span></span>
+<span><span class="co">#&gt; [1] 5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]][[3]]</span></span>
+<span><span class="co">#&gt; [1] 6</span></span></code></pre></div>
+<p><code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function merged the elements of <code>list a</code> and <code>list b</code> and created a list containing 6 elements. In contrast, <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> function created a list containing two elements, <code>list a</code> and <code>list b</code>.</p>
+</div>
+<div id="flattening-a-list-into-a-vector" class="section level4 unnumbered">
+<h4>Flattening a list into a vector<a class="anchor" aria-label="anchor" href="#flattening-a-list-into-a-vector"><i class="fas fa-link"></i></a>
+</h4>
+<p>You can convert a list into a vector using <code><a href="https://rdrr.io/r/base/unlist.html">unlist()</a></code> function:</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">list3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, <span class="fl">45</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="va">list3</span><span class="op">)</span>                           </span>
+<span><span class="co">#&gt; [1]  1  2  3 45 20 -5</span></span></code></pre></div>
+</div>
+<div id="manipulating-elements-in-a-list" class="section level4 unnumbered">
+<h4>Manipulating elements in a list<a class="anchor" aria-label="anchor" href="#manipulating-elements-in-a-list"><i class="fas fa-link"></i></a>
+</h4>
+<p>Adding an element to a list:</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">list3</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 1 2 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 45</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 20 -5</span></span>
+<span></span>
+<span><span class="va">list3</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">100</span>   </span>
+<span></span>
+<span><span class="va">list3</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 1 2 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 45</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 20 -5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1] 100</span></span></code></pre></div>
+<p>Removing an element from a list:</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Removing the second element in the list3</span></span>
+<span></span>
+<span><span class="va">list3</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>                           </span>
+<span></span>
+<span><span class="va">list3</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 1 2 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 20 -5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 100</span></span></code></pre></div>
+<p>Changing values of elements in a list:</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Changing the second element of the first element of the list3</span></span>
+<span></span>
+<span><span class="va">list3</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">50</span>                       </span>
+<span></span>
+<span><span class="va">list3</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1]  1  2 50</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 20 -5</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 100</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-01.html">Lecture 01</a></div>
+<div class="next"><a href="lecture-03.html">Lecture 03</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-02">Lecture 02</a></li>
+<li>
+<a class="nav-link" href="#data-types">Data Types</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#numeric-data-type">Numeric Data Type</a></li>
+<li><a class="nav-link" href="#integers-data-type">Integers Data Type</a></li>
+<li><a class="nav-link" href="#complex-data-type">Complex Data Type</a></li>
+<li><a class="nav-link" href="#logical-data-type">Logical Data Type</a></li>
+<li><a class="nav-link" href="#character-data-type">Character Data Type</a></li>
+<li><a class="nav-link" href="#converting-data-types">Converting Data Types</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#data-structures">Data Structures</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#vectors">Vectors</a></li></ul>
+</li>
+<li><a class="nav-link" href="#vectorization">Vectorization</a></li>
+<li>
+<a class="nav-link" href="#vectors-are-homogeneous">Vectors are Homogeneous!</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#lists">Lists</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/02-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/02-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

@@ -114,7 +114,7 @@ R supports various arithmetic operations. In other words, you can use R as a sim
 ```
 
 
-The following table shows the arithmetic operators supported by R language:
+The following table shows the basic arithmetic operators supported by R language:
 
 
 
@@ -218,3 +218,14 @@ As mentioned, R stores files in the working directory. To check where is the wor
 getwd()
 #> [1] "C:/Users/alexp/OneDrive/Desktop/2102/2102"
 ```
+
+## Getting Help {-}
+
+Sometimes you don't exactly know how the certain functions work. You can use `?` in the console followed by the function name to figure what the inputs (arguments) of this function are and how it can be utilized. For example, let's check how `mean()` function works:
+
+
+```r
+?mean
+```
+
+Now in the output pane (bottom right pane) under `Help` tab you should see all information about the `mean()` function.
