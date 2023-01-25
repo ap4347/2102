@@ -4,10 +4,10 @@
 
 ## Data Types {-}
 
-In programming, data types is an important concept. Variables can store data of different types, and different types can do different things. For correct processing, a programming language must know what can and cannot be done to a particular value. For example, addition cannot be preformed on the words `Hello` and `world`. Similarly, you cannot change the numbers `5` or `-22` from lower to uppercase. 
+In programming, data types is an important concept. Variables can store data of different types, and different types can do different things. For correct processing, a programming language must know what can and cannot be done to a particular value. For example, addition cannot be performed on the words `Hello` and `world`. Similarly, you cannot change the numbers `5` or `-22` from lower to uppercase. 
 
 
-Due to this, R has a feature called the `data types`. Different kinds of values are assigned different data types that help differentiate them. These types have certain characteristics and rules associated with them that define their properties.
+Due to this, R has a feature called `data types`. Different kind of values assign different data types that help differentiate them. These types have certain characteristics and rules associated with them that define their properties.
 
 
 In this course we will consider the following data types:
@@ -19,13 +19,13 @@ In this course we will consider the following data types:
 * Logical
 * Characters
 
-There are more data types available in R, but it is beyond the scope of this class. Let's got through these data types one-by-one.
+There are more data types available in R, but it is beyond the scope of this class. Let's get through these data types one-by-one.
 
 
 ### Numeric Data Type {-}
 
 
-As you may expect, `numeric data type` is for numerical values. To create a variable of a numeric data types, simply assign any numeric value to the variable.
+As you may expect, `numeric data type` is for numerical values. To create a variable of a numeric data type, simply assign any numeric value to the variable.
 
 
 ```r
@@ -47,7 +47,7 @@ y_num
 ```
 
 
-Use `class()` function to find out what is the type of any variable.
+Use `class()` function to find out what the type of any variable is.
 
 
 
@@ -79,7 +79,7 @@ class(x_int)
 #> [1] "integer"
 ```
 
-If an input value is not an integer itself (for example, 2.85), `as.integer()` function will remove the decimal points and will keep integers only.
+If an input value is not an integer itself (for example, 2.85), `as.integer()` function will remove decimal points and will keep integers only.
 
 
 
@@ -94,7 +94,7 @@ class(x_int)
 #> [1] "integer"
 ```
 
-Another way of creating a variable of the `integer data type` is to use an integer followed by `L` letter:
+Another way of creating a variable of the `integer data type` is to use an integer followed by the `L` letter:
 
 
 
@@ -132,7 +132,7 @@ class(x_comp)
 
 ### Logical Data Type {-}
 
-The `logical data type` stores _logical_ (also known as _boolean_) values of `TRUE` and `FALSE`:
+A `logical data type` stores _logical_ (also known as _boolean_) values of `TRUE` and `FALSE`:
 
 
 
@@ -161,7 +161,7 @@ class(z_logical)
 
 ### Character Data Type {-}
 
-The `character data type` stores character values or strings. Strings in R can contain the alphabet, numbers, and symbols. The easiest way to denote that a value is of `character type` in R is to wrap the value inside single or double quotes:
+A `character data type` stores character values or strings. Strings in R can contain the alphabet, numbers, and symbols. The easiest way to denote that a value is of `character type` in R is to wrap the value inside single or double quotes:
 
 
 
@@ -187,7 +187,7 @@ class(y_char)
 
 ### Converting Data Types {-}
 
-In R we can convert values from one data type to another. R has certain rules that govern these conversions.
+In R we can convert values from one data type into another. R has certain rules that govern these conversions.
 
 
 #### Converting into Numeric Data Type {-}
@@ -205,7 +205,7 @@ is.numeric(x_char)
 ```
 
 
-To convert any other data type into numeric, we can use `as.numeric()` function. When converting integer type data into numeric, `as.numeric()` changes its type and keeps the value as it is; when converting a complex data type, it removes the imaginary part of the number; when converting logical data type, the `TRUE` value is converted to `1`, and `FALSE` is converted to `0`; finally, character values can similarly be converted into numerical values but if the string contains letters or other symbols then the numeric value becomes `NA`:
+To convert any other data type into numeric, we can use `as.numeric()` function. When converting integer type data into numeric, `as.numeric()` changes its type and keeps the value as it is; when converting a complex data type, it removes the imaginary part of the number; when converting logical data type, the `TRUE` value is converted to `1`, and `FALSE` is converted to `0`; finally, character values can similarly be converted into numerical values but if the string contains letters or other symbols, then the numeric value becomes `NA`:
 
 
 ```r
@@ -246,7 +246,7 @@ y_logical
 
 logical2 <- as.numeric(y_logical)
 
-class(logical1)
+class(logical2)
 #> [1] "numeric"
 
 logical2
@@ -379,7 +379,7 @@ char2
 
 ## Data Structures {-}
 
-In any programming language, you need to use different variables to store different data. Unlike other programming languages like `C` and `Java`, R doesn't have variables declared as some data type. Further, the variables are appointed with R-objects and the knowledge form of the R-object becomes the datatype of the variable. There are many types of R-objects (data structures). The commonly used ones are:
+In any programming language, you need to use different variables to store different data. Unlike other programming languages like `C` and `Java`, R doesn't have variables declared as some data type. Further, variables are appointed with R-objects and the knowledge form of the R-object becomes the datatype of the variable. There are many types of R-objects (data structures). The commonly used ones are:
 
 * Vectors
 * Lists
@@ -464,7 +464,7 @@ vec8
 ```
 
 
-#### How many elements does your vector contain? {-}
+#### How Many Elements Does Your Vector Contain? {-}
 
 We can use the `length()` function to check how many elements are stored in vectors:
 
@@ -532,7 +532,7 @@ vec1[1]
 vec9[c(1,5,8)]  
 #> [1] 1 5 4
 
-# selects the 6th, 7th, and 8th elements of the vec9
+# selects the 4th, 5th, 6th, and 7th elements of the vec9
 
 vec9[4:7] 
 #> [1]  4  5 15  3
@@ -552,7 +552,7 @@ vec1[vec1 > 2.5]
 vec1[vec1 != 3] 
 #> [1] 1 2 4 5
 
-# selects all elements of vec1 except 4th one
+# selects all elements of vec1 except the 4th one
 
 vec2[-4]  
 #> [1] "fall"   "winter" "spring"
@@ -564,9 +564,9 @@ vec2[c(-1, -2)]
 ```
 
 
-#### Assigning new values to the elements of the existing vector {-}
+#### Assigning New Values to Elements of the Existing Vector {-}
 
-Use the assignment sign, `<-`, to assign new values to the elements of the existing vector:
+Use the assignment operator, `<-`, to assign new values to elements of the existing vector:
 
 
 
@@ -583,7 +583,7 @@ vec1
 #> [1] 100   2   3   4   5
 ```
 
-## Vectorization {-}
+#### Vectorization {-}
 
 The main advantage of vectors in R is that you can perform vectorized operations on them:
 
@@ -606,7 +606,8 @@ vec1 + 1
 c(1, 2, 3) + c(4, 5, 6)  
 #> [1] 5 7 9
 
-# Be careful! vectors should have the same length
+# Be careful! vectors should have the same length, otherwise it will recycle
+# values of the shorter vector
 
 c(1, 2, 3) + c(4, 5, 6, 7)  
 #> Warning in c(1, 2, 3) + c(4, 5, 6, 7): longer object length
@@ -620,9 +621,9 @@ c(1, 2, 3) + c(4, 5, 6, 7)
 ```
 
 
-## Vectors are Homogeneous! {-}
+#### Vectors Are Homogeneous! {-}
 
-The main disadvantage of vectors in R is that they can store homogeneous data only (data of the same type). If the elements of a vector are of different data types, then the vector will convert their types so that all elements are of the same type:
+The main disadvantage of vectors in R is that they can store homogeneous data only (data of the same type). If elements of a vector are of different data types, then the vector will convert their types so that all elements are of the same type:
 
 
 
@@ -691,7 +692,7 @@ list2
 
 
 
-#### Subsetting/Indexing lists using square brackets (single and double), [] and [[]] {-}
+#### Subsetting/Indexing Lists Using Square Brackets (Single and Double), [] and [[]] {-}
 
 
 
@@ -775,7 +776,7 @@ merged_list2
 `c()` function merged the elements of `list a` and `list b` and created a list containing 6 elements. In contrast, `list()` function created a list containing two elements, `list a` and `list b`. 
 
 
-#### Flattening a list into a vector {-}
+#### Flattening Lists into Vectors {-}
 
 You can convert a list into a vector using `unlist()` function:
 
@@ -790,7 +791,7 @@ unlist(list3)
 ```
 
 
-#### Manipulating elements in a list {-}
+#### Manipulating Elements in a List {-}
 
 Adding an element to a list:
 

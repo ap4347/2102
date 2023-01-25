@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lecture 03 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
-<meta name="description" content="We continue exploring different data structures in R programming language. In this lecture we will discuss matrices and data frames. Matrices Matrices are R objects in which the elements are...">
+<meta name="description" content="  We continue exploring different data structures in R programming language. In this lecture we will discuss matrices and data frames. Matrices Matrices are R objects in which elements are...">
 <meta name="generator" content="bookdown 0.32 with bs4_book()">
 <meta property="og:title" content="Lecture 03 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-03.html">
-<meta property="og:description" content="We continue exploring different data structures in R programming language. In this lecture we will discuss matrices and data frames. Matrices Matrices are R objects in which the elements are...">
+<meta property="og:description" content="  We continue exploring different data structures in R programming language. In this lecture we will discuss matrices and data frames. Matrices Matrices are R objects in which elements are...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lecture 03 | STAT 2102: Applied Statistical Computing">
-<meta name="twitter:description" content="We continue exploring different data structures in R programming language. In this lecture we will discuss matrices and data frames. Matrices Matrices are R objects in which the elements are...">
+<meta name="twitter:description" content="  We continue exploring different data structures in R programming language. In this lecture we will discuss matrices and data frames. Matrices Matrices are R objects in which elements are...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -58,13 +58,14 @@
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-03" class="section level1 unnumbered">
 <h1>Lecture 03<a class="anchor" aria-label="anchor" href="#lecture-03"><i class="fas fa-link"></i></a>
 </h1>
+<p> </p>
 <p>We continue exploring different data structures in R programming language. In this lecture we will discuss <code>matrices</code> and <code>data frames</code>.</p>
 <div id="matrices" class="section level2 unnumbered">
 <h2>Matrices<a class="anchor" aria-label="anchor" href="#matrices"><i class="fas fa-link"></i></a>
 </h2>
-<p>Matrices are R objects in which the elements are arranged in a two-dimensional rectangular layout (columns and rows). A column is a vertical representation of data, while a row is a horizontal representation of data. Like vectors, matrices work with homogeneous data only.</p>
+<p>Matrices are R objects in which elements are arranged in a two-dimensional rectangular layout (columns and rows). A column is a vertical representation of data, while a row is a horizontal representation of data. Like vectors, matrices work with homogeneous data only.</p>
 <div id="creating-matrices" class="section level3 unnumbered">
-<h3>Creating matrices<a class="anchor" aria-label="anchor" href="#creating-matrices"><i class="fas fa-link"></i></a>
+<h3>Creating Matrices<a class="anchor" aria-label="anchor" href="#creating-matrices"><i class="fas fa-link"></i></a>
 </h3>
 <p>We use <code><a href="https://rdrr.io/r/base/matrix.html">matrix()</a></code> function to create a matrix. It has the following arguments (input values):</p>
 <p><code>matrix(data, nrow, ncol, byrow, dimnames)</code></p>
@@ -80,6 +81,7 @@
 <li>
 <strong>dimname</strong> is the names assigned to the rows and columns</li>
 </ul>
+<p> </p>
 <p>let’s create a matrix containing <code>c(1:12)</code> elements:</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -139,12 +141,12 @@
 <p>Elements of a matrix can be accessed by using the column and row index of the element and square brackets:</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co"># Accessing the element at 3rd columns and 1st row</span></span>
+<span><span class="co"># Accessing the element in 3rd columns and 1st row</span></span>
 <span></span>
 <span><span class="va">matrix_1</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] 3</span></span>
 <span></span>
-<span><span class="co"># Accessing the element at 2nd column and 4th row</span></span>
+<span><span class="co"># Accessing the element in 2nd column and 4th row</span></span>
 <span></span>
 <span><span class="va">matrix_1</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] 11</span></span>
@@ -169,7 +171,7 @@
 <div id="adding-and-removing-rows-columns" class="section level3 unnumbered">
 <h3>Adding and Removing Rows &amp; Columns<a class="anchor" aria-label="anchor" href="#adding-and-removing-rows-columns"><i class="fas fa-link"></i></a>
 </h3>
-<p>Use <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code> function to add additional columns in a matrix:</p>
+<p>Use <code><a href="https://rdrr.io/r/base/cbind.html">cbind()</a></code> function to add additional columns into a matrix:</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">matrix_1</span></span>
@@ -187,7 +189,7 @@
 <span><span class="co">#&gt; [2,]    4    5    6   20</span></span>
 <span><span class="co">#&gt; [3,]    7    8    9   30</span></span>
 <span><span class="co">#&gt; [4,]   10   11   12   40</span></span></code></pre></div>
-<p>Use <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> function to add additional rows in a matrix:</p>
+<p>Use <code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code> function to add additional rows into a matrix:</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">matrix_1</span></span>
@@ -275,8 +277,6 @@
 </h3>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co"># Assigning a single value</span></span>
-<span></span>
 <span><span class="va">matrix_8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">matrix_8</span></span>
@@ -295,7 +295,7 @@
 <span><span class="co">#&gt; [3,]    5    6</span></span>
 <span><span class="co">#&gt; [4,]    7    8</span></span>
 <span></span>
-<span><span class="co"># Addition</span></span>
+<span><span class="co"># Elementwise Addition</span></span>
 <span></span>
 <span><span class="va">matrix_8</span> <span class="op">+</span> <span class="va">matrix_9</span></span>
 <span><span class="co">#&gt;      [,1] [,2]</span></span>
@@ -304,7 +304,7 @@
 <span><span class="co">#&gt; [3,]   10   12</span></span>
 <span><span class="co">#&gt; [4,]   14   16</span></span>
 <span></span>
-<span><span class="co"># Subtraction</span></span>
+<span><span class="co"># Elementwise Subtraction</span></span>
 <span></span>
 <span><span class="va">matrix_8</span> <span class="op">-</span> <span class="va">matrix_9</span></span>
 <span><span class="co">#&gt;      [,1] [,2]</span></span>
@@ -313,7 +313,7 @@
 <span><span class="co">#&gt; [3,]    0    0</span></span>
 <span><span class="co">#&gt; [4,]    0    0</span></span>
 <span></span>
-<span><span class="co"># Multiplication</span></span>
+<span><span class="co"># Elementwise Multiplication</span></span>
 <span></span>
 <span><span class="va">matrix_8</span> <span class="op">*</span> <span class="va">matrix_9</span></span>
 <span><span class="co">#&gt;      [,1] [,2]</span></span>
@@ -322,7 +322,7 @@
 <span><span class="co">#&gt; [3,]   25   36</span></span>
 <span><span class="co">#&gt; [4,]   49   64</span></span>
 <span></span>
-<span><span class="co"># Division</span></span>
+<span><span class="co"># Elementwise Division</span></span>
 <span></span>
 <span><span class="va">matrix_8</span> <span class="op">/</span> <span class="va">matrix_9</span></span>
 <span><span class="co">#&gt;      [,1] [,2]</span></span>
@@ -395,7 +395,7 @@
 <li>Each column should contain same number of data items</li>
 </ul>
 <div id="creating-a-data-frame" class="section level3 unnumbered">
-<h3>Creating a data frame<a class="anchor" aria-label="anchor" href="#creating-a-data-frame"><i class="fas fa-link"></i></a>
+<h3>Creating a Data Frame<a class="anchor" aria-label="anchor" href="#creating-a-data-frame"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can use a <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code> function to create a data frame from a set of vectors:</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
@@ -422,7 +422,7 @@
 <span><span class="co">#&gt; 8  Jeniffer  72    Florida  40000</span></span>
 <span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000</span></span>
 <span><span class="co">#&gt; 10      Amy  52    Indiana  92400</span></span></code></pre></div>
-<p>We can use <code>srt()</code> function to check the structure of the data frame and <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> to get a quick summary on the variables stored in this data frame:</p>
+<p>We can use <code>srt()</code> function to check a structure of the data frame and <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> to get a quick summary on the variables stored in this data frame:</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Data frame structure</span></span>
@@ -451,7 +451,7 @@
 <span><span class="co">#&gt;  Mean   :62890  </span></span>
 <span><span class="co">#&gt;  3rd Qu.:80925  </span></span>
 <span><span class="co">#&gt;  Max.   :96500</span></span></code></pre></div>
-<p><code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code> functions allow us to view the first and last 6 rows of a data frame, respectively (number of rows can be specified as an argument of a function):</p>
+<p><code><a href="https://rdrr.io/r/utils/head.html">head()</a></code> and <code><a href="https://rdrr.io/r/utils/head.html">tail()</a></code> functions allow us to view the first and last 6 rows of a data frame, respectively (number of rows can be specified as an argument):</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
@@ -513,8 +513,8 @@
 <span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000</span></span>
 <span><span class="co">#&gt; 10      Amy  52    Indiana  92400</span></span></code></pre></div>
 </div>
-<div id="subsettingextracting-the-elementscolumnsrows-from-a-data-frame" class="section level3 unnumbered">
-<h3>Subsetting/Extracting the Elements/Columns/Rows from a Data Frame<a class="anchor" aria-label="anchor" href="#subsettingextracting-the-elementscolumnsrows-from-a-data-frame"><i class="fas fa-link"></i></a>
+<div id="subsettingextracting-elementscolumnsrows-from-a-data-frame" class="section level3 unnumbered">
+<h3>Subsetting/Extracting Elements/Columns/Rows from a Data Frame<a class="anchor" aria-label="anchor" href="#subsettingextracting-elementscolumnsrows-from-a-data-frame"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can use <code>[]</code>, <code>$</code>, <code>[[]]</code> to extract elements, columns, or rows from a data frame (uses the same rule as matrices):</p>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
@@ -632,7 +632,7 @@
 <span><span class="co">#&gt; 9 Lucas  39   Nebraska  83000</span></span></code></pre></div>
 </div>
 <div id="assigning-new-value-to-data-frame-elements" class="section level3 unnumbered">
-<h3>Assigning new value to data frame elements<a class="anchor" aria-label="anchor" href="#assigning-new-value-to-data-frame-elements"><i class="fas fa-link"></i></a>
+<h3>Assigning New Value to Data Frame Elements<a class="anchor" aria-label="anchor" href="#assigning-new-value-to-data-frame-elements"><i class="fas fa-link"></i></a>
 </h3>
 <p>Like in matrices, we can use <code>&lt;-</code> operator to assign values:</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
@@ -713,7 +713,7 @@
 <span><span class="co">#&gt; 10      Amy  52    Indiana  92400         22</span></span>
 <span><span class="co">#&gt; 11     Jack  41      Texas 150000         20</span></span>
 <span></span>
-<span><span class="co"># Removing columns from a data frame a `c()` function</span></span>
+<span><span class="co"># Removing columns from a data frame using a `c()` function</span></span>
 <span></span>
 <span><span class="va">df_4</span> <span class="op">&lt;-</span> <span class="va">df_3</span><span class="op">[</span>, <span class="op">-</span><span class="fl">4</span><span class="op">]</span></span>
 <span></span>
@@ -765,7 +765,7 @@
 <span><span class="co">#&gt; 10      Amy    Indiana         22</span></span></code></pre></div>
 </div>
 <div id="re-ordering-columnsrows-in-a-data-frame" class="section level3 unnumbered">
-<h3>Re-ordering columns/rows in a data frame<a class="anchor" aria-label="anchor" href="#re-ordering-columnsrows-in-a-data-frame"><i class="fas fa-link"></i></a>
+<h3>Re-ordering Columns/Rows in a Data Frame<a class="anchor" aria-label="anchor" href="#re-ordering-columnsrows-in-a-data-frame"><i class="fas fa-link"></i></a>
 </h3>
 <p>In order to re-order columns in a data frame, pass a vector with the desired order of columns using <code>[]</code> operator:</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
@@ -817,7 +817,7 @@
 <span><span class="co">#&gt; 5       Tom      Texas          1</span></span></code></pre></div>
 </div>
 <div id="checking-dimensions-of-a-data-frame" class="section level3 unnumbered">
-<h3>Checking dimensions of a data frame<a class="anchor" aria-label="anchor" href="#checking-dimensions-of-a-data-frame"><i class="fas fa-link"></i></a>
+<h3>Checking Dimensions of a Data Frame<a class="anchor" aria-label="anchor" href="#checking-dimensions-of-a-data-frame"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -865,6 +865,7 @@
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span></span>
 <span></span>
+<span><span class="co">#############</span></span>
 <span></span>
 <span></span>
 <span><span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Jazz"</span>, <span class="st">"Rock"</span>, <span class="st">"Classic"</span>, <span class="st">"Pop"</span>, <span class="st">"Classic"</span>, <span class="st">"Jazz"</span>, <span class="st">"Jazz"</span>, <span class="st">"Rock"</span><span class="op">)</span></span>
@@ -877,6 +878,7 @@
 <span><span class="co">#&gt; Levels: Classic Jazz Pop Rock</span></span>
 <span></span>
 <span></span>
+<span><span class="co">#############</span></span>
 <span></span>
 <span></span>
 <span><span class="va">vec3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span></span>
@@ -894,7 +896,7 @@
 <span><span class="va">fac4</span></span>
 <span><span class="co">#&gt;  [1] 1 2 3 2 2 3 1 3 2 3 1 1</span></span>
 <span><span class="co">#&gt; Levels: 1 &lt; 2 &lt; 3</span></span></code></pre></div>
-<p>You can convert a numeric variable into a factor by dividing it intervals (segments) using a <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code> function:</p>
+<p>You can convert a numeric variable into a factor by dividing it into intervals (segments) using a <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code> function:</p>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">age_factored</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">df_4</span><span class="op">$</span><span class="va">AGE</span>, <span class="fl">3</span><span class="op">)</span></span>
@@ -914,8 +916,8 @@
 <span><span class="co">#&gt;  [9] Group2 Group2 Group2</span></span>
 <span><span class="co">#&gt; Levels: Group1 Group2 Group3</span></span></code></pre></div>
 </div>
-<div id="levels-of-a-factor" class="section level3 unnumbered">
-<h3>Levels of a Factor<a class="anchor" aria-label="anchor" href="#levels-of-a-factor"><i class="fas fa-link"></i></a>
+<div id="factor-levels" class="section level3 unnumbered">
+<h3>Factor Levels<a class="anchor" aria-label="anchor" href="#factor-levels"><i class="fas fa-link"></i></a>
 </h3>
 <p>Use <code><a href="https://rdrr.io/r/base/levels.html">levels()</a></code> function to see what levels a factor variable has:</p>
 <div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
@@ -962,13 +964,12 @@
 </h3>
 <p>You can access elements stored in a factor the same way as it was done with vectors, using <code>[]</code>.</p>
 </div>
-<div id="assigningchanging-values-to-factor-elements" class="section level3 unnumbered">
-<h3>Assigning/Changing Values to Factor Elements<a class="anchor" aria-label="anchor" href="#assigningchanging-values-to-factor-elements"><i class="fas fa-link"></i></a>
+<div id="assigningchanging-values-toof-factor-elements" class="section level3 unnumbered">
+<h3>Assigning/Changing Values to/of Factor Elements<a class="anchor" aria-label="anchor" href="#assigningchanging-values-toof-factor-elements"><i class="fas fa-link"></i></a>
 </h3>
 <p>You can assign a new value to factor elements using the assignment sign <code>&lt;-</code>:</p>
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span></span>
 <span><span class="va">fac2</span></span>
 <span><span class="co">#&gt; [1] Jazz    Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
 <span><span class="co">#&gt; [8] Rock   </span></span>
@@ -980,10 +981,9 @@
 <span><span class="co">#&gt; [1] Classic Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
 <span><span class="co">#&gt; [8] Rock   </span></span>
 <span><span class="co">#&gt; Levels: Classic Jazz Pop Rock</span></span></code></pre></div>
-<p>But what happens when you assign a new value that is not already specified in the factor?</p>
+<p>But what happens when you assign a new value that is not already specified in the factor levels?</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span></span>
 <span><span class="va">fac2</span></span>
 <span><span class="co">#&gt; [1] Classic Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
 <span><span class="co">#&gt; [8] Rock   </span></span>
@@ -997,10 +997,9 @@
 <span><span class="co">#&gt; [1] &lt;NA&gt;    Rock    Classic Pop     Classic Jazz    Jazz   </span></span>
 <span><span class="co">#&gt; [8] Rock   </span></span>
 <span><span class="co">#&gt; Levels: Classic Jazz Pop Rock</span></span></code></pre></div>
-<p>It will generate <code>NA</code>, because there is no <code>Opera</code> option among the levels specified in the variable. To add this value, we first need to add it to the levels.</p>
+<p>It will generate <code>NA</code>, because there is no <code>Opera</code> option among the levels specified in the variable. To add this value, we first need to add it to the levels:</p>
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span></span>
 <span><span class="va">fac7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">fac2</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Classic"</span>, <span class="st">"Jazz"</span>, <span class="st">"Pop"</span>, <span class="st">"Rock"</span>, <span class="st">"Other"</span>, <span class="st">"Opera"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fac7</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Opera"</span></span>
@@ -1016,7 +1015,6 @@
 <p>We can generate factor levels by using the <code><a href="https://rdrr.io/r/base/gl.html">gl()</a></code> function. It takes two integers as input which indicates how many levels and how many times each level.</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span></span>
 <span><span class="va">fac8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html">gl</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fall"</span>, <span class="st">"Winter"</span>, <span class="st">"Spring"</span>, <span class="st">"Summer"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fac8</span></span>
@@ -1025,18 +1023,17 @@
 <span><span class="co">#&gt; [17] Summer Summer Summer Summer</span></span>
 <span><span class="co">#&gt; Levels: Fall Winter Spring Summer</span></span></code></pre></div>
 </div>
-<div id="counting-elements-of-a-factorfrequency-of-levels" class="section level3 unnumbered">
-<h3>Counting Elements of a Factor/Frequency of levels<a class="anchor" aria-label="anchor" href="#counting-elements-of-a-factorfrequency-of-levels"><i class="fas fa-link"></i></a>
+<div id="counting-factor-elementsfrequency-of-levels" class="section level3 unnumbered">
+<h3>Counting Factor Elements/Frequency of Levels<a class="anchor" aria-label="anchor" href="#counting-factor-elementsfrequency-of-levels"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span></span>
-<span><span class="co"># Calculating the number of elements stored in a factor</span></span>
+<span><span class="co"># Calculating a number of elements stored in a factor</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">fac2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 8</span></span>
 <span></span>
-<span><span class="co"># Displaying the frequency of each level of a factor</span></span>
+<span><span class="co"># Displaying a frequency of each level of a factor</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">fac2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; fac2</span></span>
@@ -1048,7 +1045,6 @@
 </h3>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span></span>
 <span><span class="co"># Converting numeric data into factors using as.factor() function</span></span>
 <span></span>
 <span><span class="va">vec3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
@@ -1081,7 +1077,7 @@
 <li><a class="nav-link" href="#lecture-03">Lecture 03</a></li>
 <li>
 <a class="nav-link" href="#matrices">Matrices</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#creating-matrices">Creating matrices</a></li>
+<li><a class="nav-link" href="#creating-matrices">Creating Matrices</a></li>
 <li><a class="nav-link" href="#accessing-matrix-elements">Accessing Matrix Elements</a></li>
 <li><a class="nav-link" href="#adding-and-removing-rows-columns">Adding and Removing Rows &amp; Columns</a></li>
 <li><a class="nav-link" href="#assigning-values-to-matrix-elements">Assigning Values to Matrix Elements</a></li>
@@ -1091,22 +1087,22 @@
 </li>
 <li>
 <a class="nav-link" href="#data-frames">Data Frames</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#creating-a-data-frame">Creating a data frame</a></li>
-<li><a class="nav-link" href="#subsettingextracting-the-elementscolumnsrows-from-a-data-frame">Subsetting/Extracting the Elements/Columns/Rows from a Data Frame</a></li>
-<li><a class="nav-link" href="#assigning-new-value-to-data-frame-elements">Assigning new value to data frame elements</a></li>
+<li><a class="nav-link" href="#creating-a-data-frame">Creating a Data Frame</a></li>
+<li><a class="nav-link" href="#subsettingextracting-elementscolumnsrows-from-a-data-frame">Subsetting/Extracting Elements/Columns/Rows from a Data Frame</a></li>
+<li><a class="nav-link" href="#assigning-new-value-to-data-frame-elements">Assigning New Value to Data Frame Elements</a></li>
 <li><a class="nav-link" href="#addingremoving-columnsrows">Adding/Removing Columns/Rows</a></li>
-<li><a class="nav-link" href="#re-ordering-columnsrows-in-a-data-frame">Re-ordering columns/rows in a data frame</a></li>
-<li><a class="nav-link" href="#checking-dimensions-of-a-data-frame">Checking dimensions of a data frame</a></li>
+<li><a class="nav-link" href="#re-ordering-columnsrows-in-a-data-frame">Re-ordering Columns/Rows in a Data Frame</a></li>
+<li><a class="nav-link" href="#checking-dimensions-of-a-data-frame">Checking Dimensions of a Data Frame</a></li>
 </ul>
 </li>
 <li>
 <a class="nav-link" href="#factors">Factors</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#creating-factors">Creating Factors</a></li>
-<li><a class="nav-link" href="#levels-of-a-factor">Levels of a Factor</a></li>
+<li><a class="nav-link" href="#factor-levels">Factor Levels</a></li>
 <li><a class="nav-link" href="#accessing-factor-elements">Accessing Factor Elements</a></li>
-<li><a class="nav-link" href="#assigningchanging-values-to-factor-elements">Assigning/Changing Values to Factor Elements</a></li>
+<li><a class="nav-link" href="#assigningchanging-values-toof-factor-elements">Assigning/Changing Values to/of Factor Elements</a></li>
 <li><a class="nav-link" href="#generating-factors">Generating Factors</a></li>
-<li><a class="nav-link" href="#counting-elements-of-a-factorfrequency-of-levels">Counting Elements of a Factor/Frequency of levels</a></li>
+<li><a class="nav-link" href="#counting-factor-elementsfrequency-of-levels">Counting Factor Elements/Frequency of Levels</a></li>
 <li><a class="nav-link" href="#converting-numeric-data-into-factors-and-back">Converting Numeric Data into Factors and Back</a></li>
 </ul>
 </li>
@@ -1127,7 +1123,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-24.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

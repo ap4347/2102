@@ -2,7 +2,7 @@
 
 ## Introduction {-}
 
-`R` is a programming language and software environment for statistical analysis, graphics representation and reporting. `R` was created by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand, and is currently developed by the R Development Core Team. It is _free of charge_ and _open-source_. 
+`R` is a programming language and software environment for statistical analysis, graphics representation, and reporting. `R` was created by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand, and is currently developed by the R Development Core Team. It is _free of charge_ and _open-source_. 
 
 Nowadays, many companies, universities, and individuals of all backgrounds are shifting towards using `R`, because (of):
 
@@ -10,7 +10,7 @@ Nowadays, many companies, universities, and individuals of all backgrounds are s
 2. Results produced by `R` are reproducible. 
 3. `R` has a diverse and supportive community, both online and offline.
 4. A numerous set of packages for various tasks such as statistical analysis, data science, data visualization, reporting results etc.
-5. Powerful tools for communication your results.
+5. Powerful tools for communicating your results.
 6. RStudio IDE (Integrated Development Environment). 
 7. Deep-seated language support for data analysis.
 8. A strong foundation of functional programming.
@@ -143,7 +143,7 @@ y <- 10
 y
 ```
 
-Once we create these variables, they will be stored in the global environment and will be available to use for further operations. Now R know that `x = 4` and `y = 10`.
+Once we create these variables, they will be stored in the global environment and will be available to use for further operations. Now R knows that `x = 4` and `y = 10`.
 
 ```{r}
 x + y
@@ -168,7 +168,7 @@ save.image()
 ```
 
 
-### Removing objects from the Global Environment {-}
+### Removing Objects from the Global Environment {-}
 
 To remove a specific object (suppose a variable `x`) from the Global Environment, use `rm()` function:
 
@@ -182,7 +182,7 @@ To remove all objects stored in the Global Environment, use `rm(list = ls())` fu
 rm(list = ls())
 ```
 
-### Listing objects stored in the Global Environment {-}
+### Listing Objects Stored in the Global Environment {-}
 
 To list the objects stored in the Global Environment, use `ls()` function:
 
@@ -194,7 +194,7 @@ ls()
 
 ## Working Directory {-}
 
-As mentioned, R stores files in the working directory. To check where is the working directory on your machine, use `getwd()` function:
+As mentioned, R stores files in the working directory. To check where the working directory on your machine is, use `getwd()` function:
 
 ```{r}
 getwd()
@@ -202,7 +202,7 @@ getwd()
 
 ## Getting Help {-}
 
-Sometimes you don't exactly know how the certain functions work. You can use `?` in the console followed by the function name to figure what the inputs (arguments) of this function are and how it can be utilized. For example, let's check how `mean()` function works:
+Sometimes you don't exactly know how the certain functions work. You can use `?` in the console followed by the function name to figure what the inputs (arguments) of this function are and how it can be utilized. For example, let's check how the `mean()` function works:
 
 ```{r, eval = FALSE}
 ?mean

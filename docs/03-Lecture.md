@@ -1,14 +1,16 @@
 # Lecture 03 {-}
 
+&nbsp;
+
 We continue exploring different data structures in R programming language. In this lecture we will discuss `matrices` and `data frames`.
 
 
 ## Matrices {-}
 
 
-Matrices are R objects in which the elements are arranged in a two-dimensional rectangular layout (columns and rows). A column is a vertical representation of data, while a row is a horizontal representation of data. Like vectors, matrices work with homogeneous data only.
+Matrices are R objects in which elements are arranged in a two-dimensional rectangular layout (columns and rows). A column is a vertical representation of data, while a row is a horizontal representation of data. Like vectors, matrices work with homogeneous data only.
 
-### Creating matrices {-}
+### Creating Matrices {-}
 
 We use `matrix()` function to create a matrix. It has the following arguments (input values):
 
@@ -20,6 +22,7 @@ We use `matrix()` function to create a matrix. It has the following arguments (i
 * **byrow** is a logical argument. If `TRUE` then the input vector elements are arranged by row
 * **dimname** is the names assigned to the rows and columns
 
+&nbsp;
 
 let's create a matrix containing `c(1:12)` elements:
 
@@ -86,12 +89,12 @@ Elements of a matrix can be accessed by using the column and row index of the el
 
 ```r
 
-# Accessing the element at 3rd columns and 1st row
+# Accessing the element in 3rd columns and 1st row
 
 matrix_1[1, 3]
 #> [1] 3
 
-# Accessing the element at 2nd column and 4th row
+# Accessing the element in 2nd column and 4th row
 
 matrix_1[4, 2]
 #> [1] 11
@@ -117,7 +120,7 @@ matrix_1[c(2,3), ]
 
 ### Adding and Removing Rows & Columns {-}
 
-Use `cbind()` function to add additional columns in a matrix:
+Use `cbind()` function to add additional columns into a matrix:
 
 
 ```r
@@ -140,7 +143,7 @@ matrix_5
 ```
 
 
-Use `rbind()` function to add additional rows in a matrix:
+Use `rbind()` function to add additional rows into a matrix:
 
 
 ```r
@@ -239,8 +242,6 @@ matrix_1
 
 ```r
 
-# Assigning a single value
-
 matrix_8 <- matrix(1:8, nrow = 4, byrow = T)
 
 matrix_8
@@ -259,7 +260,7 @@ matrix_9
 #> [3,]    5    6
 #> [4,]    7    8
 
-# Addition
+# Elementwise Addition
 
 matrix_8 + matrix_9
 #>      [,1] [,2]
@@ -268,7 +269,7 @@ matrix_8 + matrix_9
 #> [3,]   10   12
 #> [4,]   14   16
 
-# Subtraction
+# Elementwise Subtraction
 
 matrix_8 - matrix_9
 #>      [,1] [,2]
@@ -277,7 +278,7 @@ matrix_8 - matrix_9
 #> [3,]    0    0
 #> [4,]    0    0
 
-# Multiplication
+# Elementwise Multiplication
 
 matrix_8 * matrix_9
 #>      [,1] [,2]
@@ -286,7 +287,7 @@ matrix_8 * matrix_9
 #> [3,]   25   36
 #> [4,]   49   64
 
-# Division
+# Elementwise Division
 
 matrix_8 / matrix_9
 #>      [,1] [,2]
@@ -365,7 +366,7 @@ A data frame is a table in which each column contains values of one variable and
 * The data stored in a data frame can be of numeric, factor (discussed later), or character type
 * Each column should contain same number of data items
 
-### Creating a data frame {-}
+### Creating a Data Frame {-}
 
 We can use a `data.frame()` function to create a data frame from a set of vectors:
 
@@ -397,7 +398,7 @@ df
 #> 10      Amy  52    Indiana  92400
 ```
 
-We can use `srt()` function to check the structure of the data frame and `summary()` to get a quick summary on the variables stored in this data frame:
+We can use `srt()` function to check a structure of the data frame and `summary()` to get a quick summary on the variables stored in this data frame:
 
 
 ```r
@@ -431,7 +432,7 @@ summary(df)
 ```
 
 
-`head()` and `tail()` functions allow us to view the first and last 6 rows of a data frame, respectively (number of rows can be specified as an argument of a function):
+`head()` and `tail()` functions allow us to view the first and last 6 rows of a data frame, respectively (number of rows can be specified as an argument):
 
 
 
@@ -505,7 +506,7 @@ df
 
 
 
-### Subsetting/Extracting the Elements/Columns/Rows from a Data Frame {-}
+### Subsetting/Extracting Elements/Columns/Rows from a Data Frame {-}
 
 We can use `[]`, `$`, `[[]]` to extract elements, columns, or rows from a data frame (uses the same rule as matrices):
 
@@ -626,7 +627,7 @@ df[df$AGE < 50, ]
 ```
 
 
-### Assigning new value to data frame elements {-}
+### Assigning New Value to Data Frame Elements {-}
 
 Like in matrices, we can use `<-` operator to assign values:
 
@@ -713,7 +714,7 @@ df_3
 #> 10      Amy  52    Indiana  92400         22
 #> 11     Jack  41      Texas 150000         20
 
-# Removing columns from a data frame a `c()` function
+# Removing columns from a data frame using a `c()` function
 
 df_4 <- df_3[, -4]
 
@@ -766,7 +767,7 @@ df_3[-11, ]
 ```
 
 
-### Re-ordering columns/rows in a data frame {-}
+### Re-ordering Columns/Rows in a Data Frame {-}
 
 In order to re-order columns in a data frame, pass a vector with the desired order of columns using `[]` operator:
 
@@ -821,7 +822,7 @@ df_3[order(df_3$EXPERIENCE, decreasing = TRUE), ] # Descending order
 ```
 
 
-### Checking dimensions of a data frame {-}
+### Checking Dimensions of a Data Frame {-}
 
 
 ```r
@@ -874,6 +875,7 @@ is.factor(fac1)
 #> [1] TRUE
 
 
+#############
 
 
 vec2 <- c("Jazz", "Rock", "Classic", "Pop", "Classic", "Jazz", "Jazz", "Rock")
@@ -886,6 +888,7 @@ fac2
 #> Levels: Classic Jazz Pop Rock
 
 
+#############
 
 
 vec3 <- c(1, 2, 3, 2, 2, 3, 1, 3, 2, 3, 1, 1)
@@ -909,7 +912,7 @@ fac4
 #> Levels: 1 < 2 < 3
 ```
 
-You can convert a numeric variable into a factor by dividing it intervals (segments) using a `cut()` function:
+You can convert a numeric variable into a factor by dividing it into intervals (segments) using a `cut()` function:
 
 
 ```r
@@ -936,7 +939,7 @@ age_factored
 #> Levels: Group1 Group2 Group3
 ```
 
-### Levels of a Factor {-}
+### Factor Levels {-}
 
 Use `levels()` function to see what levels a factor variable has:
 
@@ -996,14 +999,13 @@ fac6
 
 You can access elements stored in a factor the same way as it was done with vectors, using `[]`.
 
-### Assigning/Changing Values to Factor Elements {-}
+### Assigning/Changing Values to/of Factor Elements {-}
 
 You can assign a new value to factor elements using the assignment sign `<-`:
 
 
 
 ```r
-
 
 fac2
 #> [1] Jazz    Rock    Classic Pop     Classic Jazz    Jazz   
@@ -1019,11 +1021,10 @@ fac2
 ```
 
 
-But what happens when  you assign a new value that  is not already specified in the factor?
+But what happens when  you assign a new value that  is not already specified in the factor levels?
 
 
 ```r
-
 
 fac2
 #> [1] Classic Rock    Classic Pop     Classic Jazz    Jazz   
@@ -1040,11 +1041,10 @@ fac2
 #> Levels: Classic Jazz Pop Rock
 ```
 
-It will generate `NA`, because there is no `Opera` option among the levels specified in the variable. To add this value, we first need to add it to the levels.
+It will generate `NA`, because there is no `Opera` option among the levels specified in the variable. To add this value, we first need to add it to the levels:
 
 
 ```r
-
 
 fac7 <- factor(fac2, levels = c("Classic", "Jazz", "Pop", "Rock", "Other", "Opera"))
 
@@ -1064,7 +1064,6 @@ We can generate factor levels by using the `gl()` function. It takes two integer
 
 ```r
 
-
 fac8 <- gl(4, 5, labels = c("Fall", "Winter", "Spring", "Summer"))
 
 fac8
@@ -1075,19 +1074,18 @@ fac8
 ```
 
 
-### Counting Elements of a Factor/Frequency of levels {-}
+### Counting Factor Elements/Frequency of Levels {-}
 
 
 
 ```r
 
-
-# Calculating the number of elements stored in a factor
+# Calculating a number of elements stored in a factor
 
 length(fac2)
 #> [1] 8
 
-# Displaying the frequency of each level of a factor
+# Displaying a frequency of each level of a factor
 
 table(fac2)
 #> fac2
@@ -1100,7 +1098,6 @@ table(fac2)
 
 
 ```r
-
 
 # Converting numeric data into factors using as.factor() function
 
