@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 04 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="  R Markdown Files R Markdown provides an easy way to produce a rich, fully-documented reproducible analysis. It combines your code, results, commentary, and all metadata needed to reproduce your...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 04 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-04.html">
+<meta property="og:description" content="  R Markdown Files R Markdown provides an easy way to produce a rich, fully-documented reproducible analysis. It combines your code, results, commentary, and all metadata needed to reproduce your...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 04 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="  R Markdown Files R Markdown provides an easy way to produce a rich, fully-documented reproducible analysis. It combines your code, results, commentary, and all metadata needed to reproduce your...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="" href="lecture-03.html">Lecture 03</a></li>
+<li><a class="active" href="lecture-04.html">Lecture 04</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-04" class="section level1 unnumbered">
+<h1>Lecture 04<a class="anchor" aria-label="anchor" href="#lecture-04"><i class="fas fa-link"></i></a>
+</h1>
+<p> </p>
+<div id="r-markdown-files" class="section level2 unnumbered">
+<h2>R Markdown Files<a class="anchor" aria-label="anchor" href="#r-markdown-files"><i class="fas fa-link"></i></a>
+</h2>
+<p><code>R Markdown</code> provides an easy way to produce a rich, fully-documented reproducible analysis. It combines your code, results, commentary, and all metadata needed to reproduce your analysis in R. It allows to include chunks of code in the file along with text. R Markdown supports many output formats such as <code>PDF</code>, <code>Word</code>, <code>slideshows</code>, <code>presentations</code> etc.</p>
+<p>R Markdown files can be used in many ways. For instance, it can be utilized for communicating to decision makers, who wants to focus on the conclusions, not the code behind the analysis; for collaborating with other data analysts, who are interested in both your conclusions and how your reached them. In addition, it can be used as an environment in which we do analysis.</p>
+<p>Even these lecture notes are written using R Markdown files. In this lecture we will learn how to create an R Markdown file and its basic functionalities. You will be using R Markdown files to create and submit your homework assignments.</p>
+<div id="creating-r-markdown-files" class="section level3 unnumbered">
+<h3>Creating R Markdown Files<a class="anchor" aria-label="anchor" href="#creating-r-markdown-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>R Markdown files have <code>.Rmd</code> extensions. To create R Markdown files, you need the <strong>rmarkdown</strong> package. But you don’t need to explicitly install and load this package, as RStudio automatically does both when needed.</p>
+<p>You can create a new R Markdown file with <em>File &gt; New File &gt; R Markdown…</em></p>
+<p>As mentioned earlier, R Markdown can produce files of various formats (<code>PDF</code>, <code>Word</code>, <code>HTML</code> etc.). You will be asked to submit your homework assignments in the <code>PDF</code> format, so in this class we will focus on this output format. PDF output format requires installing <code>LaTex</code> distribution on your machine. There are several traditional options including <em>MikTeX</em>, <em>MacTeX</em>, and <em>TeX Live</em>, but it is recommended to use <em>TinyTeX</em>.</p>
+<p>You can install <em>TinyTeX</em> with the R package <strong>tinytex</strong>. Run the following code in your console:</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">tinytex</span><span class="fu">::</span> <span class="fu"><a href="https://rdrr.io/pkg/tinytex/man/install_tinytex.html">install_tinytex</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="r-markdown-file-components" class="section level3 unnumbered">
+<h3>R Markdown File Components<a class="anchor" aria-label="anchor" href="#r-markdown-file-components"><i class="fas fa-link"></i></a>
+</h3>
+<div id="yaml" class="section level4 unnumbered">
+<h4>YAML<a class="anchor" aria-label="anchor" href="#yaml"><i class="fas fa-link"></i></a>
+</h4>
+<p>The top part of the R Markdown file is called the YAML header. It is surrounded by <code>--</code>s and it stores the metadata needed for the document (for example, file title, author, output format etc.)</p>
+</div>
+<div id="text-formatting-with-markdown" class="section level4 unnumbered">
+<h4>Text Formatting with Markdown<a class="anchor" aria-label="anchor" href="#text-formatting-with-markdown"><i class="fas fa-link"></i></a>
+</h4>
+<div id="fonts" class="section level5 unnumbered">
+<h5>Fonts<a class="anchor" aria-label="anchor" href="#fonts"><i class="fas fa-link"></i></a>
+</h5>
+<p>Markdown is designed to be easy to read, write, and learn. Below you can find the basic guide that will help you format texts in your homework assignments:</p>
+<ul>
+<li><p>If you need to type a plain text, do it like in a word document (just type it).</p></li>
+<li><p>Use the <code>**  **</code> operator to change the font type to bold. For instance, <strong>Hello</strong> was typed as <code>**Hello**</code>.</p></li>
+<li><p>Use the <code>_   _</code> operator to use <em>italics</em> font. For example, <em>Hello</em> was typed as <code>_Hello_</code>.</p></li>
+<li><p>Use the <code>~~ ~~</code> operator to cross the words out. For example, <del>Hello</del> was typed as <code>~~Hello~~</code>.</p></li>
+</ul>
+</div>
+<div id="headers" class="section level5 unnumbered">
+<h5>Headers<a class="anchor" aria-label="anchor" href="#headers"><i class="fas fa-link"></i></a>
+</h5>
+<p>You can create headers in your text using <code>#</code> operator and control their size by simply adding one or more <code>#</code> in front of the text you would like to denote the header.</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Top Level Header (For example, Question 1)</span></span>
+<span></span>
+<span><span class="co">## Second Level Header (For example, Question 1 part a)</span></span>
+<span></span>
+<span><span class="co">### Third Level Header</span></span>
+<span></span>
+<span><span class="co">#### and so on</span></span></code></pre></div>
+</div>
+<div id="block-quotes" class="section level5 unnumbered">
+<h5>Block Quotes<a class="anchor" aria-label="anchor" href="#block-quotes"><i class="fas fa-link"></i></a>
+</h5>
+<p>You can create a block quote using <code>&gt;</code> operator. For example the line below</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="lecture-04.html#cb77-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-2"><a href="lecture-04.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Your first block quote</span></code></pre></div>
+<p>will produce the following result:</p>
+<blockquote>
+<p>Your first block quote</p>
+</blockquote>
+</div>
+<div id="lists-1" class="section level5 unnumbered">
+<h5>Lists<a class="anchor" aria-label="anchor" href="#lists-1"><i class="fas fa-link"></i></a>
+</h5>
+<p>In R Markdown you can create both ordered and unordered lists. To create an unordered list, use <code>*</code> operator:</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="lecture-04.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> Bullet point <span class="dv">1</span></span>
+<span id="cb78-2"><a href="lecture-04.html#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="lecture-04.html#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> Bullet point <span class="dv">2</span></span>
+<span id="cb78-4"><a href="lecture-04.html#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="lecture-04.html#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">*</span> bullet point 2a</span>
+<span id="cb78-6"><a href="lecture-04.html#cb78-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-7"><a href="lecture-04.html#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">*</span> bullet point 2b</span></code></pre></div>
+<ul>
+<li>Bullet point 1</li>
+<li>Bullet point 2
+<ul>
+<li>bullet point 2 a</li>
+<li>bullet point 2 b</li>
+</ul>
+</li>
+</ul>
+<p>To create an ordered lists, simply use numbers:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="lecture-04.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> Bullet point <span class="dv">1</span></span>
+<span id="cb79-2"><a href="lecture-04.html#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="lecture-04.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> Bullet point <span class="dv">2</span></span>
+<span id="cb79-4"><a href="lecture-04.html#cb79-4" aria-hidden="true" tabindex="-1"></a>   <span class="sc">*</span> bullet point 2a</span>
+<span id="cb79-5"><a href="lecture-04.html#cb79-5" aria-hidden="true" tabindex="-1"></a>   <span class="sc">*</span> bullet point 2b</span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li>Bullet point 1</li>
+<li>Bullet point 2
+<ul>
+<li>bullet point 2a</li>
+<li>bullet point 2b</li>
+</ul>
+</li>
+</ol>
+</div>
+<div id="tables" class="section level5 unnumbered">
+<h5>Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
+</h5>
+<p>Use the following formatting style to create tables in R Markdown:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="lecture-04.html#cb80-1" aria-hidden="true" tabindex="-1"></a>First Header  <span class="sc">|</span> Second Header</span>
+<span id="cb80-2"><a href="lecture-04.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="sc">-------------</span> <span class="er">|</span> <span class="sc">-------------</span></span>
+<span id="cb80-3"><a href="lecture-04.html#cb80-3" aria-hidden="true" tabindex="-1"></a>Content Cell  <span class="sc">|</span> Content Cell</span>
+<span id="cb80-4"><a href="lecture-04.html#cb80-4" aria-hidden="true" tabindex="-1"></a>Content Cell  <span class="sc">|</span> Content Cell</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>First Header</th>
+<th>Second Header</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr class="even">
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="links" class="section level5 unnumbered">
+<h5>Links<a class="anchor" aria-label="anchor" href="#links"><i class="fas fa-link"></i></a>
+</h5>
+<p>Use the following format to insert a link into your text:</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="lecture-04.html#cb81-1" aria-hidden="true" tabindex="-1"></a>[Your first link](http<span class="sc">:</span><span class="er">//</span>poxit.com)</span></code></pre></div>
+<p>It produces a link to the desired webpage and can be included in your text: <a href="http://poxit.com">Your first link</a></p>
+</div>
+<div id="inline-equations" class="section level5 unnumbered">
+<h5>Inline Equations<a class="anchor" aria-label="anchor" href="#inline-equations"><i class="fas fa-link"></i></a>
+</h5>
+<p>Use <code>$ $</code> operator to include equations in your text. For example, <span class="math inline">\(A = \pi*r^{2}\)</span> was typed as <code>$A = \pi*r^{2}$</code>.</p>
+</div>
+<div id="line-breaks" class="section level5 unnumbered">
+<h5>Line Breaks<a class="anchor" aria-label="anchor" href="#line-breaks"><i class="fas fa-link"></i></a>
+</h5>
+<p>In order to start a new paragraph or new line, you will need to be sure that white space exists between the two paragraphs/line:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="lecture-04.html#cb82-1" aria-hidden="true" tabindex="-1"></a>This is the first lines.</span>
+<span id="cb82-2"><a href="lecture-04.html#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-3"><a href="lecture-04.html#cb82-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-4"><a href="lecture-04.html#cb82-4" aria-hidden="true" tabindex="-1"></a>And here we have another line.</span></code></pre></div>
+<p>This is the first lines.</p>
+<p>And here we have another line.</p>
+<p>Another useful way to divide up different parts of your file is by including horizontal lines. We can achieve it by using <code>***</code> operator:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="lecture-04.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span><span class="er">*</span></span></code></pre></div>
+<p>It will produce the horizontal line below.</p>
+<hr>
+<p>Finally, if you want start a paragraph or a line on a new page, use <code>\newpage</code> command:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="lecture-04.html#cb84-1" aria-hidden="true" tabindex="-1"></a>\newpage</span></code></pre></div>
+</div>
+</div>
+<div id="r-chunks-of-code" class="section level4 unnumbered">
+<h4>R Chunks of Code<a class="anchor" aria-label="anchor" href="#r-chunks-of-code"><i class="fas fa-link"></i></a>
+</h4>
+<p>In addition to a plain text, you can also run <em>R codes</em> inside the file and include them in it along with the plain text to show what code you used to produce the results. It will be an integral and important part of your homework assignments and you will <strong>always</strong> need to include them in the HW file unless otherwise instructed.</p>
+<p>You can run and include the <em>R code</em> by manually typing the chunk deliminiters <code>```{r}</code> and <code>```</code>. It will display the code you used and the results that this code produced. For example, the following chunk will run the code specified inside of it and will produce corresponding output:</p>
+<pre><code>```{r}
+
+2 + 2
+
+``` </code></pre>
+<pre><code>#&gt; [1] 4</code></pre>
+<div id="options" class="section level5 unnumbered">
+<h5>Options<a class="anchor" aria-label="anchor" href="#options"><i class="fas fa-link"></i></a>
+</h5>
+<p>Chunk can be customized with <strong>options</strong>, that is, arguments supplied to chunk header. There are nearly 60 options that you can use to customize your code, but in this class we will discuss the most important and commonly used options:</p>
+<ul>
+<li>
+<code>eval = FALSE</code> prevents code from being evaluated. As a results, the code will not run and no results will be produced. This is useful for displaying example code.</li>
+</ul>
+<pre><code>```{r, eval = FALSE}
+2 + 2
+``` </code></pre>
+<ul>
+<li>
+<code>include = FALSE</code> runs the code, but doesn’t show the code or results in the final document.</li>
+</ul>
+<pre><code>```{r, include = FALSE}
+2 + 2
+``` </code></pre>
+<ul>
+<li>
+<code>echo = FALSE</code> prevents code, but not the results from appearing in the finished file.</li>
+</ul>
+<pre><code>```{r, echo = FALSE}
+2 + 2
+``` </code></pre>
+<ul>
+<li>
+<code>results = 'hide'</code> prevents results, but the code from appearing in the finished file.</li>
+</ul>
+<pre><code>```{r, results = 'hide'}
+2 + 2
+``` </code></pre>
+</div>
+</div>
+</div>
+<div id="generating-r-markdown-files" class="section level3 unnumbered">
+<h3>Generating R Markdown Files<a class="anchor" aria-label="anchor" href="#generating-r-markdown-files"><i class="fas fa-link"></i></a>
+</h3>
+<p>Once you are done with the text and code that you want to include in your file, you can generate R Markdown files by clicking <code>knit</code> button on the top of the editor pane. It has a drop-down menu and allows you to pick output formats. It is recommended to use <code>HTML</code> format while you are preparing the file and fixing error. It will display the file in the <code>Viewer</code> tab nicely and conveniently. When you finalize your code and text, you can generate your file by clicking <code>knit</code> button once again and selecting <code>PDF</code> output format.</p>
+<hr>
+</div>
+<div id="additional-resources" class="section level3 unnumbered">
+<h3>Additional Resources<a class="anchor" aria-label="anchor" href="#additional-resources"><i class="fas fa-link"></i></a>
+</h3>
+<p>We discussed basic and crucial parts of R Markdown files such as creating, formatting, and generating files. Of course, R Markdown allows you to do much more. Unfortunately, this is beyond the scope of this class and we don’t have enough time to cover all topics. In case you are interested in exploring this topic further, below you can find a list of useful links and resources.</p>
+<ul>
+<li><a href="https://rmarkdown.rstudio.com/">R Markdown Webpage</a></li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">R Markdown Reference Guide</a></li>
+<li><a href="https://bookdown.org/yihui/rmarkdown-cookbook/">R Markdown Cookbook</a></li>
+<li><a href="https://bookdown.org/yihui/rmarkdown/">R Markdown: The Definitive Guide</a></li>
+</ul>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-03.html">Lecture 03</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-04">Lecture 04</a></li>
+<li>
+<a class="nav-link" href="#r-markdown-files">R Markdown Files</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-r-markdown-files">Creating R Markdown Files</a></li>
+<li><a class="nav-link" href="#r-markdown-file-components">R Markdown File Components</a></li>
+<li><a class="nav-link" href="#generating-r-markdown-files">Generating R Markdown Files</a></li>
+<li><a class="nav-link" href="#additional-resources">Additional Resources</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/04-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/04-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-26.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
