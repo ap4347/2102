@@ -49,6 +49,7 @@
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
 <li><a class="active" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
 </ul>
 
         <div class="book-extra">
@@ -221,7 +222,7 @@
 <p>You can run and include the <em>R code</em> by manually typing the chunk deliminiters <code>```{r}</code> and <code>```</code>. It will display the code you used and the results that this code produced. For example, the following chunk will run the code specified inside of it and will produce corresponding output:</p>
 <pre><code>```{r}
 
-2 + 2
+print(2 + 2)
 
 ``` </code></pre>
 <pre><code>#&gt; [1] 4</code></pre>
@@ -234,28 +235,28 @@
 <code>eval = FALSE</code> prevents code from being evaluated. As a results, the code will not run and no results will be produced. This is useful for displaying example code.</li>
 </ul>
 <pre><code>```{r, eval = FALSE}
-2 + 2
+print(2 + 2)
 ``` </code></pre>
 <ul>
 <li>
 <code>include = FALSE</code> runs the code, but doesn’t show the code or results in the final document.</li>
 </ul>
 <pre><code>```{r, include = FALSE}
-2 + 2
+print(2 + 2)
 ``` </code></pre>
 <ul>
 <li>
 <code>echo = FALSE</code> prevents code, but not the results from appearing in the finished file.</li>
 </ul>
 <pre><code>```{r, echo = FALSE}
-2 + 2
+print(2 + 2)
 ``` </code></pre>
 <ul>
 <li>
 <code>results = 'hide'</code> prevents results, but the code from appearing in the finished file.</li>
 </ul>
 <pre><code>```{r, results = 'hide'}
-2 + 2
+print(2 + 2)
 ``` </code></pre>
 </div>
 </div>
@@ -281,7 +282,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-03.html">Lecture 03</a></div>
-<div class="empty"></div>
+<div class="next"><a href="lecture-05.html">Lecture 05</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -311,7 +312,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

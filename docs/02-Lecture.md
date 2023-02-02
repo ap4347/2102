@@ -32,7 +32,7 @@ As you may expect, `numeric data type` is for numerical values. To create a vari
 
 x_num <- 1
 
-x_num
+print(x_num)
 #> [1] 1
 ```
 
@@ -42,7 +42,7 @@ x_num
 
 y_num <- -2.35
 
-y_num
+print(y_num)
 #> [1] -2.35
 ```
 
@@ -72,7 +72,7 @@ An `integers data type` is a special case of the `numeric data type` and is used
 
 x_int <- as.integer(2)
 
-x_int
+print(x_int)
 #> [1] 2
 
 class(x_int)
@@ -87,7 +87,7 @@ If an input value is not an integer itself (for example, 2.85), `as.integer()` f
 
 y_int <- as.integer(2.85)
 
-y_int
+print(y_int)
 #> [1] 2
 
 class(x_int)
@@ -102,7 +102,7 @@ Another way of creating a variable of the `integer data type` is to use an integ
 
 z_int <- 4L
 
-z_int
+print(z_int)
 #> [1] 4
 
 class(z_int)
@@ -121,7 +121,7 @@ class(z_int)
 
 x_comp <- 20 + 6i
 
-x_comp
+print(x_comp)
 #> [1] 20+6i
 
 class(x_comp)
@@ -140,7 +140,7 @@ A `logical data type` stores _logical_ (also known as _boolean_) values of `TRUE
 
 x_logical <- TRUE
 
-x_logical
+print(x_logical)
 #> [1] TRUE
 
 class(x_logical)
@@ -169,7 +169,7 @@ A `character data type` stores character values or strings. Strings in R can con
 
 x_char <- "2102"
 
-x_char
+print(x_char)
 #> [1] "2102"
 
 class(x_char)
@@ -177,7 +177,7 @@ class(x_char)
 
 y_char <- "Welcome to STAT 2102!"
 
-y_char
+print(y_char)
 #> [1] "Welcome to STAT 2102!"
 
 class(y_char)
@@ -223,7 +223,7 @@ num1 <- as.numeric(x_comp)
 class(num1)
 #> [1] "numeric"
 
-num1
+print(num1)
 #> [1] 20
 
 ######################################
@@ -236,7 +236,7 @@ logical1 <- as.numeric(x_logical)
 class(logical1)
 #> [1] "numeric"
 
-logical1
+print(logical1)
 #> [1] 1
 
 ######################################
@@ -249,12 +249,12 @@ logical2 <- as.numeric(y_logical)
 class(logical2)
 #> [1] "numeric"
 
-logical2
+print(logical2)
 #> [1] 0
 
 ######################################
 
-y_char
+print(y_char)
 #> [1] "Welcome to STAT 2102!"
 
 char1 <- as.numeric(y_char)
@@ -263,12 +263,12 @@ char1 <- as.numeric(y_char)
 class(char1)
 #> [1] "numeric"
 
-char1
+print(char1)
 #> [1] NA
 
 ######################################
 
-x_char
+print(x_char)
 #> [1] "2102"
 
 char2 <- as.numeric(x_char)
@@ -276,7 +276,7 @@ char2 <- as.numeric(x_char)
 class(char2)
 #> [1] "numeric"
 
-char2
+print(char2)
 #> [1] 2102
 ```
 
@@ -294,7 +294,7 @@ To convert any other data type into logical, we can utilize `as.logical()` funct
 ```r
 
 ######################################
-y_num
+print(y_num)
 #> [1] -2.35
 
 is.logical(y_num)
@@ -305,14 +305,14 @@ logi1 <- as.logical(y_num)
 class(logi1)
 #> [1] "logical"
 
-logi1
+print(logi1)
 #> [1] TRUE
 
 
 
 ######################################
 
-y_char
+print(y_char)
 #> [1] "Welcome to STAT 2102!"
 
 logi2 <- as.logical(y_char)
@@ -320,12 +320,12 @@ logi2 <- as.logical(y_char)
 class(logi2)
 #> [1] "logical"
 
-logi2
+print(logi2)
 #> [1] NA
 
 ######################################
 
-x_char
+print(x_char)
 #> [1] "2102"
 
 logi3 <- as.logical(x_char)
@@ -333,7 +333,7 @@ logi3 <- as.logical(x_char)
 class(logi3)
 #> [1] "logical"
 
-logi3
+print(logi3)
 #> [1] NA
 ```
 
@@ -347,7 +347,7 @@ We can convert any data type into character data type using the `as.character()`
 ```r
 
 ######################################
-y_num
+print(y_num)
 #> [1] -2.35
 
 is.character(y_num)
@@ -358,12 +358,12 @@ char1 <- as.character(y_num)
 class(char1)
 #> [1] "character"
 
-char1
+print(char1)
 #> [1] "-2.35"
 
 ######################################
 
-x_comp
+print(x_comp)
 #> [1] 20+6i
 
 char2 <- as.character(x_comp)
@@ -371,7 +371,7 @@ char2 <- as.character(x_comp)
 class(char2)
 #> [1] "character"
 
-char2
+print(char2)
 #> [1] "20+6i"
 ```
 
@@ -401,12 +401,12 @@ Vector is the most basic data structure in R programming language. There are var
 
 vec1 <- c(1, 2, 3, 4, 5)
 
-vec1
+print(vec1)
 #> [1] 1 2 3 4 5
 
 vec2 <- c("fall", "winter", "spring", "summer")
 
-vec2
+print(vec2)
 #> [1] "fall"   "winter" "spring" "summer"
 ```
 
@@ -417,7 +417,7 @@ You can also use `:` operator to create a vector:
 
 vec3 <- 3:11
 
-vec3
+print(vec3)
 #> [1]  3  4  5  6  7  8  9 10 11
 ```
 
@@ -428,13 +428,13 @@ Another way is to use `seq()` function:
 
 vec4 <- seq(from = 1, to = 5, by = 0.7)
 
-vec4
+print(vec4)
 #> [1] 1.0 1.7 2.4 3.1 3.8 4.5
 
 
 vec5 <- seq(from = 1, to = 5, length.out = 8)
 
-vec5
+print(vec5)
 #> [1] 1.000000 1.571429 2.142857 2.714286 3.285714 3.857143
 #> [7] 4.428571 5.000000
 ```
@@ -447,17 +447,17 @@ We can consider one more function, `rep()`, to create a vector:
 
 vec6 <- rep(5, times = 3)
 
-vec6
+print(vec6)
 #> [1] 5 5 5
 
 vec7 <- rep(c(1,3,4), times = 2)
 
-vec7
+print(vec7)
 #> [1] 1 3 4 1 3 4
 
 vec8 <- rep(c("apple", "orange", "mango"), times = 2, each = 3)
 
-vec8
+print(vec8)
 #>  [1] "apple"  "apple"  "apple"  "orange" "orange" "orange"
 #>  [7] "mango"  "mango"  "mango"  "apple"  "apple"  "apple" 
 #> [13] "orange" "orange" "orange" "mango"  "mango"  "mango"
@@ -471,7 +471,7 @@ We can use the `length()` function to check how many elements are stored in vect
 
 ```r
 
-vec7
+print(vec7)
 #> [1] 1 3 4 1 3 4
 
 length(vec7)
@@ -490,14 +490,14 @@ In order to add new elements to an existing vector, we can utilize `c()` functio
 
 vec9 <- c(vec1, c(15, 3, 4))
 
-vec9
+print(vec9)
 #> [1]  1  2  3  4  5 15  3  4
 
 # Merging vec1 and vec3
 
 vec10 <- c(vec1, vec3)
 
-vec10
+print(vec10)
 #>  [1]  1  2  3  4  5  3  4  5  6  7  8  9 10 11
 ```
 
@@ -510,7 +510,7 @@ If you would like to insert an element(s) at the specific position(s) in the vec
 
 vec11 <- append(vec1, 55, after = 1) 
 
-vec11
+print(vec11)
 #> [1]  1 55  2  3  4  5
 ```
 
@@ -574,12 +574,12 @@ Use the assignment operator, `<-`, to assign new values to elements of the exist
 
 # Assigning a new value to the first element of vec1
 
-vec1
+print(vec1)
 #> [1] 1 2 3 4 5
 
 vec1[1] <- 100
 
-vec1
+print(vec1)
 #> [1] 100   2   3   4   5
 ```
 
@@ -593,30 +593,30 @@ The main advantage of vectors in R is that you can perform vectorized operations
 
 # Adding 1 to each element of vec1
 
-vec1 + 1 
+print(vec1 + 1)
 #> [1] 101   3   4   5   6
 
 # For each element of the vector (1:3), raising 2 to the power of its elements
 
-2^(1:3) 
+print(2^(1:3))
 #> [1] 2 4 8
 
 # Doing elementwise addition (you can do it with all arithmetic operations)
 
-c(1, 2, 3) + c(4, 5, 6)  
+print(c(1, 2, 3) + c(4, 5, 6))
 #> [1] 5 7 9
 
 # Be careful! vectors should have the same length, otherwise it will recycle
 # values of the shorter vector
 
-c(1, 2, 3) + c(4, 5, 6, 7)  
+print(c(1, 2, 3) + c(4, 5, 6, 7)) 
 #> Warning in c(1, 2, 3) + c(4, 5, 6, 7): longer object length
 #> is not a multiple of shorter object length
 #> [1] 5 7 9 8
 
 # Checking whether 2 is in vec1 using %in% function
 
-2 %in% vec1
+print(2 %in% vec1)
 #> [1] TRUE
 ```
 
@@ -635,7 +635,7 @@ The main disadvantage of vectors in R is that they can store homogeneous data on
 
 vec12 <- c(2, 3.5, "fall", 2.7)   
 
-vec12
+print(vec12)
 #> [1] "2"    "3.5"  "fall" "2.7"
 
 class(vec12)
@@ -663,7 +663,7 @@ You can create a list using `list()` function:
 
 list1 <- list(2, 3.5, "fall", 2.7)
 
-list1
+print(list1)
 #> [[1]]
 #> [1] 2
 #> 
@@ -679,7 +679,7 @@ list1
 
 list2 <- list(c(2,4,10), c("one", "two", "three"), 45)
 
-list2
+print(list2)
 #> [[1]]
 #> [1]  2  4 10
 #> 
@@ -729,7 +729,7 @@ b <- list (4, 5, 6)
 
 merged_list1 <- c(a, b) 
 
-merged_list1
+print(merged_list1)
 #> [[1]]
 #> [1] 1
 #> 
@@ -750,7 +750,7 @@ merged_list1
 
 merged_list2 <- list(a, b)  
 
-merged_list2
+print(merged_list2)
 #> [[1]]
 #> [[1]][[1]]
 #> [1] 1
@@ -798,7 +798,7 @@ Adding an element to a list:
 
 ```r
 
-list3
+print(list3)
 #> [[1]]
 #> [1] 1 2 3
 #> 
@@ -810,7 +810,7 @@ list3
 
 list3[4] <- 100   
 
-list3
+print(list3)
 #> [[1]]
 #> [1] 1 2 3
 #> 
@@ -833,7 +833,7 @@ Removing an element from a list:
 
 list3[2] <- NULL                           
 
-list3
+print(list3)
 #> [[1]]
 #> [1] 1 2 3
 #> 
@@ -855,7 +855,7 @@ Changing values of elements in a list:
 
 list3[[1]][3] <- 50                       
 
-list3
+print(list3)
 #> [[1]]
 #> [1]  1  2 50
 #> 

@@ -49,6 +49,7 @@
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
 <li><a class="" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
 </ul>
 
         <div class="book-extra">
@@ -146,10 +147,10 @@ Figure 1: RStudio Interface
 </h3>
 <p>R supports various arithmetic operations. In other words, you can use R as a simple calculator. For instance,</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fl">2</span> <span class="op">+</span> <span class="fl">3</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 5</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fl">4</span><span class="op">*</span><span class="fl">5</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="fl">3</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fl">4</span><span class="op">*</span><span class="fl">5</span> <span class="op">-</span> <span class="fl">2</span><span class="op">/</span><span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 19.33333</span></span></code></pre></div>
 <p>The following table shows the basic arithmetic operators supported by R language:</p>
 <div class="inline-table"><table class="table table-sm">
@@ -223,21 +224,21 @@ Figure 1: RStudio Interface
 <p>In order to create a variable in R, you can use <code>&lt;-</code> assignment symbol. For example, let’s create a variable <code>x</code> and give it a value of <code>4</code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
-<span><span class="va">x</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
 <p>Let’s create another variable <code>y</code>, which is equal to 10:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
-<span><span class="va">y</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 10</span></span></code></pre></div>
 <p>Once we create these variables, they will be stored in the global environment and will be available to use for further operations. Now R knows that <code>x = 4</code> and <code>y = 10</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 14</span></span></code></pre></div>
 <p>Note, R is case sensitive. What does that mean? This means that for R <code>x</code> and <code>X</code> are different objects. So, now if we call <code>X</code> variable, R will throw an error and will tell you that such an object does exist in the global environment:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">X</span></span>
-<span><span class="co">#&gt; Error in eval(expr, envir, enclos): object 'X' not found</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in print(X): object 'X' not found</span></span></code></pre></div>
 </div>
 </div>
 <div id="working-with-the-global-environment" class="section level2 unnumbered">
@@ -340,7 +341,7 @@ Figure 1: RStudio Interface
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

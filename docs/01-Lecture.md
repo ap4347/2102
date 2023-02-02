@@ -102,14 +102,14 @@ R supports various arithmetic operations. In other words, you can use R as a sim
 
 
 ```r
-2 + 3
+print(2 + 3)
 #> [1] 5
 ```
 
 
 
 ```r
-4*5 - 2/3
+print(4*5 - 2/3)
 #> [1] 19.33333
 ```
 
@@ -139,7 +139,7 @@ In order to create a variable in R, you can use `<-` assignment symbol. For exam
 
 ```r
 x <- 4
-x
+print(x)
 #> [1] 4
 ```
 
@@ -148,7 +148,7 @@ Let's create another variable `y`, which is equal to 10:
 
 ```r
 y <- 10
-y
+print(y)
 #> [1] 10
 ```
 
@@ -156,7 +156,7 @@ Once we create these variables, they will be stored in the global environment an
 
 
 ```r
-x + y
+print(x + y)
 #> [1] 14
 ```
 
@@ -165,8 +165,8 @@ Note, R is case sensitive. What does that mean? This means that for R `x` and `X
 
 
 ```r
-X
-#> Error in eval(expr, envir, enclos): object 'X' not found
+print(X)
+#> Error in print(X): object 'X' not found
 ```
 
 

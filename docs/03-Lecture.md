@@ -33,7 +33,7 @@ let's create a matrix containing `c(1:12)` elements:
 
 matrix_1 <- matrix(c(1:12), nrow = 4, byrow = TRUE)
 
-matrix_1
+print(matrix_1)
 #>      [,1] [,2] [,3]
 #> [1,]    1    2    3
 #> [2,]    4    5    6
@@ -45,7 +45,7 @@ matrix_1
 
 matrix_2 <- matrix(c(1:12), nrow = 4, byrow = FALSE)
 
-matrix_2
+print(matrix_2)
 #>      [,1] [,2] [,3]
 #> [1,]    1    5    9
 #> [2,]    2    6   10
@@ -57,7 +57,7 @@ matrix_2
 
 matrix_3 <- matrix(c(1:12), ncol = 4, byrow = TRUE)
 
-matrix_3
+print(matrix_3)
 #>      [,1] [,2] [,3] [,4]
 #> [1,]    1    2    3    4
 #> [2,]    5    6    7    8
@@ -72,7 +72,7 @@ cols <- c("col1", "col2", "col3")
 
 matrix_4 <- matrix(c(1:12), nrow = 4, byrow = TRUE, dimnames = list(rows, cols))
 
-matrix_4
+print(matrix_4)
 #>      col1 col2 col3
 #> row1    1    2    3
 #> row2    4    5    6
@@ -125,7 +125,7 @@ Use `cbind()` function to add additional columns into a matrix:
 
 ```r
 
-matrix_1
+print(matrix_1)
 #>      [,1] [,2] [,3]
 #> [1,]    1    2    3
 #> [2,]    4    5    6
@@ -134,7 +134,7 @@ matrix_1
 
 matrix_5 <- cbind(matrix_1, c(10, 20, 30, 40))
 
-matrix_5
+print(matrix_5)
 #>      [,1] [,2] [,3] [,4]
 #> [1,]    1    2    3   10
 #> [2,]    4    5    6   20
@@ -148,7 +148,7 @@ Use `rbind()` function to add additional rows into a matrix:
 
 ```r
 
-matrix_1
+print(matrix_1)
 #>      [,1] [,2] [,3]
 #> [1,]    1    2    3
 #> [2,]    4    5    6
@@ -157,7 +157,7 @@ matrix_1
 
 matrix_6 <- rbind(matrix_1, c(10, 20, 30))
 
-matrix_6
+print(matrix_6)
 #>      [,1] [,2] [,3]
 #> [1,]    1    2    3
 #> [2,]    4    5    6
@@ -174,7 +174,7 @@ Use `c()` function to remove rows and columns from a matrix:
 
 # Removing the 1st and 2nd rows and 1st column from a matrix
 
-matrix_1
+print(matrix_1)
 #>      [,1] [,2] [,3]
 #> [1,]    1    2    3
 #> [2,]    4    5    6
@@ -183,7 +183,7 @@ matrix_1
 
 matrix_7 <- matrix_1[c(-1, -2), c(-1)]
 
-matrix_7
+print(matrix_7)
 #>      [,1] [,2]
 #> [1,]    8    9
 #> [2,]   11   12
@@ -197,7 +197,7 @@ matrix_7
 
 # Assigning a single value
 
-matrix_1
+print(matrix_1)
 #>      [,1] [,2] [,3]
 #> [1,]    1    2    3
 #> [2,]    4    5    6
@@ -206,7 +206,7 @@ matrix_1
 
 matrix_1[1, 1] <- 100
 
-matrix_1
+print(matrix_1)
 #>      [,1] [,2] [,3]
 #> [1,]  100    2    3
 #> [2,]    4    5    6
@@ -217,7 +217,7 @@ matrix_1
 
 matrix_1[2, ] <- c(11, 22, 33)
 
-matrix_1
+print(matrix_1)
 #>      [,1] [,2] [,3]
 #> [1,]  100    2    3
 #> [2,]   11   22   33
@@ -228,7 +228,7 @@ matrix_1
 
 matrix_1[matrix_1 == 8] <- 0
 
-matrix_1
+print(matrix_1)
 #>      [,1] [,2] [,3]
 #> [1,]  100    2    3
 #> [2,]   11   22   33
@@ -244,7 +244,7 @@ matrix_1
 
 matrix_8 <- matrix(1:8, nrow = 4, byrow = T)
 
-matrix_8
+print(matrix_8)
 #>      [,1] [,2]
 #> [1,]    1    2
 #> [2,]    3    4
@@ -253,7 +253,7 @@ matrix_8
 
 matrix_9 <- matrix(1:8, nrow = 4, byrow = T)
 
-matrix_9
+print(matrix_9)
 #>      [,1] [,2]
 #> [1,]    1    2
 #> [2,]    3    4
@@ -262,7 +262,7 @@ matrix_9
 
 # Elementwise Addition
 
-matrix_8 + matrix_9
+print(matrix_8 + matrix_9)
 #>      [,1] [,2]
 #> [1,]    2    4
 #> [2,]    6    8
@@ -271,7 +271,7 @@ matrix_8 + matrix_9
 
 # Elementwise Subtraction
 
-matrix_8 - matrix_9
+print(matrix_8 - matrix_9)
 #>      [,1] [,2]
 #> [1,]    0    0
 #> [2,]    0    0
@@ -280,7 +280,7 @@ matrix_8 - matrix_9
 
 # Elementwise Multiplication
 
-matrix_8 * matrix_9
+print(matrix_8 * matrix_9)
 #>      [,1] [,2]
 #> [1,]    1    4
 #> [2,]    9   16
@@ -289,7 +289,7 @@ matrix_8 * matrix_9
 
 # Elementwise Division
 
-matrix_8 / matrix_9
+print(matrix_8 / matrix_9)
 #>      [,1] [,2]
 #> [1,]    1    1
 #> [2,]    1    1
@@ -298,7 +298,7 @@ matrix_8 / matrix_9
 
 # Multiplication by Constant
 
-2 * matrix_8
+print(2 * matrix_8)
 #>      [,1] [,2]
 #> [1,]    2    4
 #> [2,]    6    8
@@ -309,12 +309,12 @@ matrix_8 / matrix_9
 
 matrix_10 <- matrix(1:8, nrow = 2, byrow = T)
 
-matrix_10
+print(matrix_10)
 #>      [,1] [,2] [,3] [,4]
 #> [1,]    1    2    3    4
 #> [2,]    5    6    7    8
 
-matrix_8 %*% matrix_10
+print(matrix_8 %*% matrix_10)
 #>      [,1] [,2] [,3] [,4]
 #> [1,]   11   14   17   20
 #> [2,]   23   30   37   44
@@ -323,7 +323,7 @@ matrix_8 %*% matrix_10
 
 # Matrix Transpose
 
-t(matrix_8)
+print(t(matrix_8))
 #>      [,1] [,2] [,3] [,4]
 #> [1,]    1    3    5    7
 #> [2,]    2    4    6    8
@@ -337,7 +337,7 @@ Use `dim()` function to check matrix dimensions:
 
 ```r
 
-matrix_1
+print(matrix_1)
 #>      [,1] [,2] [,3]
 #> [1,]  100    2    3
 #> [2,]   11   22   33
@@ -384,7 +384,7 @@ Salary <- c(30000, 96500, 72000, 54300, 25000, 61000, 74700, 40000, 83000, 92400
 
 df <- data.frame(Name, Age, State, Salary)
 
-df
+print(df)
 #>        Name Age      State Salary
 #> 1     James  22 California  30000
 #> 2     Linda  56   New York  96500
@@ -475,7 +475,7 @@ colnames(df)
 
 colnames(df)[1] <- "NAME"
 
-df
+print(df)
 #>        NAME Age      State Salary
 #> 1     James  22 California  30000
 #> 2     Linda  56   New York  96500
@@ -490,7 +490,7 @@ df
 
 colnames(df) <- c("NAME", "AGE", "STATE", "SALARY")
 
-df
+print(df)
 #>        NAME AGE      STATE SALARY
 #> 1     James  22 California  30000
 #> 2     Linda  56   New York  96500
@@ -636,7 +636,7 @@ Like in matrices, we can use `<-` operator to assign values:
 
 df[1, 4] <- 100000
 
-df
+print(df)
 #>        NAME AGE      STATE SALARY
 #> 1     James  22 California 100000
 #> 2     Linda  56   New York  96500
@@ -662,7 +662,7 @@ df
 
 df$EXPERIENCE = c(2, 30, 10, 22, 1, 12, 40, 55, 15, 22)
 
-df
+print(df)
 #>        NAME AGE      STATE SALARY EXPERIENCE
 #> 1     James  22 California 100000          2
 #> 2     Linda  56   New York  96500         30
@@ -681,7 +681,7 @@ Sex <- c("Male", "Female", "Female", "Female", "Male", "Female", "Male", "Female
 
 df_2 <- cbind(df, Sex)
 
-df_2
+print(df_2)
 #>        NAME AGE      STATE SALARY EXPERIENCE    Sex
 #> 1     James  22 California 100000          2   Male
 #> 2     Linda  56   New York  96500         30 Female
@@ -700,7 +700,7 @@ new_obs <- data.frame(NAME = "Jack", AGE = 41, STATE = "Texas", SALARY = 150000,
 
 df_3 <- rbind(df, new_obs)
 
-df_3
+print(df_3)
 #>        NAME AGE      STATE SALARY EXPERIENCE
 #> 1     James  22 California 100000          2
 #> 2     Linda  56   New York  96500         30
@@ -718,7 +718,7 @@ df_3
 
 df_4 <- df_3[, -4]
 
-df_4
+print(df_4)
 #>        NAME AGE      STATE EXPERIENCE
 #> 1     James  22 California          2
 #> 2     Linda  56   New York         30
@@ -736,7 +736,7 @@ df_4
 
 df_3[c("AGE", "SALARY")] <- NULL
 
-df_3
+print(df_3)
 #>        NAME      STATE EXPERIENCE
 #> 1     James California          2
 #> 2     Linda   New York         30
@@ -859,7 +859,7 @@ Use `factor()` function in R to create a factor:
 
 vec1 <- c("YES", "NO", "YES", "YES", "YES", "NO", "NO", "YES")
 
-vec1
+print(vec1)
 #> [1] "YES" "NO"  "YES" "YES" "YES" "NO"  "NO"  "YES"
 
 is.factor(vec1)
@@ -867,7 +867,7 @@ is.factor(vec1)
 
 fac1 <- factor(vec1)
 
-fac1
+print(fac1)
 #> [1] YES NO  YES YES YES NO  NO  YES
 #> Levels: NO YES
 
@@ -882,7 +882,7 @@ vec2 <- c("Jazz", "Rock", "Classic", "Pop", "Classic", "Jazz", "Jazz", "Rock")
 
 fac2 <- factor(vec2)
 
-fac2
+print(fac2)
 #> [1] Jazz    Rock    Classic Pop     Classic Jazz    Jazz   
 #> [8] Rock   
 #> Levels: Classic Jazz Pop Rock
@@ -895,7 +895,7 @@ vec3 <- c(1, 2, 3, 2, 2, 3, 1, 3, 2, 3, 1, 1)
 
 fac3 <- factor(vec3)
 
-fac3
+print(fac3)
 #>  [1] 1 2 3 2 2 3 1 3 2 3 1 1
 #> Levels: 1 2 3
 ```
@@ -907,7 +907,7 @@ To create an ordered factor, use `order` argument inside a `factor()` function:
 
 fac4 <- factor(vec3, ordered = TRUE)
 
-fac4
+print(fac4)
 #>  [1] 1 2 3 2 2 3 1 3 2 3 1 1
 #> Levels: 1 < 2 < 3
 ```
@@ -919,7 +919,7 @@ You can convert a numeric variable into a factor by dividing it into intervals (
 
 age_factored <- cut(df_4$AGE, 3)
 
-age_factored
+print(age_factored)
 #>  [1] (18.9,36.7] (54.3,72.1] (18.9,36.7] (36.7,54.3]
 #>  [5] (18.9,36.7] (18.9,36.7] (54.3,72.1] (54.3,72.1]
 #>  [9] (36.7,54.3] (36.7,54.3] (36.7,54.3]
@@ -933,7 +933,7 @@ You can even add labels for these groups:
 
 age_factored <- cut(df_4$AGE, 3, labels = c("Group1", "Group2", "Group3"))
 
-age_factored
+print(age_factored)
 #>  [1] Group1 Group3 Group1 Group2 Group1 Group1 Group3 Group3
 #>  [9] Group2 Group2 Group2
 #> Levels: Group1 Group2 Group3
@@ -970,7 +970,7 @@ vec2 <- c("Jazz", "Rock", "Classic", "Pop", "Classic", "Jazz", "Jazz", "Rock")
 
 fac5 <- factor(vec2, levels = c("Classic", "Jazz", "Pop", "Rock", "Other"))
 
-fac5
+print(fac5)
 #> [1] Jazz    Rock    Classic Pop     Classic Jazz    Jazz   
 #> [8] Rock   
 #> Levels: Classic Jazz Pop Rock Other
@@ -983,13 +983,13 @@ You can change the order of levels by passing the `level` argument to a `factor`
 ```r
 
 
-fac3
+print(fac3)
 #>  [1] 1 2 3 2 2 3 1 3 2 3 1 1
 #> Levels: 1 2 3
 
 fac6 <- factor(vec3, levels = c(3, 1, 2))
 
-fac6
+print(fac6)
 #>  [1] 1 2 3 2 2 3 1 3 2 3 1 1
 #> Levels: 3 1 2
 ```
@@ -1007,14 +1007,14 @@ You can assign a new value to factor elements using the assignment sign `<-`:
 
 ```r
 
-fac2
+print(fac2)
 #> [1] Jazz    Rock    Classic Pop     Classic Jazz    Jazz   
 #> [8] Rock   
 #> Levels: Classic Jazz Pop Rock
 
 fac2[1] <- "Classic"
 
-fac2
+print(fac2)
 #> [1] Classic Rock    Classic Pop     Classic Jazz    Jazz   
 #> [8] Rock   
 #> Levels: Classic Jazz Pop Rock
@@ -1026,7 +1026,7 @@ But what happens when  you assign a new value that  is not already specified in 
 
 ```r
 
-fac2
+print(fac2)
 #> [1] Classic Rock    Classic Pop     Classic Jazz    Jazz   
 #> [8] Rock   
 #> Levels: Classic Jazz Pop Rock
@@ -1035,7 +1035,7 @@ fac2[1] <- "Opera"
 #> Warning in `[<-.factor`(`*tmp*`, 1, value = "Opera"):
 #> invalid factor level, NA generated
 
-fac2
+print(fac2)
 #> [1] <NA>    Rock    Classic Pop     Classic Jazz    Jazz   
 #> [8] Rock   
 #> Levels: Classic Jazz Pop Rock
@@ -1050,7 +1050,7 @@ fac7 <- factor(fac2, levels = c("Classic", "Jazz", "Pop", "Rock", "Other", "Oper
 
 fac7[1] <- "Opera"
 
-fac7
+print(fac7)
 #> [1] Opera   Rock    Classic Pop     Classic Jazz    Jazz   
 #> [8] Rock   
 #> Levels: Classic Jazz Pop Rock Other Opera
@@ -1066,7 +1066,7 @@ We can generate factor levels by using the `gl()` function. It takes two integer
 
 fac8 <- gl(4, 5, labels = c("Fall", "Winter", "Spring", "Summer"))
 
-fac8
+print(fac8)
 #>  [1] Fall   Fall   Fall   Fall   Fall   Winter Winter Winter
 #>  [9] Winter Winter Spring Spring Spring Spring Spring Summer
 #> [17] Summer Summer Summer Summer
@@ -1105,7 +1105,7 @@ vec3 <- c(0, 1, 2, 2, 1, 0, 2, 1, 0)
 
 fac9 <- as.factor(vec3)
 
-fac9
+print(fac9)
 #> [1] 0 1 2 2 1 0 2 1 0
 #> Levels: 0 1 2
 

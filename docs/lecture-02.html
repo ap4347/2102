@@ -49,6 +49,7 @@
 <li><a class="active" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
 <li><a class="" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
 </ul>
 
         <div class="book-extra">
@@ -81,13 +82,13 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">x_num</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span></span>
-<span><span class="va">x_num</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x_num</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">y_num</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">2.35</span></span>
 <span></span>
-<span><span class="va">y_num</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -2.35</span></span></code></pre></div>
 <p>Use <code><a href="https://rdrr.io/r/base/class.html">class()</a></code> function to find out what the type of any variable is.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -106,7 +107,7 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">x_int</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">x_int</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x_int</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_int</span><span class="op">)</span></span>
@@ -116,7 +117,7 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">y_int</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fl">2.85</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">y_int</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">y_int</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_int</span><span class="op">)</span></span>
@@ -126,7 +127,7 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">z_int</span> <span class="op">&lt;-</span> <span class="fl">4L</span></span>
 <span></span>
-<span><span class="va">z_int</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">z_int</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 4</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">z_int</span><span class="op">)</span></span>
@@ -140,7 +141,7 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">x_comp</span> <span class="op">&lt;-</span> <span class="fl">20</span> <span class="op">+</span> <span class="fl">6i</span></span>
 <span></span>
-<span><span class="va">x_comp</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x_comp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 20+6i</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_comp</span><span class="op">)</span></span>
@@ -154,7 +155,7 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">x_logical</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
 <span></span>
-<span><span class="va">x_logical</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x_logical</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_logical</span><span class="op">)</span></span>
@@ -178,7 +179,7 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">x_char</span> <span class="op">&lt;-</span> <span class="st">"2102"</span></span>
 <span></span>
-<span><span class="va">x_char</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2102"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
@@ -186,7 +187,7 @@
 <span></span>
 <span><span class="va">y_char</span> <span class="op">&lt;-</span> <span class="st">"Welcome to STAT 2102!"</span></span>
 <span></span>
-<span><span class="va">y_char</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Welcome to STAT 2102!"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
@@ -223,7 +224,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">num1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "numeric"</span></span>
 <span></span>
-<span><span class="va">num1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">num1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 20</span></span>
 <span></span>
 <span><span class="co">######################################</span></span>
@@ -236,7 +237,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logical1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "numeric"</span></span>
 <span></span>
-<span><span class="va">logical1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">logical1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span></span>
 <span><span class="co">######################################</span></span>
@@ -249,12 +250,12 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logical2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "numeric"</span></span>
 <span></span>
-<span><span class="va">logical2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">logical2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0</span></span>
 <span></span>
 <span><span class="co">######################################</span></span>
 <span></span>
-<span><span class="va">y_char</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Welcome to STAT 2102!"</span></span>
 <span></span>
 <span><span class="va">char1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
@@ -263,12 +264,12 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">char1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "numeric"</span></span>
 <span></span>
-<span><span class="va">char1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">char1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] NA</span></span>
 <span></span>
 <span><span class="co">######################################</span></span>
 <span></span>
-<span><span class="va">x_char</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2102"</span></span>
 <span></span>
 <span><span class="va">char2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
@@ -276,7 +277,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">char2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "numeric"</span></span>
 <span></span>
-<span><span class="va">char2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">char2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2102</span></span></code></pre></div>
 </div>
 <div id="converting-into-integer-data-type" class="section level4 unnumbered">
@@ -291,7 +292,7 @@
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">######################################</span></span>
-<span><span class="va">y_num</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -2.35</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">is.logical</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
@@ -302,14 +303,14 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logi1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "logical"</span></span>
 <span></span>
-<span><span class="va">logi1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">logi1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
 <span></span>
 <span></span>
 <span></span>
 <span><span class="co">######################################</span></span>
 <span></span>
-<span><span class="va">y_char</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Welcome to STAT 2102!"</span></span>
 <span></span>
 <span><span class="va">logi2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
@@ -317,12 +318,12 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logi2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "logical"</span></span>
 <span></span>
-<span><span class="va">logi2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">logi2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] NA</span></span>
 <span></span>
 <span><span class="co">######################################</span></span>
 <span></span>
-<span><span class="va">x_char</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2102"</span></span>
 <span></span>
 <span><span class="va">logi3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
@@ -330,7 +331,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">logi3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "logical"</span></span>
 <span></span>
-<span><span class="va">logi3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">logi3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] NA</span></span></code></pre></div>
 </div>
 <div id="converting-into-character-data-type" class="section level4 unnumbered">
@@ -340,7 +341,7 @@
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">######################################</span></span>
-<span><span class="va">y_num</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] -2.35</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">y_num</span><span class="op">)</span></span>
@@ -351,12 +352,12 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">char1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "character"</span></span>
 <span></span>
-<span><span class="va">char1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">char1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "-2.35"</span></span>
 <span></span>
 <span><span class="co">######################################</span></span>
 <span></span>
-<span><span class="va">x_comp</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x_comp</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 20+6i</span></span>
 <span></span>
 <span><span class="va">char2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">x_comp</span><span class="op">)</span></span>
@@ -364,7 +365,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">char2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "character"</span></span>
 <span></span>
-<span><span class="va">char2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">char2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "20+6i"</span></span></code></pre></div>
 </div>
 </div>
@@ -392,32 +393,32 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">vec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vec1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1 2 3 4 5</span></span>
 <span></span>
 <span><span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"fall"</span>, <span class="st">"winter"</span>, <span class="st">"spring"</span>, <span class="st">"summer"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vec2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "fall"   "winter" "spring" "summer"</span></span></code></pre></div>
 <p>You can also use <code>:</code> operator to create a vector:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">vec3</span> <span class="op">&lt;-</span> <span class="fl">3</span><span class="op">:</span><span class="fl">11</span></span>
 <span></span>
-<span><span class="va">vec3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  3  4  5  6  7  8  9 10 11</span></span></code></pre></div>
 <p>Another way is to use <code><a href="https://rdrr.io/r/base/seq.html">seq()</a></code> function:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">vec4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">5</span>, by <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vec4</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec4</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.0 1.7 2.4 3.1 3.8 4.5</span></span>
 <span></span>
 <span></span>
 <span><span class="va">vec5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">5</span>, length.out <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vec5</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1.000000 1.571429 2.142857 2.714286 3.285714 3.857143</span></span>
 <span><span class="co">#&gt; [7] 4.428571 5.000000</span></span></code></pre></div>
 <p>We can consider one more function, <code><a href="https://rdrr.io/r/base/rep.html">rep()</a></code>, to create a vector:</p>
@@ -425,17 +426,17 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">vec6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">5</span>, times <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vec6</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec6</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 5 5 5</span></span>
 <span></span>
 <span><span class="va">vec7</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vec7</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec7</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1 3 4 1 3 4</span></span>
 <span></span>
 <span><span class="va">vec8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"orange"</span>, <span class="st">"mango"</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">2</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vec8</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec8</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "apple"  "apple"  "apple"  "orange" "orange" "orange"</span></span>
 <span><span class="co">#&gt;  [7] "mango"  "mango"  "mango"  "apple"  "apple"  "apple" </span></span>
 <span><span class="co">#&gt; [13] "orange" "orange" "orange" "mango"  "mango"  "mango"</span></span></code></pre></div>
@@ -446,7 +447,7 @@
 <p>We can use the <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> function to check how many elements are stored in vectors:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">vec7</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec7</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1 3 4 1 3 4</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">vec7</span><span class="op">)</span></span>
@@ -462,14 +463,14 @@
 <span></span>
 <span><span class="va">vec9</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">vec1</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vec9</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec9</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  1  2  3  4  5 15  3  4</span></span>
 <span></span>
 <span><span class="co"># Merging vec1 and vec3</span></span>
 <span></span>
 <span><span class="va">vec10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">vec1</span>, <span class="va">vec3</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">vec10</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  1  2  3  4  5  3  4  5  6  7  8  9 10 11</span></span></code></pre></div>
 <p>If you would like to insert an element(s) at the specific position(s) in the vector, use <code><a href="https://rdrr.io/r/base/append.html">append()</a></code> function:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
@@ -478,7 +479,7 @@
 <span></span>
 <span><span class="va">vec11</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/append.html">append</a></span><span class="op">(</span><span class="va">vec1</span>, <span class="fl">55</span>, after <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">vec11</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec11</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  1 55  2  3  4  5</span></span></code></pre></div>
 </div>
 <div id="subsettingindexing-vectors" class="section level4 unnumbered">
@@ -535,12 +536,12 @@
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Assigning a new value to the first element of vec1</span></span>
 <span></span>
-<span><span class="va">vec1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 1 2 3 4 5</span></span>
 <span></span>
 <span><span class="va">vec1</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">100</span></span>
 <span></span>
-<span><span class="va">vec1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 100   2   3   4   5</span></span></code></pre></div>
 </div>
 <div id="vectorization" class="section level4 unnumbered">
@@ -551,30 +552,30 @@
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Adding 1 to each element of vec1</span></span>
 <span></span>
-<span><span class="va">vec1</span> <span class="op">+</span> <span class="fl">1</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec1</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 101   3   4   5   6</span></span>
 <span></span>
 <span><span class="co"># For each element of the vector (1:3), raising 2 to the power of its elements</span></span>
 <span></span>
-<span><span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2 4 8</span></span>
 <span></span>
 <span><span class="co"># Doing elementwise addition (you can do it with all arithmetic operations)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span>  </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 5 7 9</span></span>
 <span></span>
 <span><span class="co"># Be careful! vectors should have the same length, otherwise it will recycle</span></span>
 <span><span class="co"># values of the shorter vector</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span>  </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; Warning in c(1, 2, 3) + c(4, 5, 6, 7): longer object length</span></span>
 <span><span class="co">#&gt; is not a multiple of shorter object length</span></span>
 <span><span class="co">#&gt; [1] 5 7 9 8</span></span>
 <span></span>
 <span><span class="co"># Checking whether 2 is in vec1 using %in% function</span></span>
 <span></span>
-<span><span class="fl">2</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">vec1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fl">2</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">vec1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
 <div id="vectors-are-homogeneous" class="section level4 unnumbered">
@@ -588,7 +589,7 @@
 <span></span>
 <span><span class="va">vec12</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3.5</span>, <span class="st">"fall"</span>, <span class="fl">2.7</span><span class="op">)</span>   </span>
 <span></span>
-<span><span class="va">vec12</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">vec12</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "2"    "3.5"  "fall" "2.7"</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">vec12</span><span class="op">)</span></span>
@@ -609,7 +610,7 @@
 <code class="sourceCode R"><span></span>
 <span><span class="va">list1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3.5</span>, <span class="st">"fall"</span>, <span class="fl">2.7</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">list1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">list1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 2</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -625,7 +626,7 @@
 <span></span>
 <span><span class="va">list2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span>,<span class="fl">10</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"one"</span>, <span class="st">"two"</span>, <span class="st">"three"</span><span class="op">)</span>, <span class="fl">45</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">list2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">list2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1]  2  4 10</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -668,7 +669,7 @@
 <span></span>
 <span><span class="va">merged_list1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">merged_list1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">merged_list1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -689,7 +690,7 @@
 <span></span>
 <span><span class="va">merged_list2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span><span class="op">)</span>  </span>
 <span></span>
-<span><span class="va">merged_list2</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">merged_list2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [[1]][[1]]</span></span>
 <span><span class="co">#&gt; [1] 1</span></span>
@@ -729,7 +730,7 @@
 <p>Adding an element to a list:</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">list3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">list3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 1 2 3</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -741,7 +742,7 @@
 <span></span>
 <span><span class="va">list3</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">100</span>   </span>
 <span></span>
-<span><span class="va">list3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">list3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 1 2 3</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -760,7 +761,7 @@
 <span></span>
 <span><span class="va">list3</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>                           </span>
 <span></span>
-<span><span class="va">list3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">list3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1] 1 2 3</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -776,7 +777,7 @@
 <span></span>
 <span><span class="va">list3</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">50</span>                       </span>
 <span></span>
-<span><span class="va">list3</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">list3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
 <span><span class="co">#&gt; [1]  1  2 50</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -830,7 +831,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

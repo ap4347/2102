@@ -215,7 +215,7 @@ You can run and include the _R code_ by manually typing the chunk deliminiters `
 
 <pre><code>```{r}
 
-2 + 2
+print(2 + 2)
 
 ``` </code></pre>
 
@@ -234,25 +234,25 @@ Chunk can be customized with **options**, that is, arguments supplied to chunk h
 
 
 <pre><code>```{r, eval = FALSE}
-2 + 2
+print(2 + 2)
 ``` </code></pre>
 * `include = FALSE` runs the code, but doesn't show the code or results in the final document.
 
 <pre><code>```{r, include = FALSE}
-2 + 2
+print(2 + 2)
 ``` </code></pre>
 
 * `echo = FALSE` prevents code, but not the results from appearing in the finished file.
 
 
 <pre><code>```{r, echo = FALSE}
-2 + 2
+print(2 + 2)
 ``` </code></pre>
 * `results = 'hide'` prevents results, but the code from appearing in the finished file.
 
 
 <pre><code>```{r, results = 'hide'}
-2 + 2
+print(2 + 2)
 ``` </code></pre>
 
 
