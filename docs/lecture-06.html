@@ -43,7 +43,15 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="" href="index.html">Lecture 06</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="" href="lecture-03.html">Lecture 03</a></li>
+<li><a class="" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
+<li><a class="active" href="lecture-06.html">Lecture 06</a></li>
+</ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
@@ -58,41 +66,311 @@
 <h2>Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
 </h2>
 <p>Now, it’s time to discuss one of the most essential concepts of R programming, that is, <code>R functions</code>. Writing functions is a core activity of an R programmer. Functions are often used to encapsulate a sequence of expressions that need to be executed numerous times, perhaps under slightly different conditions. In other words, functions allow us to automate common tasks in a more powerful and general way than simply copy-and-pasting. They are also often written when code must be shared with others or the public.</p>
-<p>You should consider writing a function whenever you’ve copied and pasted a block of code more than twice. In this class, we will learn how to create a customized functions and will discuss essential tools that <code>R functions</code> are equipped with.</p>
+<p>You should consider writing a function whenever you’ve copied and pasted a block of code more than twice. In this class, we will learn how to create a customized (user-defined) functions and will discuss essential tools that <code>R functions</code> are equipped with.</p>
 <div id="creating-a-function" class="section level3 unnumbered">
 <h3>Creating a Function<a class="anchor" aria-label="anchor" href="#creating-a-function"><i class="fas fa-link"></i></a>
 </h3>
 <p>A function is a set of statements organized together to perform a specific task. R has a large number of in-built functions and the user can create their own functions. In R, a function is an object so the R interpreter is able to pass control to the function, along with arguments that may be necessary for the function to accomplish the actions.</p>
 <p>An <code>R function</code> is created by using the <code>function()</code> function (Yeah, too many functions). The basic syntax of an R function is as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="lecture-06.html#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-2"><a href="lecture-06.html#cb1-2" aria-hidden="true" tabindex="-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg_1, arg_2, ...) {</span>
-<span id="cb1-3"><a href="lecture-06.html#cb1-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-4"><a href="lecture-06.html#cb1-4" aria-hidden="true" tabindex="-1"></a>   Function body </span>
-<span id="cb1-5"><a href="lecture-06.html#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="lecture-06.html#cb121-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-2"><a href="lecture-06.html#cb121-2" aria-hidden="true" tabindex="-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg_1, arg_2, ...) {</span>
+<span id="cb121-3"><a href="lecture-06.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb121-4"><a href="lecture-06.html#cb121-4" aria-hidden="true" tabindex="-1"></a>   Function body </span>
+<span id="cb121-5"><a href="lecture-06.html#cb121-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>The main components of an R function are:</p>
 <ul>
 <li>
 <code>Function Name</code> - this is the name of your function. It is stored in R environment as an object under this name.</li>
 <li>
-<code>Arguments</code> - an argument is a placeholder. When a function is invoked, you pass a value to the argument. Arguments are optional; that is, a function may contain no arguments. Also arguments can have default values. In this example, arguments are <code>arg_1</code>, ’arg_2` etc.</li>
+<code>Arguments</code> - an argument is a placeholder. When a function is invoked, you pass a value to the argument. Arguments are optional; that is, a function may contain no arguments. Also arguments can have default values. In this example, arguments are <code>arg_1</code>, <code>arg_2</code> etc.</li>
 <li>
 <code>Function Body</code> − the function body contains a collection of statements that defines what the function does.</li>
 <li>
 <code>Return Value</code> − the return value of a function is the last expression in the function body to be evaluated.</li>
 </ul>
+<p>Here is an example of a simple function that prints <code>"Hello class 2102!"</code>:</p>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">first_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">"Hello class 2102!"</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>To call a function , use the function name followed by parenthesis:</p>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">first_function</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "Hello class 2102!"</span></span></code></pre></div>
+<p>Here is another example of a simple function:</p>
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">new_function</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span>    </span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">new_function</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; [1] 4</span></span>
+<span><span class="co">#&gt; [1] 9</span></span>
+<span><span class="co">#&gt; [1] 16</span></span>
+<span><span class="co">#&gt; [1] 25</span></span></code></pre></div>
+<p>To check the collection of statements that a function contains, use the function name without parenthesis:</p>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">new_function</span></span>
+<span><span class="co">#&gt; function(){</span></span>
+<span><span class="co">#&gt;   </span></span>
+<span><span class="co">#&gt;   for(i in 1:5) {</span></span>
+<span><span class="co">#&gt;     </span></span>
+<span><span class="co">#&gt;     print(i^2)</span></span>
+<span><span class="co">#&gt;     </span></span>
+<span><span class="co">#&gt;   }</span></span>
+<span><span class="co">#&gt;   </span></span>
+<span><span class="co">#&gt; }</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x0000016075dba590&gt;</span></span></code></pre></div>
+</div>
+<div id="function-arguments" class="section level3 unnumbered">
+<h3>Function Arguments<a class="anchor" aria-label="anchor" href="#function-arguments"><i class="fas fa-link"></i></a>
+</h3>
+<p>Information can be passed into functions as arguments. Arguments are specified after the function name, inside the parentheses. You can add as many arguments as you want, just separate them with a comma. Here is an example of a function with a single argument:</p>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fun_1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_1</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 25</span></span></code></pre></div>
+<p>Now let’s create a function with two arguments:</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fun_2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">y</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_2</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">5</span>, y <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -2</span></span></code></pre></div>
+<div id="argument-matching" class="section level4 unnumbered">
+<h4>Argument Matching<a class="anchor" aria-label="anchor" href="#argument-matching"><i class="fas fa-link"></i></a>
+</h4>
+<p>Calling an R function with arguments can be done in a variety of ways. This may be confusing at first, but it’s really handing when doing interactive work at the command line. R functions arguments can be matched by name or by position.</p>
+<p>When matched by position, R assigns the first value to the first argument, the second value to second argument and so on. For example, <code>fun_2(5, 7)</code> means R will assign <code>5</code> to the <code>x</code> argument and <code>7</code> to the <code>y</code>.</p>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_2</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -2</span></span></code></pre></div>
+<p>Now try it other way around:</p>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_2</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 2</span></span></code></pre></div>
+<p>When specifying the function arguments by name, it doesn’t matter in what order you specify them:</p>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_2</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">5</span>, y <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -2</span></span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_2</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">7</span>, x <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -2</span></span></code></pre></div>
+</div>
+<div id="number-of-arguments" class="section level4 unnumbered">
+<h4>Number of Arguments<a class="anchor" aria-label="anchor" href="#number-of-arguments"><i class="fas fa-link"></i></a>
+</h4>
+<p>By default, a function must be called with the correct number of arguments. Meaning that if your function expects 2 arguments, you have to call the function with 2 arguments, not more, and not less. Try these examples out and see what you get:</p>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_2</span><span class="op">(</span><span class="fl">7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in fun_2(7): argument "y" is missing, with no default</span></span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_2</span><span class="op">(</span><span class="fl">7</span>, <span class="fl">5</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in fun_2(7, 5, 3): unused argument (3)</span></span></code></pre></div>
+</div>
+<div id="arguments-with-default-values" class="section level4 unnumbered">
+<h4>Arguments with Default Values<a class="anchor" aria-label="anchor" href="#arguments-with-default-values"><i class="fas fa-link"></i></a>
+</h4>
+<p>You can assign default values to arguments in a function. If you call the function without an argument, it uses the default value:</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fun_3</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span> <span class="op">=</span> <span class="fl">2</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span> <span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="va">y</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_3</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -2</span></span></code></pre></div>
+<p>But you can still pass new values to arguments with default settings:</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_3</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">10</span>, y <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 7</span></span></code></pre></div>
+<hr>
+<p>R objects with various data structures can be passed to a function as arguments. For instance, we pass vectors <code>vec1</code> and <code>vec2</code> to the function <code>fun_4</code>:</p>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">vec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">vec2</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span></span>
+<span></span>
+<span><span class="va">fun_4</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_4</span><span class="op">(</span>x <span class="op">=</span> <span class="va">vec1</span>, y <span class="op">=</span> <span class="va">vec2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  2  4  6  8 10</span></span></code></pre></div>
+</div>
+</div>
+<div id="lazy-evaluation" class="section level3 unnumbered">
+<h3>Lazy Evaluation<a class="anchor" aria-label="anchor" href="#lazy-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Arguments to functions are evaluated <strong>lazily</strong>, so they are evaluated only as needed in the body of the function. For example, the function <code>fun_5</code> has two arguments, but it uses only one of them (argument <code>x</code>).</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fun_5</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>So calling <code>fun_5(x = 5)</code> will not produce an error, because the missing argument <code>y</code> is not used inside the body of the function.</p>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_5</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 5</span></span></code></pre></div>
+<p>But if we omit argument <code>x</code> while calling the function <code>fun_5</code>, it will produce an error, because the body of the function uses <code>x</code> argument to produce the output:</p>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_5</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in fun_5(y = 3): argument "x" is missing, with no default</span></span></code></pre></div>
+</div>
+<div id="function-environments-and-global-variables" class="section level3 unnumbered">
+<h3>Function Environments and Global Variables<a class="anchor" aria-label="anchor" href="#function-environments-and-global-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>When R tries to bind a value to a symbol, it searches through a series of <strong>environments</strong> to find the appropriate value. An environment is a collection of (symbol, value) pairs, i.e. <code>x</code> is a symbol and <code>3.14</code> might be its value. In this class, we will consider two environments: <strong>Global Environment</strong> and <strong>Functional Environment</strong>.</p>
+<p>The <em>global environment</em> or the user’s workspace stores all R objects that you create while working in R. In contrast to global environment, the <em>functional environment</em> contains all objects that are created inside of a function.</p>
+<p>When you call an R function, it first searches for objects in the function’s environment and then in the global environment. For instance, compare the functions given below. What would be the output in each case?</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">5</span>                        <span class="co"># this variable exists in the global environment</span></span>
+<span></span>
+<span><span class="va">fun_6</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">a</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">fun_6</span><span class="op">(</span>x  <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 7</span></span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">5</span>                        <span class="co"># this variable exists in the global environment</span></span>
+<span></span>
+<span><span class="va">fun_7</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">10</span>                    <span class="co"># this variable exists in the environment of fun_7</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">a</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">fun_7</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 12</span></span></code></pre></div>
+<p>In another example given below, a variable <code>b</code> exists in the environment of <code>func_8</code> only. So, if you try to print out <code>b</code> object separately, R will throw an error, because such an object does not exist in the global environment:</p>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fun_8</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">10</span>                   <span class="co"># this variable exists in the environment of fun_8</span></span>
+<span>  </span>
+<span>  <span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">20</span>                   <span class="co"># this variable exists in the environment of fun_8</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in print(b): object 'b' not found</span></span></code></pre></div>
+<p>Now, if you want to create an object inside of a function that will be accessibly in global environment as well, then you should use <code>&lt;&lt;-</code> operator:</p>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fun_8</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">10</span>                   <span class="co"># this variable exists in the environment of fun_8</span></span>
+<span>  </span>
+<span>  <span class="va">b</span> <span class="op">&lt;&lt;-</span> <span class="fl">20</span>                   <span class="co"># this variable will exist in both global </span></span>
+<span>                             <span class="co"># and functional environments</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="nested-function" class="section level3 unnumbered">
+<h3>Nested Function<a class="anchor" aria-label="anchor" href="#nested-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>Like <code>for</code> loops, we can produce <strong>nested functions</strong> by putting one function into another. Here is an example of a nested function:</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fun_10</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">func_11</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span><span class="op">)</span></span>
+<span>    </span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fl">2</span><span class="op">*</span><span class="fu">func_11</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu">fun_10</span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 10</span></span></code></pre></div>
+
 </div>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="empty"></div>
+<div class="prev"><a href="lecture-05.html">Lecture 05</a></div>
 <div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-06">Lecture 06</a></li>
+<li>
+<a class="nav-link" href="#functions">Functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-a-function">Creating a Function</a></li>
+<li><a class="nav-link" href="#function-arguments">Function Arguments</a></li>
+<li><a class="nav-link" href="#lazy-evaluation">Lazy Evaluation</a></li>
+<li><a class="nav-link" href="#function-environments-and-global-variables">Function Environments and Global Variables</a></li>
+<li><a class="nav-link" href="#nested-function">Nested Function</a></li>
+</ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/06-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/06-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -104,7 +382,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-01-30.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -112,6 +390,34 @@
   </div>
 
 </div></div>
-</footer>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
 </body>
 </html>
