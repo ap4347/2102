@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 07 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="  Importing/Exporting Data into/from R  Importing Data into R Working with small examples given in the class is a good way to learn basic functionalities of R, but at some point you want to stop...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 07 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-07.html">
+<meta property="og:description" content="  Importing/Exporting Data into/from R  Importing Data into R Working with small examples given in the class is a good way to learn basic functionalities of R, but at some point you want to stop...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 07 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="  Importing/Exporting Data into/from R  Importing Data into R Working with small examples given in the class is a good way to learn basic functionalities of R, but at some point you want to stop...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="" href="lecture-03.html">Lecture 03</a></li>
+<li><a class="" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
+<li><a class="" href="lecture-06.html">Lecture 06</a></li>
+<li><a class="active" href="lecture-07.html">Lecture 07</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-07" class="section level1 unnumbered">
+<h1>Lecture 07<a class="anchor" aria-label="anchor" href="#lecture-07"><i class="fas fa-link"></i></a>
+</h1>
+<p> </p>
+<div id="importingexporting-data-intofrom-r" class="section level2 unnumbered">
+<h2>Importing/Exporting Data into/from R<a class="anchor" aria-label="anchor" href="#importingexporting-data-intofrom-r"><i class="fas fa-link"></i></a>
+</h2>
+<div id="importing-data-into-r" class="section level3 unnumbered">
+<h3>Importing Data into R<a class="anchor" aria-label="anchor" href="#importing-data-into-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>Working with small examples given in the class is a good way to learn basic functionalities of R, but at some point you want to stop learning and start working with your own data. In this class, we will learn how to import your data (<strong>reading data</strong>) into R and how to save your data (<strong>writing data</strong>) in your computer after you are done with it.</p>
+<p>In R, we can read data from files stored outside the R environment. We can also write data into files which will be stored and accessed by the operating system. R can read and write into various file formats like <em>csv</em>, <em>excel</em>, <em>txt</em> etc. We will be working mostly with tabular data (data given in rows and columns). There are many function that you can use to import data into R, but we will consider the following two functions: <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> and <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>.</p>
+<div id="read.table" class="section level4 unnumbered">
+<h4>read.table()<a class="anchor" aria-label="anchor" href="#read.table"><i class="fas fa-link"></i></a>
+</h4>
+<p>One of the most commonly used functions for importing data into R is the <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> function (we discuss some alternatives later in the class). The <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> function is a very flexible function with a shed load of arguments, but it’s quite simple to use. The <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> function has a few important arguments:</p>
+<ul>
+<li>
+<code>file</code> - the name of file, or a connection</li>
+<li>
+<code>header</code> - logical indicating if the file has a header line (it is used to specify column names of a data frame)</li>
+<li>
+<code>sep</code> - a string indicating how the columns are separated (for example, <code>""</code>, <code>","</code>, <code>"\t"</code>, <code>"/"</code>)</li>
+<li>
+<code>stringAsFactors</code> - logical indicating whether character variables should be coded as factors.</li>
+</ul>
+<p>Now let’s import a data set <code>lung_capacity.txt</code> available on Courseworks (download it to your computer). In order to import this data into R, we need the following information: a path to this file (its location in your computer), whether it has column names (our data does have column names, so we will pass <code>TRUE</code> to the <code>header</code> argument, <code>header = TRUE</code>), and column separation method (columns of this data were created by separating them with white space, so we will use <code>sep = ""</code>):</p>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"C:/Users/alexp/OneDrive/Desktop/lung_capacity.txt"</span>, header <span class="op">=</span> <span class="cn">T</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+<p>Now your data is imported into R and available in the global environment. To view it, use <code><a href="https://rdrr.io/r/utils/View.html">View()</a></code> function:</p>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/View.html">View</a></span><span class="op">(</span><span class="va">data1</span><span class="op">)</span></span></code></pre></div>
+<p>If your data is stored in your working directory, then you can simply pass the name your file without specifying the exact path to it. To see where your working directory is located, use <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> function:</p>
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "C:/Users/alexp/OneDrive/Desktop/2102/2102"</span></span></code></pre></div>
+<p>If you want to change the location of your working directory, do it by passing a path to this location to the <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> function:</p>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">setwd</a></span><span class="op">(</span><span class="st">"C:/Users/alexp/OneDrive/Desktop"</span><span class="op">)</span></span></code></pre></div>
+<p>Now the working directory is my desktop. So any file stored on my desktop can be imported into R by passing just their name to the <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> function:</p>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"lung_capacity.txt"</span>, header <span class="op">=</span> <span class="cn">T</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="read.csv" class="section level4 unnumbered">
+<h4>read.csv()<a class="anchor" aria-label="anchor" href="#read.csv"><i class="fas fa-link"></i></a>
+</h4>
+<p>The file that you are trying to import into R can be comma-delimited (columns are separated with comma). Normally, these files have the <code>.csv</code> file extensions. This is a common file extension and statisticians use it frequently, so R has a separate function that allows you to import such files. This function is called <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code>:</p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"C:/Users/alexp/OneDrive/Desktop/lung_capacity_2.csv"</span>, header <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<p>As you can see, you are no longer required to specify <code>sep</code> argument as R already knows that this is comma-delimited file. Thus, there two ways of importing <code>.csv</code> files into R: 1) using <code><a href="https://rdrr.io/r/utils/read.table.html">read.table()</a></code> function with <code>sep = ","</code> 2) using <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> function directly.</p>
+<p>It is up to you which method you will choose.</p>
+</div>
+</div>
+<div id="exporting-data-from-r" class="section level3 unnumbered">
+<h3>Exporting Data from R<a class="anchor" aria-label="anchor" href="#exporting-data-from-r"><i class="fas fa-link"></i></a>
+</h3>
+<div id="write.table" class="section level4 unnumbered">
+<h4>write.table()<a class="anchor" aria-label="anchor" href="#write.table"><i class="fas fa-link"></i></a>
+</h4>
+<p>After manipulating your data in R (for example, adding or removing columns/row, modifying existing columns, and so on), you might want to save the modified data in your computer. You can do so using <code><a href="https://rdrr.io/r/utils/write.table.html">write.table()</a></code> function, which has the following arguments:</p>
+<ul>
+<li>
+<code>x</code> - name of an object that you are trying to save</li>
+<li>
+<code>file</code> - name and extension of a file under which your data will be stored in your computer</li>
+<li>
+<code>col.names</code> - logical indicating if the file should contain column names (almost always you would want to assign <code>TRUE</code> to this argument)</li>
+<li>
+<code>row.names</code> - logical indicating if the file should contain row index (almost always you would want to assign <code>FALSE</code> to this argument)</li>
+<li>
+<code>sep</code> - a string indicating how the columns are separated (for example, <code>""</code>, <code>","</code>, <code>"\t"</code>, <code>"/"</code>)</li>
+</ul>
+<p>For instance, let’s save the <code>data2</code> data set in your computer under <code>new_data</code> name:</p>
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span><span class="op">(</span><span class="va">data2</span>, file <span class="op">=</span> <span class="st">"new_data.csv"</span>, col.names <span class="op">=</span> <span class="cn">TRUE</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span>, sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="write.csv" class="section level4 unnumbered">
+<h4>write.csv()<a class="anchor" aria-label="anchor" href="#write.csv"><i class="fas fa-link"></i></a>
+</h4>
+<p>Like <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> function, you can use <code><a href="https://rdrr.io/r/utils/write.table.html">write.csv()</a></code> function to save your data with <code>csv</code> extension (comma-delimited file):</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">data2</span>, file <span class="op">=</span> <span class="st">"new_data_2.csv"</span>, row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p>Now, you don’t need to specify <code>sep</code> argument as R already knows what type of file it should create.</p>
+<hr>
+<p> </p>
+</div>
+</div>
+</div>
+<div id="basic-statistics-built-in-functions" class="section level2 unnumbered">
+<h2>Basic Statistics Built-in Functions<a class="anchor" aria-label="anchor" href="#basic-statistics-built-in-functions"><i class="fas fa-link"></i></a>
+</h2>
+<p>R has built-in functions for a large number of <code>summary statistics</code>. In this class, we will consider summary statistics for numerical/quantitative variables. Let’s use the <code>Age</code> variable from the <code>data1</code> data set that we’ve already imported into R.</p>
+<div id="summary" class="section level3 unnumbered">
+<h3>Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function provides basic summary statistics for numerical data:</p>
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
+<span><span class="co">#&gt;    3.00    9.00   13.00   12.33   15.00   19.00</span></span></code></pre></div>
+</div>
+<div id="central-tendency" class="section level3 unnumbered">
+<h3>Central Tendency<a class="anchor" aria-label="anchor" href="#central-tendency"><i class="fas fa-link"></i></a>
+</h3>
+<div id="mean" class="section level4 unnumbered">
+<h4>Mean<a class="anchor" aria-label="anchor" href="#mean"><i class="fas fa-link"></i></a>
+</h4>
+<p>As the name suggests, <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function computes a mean value of numerical data:</p>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 12.3269</span></span></code></pre></div>
+<p>Type <code>?mean()</code> in the console to see what other arguments <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code> function has.</p>
+</div>
+<div id="median" class="section level4 unnumbered">
+<h4>Median<a class="anchor" aria-label="anchor" href="#median"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://rdrr.io/r/stats/median.html">median()</a></code> function computes a median of a numerical variable:</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 13</span></span></code></pre></div>
+</div>
+</div>
+<div id="spread" class="section level3 unnumbered">
+<h3>Spread<a class="anchor" aria-label="anchor" href="#spread"><i class="fas fa-link"></i></a>
+</h3>
+<div id="variance" class="section level4 unnumbered">
+<h4>Variance<a class="anchor" aria-label="anchor" href="#variance"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://rdrr.io/r/stats/cor.html">var()</a></code> function computes a variance of a numerical variable:</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 16.03802</span></span></code></pre></div>
+</div>
+<div id="standard-deviation" class="section level4 unnumbered">
+<h4>Standard Deviation<a class="anchor" aria-label="anchor" href="#standard-deviation"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code> function computes a standard deviation of a numerical variable:</p>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 4.00475</span></span></code></pre></div>
+<p>Another way of computing a standard deviation is taking a square root of the variance:</p>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 4.00475</span></span></code></pre></div>
+</div>
+<div id="quantiles" class="section level4 unnumbered">
+<h4>Quantiles<a class="anchor" aria-label="anchor" href="#quantiles"><i class="fas fa-link"></i></a>
+</h4>
+<p>You can use <code><a href="https://rdrr.io/r/stats/quantile.html">quantile()</a></code> function to calculate quantiles (a.k.a quartiles, a.k.a percentiles) of a numerical variable. By default, it gives you basic quantiles:</p>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   0%  25%  50%  75% 100% </span></span>
+<span><span class="co">#&gt;    3    9   13   15   19</span></span></code></pre></div>
+<p>But you can make <code><a href="https://rdrr.io/r/stats/quantile.html">quantile()</a></code> function compute specific quantiles. For examples, let’s compute 0.30 and 0.80 quantiles (that is, 30-th and 80-th percentiles):</p>
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 30% 80% </span></span>
+<span><span class="co">#&gt;  10  16</span></span></code></pre></div>
+<div id="inverse-quantiles" class="section level5 unnumbered">
+<h5>Inverse Quantiles<a class="anchor" aria-label="anchor" href="#inverse-quantiles"><i class="fas fa-link"></i></a>
+</h5>
+<p>Suppose given an observation <code>x</code> from your data, you want to know its corresponding quantile. That is, you want to know what fraction of the data is less than <code>x</code>. For example, let’s find what is the corresponding quantile for 11 in the <code>Age</code> variable:</p>
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span> <span class="op">&lt;</span> <span class="fl">11</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3213793</span></span></code></pre></div>
+<p>The expression <code>data1$Age &lt; 11</code> compares every element of the <code>Age</code> variable against <code>11</code> and returns a vector of logical values, where the <em>n</em>-th logical value is <code>TRUE</code> if <code>data1$Age[n] &lt; 11</code>. The mean function converts those logical values to <code>0</code> and <code>1</code>: <code>0</code> for <code>FALSE</code> and <code>1</code> for <code>TRUE</code>. The average of all those <code>1</code>s and <code>0</code>s is the fraction of the <code>Age</code> variable that is less than <code>11</code>, or the inverse quantile of <code>11</code>.</p>
+</div>
+</div>
+<div id="iqr-inter-quartile-range" class="section level4 unnumbered">
+<h4>IQR (Inter-Quartile Range)<a class="anchor" aria-label="anchor" href="#iqr-inter-quartile-range"><i class="fas fa-link"></i></a>
+</h4>
+<p>IQR is the difference between Q3 (third quartile, 75-th percentile) and Q1 (first quartile, 25-th percentile):</p>
+<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/IQR.html">IQR</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 6</span></span></code></pre></div>
+<p>Another way of computing IQR is using <code><a href="https://rdrr.io/r/stats/quantile.html">quantile()</a></code> functions:</p>
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span>, <span class="fl">0.75</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span>, <span class="fl">0.25</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 75% </span></span>
+<span><span class="co">#&gt;   6</span></span></code></pre></div>
+</div>
+<div id="minimum" class="section level4 unnumbered">
+<h4>Minimum<a class="anchor" aria-label="anchor" href="#minimum"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> function calculates a minimum value of a numerical variable:</p>
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3</span></span></code></pre></div>
+<div id="which.min" class="section level5 unnumbered">
+<h5>which.min()<a class="anchor" aria-label="anchor" href="#which.min"><i class="fas fa-link"></i></a>
+</h5>
+<p>You can use <code><a href="https://rdrr.io/r/base/which.min.html">which.min()</a></code> function to find the index position of the minimum value in the variable:</p>
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.min</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 114</span></span></code></pre></div>
+</div>
+</div>
+<div id="maximum" class="section level4 unnumbered">
+<h4>Maximum<a class="anchor" aria-label="anchor" href="#maximum"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> function calculates a maximum value of a numerical variable:</p>
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 19</span></span></code></pre></div>
+<div id="which.max" class="section level5 unnumbered">
+<h5>which.max()<a class="anchor" aria-label="anchor" href="#which.max"><i class="fas fa-link"></i></a>
+</h5>
+<p>You can use <code><a href="https://rdrr.io/r/base/which.min.html">which.max()</a></code> function to find the index position of the maximum value in the variable:</p>
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 11</span></span></code></pre></div>
+</div>
+</div>
+<div id="range" class="section level4 unnumbered">
+<h4>Range<a class="anchor" aria-label="anchor" href="#range"><i class="fas fa-link"></i></a>
+</h4>
+<p>Another way of calculating a maximum and a minimum of a numerical variable is using <code><a href="https://rdrr.io/r/base/range.html">range()</a></code> function.</p>
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  3 19</span></span></code></pre></div>
+<p>By definition, <em>range</em> is the difference between the maximum and minimum values of a numerical variable. To compute this quantity, we can utilize <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> and <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> functions:</p>
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 16</span></span></code></pre></div>
+</div>
+<div id="summation" class="section level4 unnumbered">
+<h4>Summation<a class="anchor" aria-label="anchor" href="#summation"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> function adds up the elements of a numerical variable:</p>
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 8937</span></span></code></pre></div>
+<p>Let’s use <code><a href="https://rdrr.io/r/base/sum.html">sum()</a></code> and <code><a href="https://rdrr.io/r/base/length.html">length()</a></code> functions to compute the mean value:</p>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">data1</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 12.3269</span></span></code></pre></div>
+<div id="cumulative-summation" class="section level5 unnumbered">
+<h5>Cumulative Summation<a class="anchor" aria-label="anchor" href="#cumulative-summation"><i class="fas fa-link"></i></a>
+</h5>
+<p><code><a href="https://rdrr.io/r/base/cumsum.html">cumsum()</a></code> function produces a vector containing the cumulative sum of the input vector (that is, it adds the values up sequentially displaying the results after each addition). For simplicity, let’s use the following vector:</p>
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  2  4  3  5 10</span></span></code></pre></div>
+<p>So the cumulative summation of the vector <code>x</code> would be:</p>
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  2  6  9 14 24</span></span></code></pre></div>
+<hr>
+<p> </p>
+</div>
+</div>
+</div>
+</div>
+<div id="functional-programming-apply-family-of-functions" class="section level2 unnumbered">
+<h2>Functional Programming: apply() Family of Functions<a class="anchor" aria-label="anchor" href="#functional-programming-apply-family-of-functions"><i class="fas fa-link"></i></a>
+</h2>
+<p>Writing <code>for</code> and <code>while</code> loops is useful when programming but not particularly easy when working interactively on the command line. Multi-line expressions with curly braces are just not that easy to sort through when working on the command line.</p>
+<p>Moreover, <code>for</code> loops have a bad reputation in R because many people believe they are slow, but the real downside of <code>for</code> loops is that they’re not very flexible: a loop conveys that you’re iterating, but not what should be done with the results.</p>
+<p>Fortunately, R has built-in functions that overcome aforementioned challenges. They implement looping in a compact form to make your life easier. In this class, we will consider several such functions that can be combined into a family of function called <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> family of function.</p>
+<p><code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> functions use functional programming, which implies using functions as arguments for other functions (yeah, too many functions). Let’s start with basic ones:</p>
+<div id="apply-function" class="section level3 unnumbered">
+<h3>apply() Function<a class="anchor" aria-label="anchor" href="#apply-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> function enables applying a function to the rows or columns of a matrix or data frame. Depending on what function you specify when using the apply function, you will get back either a vector or a matrix. The general structure of the <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> function is as follows:</p>
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">MARGIN</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>
+<code>X</code> - is the object you pass to this function (either a matrix or data frame)</li>
+<li>
+<code>MARGIN</code> - this argument uses values <code>1</code> or <code>2</code>, where <code>1</code> is for rows and <code>2</code> is for columns.</li>
+<li>
+<code>FUN</code> - is a function or command that you want to apply to either rows or columns</li>
+<li>
+<code>...</code> - you can add additional instructions if they are appropriate to the command/function you are applying</li>
+</ul>
+<p>For example, let’s create a matrix with <code>5x4</code> dimensions:</p>
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">matrix1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, nrow <span class="op">=</span> <span class="fl">5</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">matrix1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      [,1] [,2] [,3] [,4]</span></span>
+<span><span class="co">#&gt; [1,]    1    2    3    4</span></span>
+<span><span class="co">#&gt; [2,]    5    6    7    8</span></span>
+<span><span class="co">#&gt; [3,]    9   10   11   12</span></span>
+<span><span class="co">#&gt; [4,]   13   14   15   16</span></span>
+<span><span class="co">#&gt; [5,]   17   18   19   20</span></span></code></pre></div>
+<p>Now, suppose you want to calculate the mean value of each column in this matrix. You can do so using the <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> function:</p>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">matrix1</span>, <span class="fl">2</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  9 10 11 12</span></span></code></pre></div>
+<p>We can do the same thing row-wise:</p>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">matrix1</span>, <span class="fl">1</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  2.5  6.5 10.5 14.5 18.5</span></span></code></pre></div>
+<p>We can even pass a user-defined function. For example, first let’s create a function that calculates a range:</p>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">function_1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">range</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Now, let’s apply this function to columns of the <code>matrix1</code>:</p>
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">matrix1</span>, <span class="fl">2</span>, <span class="va">function_1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 16 16 16 16</span></span></code></pre></div>
+</div>
+<div id="lapply-function" class="section level3 unnumbered">
+<h3>lapply() Function<a class="anchor" aria-label="anchor" href="#lapply-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>If you use <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> function with lists, it will throw an error. Suppose we have a list:</p>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">list1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span>, <span class="fl">10</span><span class="op">)</span>, <span class="fl">24</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">list1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1]  1  4 10</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 24</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4 5</span></span></code></pre></div>
+<p>And now we want to calculate the length of each element in <code>list1</code>. If you use <code><a href="https://rdrr.io/r/base/apply.html">apply()</a></code> function, it will cause an error:</p>
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">list1</span>, <span class="fl">2</span>, <span class="va">length</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in apply(list1, 2, length): dim(X) must have a positive length</span></span></code></pre></div>
+<p>Instead use <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function:</p>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">list1</span>, <span class="va">length</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 5</span></span></code></pre></div>
+</div>
+<div id="sapply-function" class="section level3 unnumbered">
+<h3>sapply() Function<a class="anchor" aria-label="anchor" href="#sapply-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>As you noticed, the previous command returned a list. If you want your output to be a vector, use <code><a href="https://rdrr.io/r/base/lapply.html">sapply()</a></code> function:</p>
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span><span class="op">(</span><span class="va">list1</span>, <span class="va">length</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3 1 5</span></span></code></pre></div>
+</div>
+<div id="mapply-function" class="section level3 unnumbered">
+<h3>mapply() Function<a class="anchor" aria-label="anchor" href="#mapply-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code><a href="https://rdrr.io/r/base/mapply.html">mapply()</a></code> function is a multivariate <code>apply() function</code> which applies a function in parallel over a set of arguments. It is used to iterate over multiple R objects in parallel. The <code><a href="https://rdrr.io/r/base/mapply.html">mapply()</a></code> function has a different argument order from <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> because the function to apply comes first rather than the object to iterate over. For example, you want to create the following list:</p>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 1 1 1 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 2 2 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 3 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
+<p>Instead, you can use <code><a href="https://rdrr.io/r/base/mapply.html">mapply()</a></code> function as follows:</p>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mapply.html">mapply</a></span><span class="op">(</span><span class="va">rep</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">4</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] 1 1 1 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; [1] 2 2 2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[3]]</span></span>
+<span><span class="co">#&gt; [1] 3 3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[4]]</span></span>
+<span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-06.html">Lecture 06</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-07">Lecture 07</a></li>
+<li>
+<a class="nav-link" href="#importingexporting-data-intofrom-r">Importing/Exporting Data into/from R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#importing-data-into-r">Importing Data into R</a></li>
+<li><a class="nav-link" href="#exporting-data-from-r">Exporting Data from R</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#basic-statistics-built-in-functions">Basic Statistics Built-in Functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#summary">Summary</a></li>
+<li><a class="nav-link" href="#central-tendency">Central Tendency</a></li>
+<li><a class="nav-link" href="#spread">Spread</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#functional-programming-apply-family-of-functions">Functional Programming: apply() Family of Functions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#apply-function">apply() Function</a></li>
+<li><a class="nav-link" href="#lapply-function">lapply() Function</a></li>
+<li><a class="nav-link" href="#sapply-function">sapply() Function</a></li>
+<li><a class="nav-link" href="#mapply-function">mapply() Function</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/07-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/07-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-07.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
