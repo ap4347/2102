@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 08 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="  Last lecture we learned how to utilize apply family of functions that implements looping over a matrix, data frame, or list in a compact form. But what if you want to apply a function over...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 08 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-08.html">
+<meta property="og:description" content="  Last lecture we learned how to utilize apply family of functions that implements looping over a matrix, data frame, or list in a compact form. But what if you want to apply a function over...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 08 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="  Last lecture we learned how to utilize apply family of functions that implements looping over a matrix, data frame, or list in a compact form. But what if you want to apply a function over...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="" href="lecture-03.html">Lecture 03</a></li>
+<li><a class="" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
+<li><a class="" href="lecture-06.html">Lecture 06</a></li>
+<li><a class="" href="lecture-07.html">Lecture 07</a></li>
+<li><a class="active" href="lecture-08.html">Lecture 08</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-08" class="section level1 unnumbered">
+<h1>Lecture 08<a class="anchor" aria-label="anchor" href="#lecture-08"><i class="fas fa-link"></i></a>
+</h1>
+<p> </p>
+<p>Last lecture we learned how to utilize <code>apply</code> family of functions that implements looping over a matrix, data frame, or list in a compact form. But what if you want to apply a function over subsets of a vector? Or what if you want to split a vector into subsets, compute summary statistics for each subset and return the result in a group by form?</p>
+<p>If that’s what you are trying to do, then you will find the <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code> and <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code> functions very useful. They will come in handy when you start analyzing your own data. Now, let’s see how these functions work.</p>
+<p>We will be using the same data set as before (<strong>Lung Capacity</strong> data set), which is available on Courseworks.</p>
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"C:/Users/alexp/OneDrive/Desktop/lung_capacity.txt"</span>, header <span class="op">=</span> <span class="cn">T</span>, sep <span class="op">=</span> <span class="st">""</span>, stringsAsFactors <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>Notice, we added one more argument <code>stringsAsFactors = TRUE</code>. It converts all character vectors in the data frame into factors.</p>
+<div id="tapply-function" class="section level2 unnumbered">
+<h2>tapply() Function<a class="anchor" aria-label="anchor" href="#tapply-function"><i class="fas fa-link"></i></a>
+</h2>
+<p><code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code> function is another member of the <code>apply</code> family of functions. <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code> is used to apply a function over subsets of a vector. It allows you to create group summaries based on factor levels of another variables. The arguments to <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code> function are as follows:</p>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">INDEX</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>
+<code>X</code> - is an input vector</li>
+<li>
+<code>INDEX</code> - is a factor variable (or a list of factor variables)</li>
+<li>
+<code>FUN</code> - is a function to be applied</li>
+<li>
+<code>...</code> - other arguments</li>
+</ul>
+<p>Now, suppose you want to calculate the mean value of <code>Age</code> for male and female patients separately. You can do it by passing <code>Age</code> and <code>Sex</code> variables along with the <code>mean</code> function to <code>tappy()</code>:</p>
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>, <span class="va">data</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   FEMALE     MALE </span></span>
+<span><span class="co">#&gt; 12.44972 12.20708</span></span></code></pre></div>
+<p>You can pass a user-defined function as well. First, let’s create a <code>function_1</code> that returns mean and median values of a vector:</p>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">function_1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>Mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, Median <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Now, let’s pass it to <code><a href="https://rdrr.io/r/base/tapply.html">tapply()</a></code> function:</p>
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>, <span class="va">data</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">function_1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; $FEMALE</span></span>
+<span><span class="co">#&gt;     Mean   Median </span></span>
+<span><span class="co">#&gt; 12.44972 13.00000 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; $MALE</span></span>
+<span><span class="co">#&gt;     Mean   Median </span></span>
+<span><span class="co">#&gt; 12.20708 12.00000</span></span></code></pre></div>
+<p>We can have even more complex scenarios with two or more factor variables. In that case, factor variables should be put in a list:</p>
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">data</span><span class="op">$</span><span class="va">Smoke</span><span class="op">)</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="co">#&gt;              NO      YES</span></span>
+<span><span class="co">#&gt; FEMALE 12.12739 14.75000</span></span>
+<span><span class="co">#&gt; MALE   11.94910 14.81818</span></span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/tapply.html">tapply</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">data</span><span class="op">$</span><span class="va">Smoke</span>, <span class="va">data</span><span class="op">$</span><span class="va">Status</span><span class="op">)</span>, <span class="va">mean</span><span class="op">)</span></span>
+<span><span class="co">#&gt; , , HEALTHY</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;              NO      YES</span></span>
+<span><span class="co">#&gt; FEMALE 11.89326 15.00000</span></span>
+<span><span class="co">#&gt; MALE   12.13408 14.69231</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; , , STAGE_1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;              NO      YES</span></span>
+<span><span class="co">#&gt; FEMALE 12.23529 13.87500</span></span>
+<span><span class="co">#&gt; MALE   11.69231 15.33333</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; , , STAGE_2</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;              NO YES</span></span>
+<span><span class="co">#&gt; FEMALE 12.54545  14</span></span>
+<span><span class="co">#&gt; MALE   11.72093  NA</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; , , STAGE_3</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;              NO      YES</span></span>
+<span><span class="co">#&gt; FEMALE 13.16667 15.33333</span></span>
+<span><span class="co">#&gt; MALE   11.95238 15.00000</span></span></code></pre></div>
+</div>
+<div id="aggregate-function" class="section level2 unnumbered">
+<h2>aggregate() Function<a class="anchor" aria-label="anchor" href="#aggregate-function"><i class="fas fa-link"></i></a>
+</h2>
+<p>Another way of splitting vectors into subsets and computing summary statistics for each subset is using <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code> function. It is useful in performing all the aggregate operations like sum, count, mean, median, and so on. The arguments to <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code> function are as follows:</p>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">by</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>
+<code>X</code> - is an input object</li>
+<li>
+<code>by</code> - is a list of grouping elements, by which the subsets are grouped by</li>
+<li>
+<code>FUN</code> - is a function to be applied</li>
+<li>
+<code>...</code> - other arguments</li>
+</ul>
+<p>Here are some examples:</p>
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Smoke</span><span class="op">)</span>, <span class="va">median</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Group.1    x</span></span>
+<span><span class="co">#&gt; 1      NO 7.90</span></span>
+<span><span class="co">#&gt; 2     YES 8.65</span></span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Smoke</span>, <span class="va">data</span><span class="op">$</span><span class="va">Sex</span><span class="op">)</span>, <span class="va">median</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Group.1 Group.2      x</span></span>
+<span><span class="co">#&gt; 1      NO  FEMALE 7.6000</span></span>
+<span><span class="co">#&gt; 2     YES  FEMALE 8.1625</span></span>
+<span><span class="co">#&gt; 3      NO    MALE 8.2125</span></span>
+<span><span class="co">#&gt; 4     YES    MALE 9.3500</span></span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Smoke</span>, <span class="va">data</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">data</span><span class="op">$</span><span class="va">Status</span><span class="op">)</span>, <span class="va">median</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Group.1 Group.2 Group.3       x</span></span>
+<span><span class="co">#&gt; 1       NO  FEMALE HEALTHY  7.4375</span></span>
+<span><span class="co">#&gt; 2      YES  FEMALE HEALTHY  8.2375</span></span>
+<span><span class="co">#&gt; 3       NO    MALE HEALTHY  8.2000</span></span>
+<span><span class="co">#&gt; 4      YES    MALE HEALTHY  9.0750</span></span>
+<span><span class="co">#&gt; 5       NO  FEMALE STAGE_1  7.7500</span></span>
+<span><span class="co">#&gt; 6      YES  FEMALE STAGE_1  7.8375</span></span>
+<span><span class="co">#&gt; 7       NO    MALE STAGE_1  8.0750</span></span>
+<span><span class="co">#&gt; 8      YES    MALE STAGE_1 10.1000</span></span>
+<span><span class="co">#&gt; 9       NO  FEMALE STAGE_2  8.2750</span></span>
+<span><span class="co">#&gt; 10     YES  FEMALE STAGE_2  7.9500</span></span>
+<span><span class="co">#&gt; 11      NO    MALE STAGE_2  8.3500</span></span>
+<span><span class="co">#&gt; 12      NO  FEMALE STAGE_3  7.7250</span></span>
+<span><span class="co">#&gt; 13     YES  FEMALE STAGE_3  8.1250</span></span>
+<span><span class="co">#&gt; 14      NO    MALE STAGE_3  7.8250</span></span>
+<span><span class="co">#&gt; 15     YES    MALE STAGE_3  9.8750</span></span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Smoke</span>, <span class="va">data</span><span class="op">$</span><span class="va">Sex</span>, <span class="va">data</span><span class="op">$</span><span class="va">Status</span><span class="op">)</span>, <span class="va">function_1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Group.1 Group.2 Group.3    x.Mean  x.Median</span></span>
+<span><span class="co">#&gt; 1       NO  FEMALE HEALTHY  7.212258  7.437500</span></span>
+<span><span class="co">#&gt; 2      YES  FEMALE HEALTHY  8.341667  8.237500</span></span>
+<span><span class="co">#&gt; 3       NO    MALE HEALTHY  8.385335  8.200000</span></span>
+<span><span class="co">#&gt; 4      YES    MALE HEALTHY  9.144231  9.075000</span></span>
+<span><span class="co">#&gt; 5       NO  FEMALE STAGE_1  7.208529  7.750000</span></span>
+<span><span class="co">#&gt; 6      YES  FEMALE STAGE_1  7.575000  7.837500</span></span>
+<span><span class="co">#&gt; 7       NO    MALE STAGE_1  8.153297  8.075000</span></span>
+<span><span class="co">#&gt; 8      YES    MALE STAGE_1  9.875000 10.100000</span></span>
+<span><span class="co">#&gt; 9       NO  FEMALE STAGE_2  7.681061  8.275000</span></span>
+<span><span class="co">#&gt; 10     YES  FEMALE STAGE_2  7.716667  7.950000</span></span>
+<span><span class="co">#&gt; 11      NO    MALE STAGE_2  7.811047  8.350000</span></span>
+<span><span class="co">#&gt; 12      NO  FEMALE STAGE_3  7.913889  7.725000</span></span>
+<span><span class="co">#&gt; 13     YES  FEMALE STAGE_3  8.275000  8.125000</span></span>
+<span><span class="co">#&gt; 14      NO    MALE STAGE_3  7.802381  7.825000</span></span>
+<span><span class="co">#&gt; 15     YES    MALE STAGE_3  9.875000  9.875000</span></span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span> ,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Age"</span>, <span class="st">"LungCap"</span><span class="op">)</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Smoke</span><span class="op">)</span>, <span class="va">median</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Group.1 Age LungCap</span></span>
+<span><span class="co">#&gt; 1      NO  12    7.90</span></span>
+<span><span class="co">#&gt; 2     YES  15    8.65</span></span></code></pre></div>
+<hr>
+<p> </p>
+</div>
+<div id="data-visualization" class="section level2 unnumbered">
+<h2>Data Visualization<a class="anchor" aria-label="anchor" href="#data-visualization"><i class="fas fa-link"></i></a>
+</h2>
+<p>We have already learned how to use R built-in functions to compute basic numerical summaries of data such as mean, median, IQR, quantiles, and so on. In this lecture, we are going to learn how to get summary of your data via visualization.</p>
+<p><strong>Data visualization</strong> plays a crucial role in data analysis. Prior to building statistical models or performing any other statistical procedure, you will want to plot your data as it will suggest what statistical tools might be more appropriate. In this lecture, you will learn how to visualize data in <code>Base R</code>. Later in the semester, we will learn how to use <code>ggplot2</code> package to do so. It is more versatile and has advanced visualization tools.</p>
+<div id="histograms" class="section level3 unnumbered">
+<h3>Histograms<a class="anchor" aria-label="anchor" href="#histograms"><i class="fas fa-link"></i></a>
+</h3>
+<p>Histograms display a distribution of numerical data. They represent the frequencies of values of a variable bucketed into ranges. The function <code><a href="https://rdrr.io/r/graphics/hist.html">hist()</a></code> is used to plot histograms. Let’s plot a histogram of the <code>Age</code> variable:</p>
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+<p>You can change labels of a histogram by passing <code>xlab</code>, <code>ylab</code>, and <code>main</code> arguments to the function:</p>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
+<span>     </span>
+<span>     xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>     </span>
+<span>     ylab <span class="op">=</span> <span class="st">"FREQUENCY"</span>,</span>
+<span>     </span>
+<span>     main <span class="op">=</span> <span class="st">"Histogram of AGE"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<p>The x-axis contains a range of values of the variable. Histograms divide it into intervals known as bins. Histograms are tricky because it depends on the subjective judgments of where exactly to put the bin margins that what graph you will be looking at. Wide bins produce one picture, narrow bins produce a different picture, and unequal bins produce confusion. You can choose a number of bins to display by passing a <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> argument to the function. In the example, below you specify the starting and ending points of each bin (for instance, 0 to 2, 2 to 4, and so on):</p>
+<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
+<span>     </span>
+<span>     xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>     </span>
+<span>     ylab <span class="op">=</span> <span class="st">"FREQUENCY"</span>,</span>
+<span>     </span>
+<span>     main <span class="op">=</span> <span class="st">"Histogram of AGE"</span>,</span>
+<span>     </span>
+<span>     breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>     </span>
+<span>     <span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+<p>You can change the color of bins and corresponding borders:</p>
+<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
+<span>     </span>
+<span>     xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>     </span>
+<span>     ylab <span class="op">=</span> <span class="st">"FREQUENCY"</span>,</span>
+<span>     </span>
+<span>     main <span class="op">=</span> <span class="st">"Histogram of AGE"</span>,</span>
+<span>     </span>
+<span>     breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>     </span>
+<span>     col <span class="op">=</span> <span class="st">"lightpink"</span>,</span>
+<span>     </span>
+<span>     border <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
+<p>You can display specific parts of a histogram by passing <code>xlim()</code> arguments. It will display the part of a histogram that corresponds to the specified range:</p>
+<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
+<span>     </span>
+<span>     xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>     </span>
+<span>     ylab <span class="op">=</span> <span class="st">"FREQUENCY"</span>,</span>
+<span>     </span>
+<span>     main <span class="op">=</span> <span class="st">"Histogram of AGE"</span>,</span>
+<span>     </span>
+<span>     breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>     </span>
+<span>     col <span class="op">=</span> <span class="st">"lightpink"</span>,</span>
+<span>     </span>
+<span>     border <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>     </span>
+<span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">12</span><span class="op">)</span></span>
+<span>     </span>
+<span>     <span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+</div>
+<div id="barplots" class="section level3 unnumbered">
+<h3>Barplots<a class="anchor" aria-label="anchor" href="#barplots"><i class="fas fa-link"></i></a>
+</h3>
+<p>Barplots are similar to histograms but are used for categorical/qualitative variables (in R we call them factors). They display levels of a categorical variable and their corresponding frequencies. We will create a barplot for the <code>Status</code> variable:</p>
+<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Status</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<p>Like histgorams, barplots can be customized. Let’s add labels to your barplot:</p>
+<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Status</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"Disease Stage"</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Frequences"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Disease Status"</span>,</span>
+<span>        </span>
+<span>        names.arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Healthy"</span>, <span class="st">"Stage 1"</span>, <span class="st">"Stage 2"</span>, <span class="st">"Stage 3"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+<p>Now, let’s change the color of bins and borders:</p>
+<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Status</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"Disease Stage"</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Frequences"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Disease Status"</span>,</span>
+<span>        </span>
+<span>        names.arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Healthy"</span>, <span class="st">"Stage 1"</span>, <span class="st">"Stage 2"</span>, <span class="st">"Stage 3"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>        </span>
+<span>        border <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<p>You can even make a horizontal barplot:</p>
+<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Status</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"Frequences"</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Disease Stage"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Disease Status"</span>,</span>
+<span>        </span>
+<span>        names.arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Healthy"</span>, <span class="st">"Stage 1"</span>, <span class="st">"Stage 2"</span>, <span class="st">"Stage 3"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>        </span>
+<span>        border <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>        </span>
+<span>        horiz <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
+<p>In R, you can create clustered barplots. For the two examples given below, guess what they are displaying:</p>
+<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sex"</span>, <span class="st">"Status"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        legend.text <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Frequences"</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"Disease Stage"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Disease Status vs Sex"</span>,</span>
+<span>        </span>
+<span>        names.arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Healthy"</span>, <span class="st">"Stage 1"</span>, <span class="st">"Stage 2"</span>, <span class="st">"Stage 3"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
+<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sex"</span>, <span class="st">"Status"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        beside <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        </span>
+<span>        legend.text <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Frequences"</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"Disease Stage"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Disease Status vs Sex"</span>,</span>
+<span>        </span>
+<span>        names.arg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Healthy"</span>, <span class="st">"Stage 1"</span>, <span class="st">"Stage 2"</span>, <span class="st">"Stage 3"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"orange"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
+</div>
+<div id="boxplots" class="section level3 unnumbered">
+<h3>Boxplots<a class="anchor" aria-label="anchor" href="#boxplots"><i class="fas fa-link"></i></a>
+</h3>
+<p>Boxplots are used to visualize a 5-Number summary (Minimum, Q1 (first quartile, also known as 25th percentile), median, Q3 (third quartile, also known as 75th percentile), and Maximum). Below is a boxplot for the <code>Age</code> variable:</p>
+<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
+<p>Let’s add labels to it and change the colors:</p>
+<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Values"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Boxplot of AGE"</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="st">"darkorange"</span>,</span>
+<span>        </span>
+<span>        border <span class="op">=</span> <span class="st">"dodgerblue"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
+<p>You can even add a notch to it if you want to:</p>
+<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Values"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Boxplot of AGE"</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="st">"darkorange"</span>,</span>
+<span>        </span>
+<span>        border <span class="op">=</span> <span class="st">"dodgerblue"</span>,</span>
+<span>        </span>
+<span>        notch <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
+<p>You can change the shape and size of points in the plot by passing <code>pch</code> and <code>cex</code> arguments, respectfully. Type <code><a href="https://rdrr.io/r/graphics/points.html">?pch</a></code> in the console to see what shapes are available.</p>
+<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Values"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Boxplot of AGE"</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="st">"darkorange"</span>,</span>
+<span>        </span>
+<span>        border <span class="op">=</span> <span class="st">"dodgerblue"</span>,</span>
+<span>        </span>
+<span>        notch <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>        </span>
+<span>        pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>        </span>
+<span>        cex  <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
+<p>Often you will be using boxplots to compare a numerical variable for different levels of other categorical variables (that is, levels of a factor). Let’s compare boxplots of the <code>Age</code> variable for female and male patients:</p>
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span> <span class="op">~</span> <span class="va">data</span><span class="op">$</span><span class="va">Sex</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"SEX"</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Grouped Boxplots"</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"darkorange"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dodgerblue"</span>, <span class="st">"black"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        notch <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-29-1.png" width="672"></div>
+<p>Let’s make it more complicated:</p>
+<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span> <span class="op">~</span> <span class="va">data</span><span class="op">$</span><span class="va">Sex</span><span class="op">:</span><span class="va">data</span><span class="op">$</span><span class="va">Smoke</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"COMBINATION OF SEX AND SMOKE VARIABLES"</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Grouped Boxplots"</span>,</span>
+<span>        </span>
+<span>        names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"F_Nonsmokers"</span>,<span class="st">"M_Nonsmokers"</span>, <span class="st">"F_Smokers"</span>, <span class="st">"M_Smokers"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"darkorange"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dodgerblue"</span>, <span class="st">"black"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        notch <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-30-1.png" width="672"></div>
+</div>
+<div id="scatterplots" class="section level3 unnumbered">
+<h3>Scatterplots<a class="anchor" aria-label="anchor" href="#scatterplots"><i class="fas fa-link"></i></a>
+</h3>
+<p>As mentioned earlier, before building a statistical model, it is recommended to visualize a relationship among variables. Suppose, you want to build a regression model that will describe the relationship between <code>Age</code> and <code>Lung Capacity</code> variables. First, we will visualize the data using <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function:</p>
+<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">Age</span>, y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">LungCap</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
+<p>As you can observe, there is a linear trend between these two variables, so this suggests that a linear regression model might be appropriate. Now let’s customize the plot by labeling it and changing the color, shape, and size of the points:</p>
+<div class="sourceCode" id="cb224"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
+<span>     </span>
+<span>     y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span>     </span>
+<span>     xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>     </span>
+<span>     ylab <span class="op">=</span> <span class="st">"Lung Capacity"</span>,</span>
+<span>     </span>
+<span>     main <span class="op">=</span> <span class="st">"Lung Capacity vs Age"</span>,</span>
+<span>     </span>
+<span>     col <span class="op">=</span> <span class="st">"dodgerblue"</span>,</span>
+<span>     </span>
+<span>     pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     </span>
+<span>     cex  <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-32-1.png" width="672"></div>
+<p>You can focus on specific parts of the plot by adding <code>xlim()</code> argument:</p>
+<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
+<span>     </span>
+<span>     y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span>     </span>
+<span>     xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>     </span>
+<span>     ylab <span class="op">=</span> <span class="st">"Lung Capacity"</span>,</span>
+<span>     </span>
+<span>     main <span class="op">=</span> <span class="st">"Lung Capacity vs Age"</span>,</span>
+<span>     </span>
+<span>     col <span class="op">=</span> <span class="st">"dodgerblue"</span>,</span>
+<span>     </span>
+<span>     pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     </span>
+<span>     cex  <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>     </span>
+<span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-33-1.png" width="672"></div>
+<p>You can change the color (or the size) of points based on other factor variables. For example, we can make observation that belong to the female patients be displayed as red dots and observation that belong to the male patients be displayed as blue ones. In addition, we can add legends to clarify the meaning of colors in the plot:</p>
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
+<span>     </span>
+<span>     y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span>     </span>
+<span>     xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>     </span>
+<span>     ylab <span class="op">=</span> <span class="st">"Lung Capacity"</span>,</span>
+<span>     </span>
+<span>     main <span class="op">=</span> <span class="st">"Lung Capacity vs Age"</span>,</span>
+<span>     </span>
+<span>     col <span class="op">=</span> <span class="va">colors</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">Sex</span><span class="op">]</span>,</span>
+<span>     </span>
+<span>     pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     </span>
+<span>     cex  <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"FEMALE"</span>, <span class="st">"MALE"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">colors</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-34-1.png" width="672"></div>
+<p>Finally, in R you are able to display multiple plots in a single image. To do so, you need to use <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code> function. You pass an <code>mfrow()</code> argument to this function that specifies dimensions of your final plot. For example, if you want to plot two images in one row (that is, 1 row and 2 columns), then you execute <code>par(mfrow = c(1, 2))</code> function followed by the plots that you aim to include in it:</p>
+<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span> <span class="op">~</span> <span class="va">data</span><span class="op">$</span><span class="va">Sex</span>,</span>
+<span>        </span>
+<span>        xlab <span class="op">=</span> <span class="st">"SEX"</span>,</span>
+<span>        </span>
+<span>        ylab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>        </span>
+<span>        main <span class="op">=</span> <span class="st">"Grouped Boxplots"</span>,</span>
+<span>        </span>
+<span>        col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"darkorange"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        border <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dodgerblue"</span>, <span class="st">"black"</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>        notch <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
+<span>     </span>
+<span>     y <span class="op">=</span> <span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span>     </span>
+<span>     xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
+<span>     </span>
+<span>     ylab <span class="op">=</span> <span class="st">"Lung Capacity"</span>,</span>
+<span>     </span>
+<span>     main <span class="op">=</span> <span class="st">"Lung Capacity vs Age"</span>,</span>
+<span>     </span>
+<span>     col <span class="op">=</span> <span class="va">colors</span><span class="op">[</span><span class="va">data</span><span class="op">$</span><span class="va">Sex</span><span class="op">]</span>,</span>
+<span>     </span>
+<span>     pch <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>     </span>
+<span>     cex  <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"FEMALE"</span>, <span class="st">"MALE"</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="va">colors</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-35-1.png" width="672"></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-07.html">Lecture 07</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-08">Lecture 08</a></li>
+<li><a class="nav-link" href="#tapply-function">tapply() Function</a></li>
+<li><a class="nav-link" href="#aggregate-function">aggregate() Function</a></li>
+<li>
+<a class="nav-link" href="#data-visualization">Data Visualization</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#histograms">Histograms</a></li>
+<li><a class="nav-link" href="#barplots">Barplots</a></li>
+<li><a class="nav-link" href="#boxplots">Boxplots</a></li>
+<li><a class="nav-link" href="#scatterplots">Scatterplots</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/08-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/08-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-10.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
