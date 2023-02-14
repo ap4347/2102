@@ -1,7 +1,7 @@
 --- 
 title: "STAT 2102: Applied Statistical Computing"
 author: "Alex Pijyan"
-date: "2023-02-10"
+date: "2023-02-14"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -14,11 +14,18 @@ biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---
 
+
+
+
 # Welcome {-}
 
 &nbsp;
 
-Welcome to **_STAT 2102: Applied Statistics Computing_** class. This website contains comprehensive lecture notes and supplements materials/codes given in the class.
+![](images/dept.jpg)
+
+&nbsp;
+
+Welcome to **_STAT 2102: Applied Statistical Computing_** class. This website contains comprehensive lecture notes and supplements materials/codes given in the class.
 
 &nbsp;
 

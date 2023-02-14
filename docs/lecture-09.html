@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 09 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="  Probability Probability theory is the foundation of statistics, and R has plenty of machinery for working with probability, probability distributions, and random variables. The recipes in this...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 09 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-09.html">
+<meta property="og:description" content="  Probability Probability theory is the foundation of statistics, and R has plenty of machinery for working with probability, probability distributions, and random variables. The recipes in this...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 09 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="  Probability Probability theory is the foundation of statistics, and R has plenty of machinery for working with probability, probability distributions, and random variables. The recipes in this...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="" href="lecture-03.html">Lecture 03</a></li>
+<li><a class="" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
+<li><a class="" href="lecture-06.html">Lecture 06</a></li>
+<li><a class="" href="lecture-07.html">Lecture 07</a></li>
+<li><a class="" href="lecture-08.html">Lecture 08</a></li>
+<li><a class="active" href="lecture-09.html">Lecture 09</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-09" class="section level1 unnumbered">
+<h1>Lecture 09<a class="anchor" aria-label="anchor" href="#lecture-09"><i class="fas fa-link"></i></a>
+</h1>
+<p> </p>
+<div id="probability" class="section level2 unnumbered">
+<h2>Probability<a class="anchor" aria-label="anchor" href="#probability"><i class="fas fa-link"></i></a>
+</h2>
+<p>Probability theory is the foundation of statistics, and R has plenty of machinery for working with probability, probability distributions, and random variables. The recipes in this lecture show you how to calculate probabilities from quantiles, calculate quantiles from probabilities, generate random variables drawn from distributions, plot distributions, and so forth.</p>
+<p>When working with different statistical distributions, we often want to make probabilistic statements based on the distribution. We typically want to know one of four things:</p>
+<ul>
+<li>The value of the <strong>probability density function (pdf)</strong> at a particular point</li>
+<li>The value of the <strong>cumulative distribution function (cdf)</strong> at a particular point</li>
+<li>The <strong>quantile value</strong> corresponding to a particular probability</li>
+<li>A <strong>random draw</strong> of values from a particular distribution</li>
+</ul>
+<p>R has functions for obtaining density, distribution, quantile and random values. The general naming structure of the relevant R functions is:</p>
+<ul>
+<li>
+<code>dname</code> calculates pdf at input <code>x</code>
+</li>
+<li>
+<code>pname</code> calculates cdf at input <code>x</code>
+</li>
+<li>
+<code>qname</code> calculates the quantile at an input probability</li>
+<li>
+<code>rname</code> generates a random draw from a particular distribution</li>
+</ul>
+<p>Note than <code>name</code> in the functions above represents the name of the given distribution. In statistics, there are many well-known and commonly used probability distributions that can be divided into two groups: <strong>discrete</strong> and <strong>continuous</strong> distributions.</p>
+<p>Discrete distributions are those whose possible values either constitute a finite set or else can be listed in an infinite sequence in which there is a first element, a second element, and so on (“countably” infinite). In contrast, continuous distributions are those whose possible values consist either of all numbers in a single interval on the number line or all numbers in a disjoint union of such intervals.</p>
+<p>R has functions for almost all well-studied and commonly used distributions. The tables below list some of them:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="48%">
+<col width="26%">
+<col width="24%">
+</colgroup>
+<thead><tr class="header">
+<th>Discrete Distribution</th>
+<th>R Function</th>
+<th>Parameters</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Binomial</td>
+<td><code>*binom</code></td>
+<td>
+<code>n</code> - number of trials; <code>p</code> - probability of success for one trial</td>
+</tr>
+<tr class="even">
+<td>Geometric</td>
+<td><code>*geom</code></td>
+<td>
+<code>p</code> - probability of success for one trial</td>
+</tr>
+<tr class="odd">
+<td>Poisson</td>
+<td><code>*pois</code></td>
+<td>
+<code>lambda</code> - a mean value of the distribution</td>
+</tr>
+</tbody>
+</table></div>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="48%">
+<col width="26%">
+<col width="24%">
+</colgroup>
+<thead><tr class="header">
+<th>Continuous Distribution</th>
+<th>R Function</th>
+<th>Parameters</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Normal</td>
+<td><code>*norm</code></td>
+<td>
+<code>mean</code> - mean value of the distribution, <code>sd</code> - standard deviation</td>
+</tr>
+<tr class="even">
+<td>Uniform</td>
+<td><code>*unif</code></td>
+<td>
+<code>min</code> - lower limit, <code>max</code> - upper limit</td>
+</tr>
+<tr class="odd">
+<td>Student’s <em>t</em>
+</td>
+<td><code>*t</code></td>
+<td>
+<code>df</code> - degrees of freedom</td>
+</tr>
+<tr class="even">
+<td>Chi-squared</td>
+<td><code>*chisq</code></td>
+<td>
+<code>df</code> - degrees of freedom</td>
+</tr>
+<tr class="odd">
+<td>Exponential</td>
+<td><code>*exp</code></td>
+<td><code>rate</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>where <code>*</code> can be <code>d</code>, <code>p</code>, <code>q</code>, and <code>r</code>.</p>
+<p>In this class we will discuss binomial, geometric, and normal distributions. Let’s dive into it.</p>
+</div>
+<div id="bernoulli-trials" class="section level2 unnumbered">
+<h2>Bernoulli Trials<a class="anchor" aria-label="anchor" href="#bernoulli-trials"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before introducing a binomial distribution, we need to discuss <strong>Bernoulli random variables</strong> (also known as <strong>Bernoulli trials</strong>). Any random variable whose only possible values are 0 (failure) and 1 (success) is called a Bernoulli random variable.</p>
+<p>Suppose <em>X</em> is a Bernoulli random variable. Then,</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>x</th>
+<th>0</th>
+<th>1</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td>p(x)</td>
+<td>1 - <em>p</em>
+</td>
+<td><em>p</em></td>
+</tr></tbody>
+</table></div>
+</div>
+<div id="binomial-distribution" class="section level2 unnumbered">
+<h2>Binomial Distribution<a class="anchor" aria-label="anchor" href="#binomial-distribution"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are many experiments that conform either exactly or approximately to the following list of requirements:</p>
+<ul>
+<li>The experiment consists of a sequence of <strong>n</strong> smaller experiments called <em>trials</em>, where <strong>n</strong> is fixed in advance of the experiment</li>
+<li>Each trial can result in one of the same two possible outcomes, <strong>success (S)</strong> and <strong>failure (F)</strong>.</li>
+<li>The trials are <strong>independent</strong>, so that the outcome on any particular trial does not influence the outcome on any other trial.</li>
+<li>The probability of success <strong><em>P(S)</em></strong> is constant from trial to trial; we denote this probability <strong><em>p</em></strong>.</li>
+</ul>
+<p>An experiment for which these 4 conditions are satisfied is called a <strong>binomial experiment</strong>. A distribution that describes this process is called a <strong>Binomial Distribution</strong>. It counts the number of successes among the <em>n</em> trials.</p>
+<p>A <strong>probability mass function (pmf)</strong> (this is the same as pdf but for discrete distributions) for a binomial distribution is given by</p>
+<p><span class="math display">\[\begin{align*}
+b(x; n, p) = \binom{n}{x} p^x(1-p)^{n-x} \quad for \quad x = 0, 1, ..., n
+\end{align*}\]</span></p>
+<p>where <span class="math inline">\(\binom{n}{x} = \frac{n!}{(n-x)!x!}\)</span> and <span class="math inline">\(n! = 1 \times 2 \times ... \times n\)</span>.</p>
+<p>In other words, the above probability mass function calculates the probability that a binomial distribution will take a particular value <em>x</em>.</p>
+<p>Let’s consider the following example:</p>
+<p>Suppose the probability that your train is on time on any given day is 0.7. Next week, Monday through Friday, you have important meetings with your business partners every day. If your train is late, you will miss an important meeting on that particular day. Assume train schedules are independent of one another.</p>
+<p>Now let’s count the number of days your train was on time. The possible values are <strong>0, 1, 2, 3, 4, and 5</strong>. As you can already guess, this is a binomial distribution with <strong>n = 5</strong> and <strong>p = 0.7</strong>.</p>
+<div id="dbinom-function" class="section level3 unnumbered">
+<h3>dbinom() Function<a class="anchor" aria-label="anchor" href="#dbinom-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can use the probability mass function to calculate probabilities of certain events. For example, what is the probability that you will attend 3 meetings only, that is, <em>x = 3</em> ?</p>
+<p>To answer this question, we will use <code><a href="https://rdrr.io/r/stats/Binomial.html">dbinom()</a></code> function:</p>
+<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, size <span class="op">=</span> <span class="fl">5</span>, prob <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3087</span></span></code></pre></div>
+<p>We can do this manually as well using a definition of the pmf of a binomial distribution:</p>
+<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Special.html">choose</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">0.7</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">0.3</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3087</span></span></code></pre></div>
+</div>
+<div id="pbinom-function" class="section level3 unnumbered">
+<h3>pbinom() Function<a class="anchor" aria-label="anchor" href="#pbinom-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now, suppose you want to calculate the probability that you will attend at most 4 meetings, that is, either 0, 1, 2, 3, or 4. To do so, we will need a <strong>cumulative distribution function (cdf)</strong> of a binomial distribution. You can use <code><a href="https://rdrr.io/r/stats/Binomial.html">pbinom()</a></code> function to calculate cumulative probabilities:</p>
+<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">pbinom</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">4</span>, size <span class="op">=</span> <span class="fl">5</span>, prob <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.83193</span></span></code></pre></div>
+<p>As you noticed, <code><a href="https://rdrr.io/r/stats/Binomial.html">pbinom()</a></code> function is a summation of <code><a href="https://rdrr.io/r/stats/Binomial.html">dbinom()</a></code> functions:</p>
+<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span>, size <span class="op">=</span> <span class="fl">5</span>, prob <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span>, size <span class="op">=</span> <span class="fl">5</span>, prob <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">2</span>, size <span class="op">=</span> <span class="fl">5</span>, prob <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, size <span class="op">=</span> <span class="fl">5</span>, prob <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">4</span>, size <span class="op">=</span> <span class="fl">5</span>, prob <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.83193</span></span></code></pre></div>
+</div>
+</div>
+<div id="geometric-distribution" class="section level2 unnumbered">
+<h2>Geometric Distribution<a class="anchor" aria-label="anchor" href="#geometric-distribution"><i class="fas fa-link"></i></a>
+</h2>
+<p>A <strong>Geometric Distribution</strong> has only one parameter <strong><em>p</em></strong> (probability of success) and describes the number of Bernoulli trials needed to get the first success. The probability mass function of a geometric distribution can be defined as follows:</p>
+<p><span class="math display">\[\begin{align*}
+g(x; p) = (1-p)^{x-1}p \quad for \quad x = 1, 2, 3,  ...
+\end{align*}\]</span></p>
+<p>Here is an example that describes a geometric distribution: starting at a fixed time, we observe the gender of each newborn child at a certain hospital until a girl (<em>G</em>) is born. Let <em>P(G) = p = 0.55</em> and assume that successive births are independent.</p>
+<div id="dgeom-function" class="section level3 unnumbered">
+<h3>dgeom() Function<a class="anchor" aria-label="anchor" href="#dgeom-function"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://rdrr.io/r/stats/Geometric.html">dgeom()</a></code> function calculates the probability that a geometric distribution will take a particular value <em>x</em>. For instance, let’s calculate the probability that we need to observe 6 newborn children to get the first girl:</p>
+<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Geometric.html">dgeom</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">6</span>, prob <span class="op">=</span> <span class="fl">0.55</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.004567071</span></span></code></pre></div>
+</div>
+<div id="pgeom-function" class="section level3 unnumbered">
+<h3>pgeom() Function<a class="anchor" aria-label="anchor" href="#pgeom-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>Like <code><a href="https://rdrr.io/r/stats/Binomial.html">pbinom()</a></code> function, <code><a href="https://rdrr.io/r/stats/Geometric.html">pgeom()</a></code> calculates cumulative probabilities (cdf’s). For example, what is the probability that we need to observe at most 5 newborn children to get the first girl? In other words, what is the probability that our geometric distribution will take either 1, 2, 3, 4, or 5 values?</p>
+<div class="sourceCode" id="cb233"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Geometric.html">pgeom</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">5</span>, prob <span class="op">=</span> <span class="fl">0.55</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.9916962</span></span></code></pre></div>
+</div>
+</div>
+<div id="normal-distribution" class="section level2 unnumbered">
+<h2>Normal Distribution<a class="anchor" aria-label="anchor" href="#normal-distribution"><i class="fas fa-link"></i></a>
+</h2>
+<p>A <strong>Normal Distribution</strong> is the most important and commonly used distribution in all of probability and statistics. Many numerical populations have distributions that can be fit very closely by an appropriate normal curve. Normal distributions have two parameters: mean, <span class="math inline">\(\mu\)</span>, and standard deviation, <span class="math inline">\(\sigma\)</span>. Their <strong>probability density functions (pdf’s)</strong> are defined as</p>
+<p><span class="math display">\[\begin{align*}
+f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2}}   \quad  -\infty &lt; x &lt; \infty
+\end{align*}\]</span></p>
+<p>A normal distribution is bell-shaped, symmetric, and is centered at its mean value. The distribution continues to positive and negative infinity, but most of the area is close to the center.</p>
+<p>Normal distributions can look quite different. Specifically, a normal distribution can be adjusted using its mean and standard deviation. Changing the mean value of a normal distribution shifts the curve to the left or right. Changing the standard deviation of a normal distribution stretches or constricts the curve around the mean. Below are some examples of a normal distribution:</p>
+<div class="inline-figure"><img src="images/norm_curve.jpg"></div>
+<div id="dnorm-function" class="section level3 unnumbered">
+<h3>dnorm() Function<a class="anchor" aria-label="anchor" href="#dnorm-function"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://rdrr.io/r/stats/Normal.html">dnorm()</a></code> calculates the value of the probability density function (pdf) of a normal distribution at a particular point <code>x</code>. In other words, it calculates the height of the normal curve at a certain point <code>x</code>. Suppose we have a normal distribution with a mean value 2.5 and standard deviation 0.5. Then,</p>
+<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">.1</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">dnorm</a></span><span class="op">(</span><span class="va">x</span>, mean <span class="op">=</span> <span class="fl">2.5</span>, sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="09-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+</div>
+<div id="pnorm-function" class="section level3 unnumbered">
+<h3>pnorm() Function<a class="anchor" aria-label="anchor" href="#pnorm-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>To calculate the value of the cumulative distribution function (cdf) at a certain value <code>x</code>, that is, the probability that a normal distribution will take values less than <code>x</code>, use <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> function. Suppose, we have a normal distribution with mean = 2 and standard deviation = 5. Now let’s calculate the probability that a randomly selected observation from this distribution will be less than 3:</p>
+<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">3</span>, mean <span class="op">=</span> <span class="fl">2</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.5792597</span></span></code></pre></div>
+<p>You can even use this function to calculate the probability of obtaining certain intervals. What is the probability that a randomly selected observation from this distribution will be between 1.5 and 3?</p>
+<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">3</span>, mean <span class="op">=</span> <span class="fl">2</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">1.5</span>, mean <span class="op">=</span> <span class="fl">2</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.1190875</span></span></code></pre></div>
+</div>
+<div id="qnorm-function" class="section level3 unnumbered">
+<h3>qnorm() Function<a class="anchor" aria-label="anchor" href="#qnorm-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>To calculate the quantiles of a normal distribution, use <code><a href="https://rdrr.io/r/stats/Normal.html">qnorm()</a></code> function. It takes a probability value and returns a number whose cdf matches with the input value. For example, let’s find a 0.6 quantile (also known as 60th percentile) of a normal distribution with mean = 2 and standard deviation = 5:</p>
+<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.6</span>, mean <span class="op">=</span> <span class="fl">2</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3.266736</span></span></code></pre></div>
+<p>You can think of it as an inverse <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> function. Let’s illustrate it:</p>
+<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">qnorm</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.6</span>, mean <span class="op">=</span> <span class="fl">2</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 3.266736</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">3.266736</span>, mean <span class="op">=</span> <span class="fl">2</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.6</span></span></code></pre></div>
+</div>
+<div id="rnorm-function" class="section level3 unnumbered">
+<h3>rnorm() Function<a class="anchor" aria-label="anchor" href="#rnorm-function"><i class="fas fa-link"></i></a>
+</h3>
+<p><code><a href="https://rdrr.io/r/stats/Normal.html">rnorm()</a></code> function is used to generate random values from a normal distribution. Suppose, we have a normal distribution with mean = 2 and standard deviation = 5. Let’s generate 50 observations from this distribution and visualize them:</p>
+<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, mean <span class="op">=</span> <span class="fl">2</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">x</span>,</span>
+<span>     </span>
+<span>     xlab <span class="op">=</span> <span class="st">"VALUES"</span>,</span>
+<span>     </span>
+<span>     ylab <span class="op">=</span> <span class="st">"FREQUENCY"</span>,</span>
+<span>     </span>
+<span>     main <span class="op">=</span> <span class="st">"Generating Values from a  Normal Distribution"</span>,</span>
+<span>     </span>
+<span>     col <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>     </span>
+<span>     border <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="09-Lecture_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+</div>
+</div>
+<div id="generating-data" class="section level2 unnumbered">
+<h2>Generating Data<a class="anchor" aria-label="anchor" href="#generating-data"><i class="fas fa-link"></i></a>
+</h2>
+<div id="generating-reproducible-random-numbers" class="section level3 unnumbered">
+<h3>Generating Reproducible Random Numbers<a class="anchor" aria-label="anchor" href="#generating-reproducible-random-numbers"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s generate 10 random values from a normal distribution with mean = 3 and standard deviation = 4. We will do it 3 times:</p>
+<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] -0.8914968  3.7679564  8.2254495  0.6957215 -2.0115824</span></span>
+<span><span class="co">#&gt;  [6]  2.6979084  1.4315322  4.1306186  6.5406196 -1.6542868</span></span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] -2.0288695  0.5207604  6.3933128  2.7828047  2.7014104</span></span>
+<span><span class="co">#&gt;  [6] -2.0819052  4.1565233  5.5261440  1.4846321  5.6608656</span></span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  1.6640118 -0.9871717  4.9098382  2.1092650 -1.4799846</span></span>
+<span><span class="co">#&gt;  [6] -1.5136081  4.5067778  7.3907217  1.5022224  4.0919720</span></span></code></pre></div>
+<p>As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done random.</p>
+<p>After generating random numbers, you may often want to reproduce the same sequence of “random” numbers every time your program executes. That way, you get the same results from run to run.</p>
+<p>In R, the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function sets the random number generator to a known state. The function takes one argument, an integer. Any positive integer will work, but you must use the same one in order to get the same initial state.</p>
+<p>The function returns nothing. It works behind the scenes, initializing (or reinitializing) the random number generator. The key here is that using the same seed restarts the random number generator back at the same place:</p>
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>    <span class="co"># Initialize generator to known state</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>   <span class="co"># Generate ten random numbers</span></span>
+<span><span class="co">#&gt;  [1]  0.4941848  3.7345733 -0.3425144  9.3811232  4.3180311</span></span>
+<span><span class="co">#&gt;  [6] -0.2818735  4.9497162  5.9532988  5.3031254  1.7784465</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>    <span class="co"># Reinitialize to the same known state</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>   <span class="co"># Generate the same ten "random" numbers</span></span>
+<span><span class="co">#&gt;  [1]  0.4941848  3.7345733 -0.3425144  9.3811232  4.3180311</span></span>
+<span><span class="co">#&gt;  [6] -0.2818735  4.9497162  5.9532988  5.3031254  1.7784465</span></span></code></pre></div>
+</div>
+<div id="generating-a-random-sample" class="section level3 unnumbered">
+<h3>Generating a Random Sample<a class="anchor" aria-label="anchor" href="#generating-a-random-sample"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> function will randomly select <em>n</em> items from a set of values. For instance:</p>
+<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">6</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  9 15  5 20 17 14</span></span></code></pre></div>
+<p>The <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> function normally samples without replacement, meaning it will not select the same item twice. Some statistical procedures require sampling with replacement, which means that one item can appear multiple times in the sample. Specify <code>replace=TRUE</code> to sample with replacement:</p>
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">20</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">6</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1]  5  5  2 10 12 15</span></span></code></pre></div>
+</div>
+<div id="generating-random-sequences" class="section level3 unnumbered">
+<h3>Generating Random Sequences<a class="anchor" aria-label="anchor" href="#generating-random-sequences"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes you want to generate a random sequence, such as a simulated sequence of Bernoulli trials. You can do so using the <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> function. Sample <em>n</em> draws from the set of possible values, and set <code>replace=TRUE</code>. Suppose we toss a coin 15 times and we want generate the results of these 15 trials. Then,</p>
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"H"</span>, <span class="st">"T"</span><span class="op">)</span>, <span class="fl">15</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "H" "T" "H" "T" "T" "T" "T" "H" "T" "T" "T" "T" "T" "H"</span></span>
+<span><span class="co">#&gt; [15] "H"</span></span></code></pre></div>
+<p>By default, <code><a href="https://rdrr.io/r/base/sample.html">sample()</a></code> will choose equally among the set elements and so the probability of selecting either <code>H</code> or <code>T</code> is 0.5. With a Bernoulli trial, the probability <em>p</em> of success is not necessarily 0.5. You can bias the sample by using the <code>prob</code> argument of <code>sample</code>; this argument is a vector of probabilities, one for each set element.</p>
+<p>Suppose we want to generate 20 Bernoulli trials (toss a coin 20 times) with a probability of getting heads <code>p = 0.8</code>. Thus, we set the probability of <code>tails</code> to be 0.2:</p>
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"H"</span>, <span class="st">"T"</span><span class="op">)</span>, <span class="fl">20</span>, replace <span class="op">=</span> <span class="cn">TRUE</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.8</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "H" "T" "H" "H" "H" "H" "H" "H" "H" "H" "T" "H" "H" "H"</span></span>
+<span><span class="co">#&gt; [15] "H" "H" "H" "H" "H" "T"</span></span></code></pre></div>
+</div>
+<div id="randomly-permutting-a-vector" class="section level3 unnumbered">
+<h3>Randomly Permutting a Vector<a class="anchor" aria-label="anchor" href="#randomly-permutting-a-vector"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes you want to generate a random permutation of a vector. If <code>v</code> is your vector, then <code>sample(v)</code> returns a random permutation:</p>
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>             <span class="co"># permutation 1</span></span>
+<span><span class="co">#&gt;  [1]  6  1  3  8 10  4  2  7  9  5</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>             <span class="co"># permutation 2</span></span>
+<span><span class="co">#&gt;  [1]  4  8  1  9  6 10  3  7  5  2</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-08.html">Lecture 08</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-09">Lecture 09</a></li>
+<li><a class="nav-link" href="#probability">Probability</a></li>
+<li><a class="nav-link" href="#bernoulli-trials">Bernoulli Trials</a></li>
+<li>
+<a class="nav-link" href="#binomial-distribution">Binomial Distribution</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#dbinom-function">dbinom() Function</a></li>
+<li><a class="nav-link" href="#pbinom-function">pbinom() Function</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#geometric-distribution">Geometric Distribution</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#dgeom-function">dgeom() Function</a></li>
+<li><a class="nav-link" href="#pgeom-function">pgeom() Function</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#normal-distribution">Normal Distribution</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#dnorm-function">dnorm() Function</a></li>
+<li><a class="nav-link" href="#pnorm-function">pnorm() Function</a></li>
+<li><a class="nav-link" href="#qnorm-function">qnorm() Function</a></li>
+<li><a class="nav-link" href="#rnorm-function">rnorm() Function</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#generating-data">Generating Data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#generating-reproducible-random-numbers">Generating Reproducible Random Numbers</a></li>
+<li><a class="nav-link" href="#generating-a-random-sample">Generating a Random Sample</a></li>
+<li><a class="nav-link" href="#generating-random-sequences">Generating Random Sequences</a></li>
+<li><a class="nav-link" href="#randomly-permutting-a-vector">Randomly Permutting a Vector</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/09-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/09-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-14.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
