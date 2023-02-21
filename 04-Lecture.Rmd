@@ -238,7 +238,7 @@ print(2 + 2)
 <pre><code>```{r, echo = FALSE}
 print(2 + 2)
 ``` </code></pre>
-* `results = 'hide'` prevents results, but the code from appearing in the finished file.
+* `results = 'hide'` prevents results, but not the code from appearing in the finished file.
 
 
 <pre><code>```{r, results = 'hide'}

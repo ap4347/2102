@@ -54,6 +54,7 @@
 <li><a class="" href="lecture-07.html">Lecture 07</a></li>
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="active" href="lecture-09.html">Lecture 09</a></li>
+<li><a class="" href="lecture-10.html">Lecture 10</a></li>
 </ul>
 
         <div class="book-extra">
@@ -359,18 +360,18 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] -0.8914968  3.7679564  8.2254495  0.6957215 -2.0115824</span></span>
-<span><span class="co">#&gt;  [6]  2.6979084  1.4315322  4.1306186  6.5406196 -1.6542868</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  0.5354043  9.7823872 -1.4358435  4.4347241  3.3832690</span></span>
+<span><span class="co">#&gt;  [6]  7.6317684  3.9381946  1.1973029  7.6494021  1.8219475</span></span></code></pre></div>
 <div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] -2.0288695  0.5207604  6.3933128  2.7828047  2.7014104</span></span>
-<span><span class="co">#&gt;  [6] -2.0819052  4.1565233  5.5261440  1.4846321  5.6608656</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  5.1534019  0.9743360 -1.7591689  3.6125391  5.8453557</span></span>
+<span><span class="co">#&gt;  [6]  6.9553460  5.0792087  4.3499884  9.8040755 -0.4188259</span></span></code></pre></div>
 <div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  1.6640118 -0.9871717  4.9098382  2.1092650 -1.4799846</span></span>
-<span><span class="co">#&gt;  [6] -1.5136081  4.5067778  7.3907217  1.5022224  4.0919720</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  7.1722809 -1.6392186  9.3484259  2.3194261  3.0464423</span></span>
+<span><span class="co">#&gt;  [6] -1.2333250  9.4243404 -0.4575588  6.7026690  4.3155516</span></span></code></pre></div>
 <p>As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done random.</p>
 <p>After generating random numbers, you may often want to reproduce the same sequence of “random” numbers every time your program executes. That way, you get the same results from run to run.</p>
 <p>In R, the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function sets the random number generator to a known state. The function takes one argument, an integer. Any positive integer will work, but you must use the same one in order to get the same initial state.</p>
@@ -446,7 +447,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-08.html">Lecture 08</a></div>
-<div class="empty"></div>
+<div class="next"><a href="lecture-10.html">Lecture 10</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -498,7 +499,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-14.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

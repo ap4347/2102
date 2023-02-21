@@ -1,0 +1,427 @@
+# Lecture 10 {-}
+
+&nbsp;
+
+
+## Tidyverse Family of Packages {-}
+
+The **_data frame_** is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a variable, a measure, feature, or characteristic of that observation. Before you can conduct any analyses or draw any conclusions, you often need to reorganize your data. The **Tidyverse** is a collection of R packages (developed by RStudio’s chief scientist Hadley Wickham) that provides an efficient, fast, and well-documented workflow for general data modeling, wrangling, and visualization tasks.
+
+
+The Tidyverse introduces a set of useful data analysis packages to help streamline your work in R. In particular, the Tidyverse was designed to address the top three common issues that arise when dealing with data analysis in  base R: (1) Results obtained from a base R function often depend on the type of data being used; (2) When R expressions are used in a non-standard way, they can confuse beginners; (3) Hidden arguments often have various default operations that beginners are unaware of.
+
+
+The core Tidyverse includes the packages that you’re likely to use in everyday data analyses. 
+
+* `ggplot2` - ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+
+* `dplyr` - dplyr provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.
+
+* `tidyr` - tidyr provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable.
+
+* `readr` - readr provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes.
+
+* `purrr` - purrr enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. Once you master the basic concepts, purrr allows you to replace many for loops with code that is easier to write and more expressive. 
+
+* `tibble` - tibble is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what it has not. Tibbles are data.frames that are lazy and surly: they do less and complain more forcing you to confront problems earlier, typically leading to cleaner, more expressive code. 
+
+* `stringr` - stringr provides a cohesive set of functions designed to make working with strings as easy as possible. It is built on top of stringi, which uses the ICU C library to provide fast, correct implementations of common string manipulations.
+
+* `forcats` - forcats provides a suite of useful tools that solve common problems with factors. R uses factors to handle categorical variables, variables that have a fixed and known set of possible values.
+
+
+The Tidyverse also includes many other packages with more specialized usage. They are not loaded automatically with Tidyverse, so you'll need to load each one with its own call.
+
+
+To install the Tidyverse packages run the following code in the console:
+
+```{r, eval = FALSE}
+
+install.packages("tidyverse")
+
+```
+
+
+Now the Tidyverse is available in R, but it is not activated yet. Whenever you start a new R session and plan to use the Tidyverse packages, you will need to activate the package by calling the `library(tidyverse)` function in the console:
+
+```{r, results = 'hide'}
+
+library(tidyverse)
+
+```
+
+
+Today we will start learning the Tidyverse family of packages by introducing the `dplyr` package.
+
+
+We will be working with a `nyc_flights` data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns). Let's import this data set into R: 
+
+
+```{r}
+
+flights <- read.csv(file = "C:/Users/alexp/OneDrive/Documents/nyc_flights.csv", header = T)
+
+```
+
+Let's convert our data frame into a `tibble` data frame (we will discuss this format in details later in the semester):
+
+```{r}
+
+flights <- as_tibble(flights)
+
+```
+
+
+&nbsp;
+
+
+## dplyr Package {-}
+
+As mentioned earlier, `dplyr` provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges such as selecting important variables, filtering out key observations, creating new variables, computing summaries, and so on. 
+
+
+In this lecture you are going to learn the key dplyr functions that allow you to solve the vast majority of your data manipulation challenges. All of the functions that we will discuss today will have a few common characteristics. In particular,
+
+* The first argument is a data frame
+
+* The subsequent arguments describe what to do with the data frame specified in the first argument, and you can refer to columns in the data frame directly without using the $ operator (just use the column names)
+
+* The return result of a function is a new data frame
+
+
+dplyr aims to provide a function for each basic verb of data manipulation. These verbs can be organised into three categories based on the component of the data set that they work with:
+
+* Rows:
+
+  * `filter()` - chooses rows based on column values
+  * `slice()` - chooses rows based on location
+  * `arrange()` -  changes the order of the rows
+  
+* Columns:
+
+  * `select()` - changes whether or not a column is included
+  * `rename()` - changes the name of columns
+  * `mutate()` - changes the values of columns and creates new columns
+  * `relocate()` - changes the order of the columns
+  
+* Groups of rows:
+
+  * `group_by()` - changes the scope of each function from operating on the entire data set to operating on it group-by-group
+  * `summarize()` - collapses a group into a single row
+  
+
+
+### filter() Function {-}
+
+`filter()` allows you to subset observations based on their values. The first argument is the name of the data frame, the second and subsequent arguments are the expressions that filter the data frame. For instance, let's select all flights on January 1st:
+
+
+```{r}
+
+filter(flights, month == 1, day == 1)
+
+```
+
+When you run that line of code, dplyr executes the filtering operation and returns a new data frame. dplyr functions never modify their inputs, so if you want to save the result, you’ll need to use the assignment operator, `<-` :
+
+```{r}
+
+jan1 <- filter(flights, month == 1, day == 1)
+
+```
+
+
+Let's find all flights that departed in November or December:
+
+```{r}
+
+filter(flights, month == 11 | month == 12)
+
+```
+
+We could do the same operation using the `%in%` operator:
+
+```{r}
+
+filter(flights, month %in% c(11, 12))
+
+```
+
+
+### slice() Function {-}
+
+`slice()` function allows you to index rows by their (integer) locations. It can select, remove, and duplicate rows.
+
+For instance, let's get observations from rows 5 through 10:
+
+```{r}
+
+slice(flights, 5:10)
+
+```
+
+
+Let's select all rows except the first four (this option can be used to drop some observations from a data set):
+
+```{r}
+
+slice(flights, -(1:4))
+
+```
+
+
+Similar to `head()` and `tail()` functions, `slice_head()` and `slice_tail()` can be used to display top and bottom rows in the data set, respectively. Let's print first and last 3 rows in the flights data set:
+
+```{r}
+
+slice_head(flights, n = 3)
+
+```
+
+```{r}
+
+slice_tail(flights, n = 3)
+
+```
+
+Use the `slice_sample()` function to randomly select rows. Use the option `prop` to choose a certain proportion of the cases:
+
+```{r}
+
+slice_sample(flights, n = 10)
+
+```
+
+```{r}
+
+slice_sample(flights, prop = 0.001)
+
+```
+
+Use `replace = TRUE` to take a sample with replacement. 
+
+
+### arrange() Function {-}
+
+The `arrange()` function is used to change the order of rows in a data set. It takes a data frame and a set of column names (or more complicated expressions) to order by. If you provide more than one column name, each additional column will be used to break ties in the values of preceding columns:
+
+```{r}
+
+arrange(flights, year, month, day)
+
+```
+
+Use `desc()` to re-order by a column in descending order:
+
+```{r}
+
+arrange(flights, desc(dep_delay))
+
+```
+
+
+
+### select() Function {-}
+
+Often you work with large data sets with many columns but only a few are actually of interest to you. `select()` function allows you to rapidly zoom in on a useful subset. You can select columns by name:
+
+```{r}
+
+select(flights, year, month, day)
+
+```
+
+You can select all columns between two variables (inclusive):
+
+```{r}
+
+select(flights, year:day)
+
+```
+
+You can select all columns except some:
+
+```{r}
+
+select(flights, -(year:day))
+
+```
+
+You can do the same operation with `!` operator:
+
+```{r}
+
+select(flights, !(year:day))
+
+```
+
+You can use column indexes for column selection:
+
+```{r}
+
+select(flights, c(1, 5, 8))
+
+```
+
+There are a number of helper functions you can use within `select()`. For example, `starts_with()`, `ends_with()`, `matches()` and `contains()`. These let you quickly match larger blocks of variables that meet some criterion.
+
+Let's select all columns that start with "sched":
+
+```{r}
+
+select(flights, starts_with("sched"))
+
+```
+
+You can select all columns in the data set that end with "time":
+
+```{r}
+
+select(flights, ends_with("time"))
+
+```
+
+Or suppose you want to select all columns in the data set that contain "ar":
+
+```{r}
+
+select(flights, contains("ar"))
+
+```
+
+You can even combine these arguments:
+
+```{r}
+
+select(flights, starts_with("sched") & ends_with("time"))
+
+```
+
+
+### rename() Function {-}
+
+Use `rename()` function to rename columns in a data frame. Suppose we want to rename the "year" and "month" variables and make them uppercase:
+
+```{r}
+
+rename(flights, YEAR = year, MONTH = month)
+
+```
+
+
+### relocate() Function {-}
+
+`relocate()` function allows to change the positions of columns in a data frame. It has two useful arguments `.before` and `.after` that helps precisely select a location for a variable:
+
+```{r}
+
+relocate(flights, year, .after = month)
+
+```
+
+```{r}
+
+relocate(flights, c(year, month), .before = dep_delay)
+
+```
+
+
+```{r}
+
+relocate(flights, c(year, month), .after = last_col())
+
+```
+
+```{r}
+
+relocate(flights, dep_delay, .before = everything())
+
+```
+
+
+
+### mutate() Function {-}
+
+It’s often useful to add new columns that are functions of existing columns. That's what the `mutate()` function does. 
+
+`mutate()` always adds new columns at the end of your data set so we’ll start by creating a narrower data set so we can see the new variables:
+
+```{r}
+
+flights_2 <- select(flights, month, ends_with("delay"), distance, air_time)
+
+```
+
+
+Now let's add "gain" and "speed" columns to the data frame:
+
+```{r}
+
+mutate(flights_2, gain = dep_delay - arr_delay, speed = distance / air_time * 60)
+
+```
+
+Note that you can refer to columns that you've just created:
+
+```{r}
+
+mutate(flights_2, gain = dep_delay - arr_delay, hours = air_time/60, gain_per_hour = gain/hours)
+
+```
+
+If you only want to keep the new variable, use `transmute()` function:
+
+```{r}
+
+transmute(flights_2, gain = dep_delay - arr_delay, hours = air_time/60, gain_per_hour = gain/hours)
+
+```
+
+
+### `%>%` Pipe Operator {-}
+
+The dplyr functions are functional in the sense that function calls don’t have side-effects. You must always save their results. This doesn’t lead to particularly elegant code, especially if you want to do many operations at once. You either have to do it step-by-step or if you don’t want to name the intermediate results, you need to wrap the function calls inside each other, which lead to a messy and complex code:
+
+```{r}
+
+select(filter(flights, month == 11 | month == 12), starts_with("sched") & ends_with("time"))
+
+```
+
+This is difficult to read because the order of the operations is from inside to out. Thus, the arguments are a long way away from the function. To get around this problem, dplyr provides the `%>%` operator. The pipe operator, `%>%`, comes from the **magrittr** package by Stefan Milton Bache. Packages in the tidyverse load `%>%` for you automatically, so you don't usually load magrittr explicitly. 
+
+
+`x %>% f(y)` turns into `f(x, y)` so you can use it to rewrite multiple operations that you can read left-to-right, top-to-bottom (reading the pipe operator as “then”):
+
+
+```{r}
+
+flights %>% 
+  
+  filter(month == 11 | month == 12) %>%
+  
+  select( starts_with("sched") & ends_with("time"))
+  
+
+```
+
+
+Try to understand what the following code is doing:
+
+
+```{r}
+
+flights %>% 
+  
+  filter(month %in% c(10, 11, 12), arr_delay < 10) %>%
+  
+  slice(1:30) %>%
+  
+  arrange(desc(arr_delay)) %>%
+  
+  select(-c(1,4))
+  
+
+```
+
+
