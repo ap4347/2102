@@ -55,6 +55,7 @@
 <li><a class="active" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="" href="lecture-09.html">Lecture 09</a></li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
+<li><a class="" href="lecture-11.html">Lecture 11</a></li>
 </ul>
 
         <div class="book-extra">
@@ -405,12 +406,12 @@
 <p>Boxplots are used to visualize a 5-Number summary (Minimum, Q1 (first quartile, also known as 25th percentile), median, Q3 (third quartile, also known as 75th percentile), and Maximum). Below is a boxplot for the <code>Age</code> variable:</p>
 <div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="08-Lecture_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
 <p>Let’s add labels to it and change the colors:</p>
 <div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
 <span>        </span>
 <span>        xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
 <span>        </span>
@@ -425,7 +426,7 @@
 <p>You can even add a notch to it if you want to:</p>
 <div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
 <span>        </span>
 <span>        xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
 <span>        </span>
@@ -442,7 +443,7 @@
 <p>You can change the shape and size of points in the plot by passing <code>pch</code> and <code>cex</code> arguments, respectfully. Type <code><a href="https://rdrr.io/r/graphics/points.html">?pch</a></code> in the console to see what shapes are available.</p>
 <div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span>,</span>
 <span>        </span>
 <span>        xlab <span class="op">=</span> <span class="st">"AGE"</span>,</span>
 <span>        </span>
@@ -463,7 +464,7 @@
 <p>Often you will be using boxplots to compare a numerical variable for different levels of other categorical variables (that is, levels of a factor). Let’s compare boxplots of the <code>Age</code> variable for female and male patients:</p>
 <div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span> <span class="op">~</span> <span class="va">data</span><span class="op">$</span><span class="va">Sex</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span> <span class="op">~</span> <span class="va">data</span><span class="op">$</span><span class="va">Sex</span>,</span>
 <span>        </span>
 <span>        xlab <span class="op">=</span> <span class="st">"SEX"</span>,</span>
 <span>        </span>
@@ -480,7 +481,7 @@
 <p>Let’s make it more complicated:</p>
 <div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">LungCap</span> <span class="op">~</span> <span class="va">data</span><span class="op">$</span><span class="va">Sex</span><span class="op">:</span><span class="va">data</span><span class="op">$</span><span class="va">Smoke</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">Age</span> <span class="op">~</span> <span class="va">data</span><span class="op">$</span><span class="va">Sex</span><span class="op">:</span><span class="va">data</span><span class="op">$</span><span class="va">Smoke</span>,</span>
 <span>        </span>
 <span>        xlab <span class="op">=</span> <span class="st">"COMBINATION OF SEX AND SMOKE VARIABLES"</span>,</span>
 <span>        </span>
@@ -647,7 +648,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-21.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-03-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

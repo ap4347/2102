@@ -55,6 +55,7 @@
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="active" href="lecture-09.html">Lecture 09</a></li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
+<li><a class="" href="lecture-11.html">Lecture 11</a></li>
 </ul>
 
         <div class="book-extra">
@@ -360,18 +361,18 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  0.5354043  9.7823872 -1.4358435  4.4347241  3.3832690</span></span>
-<span><span class="co">#&gt;  [6]  7.6317684  3.9381946  1.1973029  7.6494021  1.8219475</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] -2.8280154  5.8843290  6.0526155 -4.5165296 -3.1611369</span></span>
+<span><span class="co">#&gt;  [6] -0.8839437  2.4780125  2.7798456 -3.2411527 -0.9531726</span></span></code></pre></div>
 <div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  5.1534019  0.9743360 -1.7591689  3.6125391  5.8453557</span></span>
-<span><span class="co">#&gt;  [6]  6.9553460  5.0792087  4.3499884  9.8040755 -0.4188259</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  4.2952224  1.1609205  6.6923341  5.7082277  8.8541876</span></span>
+<span><span class="co">#&gt;  [6]  7.4371397 -1.5857019  7.0580610  0.6216819  8.4431877</span></span></code></pre></div>
 <div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  7.1722809 -1.6392186  9.3484259  2.3194261  3.0464423</span></span>
-<span><span class="co">#&gt;  [6] -1.2333250  9.4243404 -0.4575588  6.7026690  4.3155516</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  2.8413864  2.3875766  6.1502481  4.3764656  4.9565702</span></span>
+<span><span class="co">#&gt;  [6]  1.3014269  3.6789475  2.0286405  0.5297447 -0.4835693</span></span></code></pre></div>
 <p>As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done random.</p>
 <p>After generating random numbers, you may often want to reproduce the same sequence of “random” numbers every time your program executes. That way, you get the same results from run to run.</p>
 <p>In R, the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function sets the random number generator to a known state. The function takes one argument, an integer. Any positive integer will work, but you must use the same one in order to get the same initial state.</p>
@@ -499,7 +500,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-02-21.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-03-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

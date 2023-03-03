@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 11 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="  dplyr Package (continued) We will continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 11 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-11.html">
+<meta property="og:description" content="  dplyr Package (continued) We will continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 11 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="  dplyr Package (continued) We will continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="" href="lecture-03.html">Lecture 03</a></li>
+<li><a class="" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
+<li><a class="" href="lecture-06.html">Lecture 06</a></li>
+<li><a class="" href="lecture-07.html">Lecture 07</a></li>
+<li><a class="" href="lecture-08.html">Lecture 08</a></li>
+<li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li><a class="" href="lecture-10.html">Lecture 10</a></li>
+<li><a class="active" href="lecture-11.html">Lecture 11</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-11" class="section level1 unnumbered">
+<h1>Lecture 11<a class="anchor" aria-label="anchor" href="#lecture-11"><i class="fas fa-link"></i></a>
+</h1>
+<p> </p>
+<div id="dplyr-package-continued" class="section level2 unnumbered">
+<h2>dplyr Package (continued)<a class="anchor" aria-label="anchor" href="#dplyr-package-continued"><i class="fas fa-link"></i></a>
+</h2>
+<p>We will continue working with the <code>nyc_flights</code> data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns).</p>
+<div id="group_by-summarise-and-across-functions" class="section level3 unnumbered">
+<h3>group_by(), summarise(), and across() Functions<a class="anchor" aria-label="anchor" href="#group_by-summarise-and-across-functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Most data operations are done on groups defined by variables. <code>dplyr</code> verbs are particularly powerful when you apply them to grouped data frames. The most important grouping verb is <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>. It takes an existing data frame and converts it into a grouped data frame where operations are performed “by group”. In other words, it takes a data frame and one or more variables to group by:</p>
+<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">by_origin</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">by_origin</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
+<span><span class="co">#&gt; # Groups:   origin [3]</span></span>
+<span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
+<span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1  2013     1     1     517     515       2     830     819</span></span>
+<span><span class="co">#&gt;  2  2013     1     1     533     529       4     850     830</span></span>
+<span><span class="co">#&gt;  3  2013     1     1     542     540       2     923     850</span></span>
+<span><span class="co">#&gt;  4  2013     1     1     544     545      -1    1004    1022</span></span>
+<span><span class="co">#&gt;  5  2013     1     1     554     600      -6     812     837</span></span>
+<span><span class="co">#&gt;  6  2013     1     1     554     558      -4     740     728</span></span>
+<span><span class="co">#&gt;  7  2013     1     1     555     600      -5     913     854</span></span>
+<span><span class="co">#&gt;  8  2013     1     1     557     600      -3     709     723</span></span>
+<span><span class="co">#&gt;  9  2013     1     1     557     600      -3     838     846</span></span>
+<span><span class="co">#&gt; 10  2013     1     1     558     600      -2     753     745</span></span>
+<span><span class="co">#&gt; # … with 336,766 more rows, 11 more variables:</span></span>
+<span><span class="co">#&gt; #   arr_delay &lt;int&gt;, carrier &lt;fct&gt;, flight &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   tailnum &lt;fct&gt;, origin &lt;fct&gt;, dest &lt;fct&gt;,</span></span>
+<span><span class="co">#&gt; #   air_time &lt;int&gt;, distance &lt;int&gt;, hour &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   minute &lt;int&gt;, time_hour &lt;fct&gt;, and abbreviated variable</span></span>
+<span><span class="co">#&gt; #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,</span></span>
+<span><span class="co">#&gt; #   ⁴​arr_time, ⁵​sched_arr_time</span></span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">by_origin_carrier</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">by_origin_carrier</span></span>
+<span><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
+<span><span class="co">#&gt; # Groups:   origin, carrier [35]</span></span>
+<span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
+<span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1  2013     1     1     517     515       2     830     819</span></span>
+<span><span class="co">#&gt;  2  2013     1     1     533     529       4     850     830</span></span>
+<span><span class="co">#&gt;  3  2013     1     1     542     540       2     923     850</span></span>
+<span><span class="co">#&gt;  4  2013     1     1     544     545      -1    1004    1022</span></span>
+<span><span class="co">#&gt;  5  2013     1     1     554     600      -6     812     837</span></span>
+<span><span class="co">#&gt;  6  2013     1     1     554     558      -4     740     728</span></span>
+<span><span class="co">#&gt;  7  2013     1     1     555     600      -5     913     854</span></span>
+<span><span class="co">#&gt;  8  2013     1     1     557     600      -3     709     723</span></span>
+<span><span class="co">#&gt;  9  2013     1     1     557     600      -3     838     846</span></span>
+<span><span class="co">#&gt; 10  2013     1     1     558     600      -2     753     745</span></span>
+<span><span class="co">#&gt; # … with 336,766 more rows, 11 more variables:</span></span>
+<span><span class="co">#&gt; #   arr_delay &lt;int&gt;, carrier &lt;fct&gt;, flight &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   tailnum &lt;fct&gt;, origin &lt;fct&gt;, dest &lt;fct&gt;,</span></span>
+<span><span class="co">#&gt; #   air_time &lt;int&gt;, distance &lt;int&gt;, hour &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   minute &lt;int&gt;, time_hour &lt;fct&gt;, and abbreviated variable</span></span>
+<span><span class="co">#&gt; #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,</span></span>
+<span><span class="co">#&gt; #   ⁴​arr_time, ⁵​sched_arr_time</span></span></code></pre></div>
+<p>Grouping does not change how the data looks apart from listing how it is grouped.</p>
+<p>Grouping is most useful when used in conjunction with the <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> function. <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarizing all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified. Thus, it changes the unit of analysis from the complete dataset to individual groups. Together <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> provide one of the tools that you’ll use most commonly when working with dplyr: grouped summaries.</p>
+<p>For instance, let’s calculate the average arrival delay time for each group in the <code>by_origin</code> grouped data:</p>
+<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">by_origin</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 2</span></span>
+<span><span class="co">#&gt;   origin  Mean</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 EWR     9.11</span></span>
+<span><span class="co">#&gt; 2 JFK     5.55</span></span>
+<span><span class="co">#&gt; 3 LGA     5.78</span></span></code></pre></div>
+<p>You can even pass several variables to it:</p>
+<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">by_origin</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            Median <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            Count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 4</span></span>
+<span><span class="co">#&gt;   origin  Mean Median  Count</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 EWR     9.11     -4 120835</span></span>
+<span><span class="co">#&gt; 2 JFK     5.55     -6 111279</span></span>
+<span><span class="co">#&gt; 3 LGA     5.78     -5 104662</span></span></code></pre></div>
+<p>The table below displays useful functions that are frequently used with <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code>:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>Functionality</th>
+<th>Functions</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Center</td>
+<td>
+<code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/median.html">median()</a></code>
+</td>
+</tr>
+<tr class="even">
+<td>Spread</td>
+<td>
+<code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, <code><a href="https://rdrr.io/r/stats/IQR.html">IQR()</a></code>, <code><a href="https://rdrr.io/r/stats/cor.html">var()</a></code>, <code><a href="https://rdrr.io/r/stats/quantile.html">quantile()</a></code>
+</td>
+</tr>
+<tr class="odd">
+<td>Range</td>
+<td>
+<code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>, <code><a href="https://rdrr.io/r/base/range.html">range()</a></code>
+</td>
+</tr>
+<tr class="even">
+<td>Position</td>
+<td>
+<code><a href="https://dplyr.tidyverse.org/reference/nth.html">first()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/nth.html">last()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/nth.html">nth()</a></code>
+</td>
+</tr>
+<tr class="odd">
+<td>Count</td>
+<td>
+<code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/n_distinct.html">n_distinct()</a></code>
+</td>
+</tr>
+<tr class="even">
+<td>Logical</td>
+<td>
+<code><a href="https://rdrr.io/r/base/any.html">any()</a></code>, <code><a href="https://rdrr.io/r/base/all.html">all()</a></code>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p><code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> functions can be combined with other single table verbs:</p>
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">by_carrier</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">carrier</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">by_carrier</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span> <span class="op">(</span>Count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, Distance_sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Count</span> <span class="op">&lt;</span> <span class="fl">10000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">Distance_sd</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 7 × 3</span></span>
+<span><span class="co">#&gt;   carrier Count Distance_sd</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;   &lt;int&gt;       &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 OO         32       206. </span></span>
+<span><span class="co">#&gt; 2 FL       3260       161. </span></span>
+<span><span class="co">#&gt; 3 YV        601       160. </span></span>
+<span><span class="co">#&gt; 4 VX       5162        88.0</span></span>
+<span><span class="co">#&gt; 5 AS        714         0  </span></span>
+<span><span class="co">#&gt; 6 F9        685         0  </span></span>
+<span><span class="co">#&gt; 7 HA        342         0</span></span></code></pre></div>
+<p>If you need to remove grouping and return to operations on ungrouped data, use <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup()</a></code>:</p>
+<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">by_carrier</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>flights <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 1</span></span>
+<span><span class="co">#&gt;   flights</span></span>
+<span><span class="co">#&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1  336776</span></span></code></pre></div>
+<p>It’s often useful to perform the same operation on multiple columns, but copying and pasting is both tedious and error prone. For example:</p>
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>Mean_dep_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            Mean_arrival_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            Mean_air_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">air_time</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `summarise()` has grouped output by 'origin'. You can</span></span>
+<span><span class="co">#&gt; override using the `.groups` argument.</span></span>
+<span><span class="co">#&gt; # A tibble: 35 × 5</span></span>
+<span><span class="co">#&gt; # Groups:   origin [3]</span></span>
+<span><span class="co">#&gt;    origin carrier Mean_dep_delay Mean_arrival_delay Mean_a…¹</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;  &lt;fct&gt;            &lt;dbl&gt;              &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 EWR    9E                5.95              1.62     103. </span></span>
+<span><span class="co">#&gt;  2 EWR    AA               10.0               0.978    196. </span></span>
+<span><span class="co">#&gt;  3 EWR    AS                5.80             -9.93     326. </span></span>
+<span><span class="co">#&gt;  4 EWR    B6               13.1               9.39     118. </span></span>
+<span><span class="co">#&gt;  5 EWR    DL               12.1               8.78     125. </span></span>
+<span><span class="co">#&gt;  6 EWR    EV               20.2              17.0       94.0</span></span>
+<span><span class="co">#&gt;  7 EWR    MQ               17.5              16.3      112. </span></span>
+<span><span class="co">#&gt;  8 EWR    OO               20.8              21.5      137. </span></span>
+<span><span class="co">#&gt;  9 EWR    UA               12.5               3.48     207. </span></span>
+<span><span class="co">#&gt; 10 EWR    US                3.74              0.977    138. </span></span>
+<span><span class="co">#&gt; # … with 25 more rows, and abbreviated variable name</span></span>
+<span><span class="co">#&gt; #   ¹​Mean_air_time</span></span></code></pre></div>
+<p>Instead, we can use <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> function, which lets you rewrite the previous code more succinctly:</p>
+<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">dep_delay</span>, <span class="va">arr_delay</span>, <span class="va">air_time</span><span class="op">)</span>,</span>
+<span>    </span>
+<span>    <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span>, na.rm <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span>    </span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `summarise()` has grouped output by 'origin'. You can</span></span>
+<span><span class="co">#&gt; override using the `.groups` argument.</span></span>
+<span><span class="co">#&gt; # A tibble: 35 × 5</span></span>
+<span><span class="co">#&gt; # Groups:   origin [3]</span></span>
+<span><span class="co">#&gt;    origin carrier dep_delay arr_delay air_time</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;  &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 EWR    9E           5.95     1.62     103. </span></span>
+<span><span class="co">#&gt;  2 EWR    AA          10.0      0.978    196. </span></span>
+<span><span class="co">#&gt;  3 EWR    AS           5.80    -9.93     326. </span></span>
+<span><span class="co">#&gt;  4 EWR    B6          13.1      9.39     118. </span></span>
+<span><span class="co">#&gt;  5 EWR    DL          12.1      8.78     125. </span></span>
+<span><span class="co">#&gt;  6 EWR    EV          20.2     17.0       94.0</span></span>
+<span><span class="co">#&gt;  7 EWR    MQ          17.5     16.3      112. </span></span>
+<span><span class="co">#&gt;  8 EWR    OO          20.8     21.5      137. </span></span>
+<span><span class="co">#&gt;  9 EWR    UA          12.5      3.48     207. </span></span>
+<span><span class="co">#&gt; 10 EWR    US           3.74     0.977    138. </span></span>
+<span><span class="co">#&gt; # … with 25 more rows</span></span></code></pre></div>
+<p><code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> has two primary arguments: (1) the first argument, <code>.col</code>, selects the columns you want to operate on; (2) the second argument, <code>.fns</code>, is a function or list of functions to apply to each column. Here are some examples:</p>
+<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.factor</span><span class="op">)</span>, <span class="va">n_distinct</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
+<span><span class="co">#&gt;   carrier tailnum origin  dest time_hour</span></span>
+<span><span class="co">#&gt;     &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1      16    4044      3   105      6936</span></span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 15</span></span>
+<span><span class="co">#&gt;   origin  year month   day dep_time sched_…¹ dep_d…² arr_t…³</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 EWR     2013  6.49  15.7    1337.    1322.    15.1   1492.</span></span>
+<span><span class="co">#&gt; 2 JFK     2013  6.50  15.7    1399.    1402.    12.1   1520.</span></span>
+<span><span class="co">#&gt; 3 LGA     2013  6.67  15.7    1310.    1308.    10.3   1494.</span></span>
+<span><span class="co">#&gt; # … with 7 more variables: sched_arr_time &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   arr_delay &lt;dbl&gt;, flight &lt;dbl&gt;, air_time &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, and</span></span>
+<span><span class="co">#&gt; #   abbreviated variable names ¹​sched_dep_time, ²​dep_delay,</span></span>
+<span><span class="co">#&gt; #   ³​arr_time</span></span></code></pre></div>
+<p>You can transform each variable with more than one function by supplying a named list of functions or lambda functions in the second argument:</p>
+<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span></span>
+<span><span class="va">min_max</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  min <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">.x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, </span>
+<span>  </span>
+<span>  max <span class="op">=</span> <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">.x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">min_max</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 29</span></span>
+<span><span class="co">#&gt;   origin year_min year_max month_min month…¹ day_min day_max</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;     &lt;int&gt;    &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 EWR        2013     2013         1      12       1      31</span></span>
+<span><span class="co">#&gt; 2 JFK        2013     2013         1      12       1      31</span></span>
+<span><span class="co">#&gt; 3 LGA        2013     2013         1      12       1      31</span></span>
+<span><span class="co">#&gt; # … with 22 more variables: dep_time_min &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   dep_time_max &lt;int&gt;, sched_dep_time_min &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   sched_dep_time_max &lt;int&gt;, dep_delay_min &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   dep_delay_max &lt;int&gt;, arr_time_min &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   arr_time_max &lt;int&gt;, sched_arr_time_min &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   sched_arr_time_max &lt;int&gt;, arr_delay_min &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   arr_delay_max &lt;int&gt;, flight_min &lt;int&gt;, …</span></span></code></pre></div>
+<p>You can control how the names are created with the <code>.names</code> argument:</p>
+<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">min_max</span>,</span>
+<span>                   </span>
+<span>                   .names <span class="op">=</span> <span class="st">"{.fn}.{.col}"</span></span>
+<span>                   </span>
+<span>                   <span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 29</span></span>
+<span><span class="co">#&gt;   origin min.year max.year min.month max.m…¹ min.day max.day</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;     &lt;int&gt;    &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 EWR        2013     2013         1      12       1      31</span></span>
+<span><span class="co">#&gt; 2 JFK        2013     2013         1      12       1      31</span></span>
+<span><span class="co">#&gt; 3 LGA        2013     2013         1      12       1      31</span></span>
+<span><span class="co">#&gt; # … with 22 more variables: min.dep_time &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   max.dep_time &lt;int&gt;, min.sched_dep_time &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   max.sched_dep_time &lt;int&gt;, min.dep_delay &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   max.dep_delay &lt;int&gt;, min.arr_time &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   max.arr_time &lt;int&gt;, min.sched_arr_time &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   max.sched_arr_time &lt;int&gt;, min.arr_delay &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   max.arr_delay &lt;int&gt;, min.flight &lt;int&gt;, …</span></span></code></pre></div>
+</div>
+</div>
+<div id="relational-data-two-table-verbs" class="section level2 unnumbered">
+<h2>Relational Data: Two-Table Verbs<a class="anchor" aria-label="anchor" href="#relational-data-two-table-verbs"><i class="fas fa-link"></i></a>
+</h2>
+<p>It’s rare that a data analysis involves only a single table of data. In practice, you’ll normally have many tables that contribute to an analysis, and you need flexible tools to combine them.</p>
+<p>In dplyr, there are three families of verbs that work with two tables at a time:</p>
+<ul>
+<li>
+<strong>Mutating joins</strong>, which add new variables to one table from matching rows in another</li>
+<li>
+<strong>Filtering joins</strong>, which filter observations from one table based on whether or not they match an observation in the other table</li>
+<li>
+<strong>Set operations</strong>, which combine the observations in the data sets as if they were set elements</li>
+</ul>
+<div id="mutating-joins" class="section level3 unnumbered">
+<h3>Mutating joins<a class="anchor" aria-label="anchor" href="#mutating-joins"><i class="fas fa-link"></i></a>
+</h3>
+<p>Mutating joins allow you to combine variables from multiple tables. It first matches observations by their keys, then copies across variables from one table to the other. There are four types of mutating join, which differ in their behavior when a match is not found. These are:</p>
+<ul>
+<li><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join()</a></code></li>
+<li><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code></li>
+<li><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join()</a></code></li>
+<li><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join()</a></code></li>
+</ul>
+<p>All these functions have the same input arguments. We will be focusing on the following arguments:</p>
+<ul>
+<li>
+<code>x</code> and <code>y</code> - tables or dataframes that are being combined (<code>x</code> is known as a primary table and <code>y</code> as a secondary table)</li>
+<li>
+<code>by</code> - the join key, a variable or variables that is/are used to match the rows between the <code>x</code> and <code>y</code> tables. In other words, it controls which variables are used to match observations in the two tables.</li>
+<li>
+<code>keep</code> - a logical operator indicating whether the join keys from both <code>x</code> and <code>y</code> tables should be preserved in the output. The default value is <code>FALSE</code>.</li>
+</ul>
+<p>The output is always a new table. By default, if an observation in <code>x</code> matches multiple observations in <code>y</code>, all of the matching observations in <code>y</code> will be returned. If this occurs, normally a warning will be thrown stating that multiple matches have been detected since this is usually surprising.</p>
+<p>To illustrative how these functions work, we will be using the following toy data frames:</p>
+<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">35</span>, <span class="fl">40</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  c  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">350</span>, <span class="fl">400</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b   c</span></span>
+<span><span class="co">#&gt; 1 1 10 100</span></span>
+<span><span class="co">#&gt; 2 2 20 200</span></span>
+<span><span class="co">#&gt; 3 3 30 300</span></span>
+<span><span class="co">#&gt; 4 2 35 350</span></span>
+<span><span class="co">#&gt; 5 4 40 400</span></span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  a <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  b  <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">50</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">45</span>, <span class="fl">55</span>, <span class="fl">65</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  z <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">150</span>, <span class="fl">200</span>, <span class="fl">350</span>, <span class="fl">400</span>, <span class="fl">550</span>, <span class="fl">270</span><span class="op">)</span></span>
+<span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b  x   z</span></span>
+<span><span class="co">#&gt; 1 1 10 15 150</span></span>
+<span><span class="co">#&gt; 2 2 40 25 200</span></span>
+<span><span class="co">#&gt; 3 5 50 35 350</span></span>
+<span><span class="co">#&gt; 4 4 40 45 400</span></span>
+<span><span class="co">#&gt; 5 6 60 55 550</span></span>
+<span><span class="co">#&gt; 6 2 50 65 270</span></span></code></pre></div>
+<div id="inner_join" class="section level4 unnumbered">
+<h4>inner_join()<a class="anchor" aria-label="anchor" href="#inner_join"><i class="fas fa-link"></i></a>
+</h4>
+<p>The simplest type of join is the <strong>inner join</strong>. An inner join matches pairs of observations whenever their keys are equal. The output of an inner join is a new data frame that contains the key, the <code>x</code> values, and the <code>y</code> values. The most important property of an inner join is that unmatched rows in either input are not included in the result.</p>
+<p>Below are some examples of inner join:</p>
+<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Merging tables by the "a" variable</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a b.x   c b.y  x   z</span></span>
+<span><span class="co">#&gt; 1 1  10 100  10 15 150</span></span>
+<span><span class="co">#&gt; 2 2  20 200  40 25 200</span></span>
+<span><span class="co">#&gt; 3 2  20 200  50 65 270</span></span>
+<span><span class="co">#&gt; 4 2  35 350  40 25 200</span></span>
+<span><span class="co">#&gt; 5 2  35 350  50 65 270</span></span>
+<span><span class="co">#&gt; 6 4  40 400  40 45 400</span></span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Merging tables by the "a" and "b" variable</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b   c  x   z</span></span>
+<span><span class="co">#&gt; 1 1 10 100 15 150</span></span>
+<span><span class="co">#&gt; 2 4 40 400 45 400</span></span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## Merging tables by the "c" and "z" variable (Have different variable names)</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c"</span> <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a.x b.x   c a.y b.y  x</span></span>
+<span><span class="co">#&gt; 1   2  20 200   2  40 25</span></span>
+<span><span class="co">#&gt; 2   2  35 350   5  50 35</span></span>
+<span><span class="co">#&gt; 3   4  40 400   4  40 45</span></span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## Merging tables by the "c" and "z" variable (Have different variable names) and keeping both key variables in the output table</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c"</span> <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span>, keep <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a.x b.x   c a.y b.y  x   z</span></span>
+<span><span class="co">#&gt; 1   2  20 200   2  40 25 200</span></span>
+<span><span class="co">#&gt; 2   2  35 350   5  50 35 350</span></span>
+<span><span class="co">#&gt; 3   4  40 400   4  40 45 400</span></span></code></pre></div>
+</div>
+<div id="left_join" class="section level4 unnumbered">
+<h4>left_join()<a class="anchor" aria-label="anchor" href="#left_join"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join()</a></code> includes all observations in <code>x</code>, regardless of whether they match or not. This is the most commonly used join because it ensures that you don’t lose observations from your primary table:</p>
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Merging tables by the "a" variable</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a b.x   c b.y  x   z</span></span>
+<span><span class="co">#&gt; 1 1  10 100  10 15 150</span></span>
+<span><span class="co">#&gt; 2 2  20 200  40 25 200</span></span>
+<span><span class="co">#&gt; 3 2  20 200  50 65 270</span></span>
+<span><span class="co">#&gt; 4 3  30 300  NA NA  NA</span></span>
+<span><span class="co">#&gt; 5 2  35 350  40 25 200</span></span>
+<span><span class="co">#&gt; 6 2  35 350  50 65 270</span></span>
+<span><span class="co">#&gt; 7 4  40 400  40 45 400</span></span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Merging tables by the "a" and "b" variable</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b   c  x   z</span></span>
+<span><span class="co">#&gt; 1 1 10 100 15 150</span></span>
+<span><span class="co">#&gt; 2 2 20 200 NA  NA</span></span>
+<span><span class="co">#&gt; 3 3 30 300 NA  NA</span></span>
+<span><span class="co">#&gt; 4 2 35 350 NA  NA</span></span>
+<span><span class="co">#&gt; 5 4 40 400 45 400</span></span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## Merging tables by the "c" and "z" variable (Have different variable names)</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c"</span> <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a.x b.x   c a.y b.y  x</span></span>
+<span><span class="co">#&gt; 1   1  10 100  NA  NA NA</span></span>
+<span><span class="co">#&gt; 2   2  20 200   2  40 25</span></span>
+<span><span class="co">#&gt; 3   3  30 300  NA  NA NA</span></span>
+<span><span class="co">#&gt; 4   2  35 350   5  50 35</span></span>
+<span><span class="co">#&gt; 5   4  40 400   4  40 45</span></span></code></pre></div>
+</div>
+<div id="right_join" class="section level4 unnumbered">
+<h4>right_join()<a class="anchor" aria-label="anchor" href="#right_join"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join()</a></code> includes all observations in <code>y</code>:</p>
+<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Merging tables by the "a" variable</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a b.x   c b.y  x   z</span></span>
+<span><span class="co">#&gt; 1 1  10 100  10 15 150</span></span>
+<span><span class="co">#&gt; 2 2  20 200  40 25 200</span></span>
+<span><span class="co">#&gt; 3 2  20 200  50 65 270</span></span>
+<span><span class="co">#&gt; 4 2  35 350  40 25 200</span></span>
+<span><span class="co">#&gt; 5 2  35 350  50 65 270</span></span>
+<span><span class="co">#&gt; 6 4  40 400  40 45 400</span></span>
+<span><span class="co">#&gt; 7 5  NA  NA  50 35 350</span></span>
+<span><span class="co">#&gt; 8 6  NA  NA  60 55 550</span></span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Merging tables by the "a" and "b" variable</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b   c  x   z</span></span>
+<span><span class="co">#&gt; 1 1 10 100 15 150</span></span>
+<span><span class="co">#&gt; 2 4 40 400 45 400</span></span>
+<span><span class="co">#&gt; 3 2 40  NA 25 200</span></span>
+<span><span class="co">#&gt; 4 5 50  NA 35 350</span></span>
+<span><span class="co">#&gt; 5 6 60  NA 55 550</span></span>
+<span><span class="co">#&gt; 6 2 50  NA 65 270</span></span></code></pre></div>
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## Merging tables by the "c" and "z" variable (Have different variable names)</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c"</span> <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a.x b.x   c a.y b.y  x</span></span>
+<span><span class="co">#&gt; 1   2  20 200   2  40 25</span></span>
+<span><span class="co">#&gt; 2   2  35 350   5  50 35</span></span>
+<span><span class="co">#&gt; 3   4  40 400   4  40 45</span></span>
+<span><span class="co">#&gt; 4  NA  NA 150   1  10 15</span></span>
+<span><span class="co">#&gt; 5  NA  NA 550   6  60 55</span></span>
+<span><span class="co">#&gt; 6  NA  NA 270   2  50 65</span></span></code></pre></div>
+</div>
+<div id="full_join" class="section level4 unnumbered">
+<h4>full_join()<a class="anchor" aria-label="anchor" href="#full_join"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join()</a></code> includes all observations from both <code>x</code> and <code>y</code>:</p>
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Merging tables by the "a" variable</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a b.x   c b.y  x   z</span></span>
+<span><span class="co">#&gt; 1 1  10 100  10 15 150</span></span>
+<span><span class="co">#&gt; 2 2  20 200  40 25 200</span></span>
+<span><span class="co">#&gt; 3 2  20 200  50 65 270</span></span>
+<span><span class="co">#&gt; 4 3  30 300  NA NA  NA</span></span>
+<span><span class="co">#&gt; 5 2  35 350  40 25 200</span></span>
+<span><span class="co">#&gt; 6 2  35 350  50 65 270</span></span>
+<span><span class="co">#&gt; 7 4  40 400  40 45 400</span></span>
+<span><span class="co">#&gt; 8 5  NA  NA  50 35 350</span></span>
+<span><span class="co">#&gt; 9 6  NA  NA  60 55 550</span></span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Merging tables by the "a" and "b" variable</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b   c  x   z</span></span>
+<span><span class="co">#&gt; 1 1 10 100 15 150</span></span>
+<span><span class="co">#&gt; 2 2 20 200 NA  NA</span></span>
+<span><span class="co">#&gt; 3 3 30 300 NA  NA</span></span>
+<span><span class="co">#&gt; 4 2 35 350 NA  NA</span></span>
+<span><span class="co">#&gt; 5 4 40 400 45 400</span></span>
+<span><span class="co">#&gt; 6 2 40  NA 25 200</span></span>
+<span><span class="co">#&gt; 7 5 50  NA 35 350</span></span>
+<span><span class="co">#&gt; 8 6 60  NA 55 550</span></span>
+<span><span class="co">#&gt; 9 2 50  NA 65 270</span></span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## Merging tables by the "c" and "z" variable (Have different variable names)</span></span>
+<span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c"</span> <span class="op">=</span> <span class="st">"z"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a.x b.x   c a.y b.y  x</span></span>
+<span><span class="co">#&gt; 1   1  10 100  NA  NA NA</span></span>
+<span><span class="co">#&gt; 2   2  20 200   2  40 25</span></span>
+<span><span class="co">#&gt; 3   3  30 300  NA  NA NA</span></span>
+<span><span class="co">#&gt; 4   2  35 350   5  50 35</span></span>
+<span><span class="co">#&gt; 5   4  40 400   4  40 45</span></span>
+<span><span class="co">#&gt; 6  NA  NA 150   1  10 15</span></span>
+<span><span class="co">#&gt; 7  NA  NA 550   6  60 55</span></span>
+<span><span class="co">#&gt; 8  NA  NA 270   2  50 65</span></span></code></pre></div>
+</div>
+</div>
+<div id="filtering-joins" class="section level3 unnumbered">
+<h3>Filtering joins<a class="anchor" aria-label="anchor" href="#filtering-joins"><i class="fas fa-link"></i></a>
+</h3>
+<p>Filtering joins match observations in the same way as mutating joins, but affect the observations, not the variables. There are two types:</p>
+<ul>
+<li>
+<code>semi_join(x, y)</code> - <strong>keeps</strong> all observations in <code>x</code> that have a match in <code>y</code>
+</li>
+<li>
+<code>anti_join(x, y)</code> - <strong>drops</strong> all observations in <code>x</code> that have a match in <code>y</code>
+</li>
+</ul>
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">semi_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b   c</span></span>
+<span><span class="co">#&gt; 1 1 10 100</span></span>
+<span><span class="co">#&gt; 2 2 20 200</span></span>
+<span><span class="co">#&gt; 3 2 35 350</span></span>
+<span><span class="co">#&gt; 4 4 40 400</span></span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">semi_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b   c</span></span>
+<span><span class="co">#&gt; 1 1 10 100</span></span>
+<span><span class="co">#&gt; 2 4 40 400</span></span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b   c</span></span>
+<span><span class="co">#&gt; 1 3 30 300</span></span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b   c</span></span>
+<span><span class="co">#&gt; 1 2 20 200</span></span>
+<span><span class="co">#&gt; 2 3 30 300</span></span>
+<span><span class="co">#&gt; 3 2 35 350</span></span></code></pre></div>
+</div>
+<div id="set-operations" class="section level3 unnumbered">
+<h3>Set Operations<a class="anchor" aria-label="anchor" href="#set-operations"><i class="fas fa-link"></i></a>
+</h3>
+<p>Set operations expect <code>x</code> and <code>y</code> tables to have the same variables, and treat the observations as sets:</p>
+<ul>
+<li>
+<code>itersect(x, y)</code> - returns only observations in both <code>x</code> and <code>y</code>
+</li>
+<li>
+<code>union(x, y)</code> - returns unique observations in both <code>x</code> and <code>y</code>
+</li>
+<li>
+<code>setdiff(x, y)</code> - returns observations in <code>x</code>, but not in <code>y</code>
+</li>
+</ul>
+<p>We will first create toy data frames and then apply these functions to them:</p>
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df1</span></span>
+<span><span class="co">#&gt;   a  b</span></span>
+<span><span class="co">#&gt; 1 1 10</span></span>
+<span><span class="co">#&gt; 2 2 20</span></span>
+<span><span class="co">#&gt; 3 3 30</span></span>
+<span><span class="co">#&gt; 4 4 40</span></span>
+<span><span class="co">#&gt; 5 5 50</span></span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">30</span>, <span class="fl">45</span>, <span class="fl">65</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df2</span></span>
+<span><span class="co">#&gt;   a  b</span></span>
+<span><span class="co">#&gt; 1 1 10</span></span>
+<span><span class="co">#&gt; 2 2 15</span></span>
+<span><span class="co">#&gt; 3 3 30</span></span>
+<span><span class="co">#&gt; 4 4 45</span></span>
+<span><span class="co">#&gt; 5 5 65</span></span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">intersect</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b</span></span>
+<span><span class="co">#&gt; 1 1 10</span></span>
+<span><span class="co">#&gt; 2 3 30</span></span></code></pre></div>
+<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">union</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b</span></span>
+<span><span class="co">#&gt; 1 1 10</span></span>
+<span><span class="co">#&gt; 2 2 20</span></span>
+<span><span class="co">#&gt; 3 3 30</span></span>
+<span><span class="co">#&gt; 4 4 40</span></span>
+<span><span class="co">#&gt; 5 5 50</span></span>
+<span><span class="co">#&gt; 6 2 15</span></span>
+<span><span class="co">#&gt; 7 4 45</span></span>
+<span><span class="co">#&gt; 8 5 65</span></span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">df1</span>, <span class="va">df2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b</span></span>
+<span><span class="co">#&gt; 1 2 20</span></span>
+<span><span class="co">#&gt; 2 4 40</span></span>
+<span><span class="co">#&gt; 3 5 50</span></span></code></pre></div>
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html">setdiff</a></span><span class="op">(</span><span class="va">df2</span>, <span class="va">df1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   a  b</span></span>
+<span><span class="co">#&gt; 1 2 15</span></span>
+<span><span class="co">#&gt; 2 4 45</span></span>
+<span><span class="co">#&gt; 3 5 65</span></span></code></pre></div>
+</div>
+<div id="practice-data-sets" class="section level3 unnumbered">
+<h3>Practice Data Sets<a class="anchor" aria-label="anchor" href="#practice-data-sets"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here are two data sets that you can use to practice two-table verbs:</p>
+<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  Name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"James"</span>, <span class="st">"Linda"</span>, <span class="st">"Jim"</span>, <span class="st">"Margo"</span>, <span class="st">"Nick"</span>, <span class="st">"Stacy"</span>, <span class="st">"Mary"</span>, <span class="st">"Tom"</span>, <span class="st">"Anna"</span>, <span class="st">"Bob"</span>, <span class="st">"Jeniffer"</span>, <span class="st">"Lucas"</span>, <span class="st">"Amy"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  Age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">22</span>, <span class="fl">56</span>, <span class="fl">34</span>, <span class="fl">48</span>, <span class="fl">19</span>, <span class="fl">25</span>, <span class="fl">31</span>, <span class="fl">68</span>, <span class="fl">72</span>, <span class="fl">42</span>, <span class="fl">39</span>, <span class="fl">52</span>, <span class="fl">39</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  State <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"California"</span>, <span class="st">"New York"</span>, <span class="st">"New York"</span>, <span class="st">"California"</span>, <span class="st">"Michigan"</span>, <span class="st">"Texas"</span>, <span class="st">"Ohio"</span>, <span class="st">"Arizona"</span>, <span class="st">"Texas"</span>, <span class="st">"Florida"</span>, <span class="st">"Nebraska"</span>, <span class="st">"Indiana"</span>, <span class="st">"Florida"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  state_abr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CA"</span>, <span class="st">"NY"</span>, <span class="st">"NY"</span>, <span class="st">"CA"</span>, <span class="st">"MI"</span>, <span class="st">"TX"</span>, <span class="st">"OH"</span>, <span class="st">"AZ"</span>, <span class="st">"TX"</span>, <span class="st">"FL"</span>, <span class="st">"NE"</span>, <span class="st">"IN"</span>, <span class="st">"FL"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  City <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Los Angeles"</span>, <span class="st">"New York"</span>, <span class="st">"Buffalo"</span>, <span class="st">"San Diego"</span>, <span class="st">"Detroit"</span>, <span class="st">"Austin"</span>, <span class="st">"Cleveland"</span>, <span class="st">"Phoenix"</span>, <span class="st">"Houston"</span>, <span class="st">"Tampa"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Indianapolis"</span>, <span class="st">"Miami"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  Salary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30000</span>, <span class="fl">96500</span>, <span class="fl">72000</span>, <span class="fl">59000</span>, <span class="fl">54300</span>, <span class="fl">25000</span>, <span class="fl">61000</span>, <span class="fl">64000</span>, <span class="fl">74700</span>, <span class="fl">40000</span>, <span class="fl">83000</span>, <span class="fl">92400</span>, <span class="fl">82000</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data1</span></span>
+<span><span class="co">#&gt;        Name Age      State state_abr         City Salary</span></span>
+<span><span class="co">#&gt; 1     James  22 California        CA  Los Angeles  30000</span></span>
+<span><span class="co">#&gt; 2     Linda  56   New York        NY     New York  96500</span></span>
+<span><span class="co">#&gt; 3       Jim  34   New York        NY      Buffalo  72000</span></span>
+<span><span class="co">#&gt; 4     Margo  48 California        CA    San Diego  59000</span></span>
+<span><span class="co">#&gt; 5      Nick  19   Michigan        MI      Detroit  54300</span></span>
+<span><span class="co">#&gt; 6     Stacy  25      Texas        TX       Austin  25000</span></span>
+<span><span class="co">#&gt; 7      Mary  31       Ohio        OH    Cleveland  61000</span></span>
+<span><span class="co">#&gt; 8       Tom  68    Arizona        AZ      Phoenix  64000</span></span>
+<span><span class="co">#&gt; 9      Anna  72      Texas        TX      Houston  74700</span></span>
+<span><span class="co">#&gt; 10      Bob  42    Florida        FL        Tampa  40000</span></span>
+<span><span class="co">#&gt; 11 Jeniffer  39   Nebraska        NE      Lincoln  83000</span></span>
+<span><span class="co">#&gt; 12    Lucas  52    Indiana        IN Indianapolis  92400</span></span>
+<span><span class="co">#&gt; 13      Amy  39    Florida        FL        Miami  82000</span></span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">data2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  State <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Washington"</span>, <span class="st">"Florida"</span>, <span class="st">"Nebraska"</span>, <span class="st">"Indiana"</span>, <span class="st">"Florida"</span>,<span class="st">"California"</span>, <span class="st">"New York"</span>, <span class="st">"New York"</span>, <span class="st">"California"</span>, <span class="st">"Michigan"</span>, <span class="st">"Texas"</span>, <span class="st">"Ohio"</span>, <span class="st">"Arizona"</span>, <span class="st">"Utah"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  state_abbriviation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"WA"</span>, <span class="st">"FL"</span>, <span class="st">"NE"</span>, <span class="st">"IN"</span>, <span class="st">"FL"</span>,<span class="st">"CA"</span>, <span class="st">"NY"</span>, <span class="st">"NY"</span>, <span class="st">"CA"</span>, <span class="st">"MI"</span>, <span class="st">"TX"</span>, <span class="st">"OH"</span>, <span class="st">"AZ"</span>, <span class="st">"UT"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  City <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="st">"Seatle"</span>, <span class="st">"Tampa"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Indianapolis"</span>, <span class="st">"Miami"</span>,<span class="st">"Los Angeles"</span>, <span class="st">"New York"</span>, <span class="st">"Ithaca"</span>, <span class="st">"San Francisco"</span>, <span class="st">"Detroit"</span>, <span class="st">"Dallas"</span>, <span class="st">"Cleveland"</span>, <span class="st">"Phoenix"</span>, <span class="st">"Salt Lake City"</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  Average_salary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">63500</span>, <span class="fl">53900</span>, <span class="fl">59900</span>, <span class="fl">59800</span>, <span class="fl">57900</span>, <span class="fl">79000</span>, <span class="fl">80000</span>, <span class="fl">75000</span>, <span class="fl">85000</span>, <span class="fl">54000</span>, <span class="fl">63800</span>, <span class="fl">57000</span>, <span class="fl">61000</span>, <span class="fl">58600</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">data2</span></span>
+<span><span class="co">#&gt;         State state_abbriviation           City</span></span>
+<span><span class="co">#&gt; 1  Washington                 WA         Seatle</span></span>
+<span><span class="co">#&gt; 2     Florida                 FL          Tampa</span></span>
+<span><span class="co">#&gt; 3    Nebraska                 NE        Lincoln</span></span>
+<span><span class="co">#&gt; 4     Indiana                 IN   Indianapolis</span></span>
+<span><span class="co">#&gt; 5     Florida                 FL          Miami</span></span>
+<span><span class="co">#&gt; 6  California                 CA    Los Angeles</span></span>
+<span><span class="co">#&gt; 7    New York                 NY       New York</span></span>
+<span><span class="co">#&gt; 8    New York                 NY         Ithaca</span></span>
+<span><span class="co">#&gt; 9  California                 CA  San Francisco</span></span>
+<span><span class="co">#&gt; 10   Michigan                 MI        Detroit</span></span>
+<span><span class="co">#&gt; 11      Texas                 TX         Dallas</span></span>
+<span><span class="co">#&gt; 12       Ohio                 OH      Cleveland</span></span>
+<span><span class="co">#&gt; 13    Arizona                 AZ        Phoenix</span></span>
+<span><span class="co">#&gt; 14       Utah                 UT Salt Lake City</span></span>
+<span><span class="co">#&gt;    Average_salary</span></span>
+<span><span class="co">#&gt; 1           63500</span></span>
+<span><span class="co">#&gt; 2           53900</span></span>
+<span><span class="co">#&gt; 3           59900</span></span>
+<span><span class="co">#&gt; 4           59800</span></span>
+<span><span class="co">#&gt; 5           57900</span></span>
+<span><span class="co">#&gt; 6           79000</span></span>
+<span><span class="co">#&gt; 7           80000</span></span>
+<span><span class="co">#&gt; 8           75000</span></span>
+<span><span class="co">#&gt; 9           85000</span></span>
+<span><span class="co">#&gt; 10          54000</span></span>
+<span><span class="co">#&gt; 11          63800</span></span>
+<span><span class="co">#&gt; 12          57000</span></span>
+<span><span class="co">#&gt; 13          61000</span></span>
+<span><span class="co">#&gt; 14          58600</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-10.html">Lecture 10</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-11">Lecture 11</a></li>
+<li>
+<a class="nav-link" href="#dplyr-package-continued">dplyr Package (continued)</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#group_by-summarise-and-across-functions">group_by(), summarise(), and across() Functions</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#relational-data-two-table-verbs">Relational Data: Two-Table Verbs</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#mutating-joins">Mutating joins</a></li>
+<li><a class="nav-link" href="#filtering-joins">Filtering joins</a></li>
+<li><a class="nav-link" href="#set-operations">Set Operations</a></li>
+<li><a class="nav-link" href="#practice-data-sets">Practice Data Sets</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/11-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/11-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-03-03.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

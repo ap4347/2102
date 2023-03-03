@@ -456,7 +456,7 @@ Boxplots are used to visualize a 5-Number summary (Minimum, Q1 (first quartile, 
 
 ```r
 
-boxplot(data$LungCap)
+boxplot(data$Age)
 ```
 
 <img src="08-Lecture_files/figure-html/unnamed-chunk-25-1.png" width="672" />
@@ -466,7 +466,7 @@ Let's add labels to it and change the colors:
 
 ```r
 
-boxplot(data$LungCap,
+boxplot(data$Age,
         
         xlab = "AGE",
         
@@ -486,7 +486,7 @@ You can even add a notch to it if you want to:
 
 ```r
 
-boxplot(data$LungCap,
+boxplot(data$Age,
         
         xlab = "AGE",
         
@@ -508,7 +508,7 @@ You can change the shape and size of points in the plot by passing `pch` and `ce
 
 ```r
 
-boxplot(data$LungCap,
+boxplot(data$Age,
         
         xlab = "AGE",
         
@@ -534,7 +534,7 @@ Often you will be using boxplots to compare a numerical variable for different l
 
 ```r
 
-boxplot(data$LungCap ~ data$Sex,
+boxplot(data$Age ~ data$Sex,
         
         xlab = "SEX",
         
@@ -556,7 +556,7 @@ Let's make it more complicated:
 
 ```r
 
-boxplot(data$LungCap ~ data$Sex:data$Smoke,
+boxplot(data$Age ~ data$Sex:data$Smoke,
         
         xlab = "COMBINATION OF SEX AND SMOKE VARIABLES",
         
