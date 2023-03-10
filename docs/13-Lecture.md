@@ -1,0 +1,10 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+# Lecture 13 {-}
+
+&nbsp;
+
+Slides containing the lecture notes are available on Courseworks. 

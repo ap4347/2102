@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 12 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="  tidyr Package Normally 80% of data analysis is spent on the cleaning and preparing data. And it’s not just a first step, but it must be repeated many times over the course of analysis as new...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 12 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-12.html">
+<meta property="og:description" content="  tidyr Package Normally 80% of data analysis is spent on the cleaning and preparing data. And it’s not just a first step, but it must be repeated many times over the course of analysis as new...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 12 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="  tidyr Package Normally 80% of data analysis is spent on the cleaning and preparing data. And it’s not just a first step, but it must be repeated many times over the course of analysis as new...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="" href="lecture-03.html">Lecture 03</a></li>
+<li><a class="" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
+<li><a class="" href="lecture-06.html">Lecture 06</a></li>
+<li><a class="" href="lecture-07.html">Lecture 07</a></li>
+<li><a class="" href="lecture-08.html">Lecture 08</a></li>
+<li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li><a class="" href="lecture-10.html">Lecture 10</a></li>
+<li><a class="" href="lecture-11.html">Lecture 11</a></li>
+<li><a class="active" href="lecture-12.html">Lecture 12</a></li>
+<li><a class="" href="lecture-13.html">Lecture 13</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-12" class="section level1 unnumbered">
+<h1>Lecture 12<a class="anchor" aria-label="anchor" href="#lecture-12"><i class="fas fa-link"></i></a>
+</h1>
+<p> </p>
+<div id="tidyr-package" class="section level2 unnumbered">
+<h2>tidyr Package<a class="anchor" aria-label="anchor" href="#tidyr-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>Normally 80% of data analysis is spent on the cleaning and preparing data. And it’s not just a first step, but it must be repeated many times over the course of analysis as new problems come to light or new data is collected. In this lecture we will learn how to organize data in R, an organization called <strong>tidy data</strong>.</p>
+<p>The principles of tidy data provide a standard way to organize data values within a dataset. The tidy data standard has been designed to facilitate initial exploration and analysis of the data, and to simplify the development of data analysis tools that work well together. Tidy datasets provide a standardized way to link the structure of a dataset (its physical layout) with its semantics (its meaning).</p>
+<p>Most statistical datasets are data frames made up of <strong>rows</strong> and <strong>columns</strong>. A dataset is a collection of values, usually either numbers (if quantitative) or strings (if qualitative). Values are organised in two ways. Every value belongs to a <strong>variable</strong> and an <strong>observation</strong>. A variable contains all values that measure the same underlying attribute across units. An observation contains all values measured on the same unit across attributes. For instance, consider the following datasets:</p>
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span><span class="co">#&gt;   country      year  cases population</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
+<span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
+<span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
+<span><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></span>
+<span><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
+<span><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span></code></pre></div>
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 12 × 4</span></span>
+<span><span class="co">#&gt;    country      year type            count</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Afghanistan  1999 cases             745</span></span>
+<span><span class="co">#&gt;  2 Afghanistan  1999 population   19987071</span></span>
+<span><span class="co">#&gt;  3 Afghanistan  2000 cases            2666</span></span>
+<span><span class="co">#&gt;  4 Afghanistan  2000 population   20595360</span></span>
+<span><span class="co">#&gt;  5 Brazil       1999 cases           37737</span></span>
+<span><span class="co">#&gt;  6 Brazil       1999 population  172006362</span></span>
+<span><span class="co">#&gt;  7 Brazil       2000 cases           80488</span></span>
+<span><span class="co">#&gt;  8 Brazil       2000 population  174504898</span></span>
+<span><span class="co">#&gt;  9 China        1999 cases          212258</span></span>
+<span><span class="co">#&gt; 10 China        1999 population 1272915272</span></span>
+<span><span class="co">#&gt; 11 China        2000 cases          213766</span></span>
+<span><span class="co">#&gt; 12 China        2000 population 1280428583</span></span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span><span class="co">#&gt;   country      year rate             </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></span>
+<span><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></span>
+<span><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></span>
+<span><span class="co">#&gt; 4 Brazil       2000 80488/174504898  </span></span>
+<span><span class="co">#&gt; 5 China        1999 212258/1272915272</span></span>
+<span><span class="co">#&gt; 6 China        2000 213766/1280428583</span></span></code></pre></div>
+<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table4a</span><span class="op">)</span> <span class="co"># cases</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span><span class="co">#&gt;   country     `1999` `2000`</span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan    745   2666</span></span>
+<span><span class="co">#&gt; 2 Brazil       37737  80488</span></span>
+<span><span class="co">#&gt; 3 China       212258 213766</span></span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table4b</span><span class="op">)</span> <span class="co"># population</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span><span class="co">#&gt;   country         `1999`     `2000`</span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan   19987071   20595360</span></span>
+<span><span class="co">#&gt; 2 Brazil       172006362  174504898</span></span>
+<span><span class="co">#&gt; 3 China       1272915272 1280428583</span></span></code></pre></div>
+<p>They all show the same data organised in four different ways. Each dataset shows the same values of four variables <em>country</em>, <em>year</em>, <em>population</em>, and <em>cases</em>, but each dataset organises the values in a different way. Even though these are all representations of the same underlying data, they are not equally easy to use. One dataset, the tidy dataset, will be much easier to work with inside the tidyverse.</p>
+<p>There are three interrelated rules which make a dataset tidy:</p>
+<ul>
+<li>Each variable must have its own column</li>
+<li>Each observation must have its own row</li>
+<li>Each value must have its own cell</li>
+</ul>
+<p>There are two main advantages of working with tidy data:</p>
+<ol style="list-style-type: decimal">
+<li><p>There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.</p></li>
+<li><p>There’s a specific advantage to placing variables in columns because it allows R’s vectorised nature to shine.</p></li>
+</ol>
+<div id="pivoting" class="section level3 unnumbered">
+<h3>Pivoting<a class="anchor" aria-label="anchor" href="#pivoting"><i class="fas fa-link"></i></a>
+</h3>
+<div id="pivot_longer-function" class="section level4 unnumbered">
+<h4>pivot_longer() function<a class="anchor" aria-label="anchor" href="#pivot_longer-function"><i class="fas fa-link"></i></a>
+</h4>
+<p>Unfortunately, most data that you will encounter will be untidy. For example, consider <code>table4a</code>:</p>
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table4a</span><span class="op">)</span> <span class="co"># cases</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
+<span><span class="co">#&gt;   country     `1999` `2000`</span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan    745   2666</span></span>
+<span><span class="co">#&gt; 2 Brazil       37737  80488</span></span>
+<span><span class="co">#&gt; 3 China       212258 213766</span></span></code></pre></div>
+<p>In this dataset some of the column names are not names of variables, but <em>values</em> of a variable. Specifically, the column names <code>1999</code> and <code>2000</code> represent values of the year variable, the values in the <code>1999</code> and <code>2000</code> columns represent values of the cases variable, and each row represents two observations, not one.</p>
+<p>To tidy a dataset like this, we need to <strong>pivot</strong> the offending columns into a new pair of variables. To describe that operation we need three parameters:</p>
+<ul>
+<li>The set of columns whose names are values, not variables. In this example, those are the columns <code>1999</code> and <code>2000</code>
+</li>
+<li>The name of the variable to move the column names to. Here it is <code>year</code>
+</li>
+<li>The name of the variable to move the column values to. Here it’s <code>cases</code>
+</li>
+</ul>
+<p>Together those parameters generate the call to <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> function:</p>
+<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table4a</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`1999`</span>, <span class="va">`2000`</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span><span class="co">#&gt;   country     year   cases</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan 1999     745</span></span>
+<span><span class="co">#&gt; 2 Afghanistan 2000    2666</span></span>
+<span><span class="co">#&gt; 3 Brazil      1999   37737</span></span>
+<span><span class="co">#&gt; 4 Brazil      2000   80488</span></span>
+<span><span class="co">#&gt; 5 China       1999  212258</span></span>
+<span><span class="co">#&gt; 6 China       2000  213766</span></span></code></pre></div>
+<p>Let’s repeat the same procedure with <code>table4b</code>:</p>
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table4b</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`1999`</span>, <span class="va">`2000`</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span><span class="co">#&gt;   country     year  population</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan 1999    19987071</span></span>
+<span><span class="co">#&gt; 2 Afghanistan 2000    20595360</span></span>
+<span><span class="co">#&gt; 3 Brazil      1999   172006362</span></span>
+<span><span class="co">#&gt; 4 Brazil      2000   174504898</span></span>
+<span><span class="co">#&gt; 5 China       1999  1272915272</span></span>
+<span><span class="co">#&gt; 6 China       2000  1280428583</span></span></code></pre></div>
+<p>Now let’s put them together and create a complete dataset:</p>
+<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">tidy4a</span> <span class="op">&lt;-</span> <span class="va">table4a</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`1999`</span>, <span class="va">`2000`</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="va">tidy4b</span> <span class="op">&lt;-</span> <span class="va">table4b</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`1999`</span>, <span class="va">`2000`</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">tidy_4a_4b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">tidy4a</span>, <span class="va">tidy4b</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Joining, by = c("country", "year")</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tidy_4a_4b</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span><span class="co">#&gt;   country     year   cases population</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan 1999     745   19987071</span></span>
+<span><span class="co">#&gt; 2 Afghanistan 2000    2666   20595360</span></span>
+<span><span class="co">#&gt; 3 Brazil      1999   37737  172006362</span></span>
+<span><span class="co">#&gt; 4 Brazil      2000   80488  174504898</span></span>
+<span><span class="co">#&gt; 5 China       1999  212258 1272915272</span></span>
+<span><span class="co">#&gt; 6 China       2000  213766 1280428583</span></span></code></pre></div>
+</div>
+<div id="pivot_wider-function" class="section level4 unnumbered">
+<h4>pivot_wider() function<a class="anchor" aria-label="anchor" href="#pivot_wider-function"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> is the opposite of <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code>. You use it when an observation is scattered across multiple rows. For instance, in <code>table2</code> an observation is a country in a year, but each observation is spread across two rows:</p>
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 12 × 4</span></span>
+<span><span class="co">#&gt;    country      year type            count</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Afghanistan  1999 cases             745</span></span>
+<span><span class="co">#&gt;  2 Afghanistan  1999 population   19987071</span></span>
+<span><span class="co">#&gt;  3 Afghanistan  2000 cases            2666</span></span>
+<span><span class="co">#&gt;  4 Afghanistan  2000 population   20595360</span></span>
+<span><span class="co">#&gt;  5 Brazil       1999 cases           37737</span></span>
+<span><span class="co">#&gt;  6 Brazil       1999 population  172006362</span></span>
+<span><span class="co">#&gt;  7 Brazil       2000 cases           80488</span></span>
+<span><span class="co">#&gt;  8 Brazil       2000 population  174504898</span></span>
+<span><span class="co">#&gt;  9 China        1999 cases          212258</span></span>
+<span><span class="co">#&gt; 10 China        1999 population 1272915272</span></span>
+<span><span class="co">#&gt; 11 China        2000 cases          213766</span></span>
+<span><span class="co">#&gt; 12 China        2000 population 1280428583</span></span></code></pre></div>
+<p>To tidy this up, we only need two parameters:</p>
+<ul>
+<li>The column to take variable names from. Here, it’s <code>type</code>
+</li>
+<li>The column to take values from. Here it’s <code>count</code>
+</li>
+</ul>
+<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">type</span>, values_from <span class="op">=</span> <span class="va">count</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span><span class="co">#&gt;   country      year  cases population</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
+<span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
+<span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
+<span><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></span>
+<span><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
+<span><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span></code></pre></div>
+</div>
+</div>
+<div id="separating-and-uniting" class="section level3 unnumbered">
+<h3>Separating and Uniting<a class="anchor" aria-label="anchor" href="#separating-and-uniting"><i class="fas fa-link"></i></a>
+</h3>
+<div id="separate-function" class="section level4 unnumbered">
+<h4>separate() Function<a class="anchor" aria-label="anchor" href="#separate-function"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://tidyr.tidyverse.org/reference/separate.html">separate()</a></code> pulls apart one column into multiple columns, by splitting wherever a separator character appears. For example, in <code>table3</code> the <code>rate</code> column contains both <code>cases</code> and <code>population</code> variables, and we need to split it into two variables:</p>
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span><span class="co">#&gt;   country      year rate             </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></span>
+<span><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></span>
+<span><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></span>
+<span><span class="co">#&gt; 4 Brazil       2000 80488/174504898  </span></span>
+<span><span class="co">#&gt; 5 China        1999 212258/1272915272</span></span>
+<span><span class="co">#&gt; 6 China        2000 213766/1280428583</span></span></code></pre></div>
+<p><code><a href="https://tidyr.tidyverse.org/reference/separate.html">separate()</a></code> takes the name of the column to separate, and the names of the columns to separate into as well as the specific character to separate a column:</p>
+<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">rate</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cases"</span>, <span class="st">"population"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span><span class="co">#&gt;   country      year cases  population</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt; 1 Afghanistan  1999 745    19987071  </span></span>
+<span><span class="co">#&gt; 2 Afghanistan  2000 2666   20595360  </span></span>
+<span><span class="co">#&gt; 3 Brazil       1999 37737  172006362 </span></span>
+<span><span class="co">#&gt; 4 Brazil       2000 80488  174504898 </span></span>
+<span><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
+<span><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span></code></pre></div>
+<p><code><a href="https://tidyr.tidyverse.org/reference/separate.html">separate()</a></code> leaves the type of the column as is. However, we can ask it to try and convert to better types using <code>convert = TRUE</code>:</p>
+<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">rate</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cases"</span>, <span class="st">"population"</span><span class="op">)</span>, convert <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span><span class="co">#&gt;   country      year  cases population</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
+<span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
+<span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
+<span><span class="co">#&gt; 4 Brazil       2000  80488  174504898</span></span>
+<span><span class="co">#&gt; 5 China        1999 212258 1272915272</span></span>
+<span><span class="co">#&gt; 6 China        2000 213766 1280428583</span></span></code></pre></div>
+<p>You can also pass a vector of integers to <code>sep</code>. <code><a href="https://tidyr.tidyverse.org/reference/separate.html">separate()</a></code> will interpret the integers as positions to split at. Positive values start at 1 on the far-left of the strings; negative value start at -1 on the far-right of the strings. Here are some examples:</p>
+<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">year</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"century"</span>, <span class="st">"year"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span><span class="co">#&gt;   country     century year  rate             </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Afghanistan 19      99    745/19987071     </span></span>
+<span><span class="co">#&gt; 2 Afghanistan 20      00    2666/20595360    </span></span>
+<span><span class="co">#&gt; 3 Brazil      19      99    37737/172006362  </span></span>
+<span><span class="co">#&gt; 4 Brazil      20      00    80488/174504898  </span></span>
+<span><span class="co">#&gt; 5 China       19      99    212258/1272915272</span></span>
+<span><span class="co">#&gt; 6 China       20      00    213766/1280428583</span></span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">year</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"century"</span>, <span class="st">"year"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span><span class="co">#&gt;   country     century year  rate             </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Afghanistan 199     9     745/19987071     </span></span>
+<span><span class="co">#&gt; 2 Afghanistan 200     0     2666/20595360    </span></span>
+<span><span class="co">#&gt; 3 Brazil      199     9     37737/172006362  </span></span>
+<span><span class="co">#&gt; 4 Brazil      200     0     80488/174504898  </span></span>
+<span><span class="co">#&gt; 5 China       199     9     212258/1272915272</span></span>
+<span><span class="co">#&gt; 6 China       200     0     213766/1280428583</span></span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">year</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"century"</span>, <span class="st">"year"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="op">-</span><span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span><span class="co">#&gt;   country     century year  rate             </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Afghanistan 1       999   745/19987071     </span></span>
+<span><span class="co">#&gt; 2 Afghanistan 2       000   2666/20595360    </span></span>
+<span><span class="co">#&gt; 3 Brazil      1       999   37737/172006362  </span></span>
+<span><span class="co">#&gt; 4 Brazil      2       000   80488/174504898  </span></span>
+<span><span class="co">#&gt; 5 China       1       999   212258/1272915272</span></span>
+<span><span class="co">#&gt; 6 China       2       000   213766/1280428583</span></span></code></pre></div>
+</div>
+<div id="unite-function" class="section level4 unnumbered">
+<h4>unite() Function<a class="anchor" aria-label="anchor" href="#unite-function"><i class="fas fa-link"></i></a>
+</h4>
+<p><code><a href="https://tidyr.tidyverse.org/reference/unite.html">unite()</a></code> is the inverse of <code><a href="https://tidyr.tidyverse.org/reference/separate.html">separate()</a></code>: it combines multiple columns into a single column. We can use <code><a href="https://tidyr.tidyverse.org/reference/unite.html">unite()</a></code> to rejoin the <em>century</em> and <em>year</em> columns in the <code>table5</code>:</p>
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
+<span><span class="co">#&gt;   country     century year  rate             </span></span>
+<span><span class="co">#&gt; * &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Afghanistan 19      99    745/19987071     </span></span>
+<span><span class="co">#&gt; 2 Afghanistan 20      00    2666/20595360    </span></span>
+<span><span class="co">#&gt; 3 Brazil      19      99    37737/172006362  </span></span>
+<span><span class="co">#&gt; 4 Brazil      20      00    80488/174504898  </span></span>
+<span><span class="co">#&gt; 5 China       19      99    212258/1272915272</span></span>
+<span><span class="co">#&gt; 6 China       20      00    213766/1280428583</span></span></code></pre></div>
+<p><code><a href="https://tidyr.tidyverse.org/reference/unite.html">unite()</a></code> takes a data frame, the name of the new variable to create, and a set of columns to combine:</p>
+<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table5</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">new</span>, <span class="va">century</span>, <span class="va">year</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span><span class="co">#&gt;   country     new   rate             </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Afghanistan 19_99 745/19987071     </span></span>
+<span><span class="co">#&gt; 2 Afghanistan 20_00 2666/20595360    </span></span>
+<span><span class="co">#&gt; 3 Brazil      19_99 37737/172006362  </span></span>
+<span><span class="co">#&gt; 4 Brazil      20_00 80488/174504898  </span></span>
+<span><span class="co">#&gt; 5 China       19_99 212258/1272915272</span></span>
+<span><span class="co">#&gt; 6 China       20_00 213766/1280428583</span></span></code></pre></div>
+<p>The default will place an underscore <code>_</code> between the values from different columns. Use <code>sep</code> argument to specify how the columns should be merged:</p>
+<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">table5</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">new</span>, <span class="va">century</span>, <span class="va">year</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span><span class="co">#&gt;   country     new   rate             </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt; 1 Afghanistan 1999  745/19987071     </span></span>
+<span><span class="co">#&gt; 2 Afghanistan 2000  2666/20595360    </span></span>
+<span><span class="co">#&gt; 3 Brazil      1999  37737/172006362  </span></span>
+<span><span class="co">#&gt; 4 Brazil      2000  80488/174504898  </span></span>
+<span><span class="co">#&gt; 5 China       1999  212258/1272915272</span></span>
+<span><span class="co">#&gt; 6 China       2000  213766/1280428583</span></span></code></pre></div>
+</div>
+</div>
+<div id="missing-values" class="section level3 unnumbered">
+<h3>Missing Values<a class="anchor" aria-label="anchor" href="#missing-values"><i class="fas fa-link"></i></a>
+</h3>
+<p>A value can be missing in one of two possible ways:</p>
+<ul>
+<li>
+<strong>Explicitly</strong> - flagged with <code>NA</code>
+</li>
+<li>
+<strong>Implicitly</strong> - simply not present in the data</li>
+</ul>
+<p>Consider the following dataset:</p>
+<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">stocks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  </span>
+<span>  year   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2015</span>, <span class="fl">2015</span>, <span class="fl">2015</span>, <span class="fl">2015</span>, <span class="fl">2016</span>, <span class="fl">2016</span>, <span class="fl">2016</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  qtr    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>   <span class="fl">1</span>,    <span class="fl">2</span>,    <span class="fl">3</span>,    <span class="fl">4</span>,    <span class="fl">2</span>,    <span class="fl">3</span>,    <span class="fl">4</span><span class="op">)</span>,</span>
+<span>  </span>
+<span>  return <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.88</span>, <span class="fl">0.59</span>, <span class="fl">0.35</span>,   <span class="cn">NA</span>, <span class="fl">0.92</span>, <span class="fl">0.17</span>, <span class="fl">2.66</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">stocks</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   year qtr return</span></span>
+<span><span class="co">#&gt; 1 2015   1   1.88</span></span>
+<span><span class="co">#&gt; 2 2015   2   0.59</span></span>
+<span><span class="co">#&gt; 3 2015   3   0.35</span></span>
+<span><span class="co">#&gt; 4 2015   4     NA</span></span>
+<span><span class="co">#&gt; 5 2016   2   0.92</span></span>
+<span><span class="co">#&gt; 6 2016   3   0.17</span></span>
+<span><span class="co">#&gt; 7 2016   4   2.66</span></span></code></pre></div>
+<p>There are two missing values in this dataset:</p>
+<ul>
+<li>The return for the fourth quarter of 2015 is explicitly missing, because the cell where its value should be instead contains <code>NA</code>
+</li>
+<li>The return for the first quarter of 2016 is implicitly missing, because it simply does not appear in the dataset</li>
+</ul>
+<p>We can make implicit missing values explicit. One way of doing it is using <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code> function:</p>
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">stocks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">year</span>, values_from <span class="op">=</span> <span class="va">return</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 4 × 3</span></span>
+<span><span class="co">#&gt;     qtr `2015` `2016`</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1     1   1.88  NA   </span></span>
+<span><span class="co">#&gt; 2     2   0.59   0.92</span></span>
+<span><span class="co">#&gt; 3     3   0.35   0.17</span></span>
+<span><span class="co">#&gt; 4     4  NA      2.66</span></span></code></pre></div>
+<p>Or we can simply use <code><a href="https://tidyr.tidyverse.org/reference/complete.html">complete()</a></code> function. It takes a set of columns, and finds all unique combinations. It then ensures the original dataset contains all those values, filling in explicit <code>NA</code>s where necessary:</p>
+<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">stocks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">qtr</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 3</span></span>
+<span><span class="co">#&gt;    year   qtr return</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  2015     1   1.88</span></span>
+<span><span class="co">#&gt; 2  2015     2   0.59</span></span>
+<span><span class="co">#&gt; 3  2015     3   0.35</span></span>
+<span><span class="co">#&gt; 4  2015     4  NA   </span></span>
+<span><span class="co">#&gt; 5  2016     1  NA   </span></span>
+<span><span class="co">#&gt; 6  2016     2   0.92</span></span>
+<span><span class="co">#&gt; 7  2016     3   0.17</span></span>
+<span><span class="co">#&gt; 8  2016     4   2.66</span></span></code></pre></div>
+<p>You can fill in these missing values with <code><a href="https://tidyr.tidyverse.org/reference/fill.html">fill()</a></code>. It takes a set of columns where you want missing values to be replaced by the most recent non-missing value (sometimes called last observation carried forward):</p>
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">stocks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">qtr</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/fill.html">fill</a></span><span class="op">(</span><span class="va">return</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 3</span></span>
+<span><span class="co">#&gt;    year   qtr return</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  2015     1   1.88</span></span>
+<span><span class="co">#&gt; 2  2015     2   0.59</span></span>
+<span><span class="co">#&gt; 3  2015     3   0.35</span></span>
+<span><span class="co">#&gt; 4  2015     4   0.35</span></span>
+<span><span class="co">#&gt; 5  2016     1   0.35</span></span>
+<span><span class="co">#&gt; 6  2016     2   0.92</span></span>
+<span><span class="co">#&gt; 7  2016     3   0.17</span></span>
+<span><span class="co">#&gt; 8  2016     4   2.66</span></span></code></pre></div>
+<p>You can change the direction in which to fill in missing values. For instance, let’s fill in the missing values with the value that comes right after these missing values:</p>
+<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">stocks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">qtr</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/fill.html">fill</a></span><span class="op">(</span><span class="va">return</span>, .direction <span class="op">=</span> <span class="st">"up"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 3</span></span>
+<span><span class="co">#&gt;    year   qtr return</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  2015     1   1.88</span></span>
+<span><span class="co">#&gt; 2  2015     2   0.59</span></span>
+<span><span class="co">#&gt; 3  2015     3   0.35</span></span>
+<span><span class="co">#&gt; 4  2015     4   0.92</span></span>
+<span><span class="co">#&gt; 5  2016     1   0.92</span></span>
+<span><span class="co">#&gt; 6  2016     2   0.92</span></span>
+<span><span class="co">#&gt; 7  2016     3   0.17</span></span>
+<span><span class="co">#&gt; 8  2016     4   2.66</span></span></code></pre></div>
+<p><code><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na()</a></code> function allows to replace missing values with specific values:</p>
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">stocks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">qtr</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/replace_na.html">replace_na</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>return <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 8 × 3</span></span>
+<span><span class="co">#&gt;    year   qtr return</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  2015     1   1.88</span></span>
+<span><span class="co">#&gt; 2  2015     2   0.59</span></span>
+<span><span class="co">#&gt; 3  2015     3   0.35</span></span>
+<span><span class="co">#&gt; 4  2015     4   0   </span></span>
+<span><span class="co">#&gt; 5  2016     1   0   </span></span>
+<span><span class="co">#&gt; 6  2016     2   0.92</span></span>
+<span><span class="co">#&gt; 7  2016     3   0.17</span></span>
+<span><span class="co">#&gt; 8  2016     4   2.66</span></span></code></pre></div>
+<p>Finally, you can drop missing values from your dataset:</p>
+<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">stocks</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/complete.html">complete</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">qtr</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span><span class="co">#&gt;    year   qtr return</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  2015     1   1.88</span></span>
+<span><span class="co">#&gt; 2  2015     2   0.59</span></span>
+<span><span class="co">#&gt; 3  2015     3   0.35</span></span>
+<span><span class="co">#&gt; 4  2016     2   0.92</span></span>
+<span><span class="co">#&gt; 5  2016     3   0.17</span></span>
+<span><span class="co">#&gt; 6  2016     4   2.66</span></span></code></pre></div>
+</div>
+<div id="lets-practice" class="section level3 unnumbered">
+<h3>Let’s Practice<a class="anchor" aria-label="anchor" href="#lets-practice"><i class="fas fa-link"></i></a>
+</h3>
+<p>Here are some datasets to practice tidyr functions with. In addition, below you can find some examples of how these function can be utilized. Try to understand what these function are doing. The datasets are available on Courseworks (<code>Lecture12_data</code> file).</p>
+<div id="relationship-between-income-and-religion-in-the-us" class="section level4 unnumbered">
+<h4>Relationship between Income and Religion in the US<a class="anchor" aria-label="anchor" href="#relationship-between-income-and-religion-in-the-us"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">relig_income</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">-</span><span class="va">religion</span>, names_to <span class="op">=</span> <span class="st">"income"</span>, values_to <span class="op">=</span> <span class="st">"frequency"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 180 × 3</span></span>
+<span><span class="co">#&gt;    religion income             frequency</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;                  &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Agnostic &lt;$10k                     27</span></span>
+<span><span class="co">#&gt;  2 Agnostic $10-20k                   34</span></span>
+<span><span class="co">#&gt;  3 Agnostic $20-30k                   60</span></span>
+<span><span class="co">#&gt;  4 Agnostic $30-40k                   81</span></span>
+<span><span class="co">#&gt;  5 Agnostic $40-50k                   76</span></span>
+<span><span class="co">#&gt;  6 Agnostic $50-75k                  137</span></span>
+<span><span class="co">#&gt;  7 Agnostic $75-100k                 122</span></span>
+<span><span class="co">#&gt;  8 Agnostic $100-150k                109</span></span>
+<span><span class="co">#&gt;  9 Agnostic &gt;150k                     84</span></span>
+<span><span class="co">#&gt; 10 Agnostic Don't know/refused        96</span></span>
+<span><span class="co">#&gt; # … with 170 more rows</span></span></code></pre></div>
+</div>
+<div id="tuberculosis-data-from-world-health-organization-who" class="section level4 unnumbered">
+<h4>Tuberculosis data from World Health Organization (WHO)<a class="anchor" aria-label="anchor" href="#tuberculosis-data-from-world-health-organization-who"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">who1</span> <span class="op">&lt;-</span> <span class="va">who</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    </span>
+<span>    cols <span class="op">=</span> <span class="va">new_sp_m014</span><span class="op">:</span><span class="va">newrel_f65</span>,</span>
+<span>    </span>
+<span>    names_to <span class="op">=</span> <span class="st">"key"</span>,</span>
+<span>    </span>
+<span>    values_to <span class="op">=</span> <span class="st">"cases"</span>, </span>
+<span>    </span>
+<span>    values_drop_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">who1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 76,046 × 6</span></span>
+<span><span class="co">#&gt;    country     iso2  iso3   year key          cases</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;        &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Afghanistan AF    AFG    1997 new_sp_m014      0</span></span>
+<span><span class="co">#&gt;  2 Afghanistan AF    AFG    1997 new_sp_m1524    10</span></span>
+<span><span class="co">#&gt;  3 Afghanistan AF    AFG    1997 new_sp_m2534     6</span></span>
+<span><span class="co">#&gt;  4 Afghanistan AF    AFG    1997 new_sp_m3544     3</span></span>
+<span><span class="co">#&gt;  5 Afghanistan AF    AFG    1997 new_sp_m4554     5</span></span>
+<span><span class="co">#&gt;  6 Afghanistan AF    AFG    1997 new_sp_m5564     2</span></span>
+<span><span class="co">#&gt;  7 Afghanistan AF    AFG    1997 new_sp_m65       0</span></span>
+<span><span class="co">#&gt;  8 Afghanistan AF    AFG    1997 new_sp_f014      5</span></span>
+<span><span class="co">#&gt;  9 Afghanistan AF    AFG    1997 new_sp_f1524    38</span></span>
+<span><span class="co">#&gt; 10 Afghanistan AF    AFG    1997 new_sp_f2534    36</span></span>
+<span><span class="co">#&gt; # … with 76,036 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## just run this code</span></span>
+<span></span>
+<span><span class="va">who2</span> <span class="op">&lt;-</span> <span class="va">who1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace</a></span><span class="op">(</span><span class="va">key</span>, <span class="st">"newrel"</span>, <span class="st">"new_rel"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">who3</span> <span class="op">&lt;-</span> <span class="va">who2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">key</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"new"</span>, <span class="st">"type"</span>, <span class="st">"sexage"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">who3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 76,046 × 8</span></span>
+<span><span class="co">#&gt;    country     iso2  iso3   year new   type  sexage cases</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Afghanistan AF    AFG    1997 new   sp    m014       0</span></span>
+<span><span class="co">#&gt;  2 Afghanistan AF    AFG    1997 new   sp    m1524     10</span></span>
+<span><span class="co">#&gt;  3 Afghanistan AF    AFG    1997 new   sp    m2534      6</span></span>
+<span><span class="co">#&gt;  4 Afghanistan AF    AFG    1997 new   sp    m3544      3</span></span>
+<span><span class="co">#&gt;  5 Afghanistan AF    AFG    1997 new   sp    m4554      5</span></span>
+<span><span class="co">#&gt;  6 Afghanistan AF    AFG    1997 new   sp    m5564      2</span></span>
+<span><span class="co">#&gt;  7 Afghanistan AF    AFG    1997 new   sp    m65        0</span></span>
+<span><span class="co">#&gt;  8 Afghanistan AF    AFG    1997 new   sp    f014       5</span></span>
+<span><span class="co">#&gt;  9 Afghanistan AF    AFG    1997 new   sp    f1524     38</span></span>
+<span><span class="co">#&gt; 10 Afghanistan AF    AFG    1997 new   sp    f2534     36</span></span>
+<span><span class="co">#&gt; # … with 76,036 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">who4</span> <span class="op">&lt;-</span> <span class="va">who3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">sexage</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sex"</span>, <span class="st">"age"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">who4</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 76,046 × 9</span></span>
+<span><span class="co">#&gt;    country   iso2  iso3   year new   type  sex   age   cases</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 Afghanis… AF    AFG    1997 new   sp    m     014       0</span></span>
+<span><span class="co">#&gt;  2 Afghanis… AF    AFG    1997 new   sp    m     1524     10</span></span>
+<span><span class="co">#&gt;  3 Afghanis… AF    AFG    1997 new   sp    m     2534      6</span></span>
+<span><span class="co">#&gt;  4 Afghanis… AF    AFG    1997 new   sp    m     3544      3</span></span>
+<span><span class="co">#&gt;  5 Afghanis… AF    AFG    1997 new   sp    m     4554      5</span></span>
+<span><span class="co">#&gt;  6 Afghanis… AF    AFG    1997 new   sp    m     5564      2</span></span>
+<span><span class="co">#&gt;  7 Afghanis… AF    AFG    1997 new   sp    m     65        0</span></span>
+<span><span class="co">#&gt;  8 Afghanis… AF    AFG    1997 new   sp    f     014       5</span></span>
+<span><span class="co">#&gt;  9 Afghanis… AF    AFG    1997 new   sp    f     1524     38</span></span>
+<span><span class="co">#&gt; 10 Afghanis… AF    AFG    1997 new   sp    f     2534     36</span></span>
+<span><span class="co">#&gt; # … with 76,036 more rows</span></span></code></pre></div>
+</div>
+<div id="billboard-charts-data" class="section level4 unnumbered">
+<h4>Billboard charts data<a class="anchor" aria-label="anchor" href="#billboard-charts-data"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">billboard2</span> <span class="op">&lt;-</span> <span class="va">billboard</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    </span>
+<span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"wk"</span><span class="op">)</span>, </span>
+<span>    </span>
+<span>    names_to <span class="op">=</span> <span class="st">"week"</span>,</span>
+<span>    </span>
+<span>    values_to <span class="op">=</span> <span class="st">"rank"</span>, </span>
+<span>    </span>
+<span>    values_drop_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">billboard2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5,307 × 5</span></span>
+<span><span class="co">#&gt;    artist  track                   date.entered week   rank</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk1      87</span></span>
+<span><span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk2      82</span></span>
+<span><span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk3      72</span></span>
+<span><span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk4      77</span></span>
+<span><span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk5      87</span></span>
+<span><span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk6      94</span></span>
+<span><span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk7      99</span></span>
+<span><span class="co">#&gt;  8 2Ge+her The Hardest Part Of ... 2000-09-02   wk1      91</span></span>
+<span><span class="co">#&gt;  9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87</span></span>
+<span><span class="co">#&gt; 10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92</span></span>
+<span><span class="co">#&gt; # … with 5,297 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">billboard3</span> <span class="op">&lt;-</span> <span class="va">billboard</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
+<span>    </span>
+<span>    cols <span class="op">=</span> <span class="fu"><a href="https://tidyselect.r-lib.org/reference/starts_with.html">starts_with</a></span><span class="op">(</span><span class="st">"wk"</span><span class="op">)</span>, </span>
+<span>    </span>
+<span>    names_to <span class="op">=</span> <span class="st">"week"</span>,</span>
+<span>    </span>
+<span>    names_prefix <span class="op">=</span> <span class="st">"wk"</span>,</span>
+<span>    </span>
+<span>    names_transform <span class="op">=</span> <span class="va">as.integer</span>,</span>
+<span>    </span>
+<span>    values_to <span class="op">=</span> <span class="st">"rank"</span>, </span>
+<span>    </span>
+<span>    values_drop_na <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">billboard3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5,307 × 5</span></span>
+<span><span class="co">#&gt;    artist  track                   date.entered  week  rank</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep... 2000-02-26       1    87</span></span>
+<span><span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep... 2000-02-26       2    82</span></span>
+<span><span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep... 2000-02-26       3    72</span></span>
+<span><span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep... 2000-02-26       4    77</span></span>
+<span><span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep... 2000-02-26       5    87</span></span>
+<span><span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep... 2000-02-26       6    94</span></span>
+<span><span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep... 2000-02-26       7    99</span></span>
+<span><span class="co">#&gt;  8 2Ge+her The Hardest Part Of ... 2000-09-02       1    91</span></span>
+<span><span class="co">#&gt;  9 2Ge+her The Hardest Part Of ... 2000-09-02       2    87</span></span>
+<span><span class="co">#&gt; 10 2Ge+her The Hardest Part Of ... 2000-09-02       3    92</span></span>
+<span><span class="co">#&gt; # … with 5,297 more rows</span></span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">billboard3</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">artist</span>, <span class="va">track</span>, <span class="va">week</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 5,307 × 5</span></span>
+<span><span class="co">#&gt;    artist  track                   date.entered  week  rank</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;int&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 2 Pac   Baby Don't Cry (Keep... 2000-02-26       1    87</span></span>
+<span><span class="co">#&gt;  2 2 Pac   Baby Don't Cry (Keep... 2000-02-26       2    82</span></span>
+<span><span class="co">#&gt;  3 2 Pac   Baby Don't Cry (Keep... 2000-02-26       3    72</span></span>
+<span><span class="co">#&gt;  4 2 Pac   Baby Don't Cry (Keep... 2000-02-26       4    77</span></span>
+<span><span class="co">#&gt;  5 2 Pac   Baby Don't Cry (Keep... 2000-02-26       5    87</span></span>
+<span><span class="co">#&gt;  6 2 Pac   Baby Don't Cry (Keep... 2000-02-26       6    94</span></span>
+<span><span class="co">#&gt;  7 2 Pac   Baby Don't Cry (Keep... 2000-02-26       7    99</span></span>
+<span><span class="co">#&gt;  8 2Ge+her The Hardest Part Of ... 2000-09-02       1    91</span></span>
+<span><span class="co">#&gt;  9 2Ge+her The Hardest Part Of ... 2000-09-02       2    87</span></span>
+<span><span class="co">#&gt; 10 2Ge+her The Hardest Part Of ... 2000-09-02       3    92</span></span>
+<span><span class="co">#&gt; # … with 5,297 more rows</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-11.html">Lecture 11</a></div>
+<div class="next"><a href="lecture-13.html">Lecture 13</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-12">Lecture 12</a></li>
+<li>
+<a class="nav-link" href="#tidyr-package">tidyr Package</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#pivoting">Pivoting</a></li>
+<li><a class="nav-link" href="#separating-and-uniting">Separating and Uniting</a></li>
+<li><a class="nav-link" href="#missing-values">Missing Values</a></li>
+<li><a class="nav-link" href="#lets-practice">Let’s Practice</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/12-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/12-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-03-10.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
