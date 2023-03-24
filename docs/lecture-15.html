@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 15 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="  ggplot2 Package (Cont’d) We continue exploring the ggplot2 package. In this lecture we will be using the Lung Capacity dataset available on Courseworks. We’ve already worked with the data, so it...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 15 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-15.html">
+<meta property="og:description" content="  ggplot2 Package (Cont’d) We continue exploring the ggplot2 package. In this lecture we will be using the Lung Capacity dataset available on Courseworks. We’ve already worked with the data, so it...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 15 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="  ggplot2 Package (Cont’d) We continue exploring the ggplot2 package. In this lecture we will be using the Lung Capacity dataset available on Courseworks. We’ve already worked with the data, so it...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="lecture-01.html">Lecture 01</a></li>
+<li><a class="" href="lecture-02.html">Lecture 02</a></li>
+<li><a class="" href="lecture-03.html">Lecture 03</a></li>
+<li><a class="" href="lecture-04.html">Lecture 04</a></li>
+<li><a class="" href="lecture-05.html">Lecture 05</a></li>
+<li><a class="" href="lecture-06.html">Lecture 06</a></li>
+<li><a class="" href="lecture-07.html">Lecture 07</a></li>
+<li><a class="" href="lecture-08.html">Lecture 08</a></li>
+<li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li><a class="" href="lecture-10.html">Lecture 10</a></li>
+<li><a class="" href="lecture-11.html">Lecture 11</a></li>
+<li><a class="" href="lecture-12.html">Lecture 12</a></li>
+<li><a class="" href="lecture-13.html">Lecture 13</a></li>
+<li><a class="" href="lecture-14.html">Lecture 14</a></li>
+<li><a class="active" href="lecture-15.html">Lecture 15</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-15" class="section level1 unnumbered">
+<h1>Lecture 15<a class="anchor" aria-label="anchor" href="#lecture-15"><i class="fas fa-link"></i></a>
+</h1>
+<p> </p>
+<div id="ggplot2-package-contd" class="section level2 unnumbered">
+<h2>ggplot2 Package (Cont’d)<a class="anchor" aria-label="anchor" href="#ggplot2-package-contd"><i class="fas fa-link"></i></a>
+</h2>
+<p>We continue exploring the <code>ggplot2</code> package. In this lecture we will be using the Lung Capacity dataset available on Courseworks. We’ve already worked with the data, so it doesn’t require an additional introduction.</p>
+<p> </p>
+<div id="barplots-1" class="section level3 unnumbered">
+<h3>Barplots<a class="anchor" aria-label="anchor" href="#barplots-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>As mentioned in <code>Lecture 08</code>, barplots refer to a graph where the bars represent the count of cases in each category of a categorical variable. This is similar to a histogram, but with a discrete instead of continuous x-axis. To generate a barplot with <code>ggplot2</code> package, add another layer to a ggplot object using a <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> function. Here we have a <code>dataset1</code> dataset and we want to generate a barplot for the <code>Status</code> variable, which is a categorical variable with 4 levels (categories):</p>
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<p>As of now, we have a basic barplot. Let’s modify its features to make it look better. We can change the color and the width of bins. This is done by adding two more arguments to the function: <code>fill</code> - used to change the color of bins; <code>width</code> - used to change the width of bins:</p>
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>,</span>
+<span>           </span>
+<span>           fill <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>           </span>
+<span>           width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<p>Let’s change the values and see how it affects the plot:</p>
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         fill <span class="op">=</span> <span class="st">"pink"</span>,</span>
+<span>         </span>
+<span>         width <span class="op">=</span> <span class="fl">1.1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: position_stack requires non-overlapping x intervals</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<p>You might also want to change the color of outlines. This is done by adding the <code>color</code> argument to the function:</p>
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         fill <span class="op">=</span> <span class="st">"pink"</span>,</span>
+<span>         </span>
+<span>         color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<p>If you want the colors of bars be automatically controlled by the levels of the categorical variable, pass the <code>fill</code> argument inside the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function:</p>
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>,</span>
+<span>           </span>
+<span>           width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<p>Sometimes you are not interested in displaying all bars together. Instead, you want to focus on certain groups that you are particularly interested in. This can be done using <code><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete()</a></code> and its argument <code>limits</code>. Let’s display bars corresponding to the <code>Healthy</code> and <code>Stage_3</code> categories only:</p>
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HEALTHY"</span>, <span class="st">"STAGE_3"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Removed 269 rows containing non-finite values</span></span>
+<span><span class="co">#&gt; (stat_count).</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<p>You can also use this function to change the order in which bars appear in your plot:</p>
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"STAGE_1"</span>, <span class="st">"STAGE_2"</span>, <span class="st">"STAGE_3"</span>, <span class="st">"HEALTHY"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<p>Knowing the exact frequency of each category is often a requirement. But barplots are often hard to look at, especially when the the scale of y-axis is large. Thus, reading values from a plot becomes an approximation. To fix this issue, we can add labels to the plot. We can put text near the top of each bar to show the exact frequency of the category. It will solve the problem of reading the values from the barplot and will make it more user-friendly.</p>
+<p>To do so, we need to add the <code><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text()</a></code> function as shown in the code below. Keep the <code>label</code> and <code>stat</code> arguments as they are shown below; <code>vjust</code> argument changes the location of your text, and the <code>color</code> arguments changes its color. Below are a few example on how we can utilize this function:</p>
+<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>,</span>
+<span>           </span>
+<span>           fill <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>,label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>            </span>
+<span>            vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>,</span>
+<span>            </span>
+<span>            colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         fill <span class="op">=</span> <span class="st">"orange"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>,label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>            </span>
+<span>            vjust <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>            </span>
+<span>            size <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>            </span>
+<span>            colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>Let’s make our barplot more self-explanatory by adding labels to it. By setting <code>vjust</code> and <code>hjust</code> arguments, you specify the horizontal and vertical positions of an element, respectively:</p>
+<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Status</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Disease Status"</span>,</span>
+<span>    </span>
+<span>     subtitle <span class="op">=</span> <span class="st">"From Lung Capacity Dataset"</span>,</span>
+<span>    </span>
+<span>     x <span class="op">=</span> <span class="st">"STATUS"</span>,</span>
+<span>    </span>
+<span>     y <span class="op">=</span> <span class="st">"COUNT"</span>,</span>
+<span>    </span>
+<span>     caption <span class="op">=</span> <span class="st">"STAT2102: Lecture 15"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>      plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>        </span>
+<span>      plot.caption <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<p>Stacked and grouped barplots are used to reflect other categorical variables in the bars. Let’s display a stacked barplot that will reflect the <code>Sex</code> variable in our barplot:</p>
+<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<p>Now we can even change the colors of segments manually:</p>
+<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>FEMALE <span class="op">=</span> <span class="st">"tomato"</span>,</span>
+<span>                                </span>
+<span>                             MALE <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+<p>Like we did with a simple barplot, we can add labels to the segments of a stacked barplot to display the actual frequency of the segments:</p>
+<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>FEMALE <span class="op">=</span> <span class="st">"tomato"</span>,</span>
+<span>                               </span>
+<span>                             MALE <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span>, label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>            </span>
+<span>            position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_stack.html">position_stack</a></span><span class="op">(</span>vjust <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>            </span>
+<span>            colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Ignoring unknown aesthetics: fill</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+<p>Having the bars of the same heights helps us to compare the proportions of segments rather than their actual counts. To achieve this, use the <code>position</code> argument and pass <code>fill</code> to it:</p>
+<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<p>Grouped barplots display bars corresponding to other categorical variables next to each other instead of on top of each other. To display a grouped barplot, you need to add the <code>position</code> argument to the <code><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar()</a></code> function and pass <code><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge()</a></code> to it:</p>
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>FEMALE <span class="op">=</span> <span class="st">"tomato"</span>,</span>
+<span>                               </span>
+<span>                             MALE <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+<p>Let’s add the labels to these bars to reflect the actual count of the groups:</p>
+<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>FEMALE <span class="op">=</span> <span class="st">"tomato"</span>,</span>
+<span>                               </span>
+<span>                             MALE <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span>,label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>            </span>
+<span>            position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="fl">0.9</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            vjust <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>            </span>
+<span>            size <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>            </span>
+<span>            colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Ignoring unknown aesthetics: fill</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
+<p>Sometimes you will want to add an extra touch to your barplots. For instance, you can add a horizontal line to it to visually filter out groups that have more/less observations than a certain value. This is done by adding a <code><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline()</a></code> function. Suppose you want to see which groups have more than 100 observations:</p>
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>FEMALE <span class="op">=</span> <span class="st">"tomato"</span>,</span>
+<span>                               </span>
+<span>                             MALE <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>           </span>
+<span>           linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
+<span>           </span>
+<span>           size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+<p>Finally, use <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip()</a></code> to turn a vertical barplot into a horizontal one:</p>
+<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">position_dodge</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_fill_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>FEMALE <span class="op">=</span> <span class="st">"tomato"</span>,</span>
+<span>                               </span>
+<span>                             MALE <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<p> </p>
+</div>
+<div id="boxplots-1" class="section level3 unnumbered">
+<h3>Boxplots<a class="anchor" aria-label="anchor" href="#boxplots-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>In short, boxplots are used to visualize 5-number summary. It is an excellent data visualization tool for statisticians and researchers looking to visualize data distributions. <code>ggplot2</code> has a great set of tools that helps you create boxplots and adjust their features.</p>
+<p>Let’s start off with a simple boxplot that we are going to create for the <code>Age</code> variable. This is done using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></code> function:</p>
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">Age</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+<p>Changing colors and other features of a boxplot is similar to what we did with barplots. Thus, we will skip most of these features here. Just for the illustrative purposes, let’s change the color of the boxplot and add a notch:</p>
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">Age</span><span class="op">)</span>,</span>
+<span>             </span>
+<span>             fill <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>             </span>
+<span>             notch <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<p>Often, you’ll want to visualize multiple boxplots on a single chart, each representing a distribution of the variable with some filter condition applied. For instance, you can visualize the distribution of <code>Age</code> for every possible level of the <code>Status</code> variable:</p>
+<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, y <span class="op">=</span> <span class="va">Age</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
+<p>Let’s change the color of boxplots that will reflect the levels of <code>Status</code>:</p>
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, y <span class="op">=</span> <span class="va">Age</span>, fill <span class="op">=</span> <span class="va">Status</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
+<p>You can also create multiple boxplots for each level of the <code>Status</code> variable that will reflect other categorical features:</p>
+<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, y <span class="op">=</span> <span class="va">Age</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
+<p>The previous boxplot contained an outlier - an observation that stands out from the rest of data. To customize outliers, use the following code:</p>
+<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, y <span class="op">=</span> <span class="va">Age</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>             outlier.colour <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>               </span>
+<span>             outlier.shape <span class="op">=</span> <span class="fl">8</span>,</span>
+<span>               </span>
+<span>             outlier.size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
+<p>As mentioned earlier, boxplots visualize 5-number summary of data. They don’t display the actual observations. If you want to add datapoints to your boxplot, you need to add the <code><a href="https://ggplot2.tidyverse.org/reference/geom_dotplot.html">geom_dotplot()</a></code> function:</p>
+<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, y <span class="op">=</span> <span class="va">Age</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_dotplot.html">geom_dotplot</a></span><span class="op">(</span>binaxis <span class="op">=</span> <span class="st">"y"</span>,</span>
+<span>             </span>
+<span>             stackdir <span class="op">=</span> <span class="st">"center"</span>,</span>
+<span>             </span>
+<span>             dotsize <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Bin width defaults to 1/30 of the range of the data. Pick better value with `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
+<p>Boxplots show the median as a thick line somewhere in the box. But what if you also want to show the mean value? The <code><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary()</a></code> function does the trick. You can use this function to specify any function and shape, but let’s stick with the mean value:</p>
+<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, y <span class="op">=</span> <span class="va">Age</span>, fill <span class="op">=</span> <span class="va">Status</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, y <span class="op">=</span> <span class="va">Age</span>, fill <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>             fun <span class="op">=</span> <span class="st">"mean"</span>,</span>
+<span>               </span>
+<span>             geom <span class="op">=</span> <span class="st">"point"</span>,</span>
+<span>               </span>
+<span>             color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
+<p>Quite often you will need to show relationships between variables as a scatterplot, and on the margins, you will also need to show the distribution of each variable. <code>ggplot2</code> itself does not provide this functionality, so we have to install an additional package called <code>ggExtra</code>:</p>
+<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/daattali/ggExtra">ggExtra</a></span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">gg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Age</span>, y <span class="op">=</span> <span class="va">LungCap</span>, color <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/ggExtra/man/ggMarginal.html">ggMarginal</a></span><span class="op">(</span><span class="va">gg</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
+<p> </p>
+</div>
+<div id="histograms-1" class="section level3 unnumbered">
+<h3>Histograms<a class="anchor" aria-label="anchor" href="#histograms-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Histograms are used to describe the distribution of a continuous variable. A basic histogram can be created using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> function. All it requires is a continuous variable:</p>
+<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">LungCap</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-29-1.png" width="672"></div>
+<p>Similar to barplots and boxplots, you can change histogram features by adding arguments to the function. Let’s change the color and width of bins, and make them transparent at some extend; also let’s change the outline type:</p>
+<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">LungCap</span><span class="op">)</span>,</span>
+<span>                 </span>
+<span>               fill <span class="op">=</span> <span class="st">"tomato"</span>,</span>
+<span>                 </span>
+<span>               color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>               </span>
+<span>               alpha <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>                 </span>
+<span>               binwidth <span class="op">=</span> <span class="fl">0.9</span>,</span>
+<span>               </span>
+<span>               linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-30-1.png" width="672"></div>
+<p>You can also add new features to a histogram. For instance, let’s add a vertical line that represents the mean value of our continuous variable:</p>
+<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">LungCap</span><span class="op">)</span>, </span>
+<span>                   </span>
+<span>               fill <span class="op">=</span> <span class="st">"tomato"</span>,</span>
+<span>                   </span>
+<span>               alpha <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>                   </span>
+<span>               color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">LungCap</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>           color <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>               </span>
+<span>           size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-31-1.png" width="672"></div>
+<p><code>ggplot2</code> allows you to add density curves to a histogram. This is done using the <code><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density()</a></code> function:</p>
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">LungCap</span>, y <span class="op">=</span> <span class="va">..density..</span><span class="op">)</span>,</span>
+<span>                   </span>
+<span>               fill <span class="op">=</span> <span class="st">"white"</span>, </span>
+<span>                   </span>
+<span>               color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">LungCap</span><span class="op">)</span>,</span>
+<span>                 </span>
+<span>             alpha <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>                 </span>
+<span>             fill <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-32-1.png" width="672"></div>
+<p>Now let’s change the color of bins so that it will reflect another categorical feature (for example, the <code>Sex</code> variable):</p>
+<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">LungCap</span>, fill <span class="op">=</span> <span class="va">Sex</span>, color <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>               alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-33-1.png" width="672"></div>
+<p>Let’s add vertical lines that correspond to the mean values of these two groups:</p>
+<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Preparing inputs </span></span>
+<span></span>
+<span><span class="va">data_summary</span> <span class="op">=</span> <span class="va">dataset1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  </span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Sex</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>grp.mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">LungCap</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Plotting the lines</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">LungCap</span>, fill <span class="op">=</span> <span class="va">Sex</span>, color <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>               alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_summary</span>, </span>
+<span>               </span>
+<span>           <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xintercept<span class="op">=</span><span class="va">grp.mean</span>, color<span class="op">=</span><span class="va">Sex</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>           linetype<span class="op">=</span><span class="st">"dashed"</span>,</span>
+<span>               </span>
+<span>           size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-34-1.png" width="672"></div>
+<p> </p>
+</div>
+<div id="arranging-plots" class="section level3 unnumbered">
+<h3>Arranging Plots<a class="anchor" aria-label="anchor" href="#arranging-plots"><i class="fas fa-link"></i></a>
+</h3>
+<p>Often you would want to show two or more plots side by side to show different aspects of the same story in a compelling way. This can be achieved using <code>ggplot2</code>’s one of the extensions, <code>patckwork</code> package. You will need to install this package and load it.</p>
+<p>At it’s heart, <code>patchwork</code> is a package that extends <code>ggplot2</code>’s use of the <code>+</code> operator to work between multiple plots, as well as add additional operators for specialized compositions and working with compositions of plots. To illustrate its functionality, first let’s create a few ggplot objects:</p>
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, fill <span class="op">=</span> <span class="va">Status</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"STAGE_1"</span>, <span class="st">"STAGE_2"</span>, <span class="st">"STAGE_3"</span>, <span class="st">"HEALTHY"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span></span>
+<span></span>
+<span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Status</span>, y <span class="op">=</span> <span class="va">Age</span>, fill <span class="op">=</span> <span class="va">Sex</span><span class="op">)</span><span class="op">)</span></span>
+<span> </span>
+<span></span>
+<span></span>
+<span><span class="va">g3</span> <span class="op">&lt;-</span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">LungCap</span>,</span>
+<span>                     </span>
+<span>                       fill <span class="op">=</span> <span class="va">Sex</span>,</span>
+<span>                     </span>
+<span>                       color <span class="op">=</span> <span class="va">Sex</span>,</span>
+<span>                     </span>
+<span>                       alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> </span>
+<span>  </span></code></pre></div>
+<p>The most simple use of patchwork is to use + to add plots together thus creating an assemble of plots to display together:</p>
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">g1</span> <span class="op">+</span> <span class="va">g2</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-36-1.png" width="672"></div>
+<p><code>+</code> does not specify any specific layout, only that the plots should be displayed together. In the absence of a layout the same algorithm that governs the number of rows and columns in <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> will decide the number of rows and columns. This means that adding 3 plots together will create a 1x3 grid while adding 4 plots together will create a 2x2 grid:</p>
+<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">g1</span> <span class="op">+</span> <span class="va">g2</span> <span class="op">+</span> <span class="va">g3</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-37-1.png" width="672"></div>
+<p>It is often that the automatically created grid is not what you want and it is of course possible to control it. The most direct and powerful way is to do this is to add a <code>plot_layout()</code> specification to the plot:</p>
+<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">g1</span> <span class="op">+</span> <span class="va">g2</span> <span class="op">+</span> <span class="va">g3</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu">plot_layout</span><span class="op">(</span>ncol <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-38-1.png" width="672"></div>
+<p>A common scenario is wanting to force a single row or column. patchwork provides two operators, <code>|</code> and <code>/</code> respectively:</p>
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">g1</span><span class="op">/</span><span class="va">g2</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-39-1.png" width="672"></div>
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">g1</span><span class="op">|</span><span class="va">g2</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-40-1.png" width="672"></div>
+<p>Patchwork allows nesting layouts which means that it is possible to create various layouts using just these two operators:</p>
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">g1</span> <span class="op">|</span> <span class="op">(</span><span class="va">g2</span><span class="op">/</span><span class="va">g3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="15-Lecture_files/figure-html/unnamed-chunk-41-1.png" width="672"></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-14.html">Lecture 14</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-15">Lecture 15</a></li>
+<li>
+<a class="nav-link" href="#ggplot2-package-contd">ggplot2 Package (Cont’d)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#barplots-1">Barplots</a></li>
+<li><a class="nav-link" href="#boxplots-1">Boxplots</a></li>
+<li><a class="nav-link" href="#histograms-1">Histograms</a></li>
+<li><a class="nav-link" href="#arranging-plots">Arranging Plots</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/15-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/15-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-03-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
