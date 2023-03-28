@@ -85,7 +85,7 @@ In any hypothesis-testing problem, there are two contradictory hypotheses under 
 There are two types of hypotheses:
 
 * An alternative hypothesis that is equally interested in deviations on either side of the null hypothesis value is called **two-sided alternative** and the corresponding hypothesis test is called a **two-sided test**.
-* An alternative hypothesis that focuses on deviations from the null hypothesis value in only one direction is called a **one-sided hypothesis** and the corresponding hypothesis test is called a **one-sided test**.
+* An alternative hypothesis that focuses on deviations from the null hypothesis value in only one direction is called a **one-sided alternative** and the corresponding hypothesis test is called a **one-sided test**.
 
 The null hypothesis will be rejected in favor of the alternative hypothesis only if sample evidence suggests that $H_0$ does not fit the data well. If the sample does not strongly contradict $H_0$, we will continue to believe in the plausibility of the null hypothesis. The two possible conclusions from hypothesis-testing analysis are then **reject** $H_0$ or **fail to reject** $H_0$.
 
@@ -305,11 +305,21 @@ Urban <- dataset1 %>%
          select(Sales)
 
 
-t.test(x = Rural, y = Urban, alternative = "greater", mu = 0, conf.level = 0.98)
+t.test(x = Rural,
+       
+       y = Urban,
+       
+       alternative = "greater",
+       
+       mu = 0,
+       
+       var.equal = TRUE,
+       
+       conf.level = 0.98)
 ```
 
 
-Since the p-value 0.3788 is greater than the significance level 0.02, we conclude that there is no statistical difference between average sales in Rural and Urban areas.
+Since the p-value 0.3793 is greater than the significance level 0.02, we fail to reject the null hypothesis and we conclude that there is no statistical difference between average sales in Rural and Urban areas.
 
 
 **Example 2:**
@@ -369,7 +379,7 @@ t.test(Sales ~ US,
 
 ```
 
-Since the p-value of 0.00037 is less than the significance level 0.05, we fail to reject the null hypothesis and conclude that on average stores in the US and outside of the US are equally profitable.
+Since the p-value of 0.00037 is less than the significance level 0.05, we reject the null hypothesis and conclude that on average stores in the US and outside of the US have different profitability.
 
 
 #### $\chi^2$ Goodness of Fit Test (GOF) {-}

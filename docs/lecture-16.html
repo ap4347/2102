@@ -43,25 +43,7 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="lecture-01.html">Lecture 01</a></li>
-<li><a class="" href="lecture-02.html">Lecture 02</a></li>
-<li><a class="" href="lecture-03.html">Lecture 03</a></li>
-<li><a class="" href="lecture-04.html">Lecture 04</a></li>
-<li><a class="" href="lecture-05.html">Lecture 05</a></li>
-<li><a class="" href="lecture-06.html">Lecture 06</a></li>
-<li><a class="" href="lecture-07.html">Lecture 07</a></li>
-<li><a class="" href="lecture-08.html">Lecture 08</a></li>
-<li><a class="" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="active" href="lecture-16.html">Lecture 16</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html">Lecture 16</a></li></ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
@@ -135,7 +117,7 @@
 <p>There are two types of hypotheses:</p>
 <ul>
 <li>An alternative hypothesis that is equally interested in deviations on either side of the null hypothesis value is called <strong>two-sided alternative</strong> and the corresponding hypothesis test is called a <strong>two-sided test</strong>.</li>
-<li>An alternative hypothesis that focuses on deviations from the null hypothesis value in only one direction is called a <strong>one-sided hypothesis</strong> and the corresponding hypothesis test is called a <strong>one-sided test</strong>.</li>
+<li>An alternative hypothesis that focuses on deviations from the null hypothesis value in only one direction is called a <strong>one-sided alternative</strong> and the corresponding hypothesis test is called a <strong>one-sided test</strong>.</li>
 </ul>
 <p>The null hypothesis will be rejected in favor of the alternative hypothesis only if sample evidence suggests that <span class="math inline">\(H_0\)</span> does not fit the data well. If the sample does not strongly contradict <span class="math inline">\(H_0\)</span>, we will continue to believe in the plausibility of the null hypothesis. The two possible conclusions from hypothesis-testing analysis are then <strong>reject</strong> <span class="math inline">\(H_0\)</span> or <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span>.</p>
 <p>To help us evaluate the null model (the model under the null hypothesis), we use a probability called a <strong>P-value</strong>. This probability is calculated assuming that the null hypothesis is true. If the p-value is <strong>large</strong>, this indicates that our observed results look like they could be a result of the natural variation that we expect to see when we take random sample. <strong>A large p-value supports the null hypothesis.</strong></p>
@@ -210,7 +192,7 @@ H_0: \mu = 5  \quad versus \quad H_a: \mu &gt; 5
 <code>conf.level</code> - confidence level of the interval</li>
 </ul>
 <p>Now since we work with a single population, we don’t need the <code>y</code> argument (we will come back to it shortly). Here <code>x</code> is a vector of the <code>Advertising</code> variable, <code>mu</code> is 5, <code>alternative</code> is <code>greater</code> (this options should correspond to the alternative hypothesis), <code>conf.level</code> is 0.95, and for a one-sample test with don’t need the <code>var.equal</code> argument (again, we will come back to this argument shortly). Thus,</p>
-<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">Advertising</span>,</span>
 <span>       </span>
@@ -269,33 +251,33 @@ t = \frac{(\bar{x}_1 - \bar{x}_2) - \mu_0}{\sqrt{s_1^2/n_1 + s_2^2/n_2}} \sim t(
 H_0: \mu_R - \mu_U = 0  \quad versus \quad H_a: \mu_R - \mu_U &gt; 0
 \end{align*}\]</span></p>
 <p>Before we perform a formal test, let’s visualize our data:</p>
-<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">data_summary</span> <span class="op">=</span> <span class="va">dataset1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span><span class="va">data_summary</span> <span class="op">=</span> <span class="va">dataset1</span> <span class="op">%&gt;%</span> </span>
 <span>  </span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Urban</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>               <span class="fu">group_by</span><span class="op">(</span><span class="va">Urban</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  </span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>grp.mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Sales</span><span class="op">)</span><span class="op">)</span></span>
+<span>               <span class="fu">summarise</span><span class="op">(</span>grp.mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Sales</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># Plotting the lines</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sales</span>, fill <span class="op">=</span> <span class="va">Urban</span>, color <span class="op">=</span> <span class="va">Urban</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sales</span>, fill <span class="op">=</span> <span class="va">Urban</span>, color <span class="op">=</span> <span class="va">Urban</span><span class="op">)</span>,</span>
 <span>               </span>
 <span>               alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_summary</span>, </span>
+<span><span class="fu">geom_vline</span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_summary</span>, </span>
 <span>               </span>
-<span>           <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xintercept<span class="op">=</span><span class="va">grp.mean</span>, color<span class="op">=</span><span class="va">Urban</span><span class="op">)</span>,</span>
+<span>           <span class="fu">aes</span><span class="op">(</span>xintercept<span class="op">=</span><span class="va">grp.mean</span>, color<span class="op">=</span><span class="va">Urban</span><span class="op">)</span>,</span>
 <span>               </span>
 <span>           size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
 <span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
 <div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 <p>As it was mentioned, one of the assumptions of a two-sample t-test is that the populations variances must be equal. First, we have to check this assumption by performing another test called <strong>Levene’s test</strong>. To do so, we will use the <code>LeveneTest()</code> function. This function is available in the <code>car</code> package, thus, first you will need to install this package:</p>
-<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: carData</span></span>
@@ -314,47 +296,57 @@ H_0: \mu_R - \mu_U = 0  \quad versus \quad H_a: \mu_R - \mu_U &gt; 0
 <span><span class="co">#&gt; group   1       0 0.9986</span></span>
 <span><span class="co">#&gt;       398</span></span></code></pre></div>
 <p>The p-value of this test is extremely high, which indicates that the variances of two populations are equal. Thus, in the <code>t.test</code> the <code>var.equal</code> argument will be set to <code>TRUE</code>:</p>
-<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">Rural</span> <span class="op">&lt;-</span> <span class="va">dataset1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">Rural</span> <span class="op">&lt;-</span> <span class="va">dataset1</span> <span class="op">%&gt;%</span></span>
 <span>  </span>
-<span>         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Urban</span> <span class="op">==</span> <span class="st">"No"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>         <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Urban</span> <span class="op">==</span> <span class="st">"No"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>          </span>
-<span>         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Sales</span><span class="op">)</span></span>
+<span>         <span class="fu">select</span><span class="op">(</span><span class="va">Sales</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">Urban</span> <span class="op">&lt;-</span> <span class="va">dataset1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">Urban</span> <span class="op">&lt;-</span> <span class="va">dataset1</span> <span class="op">%&gt;%</span></span>
 <span>  </span>
-<span>         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Urban</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>         <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">Urban</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>          </span>
-<span>         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Sales</span><span class="op">)</span></span>
+<span>         <span class="fu">select</span><span class="op">(</span><span class="va">Sales</span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Rural</span>, y <span class="op">=</span> <span class="va">Urban</span>, alternative <span class="op">=</span> <span class="st">"greater"</span>, mu <span class="op">=</span> <span class="fl">0</span>, conf.level <span class="op">=</span> <span class="fl">0.98</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Rural</span>,</span>
+<span>       </span>
+<span>       y <span class="op">=</span> <span class="va">Urban</span>,</span>
+<span>       </span>
+<span>       alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
+<span>       </span>
+<span>       mu <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>       </span>
+<span>       var.equal <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>       </span>
+<span>       conf.level <span class="op">=</span> <span class="fl">0.98</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span><span class="co">#&gt;  Two Sample t-test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  Rural and Urban</span></span>
-<span><span class="co">#&gt; t = 0.30902, df = 221.57, p-value = 0.3788</span></span>
+<span><span class="co">#&gt; t = 0.30765, df = 398, p-value = 0.3793</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true difference in means is greater than 0</span></span>
 <span><span class="co">#&gt; 98 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -0.5422047        Inf</span></span>
+<span><span class="co">#&gt;  -0.543356       Inf</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; mean of x mean of y </span></span>
 <span><span class="co">#&gt;  7.563559  7.468191</span></span></code></pre></div>
-<p>Since the p-value 0.3788 is greater than the significance level 0.02, we conclude that there is no statistical difference between average sales in Rural and Urban areas.</p>
+<p>Since the p-value 0.3793 is greater than the significance level 0.02, we fail to reject the null hypothesis and we conclude that there is no statistical difference between average sales in Rural and Urban areas.</p>
 <p><strong>Example 2:</strong></p>
 <p>Now suppose we would like to test the claim that on average stores in the US and outside of the US are equally profitable. In other words, the sales in the stores located in the US and outside of the US are on average equal. We want to test this claim at the <span class="math inline">\(\alpha = 0.05\)</span> significance level. The null and alternative hypotheses are given by:</p>
 <p><span class="math display">\[\begin{align*}
 H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_US} \neq 0
 \end{align*}\]</span></p>
 <p>Let’s visualize our data:</p>
-<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">US</span>, y <span class="op">=</span> <span class="va">Sales</span>, fill <span class="op">=</span> <span class="va">US</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">geom_boxplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">US</span>, y <span class="op">=</span> <span class="va">Sales</span>, fill <span class="op">=</span> <span class="va">US</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">US</span>, y <span class="op">=</span> <span class="va">Sales</span>, fill <span class="op">=</span> <span class="va">US</span><span class="op">)</span>,</span>
+<span><span class="fu">stat_summary</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">US</span>, y <span class="op">=</span> <span class="va">Sales</span>, fill <span class="op">=</span> <span class="va">US</span><span class="op">)</span>,</span>
 <span>               </span>
 <span>             fun <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>               </span>
@@ -364,7 +356,7 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 <div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 <p>From the plot we observe that on average sales in the stores located in the US are higher than the sales in the stores located outside of the US. But is this difference statistically significant? We are about to find it out.</p>
 <p>As usual, before we perform a formal t-test, let’s test the assumption of equal variances at the 5% significance level:</p>
-<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/car/man/leveneTest.html">leveneTest</a></span><span class="op">(</span><span class="va">Sales</span> <span class="op">~</span> <span class="va">US</span>, data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Levene's Test for Homogeneity of Variance (center = median)</span></span>
@@ -375,7 +367,7 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 <span><span class="co">#&gt; Signif. codes:  </span></span>
 <span><span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div>
 <p>Since the p-value 0.05741 is greater than 0.05, we assume that the variances are equal. Now we move on to the t-test:</p>
-<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">Sales</span> <span class="op">~</span> <span class="va">US</span>, </span>
 <span>       </span>
@@ -399,7 +391,7 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt;  mean in group No mean in group Yes </span></span>
 <span><span class="co">#&gt;          6.823028          7.866899</span></span></code></pre></div>
-<p>Since the p-value of 0.00037 is less than the significance level 0.05, we fail to reject the null hypothesis and conclude that on average stores in the US and outside of the US are equally profitable.</p>
+<p>Since the p-value of 0.00037 is less than the significance level 0.05, we reject the null hypothesis and conclude that on average stores in the US and outside of the US have different profitability.</p>
 </div>
 <div id="chi2-goodness-of-fit-test-gof" class="section level4 unnumbered">
 <h4>
@@ -437,17 +429,17 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 <p><span class="math inline">\(H_0\)</span>: The distribution of shelve locations is <strong>the same as</strong> the distribution proposed by the analysts. The observed difference is due to chance.</p>
 <p><span class="math inline">\(H_a\)</span>: The distribution of shelve locations is <strong>different from</strong> the distribution proposed by the analysts. The observed difference is not due to chance.</p>
 <p>Before we test these hypotheses, let’s visualize our sample data:</p>
-<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>, fill <span class="op">=</span> <span class="va">ShelveLoc</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>, fill <span class="op">=</span> <span class="va">ShelveLoc</span><span class="op">)</span>,</span>
 <span>         </span>
 <span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bad"</span>, <span class="st">"Medium"</span>, <span class="st">"Good"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="fu">scale_x_discrete</span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bad"</span>, <span class="st">"Medium"</span>, <span class="st">"Good"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>,label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_text</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>,label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>,</span>
 <span>            </span>
 <span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>            </span>
@@ -458,17 +450,17 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 <span>            colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
 <p>Let’s convert the count frequency into percentages:</p>
-<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>, fill <span class="op">=</span> <span class="va">ShelveLoc</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>, fill <span class="op">=</span> <span class="va">ShelveLoc</span><span class="op">)</span>,</span>
 <span>         </span>
 <span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bad"</span>, <span class="st">"Medium"</span>, <span class="st">"Good"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="fu">scale_x_discrete</span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bad"</span>, <span class="st">"Medium"</span>, <span class="st">"Good"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>,label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_text</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>,label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>            </span>
 <span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>            </span>
@@ -513,7 +505,7 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 </li>
 </ul>
 <p>Let’s test our hypothesis at the <span class="math inline">\(\alpha = 0.05\)</span> significance level:</p>
-<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">96</span>, <span class="fl">219</span>, <span class="fl">85</span><span class="op">)</span>, p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.55</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -549,11 +541,11 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 <p><span class="math inline">\(H_0:\)</span> Variables <code>ShelveLoc</code> and <code>Urban</code> are <strong>independent</strong>. The observed difference is due to chance.</p>
 <p><span class="math inline">\(H_a:\)</span> Variables <code>ShelveLoc</code> and <code>Urban</code> are <strong>not independent</strong>. The observed difference is not due to chance.</p>
 <p>We are going to test these hypotheses using our sample data at the <span class="math inline">\(\alpha = 0.1\)</span> significance level. The best way to display your sample data is using a two-way contingency table. In a two-way contingency table, rows represent levels(categories) of one categorical variable and columns represent levels of the other categorical variable:</p>
-<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">dataset1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">dataset1</span> <span class="op">%&gt;%</span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Urban</span>, <span class="va">ShelveLoc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">Urban</span>, <span class="va">ShelveLoc</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      ShelveLoc</span></span>
@@ -562,16 +554,16 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 <span><span class="co">#&gt;   Yes  74   57    151</span></span></code></pre></div>
 <p>If the variables are independent, that is, they are not related, then the distribution of the <code>ShelveLoc</code> variable should the same for every level of the <code>Urban</code> variable and vice versa.</p>
 <p>We can visualize our data using a stacked barplot:</p>
-<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>, fill <span class="op">=</span> <span class="va">Urban</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>, fill <span class="op">=</span> <span class="va">Urban</span><span class="op">)</span>,</span>
 <span>         </span>
 <span>         position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
 <p>Stacked barplots are particularly useful at describing the relationship (or lack of it) between two categorical variables. If some columns on the plot are divided in different vertical locations than others, then this might be an indication that the variable are related, that is, they are not independent. But per usual, to formally test our hypothesis, we need to perform a statistical test. in this case, this would be chi-squared test of independence:</p>
-<div class="sourceCode" id="cb439"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">dataset1</span><span class="op">$</span><span class="va">ShelveLoc</span>, <span class="va">dataset1</span><span class="op">$</span><span class="va">Urban</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -586,24 +578,15 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="lecture-15.html">Lecture 15</a></div>
+<div class="empty"></div>
 <div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#lecture-16">Lecture 16</a></li>
-<li>
-<a class="nav-link" href="#data-analysis">Data Analysis</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#introduction-1">Introduction</a></li>
-<li><a class="nav-link" href="#hypothesis-tests">Hypothesis Tests</a></li>
-</ul>
-</li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/16-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/16-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>
