@@ -43,28 +43,7 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="lecture-01.html">Lecture 01</a></li>
-<li><a class="" href="lecture-02.html">Lecture 02</a></li>
-<li><a class="" href="lecture-03.html">Lecture 03</a></li>
-<li><a class="" href="lecture-04.html">Lecture 04</a></li>
-<li><a class="" href="lecture-05.html">Lecture 05</a></li>
-<li><a class="" href="lecture-06.html">Lecture 06</a></li>
-<li><a class="" href="lecture-07.html">Lecture 07</a></li>
-<li><a class="" href="lecture-08.html">Lecture 08</a></li>
-<li><a class="" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="active" href="lecture-19.html">Lecture 19</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html">Lecture 19</a></li></ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
@@ -106,6 +85,7 @@
 <p>So far we’ve discussed splitting our data into training and testing sets. Furthermore, we were very explicit about the fact that we <strong>do not</strong> use the test set to assess model performance during the training phase. So how do we assess the generalization performance of the model?</p>
 <p><strong>Solution 1:</strong> Assess the model performance based on the training data. Disadvantages - this leads to biased results as some models can perform very well on the training data but not generalize well to a new data set (overfitting).</p>
 <p><strong>Solution 2:</strong> Use a validation approach, which involves splitting the training set further to create two parts: a training set and a <strong>validation set</strong> (a.k.a. <strong>holdout set</strong>). Disadvantages - validation using a single holdout set can be highly variable and unreliable unless you are working with very large data sets.</p>
+<div class="inline-figure"><img src="images/val.webp" width="100%"></div>
 <p><strong>Solution 3:</strong> Resampling methods. They allow to repeatedly fit a model to parts of the training data and test its performance on other parts. The two commonly used resampling methods include <strong>k-fold cross validation</strong> and <strong>bootstrapping</strong>.</p>
 <p> </p>
 <div id="k-fold-cross-validation" class="section level4 unnumbered">
@@ -142,8 +122,8 @@
 <h4>Regression Metrics<a class="anchor" aria-label="anchor" href="#regression-metrics"><i class="fas fa-link"></i></a>
 </h4>
 <ul>
-<li><p><strong>MSE - Mean Square Error:</strong> Mean squared error is the average of the squared error (<span class="math inline">\(MSE = \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}\)</span>). The squared component results in larger errors having larger penalties. This (along with RMSE) is the most common error metric to use. <strong>Objective: minimize</strong></p></li>
-<li><p><strong>RMSE - Root Mean Square Root:</strong> Root mean squared error. This simply takes the square root of the MSE metric (<span class="math inline">\(RMSE =\sqrt{ \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}}\)</span>) so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. <strong>Objective: minimize</strong></p></li>
+<li><p><strong>MSE - Mean Squared Error:</strong> Mean squared error is the average of the squared error (<span class="math inline">\(MSE = \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}\)</span>). The squared component results in larger errors having larger penalties. This (along with RMSE) is the most common error metric to use. <strong>Objective: minimize</strong></p></li>
+<li><p><strong>RMSE - Root Mean Squared Error:</strong> Root mean squared error. This simply takes the square root of the MSE metric (<span class="math inline">\(RMSE =\sqrt{ \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}}\)</span>) so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. <strong>Objective: minimize</strong></p></li>
 <li><p><strong><span class="math inline">\(R^2\)</span>:</strong> This is a popular metric that represents the proportion of the variance in the dependent variable that is predictable from the independent variable(s). Unfortunately, it has several limitations. For example, two models built from two different data sets could have the exact same RMSE but if one has less variability in the response variable then it would have a lower <span class="math inline">\(R^2\)</span> than the other. You should not place too much emphasis on this metric. <strong>Objective: maximize</strong></p></li>
 </ul>
 <p> </p>
@@ -197,24 +177,15 @@ Precision = \frac{TP}{TP + FP}
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="lecture-18.html">Lecture 18</a></div>
+<div class="empty"></div>
 <div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#lecture-19">Lecture 19</a></li>
-<li>
-<a class="nav-link" href="#resampling-methods">Resampling Methods</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-splitting">Data Splitting</a></li>
-<li><a class="nav-link" href="#model-evaluation">Model Evaluation</a></li>
-</ul>
-</li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/19-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/19-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>

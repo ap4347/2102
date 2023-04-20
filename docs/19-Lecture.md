@@ -57,6 +57,8 @@ So far we've discussed splitting our data into training and testing sets. Furthe
 
 **Solution 2:** Use a validation approach, which involves splitting the training set further to create two parts: a training set and a **validation set** (a.k.a. **holdout set**). Disadvantages - validation using a single holdout set can be highly variable and unreliable unless you are working with very large data sets.
 
+<img src="images/val.webp" width="100%" />
+
 **Solution 3:** Resampling methods. They allow to repeatedly fit a model to parts of the training data and test its performance on other parts. The two commonly used resampling methods include **k-fold cross validation** and **bootstrapping**.
 
 &nbsp;
@@ -110,9 +112,9 @@ Depending on the problem context, we can divide them into two groups: **Regressi
 
 #### Regression Metrics {-}
 
-* **MSE - Mean Square Error:** Mean squared error is the average of the squared error ($MSE = \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}$). The squared component results in larger errors having larger penalties. This (along with RMSE) is the most common error metric to use. **Objective: minimize**
+* **MSE - Mean Squared Error:** Mean squared error is the average of the squared error ($MSE = \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}$). The squared component results in larger errors having larger penalties. This (along with RMSE) is the most common error metric to use. **Objective: minimize**
 
-* **RMSE - Root Mean Square Root:** Root mean squared error. This simply takes the square root of the MSE metric ($RMSE =\sqrt{ \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}}$)  so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. **Objective: minimize**
+* **RMSE - Root Mean Squared Error:** Root mean squared error. This simply takes the square root of the MSE metric ($RMSE =\sqrt{ \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}}$)  so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. **Objective: minimize**
 
 * **$R^2$:** This is a popular metric that represents the proportion of the variance in the dependent variable that is predictable from the independent variable(s). Unfortunately, it has several limitations. For example, two models built from two different data sets could have the exact same RMSE but if one has less variability in the response variable then it would have a lower $R^2$ than the other. You should not place too much emphasis on this metric. **Objective: maximize**
 

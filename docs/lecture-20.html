@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Lecture 20 | STAT 2102: Applied Statistical Computing</title>
+<meta name="author" content="Alex Pijyan">
+<meta name="description" content="  Decision Trees Tree-based models are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Lecture 20 | STAT 2102: Applied Statistical Computing">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://ap4347.github.io/2102/lecture-20.html">
+<meta property="og:description" content="  Decision Trees Tree-based models are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lecture 20 | STAT 2102: Applied Statistical Computing">
+<meta name="twitter:description" content="  Decision Trees Tree-based models are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">STAT 2102: Applied Statistical Computing</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html">Lecture 20</a></li></ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-20" class="section level1 unnumbered">
+<h1>Lecture 20<a class="anchor" aria-label="anchor" href="#lecture-20"><i class="fas fa-link"></i></a>
+</h1>
+<p> </p>
+<div id="decision-trees" class="section level2 unnumbered">
+<h2>Decision Trees<a class="anchor" aria-label="anchor" href="#decision-trees"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Tree-based models</strong> are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response values using a set of <strong>splitting rules</strong>. Predictions are obtained by fitting a simpler model (e.g., a constant like the average response value) in each region.</p>
+<p>Such methods can produce simple rules that are easy to interpret and visualize with tree diagrams. As we’ll see, decision trees offer many benefits; however, they typically lack in predictive performance compared to more complex algorithms such as neural networks.</p>
+<p> </p>
+<div id="structure" class="section level3 unnumbered">
+<h3>Structure<a class="anchor" aria-label="anchor" href="#structure"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are many methodologies for constructing decision trees but the most well-known is the <strong>Classification and Regression Tree (CART)</strong> algorithm. A basic decision tree partitions the training data into homogeneous subgroups (i.e., groups with similar response values) and then fits a <strong>simple constant</strong> in each subgroup (e.g., the mean of the within group response values for regression).</p>
+<p>The subgroups (also called <strong>nodes</strong>) are formed recursively using binary partitions formed by asking simple yes-or-no questions about each feature (e.g., is <code>age &lt; 18?</code>). This is done a number of times until a suitable stopping criteria is satisfied (e.g., a maximum depth of the tree is reached). After all the partitioning has been done, the model predicts the output based on (1) the average response values for all observations that fall in that subgroup (regression problem), or (2) the class that has majority representation (classification problem).</p>
+<p>In essence, our tree is a set of rules that allows us to make predictions by asking simple yes-or-no questions about each feature. Consider the following example: suppose you are interested in predicting whether or not a customer will redeem a coupon (<code>yes</code> or <code>no</code>) based on the customer’s loyalty, household income, last month’s spend, coupon placement, and shopping mode. You can build a decision tree to make these predictions. The tree diagram given in the figure below depicts such a model:</p>
+<div class="inline-figure"><img src="images/tree.jpg" width="100%"></div>
+<p>For example, based on this decision tree, we predict that if the customer is loyal, has household income greater than $150,000, and is shopping in a store, then the customer will redeem a coupon.</p>
+<div class="inline-figure"><img src="images/tree2.jpg" width="100%"></div>
+<p>We refer to the first subgroup at the top of the tree as the <strong>root node</strong> (this node contains all of the training data). The final subgroups at the bottom of the tree are called the <strong>terminal nodes</strong> or <strong>leaves</strong>. Every subgroup in between is referred to as an <strong>internal node</strong>. The connections between nodes are called <strong>branches</strong>:</p>
+<div class="inline-figure"><img src="images/tree3.jpg" width="100%"></div>
+<p> </p>
+</div>
+<div id="partitioning" class="section level3 unnumbered">
+<h3>Partitioning<a class="anchor" aria-label="anchor" href="#partitioning"><i class="fas fa-link"></i></a>
+</h3>
+<p>As illustrated above, CART uses <strong>binary recursive partitioning</strong> (it’s recursive because each split or rule depends on the the splits above it). The objective at each node is to find the “best” feature (<span class="math inline">\(x_i\)</span>) to partition the remaining data into one of two regions (<span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span>) such that the overall error between the actual response (<span class="math inline">\(y_i\)</span>) and the predictor constant (<span class="math inline">\(c_i\)</span>) is minimized. For regression problems, the objective function to minimize is the total SSE as defined below:</p>
+<p><span class="math display">\[\begin{align*}
+SSE = \sum_{i \in R_1}(y_i - c_1)^2 + \sum_{i \in R_2}(y_i - c_2)^2
+\end{align*}\]</span></p>
+<p>For classification problems, the partitioning is usually made to maximize the reduction in <strong>cross-entropy</strong> or the <strong>Gini index</strong> (aka <strong>Gini impurity</strong>). Gini index measures the degree or probability of a particular variable being wrongly classified when it is randomly chosen and is given by</p>
+<p><span class="math display">\[\begin{align*}
+Gini = 1 - \sum_{i = 1}^{n}(p_i)^2
+\end{align*}\]</span></p>
+<p>where <span class="math inline">\(p_i\)</span> is the probability of an object being classified to a particular class.</p>
+<p>Having found the best feature/split combination, the data are partitioned into two regions and the splitting process is repeated on each of the two regions (hence the name binary recursive partitioning). This process is continued until a suitable stopping criterion is reached (e.g., a maximum depth is reached or the tree becomes “too complex”).</p>
+<p>It’s important to note that a single feature can be used multiple times in a tree. For example, say we have data generated from a simple <strong><em>sin</em></strong> function with Gaussian noise: <span class="math inline">\(Y_i \sim N(sin(X_i), \sigma^2)\)</span> for <span class="math inline">\(i = 1, 2, 3, \dots, 500\)</span>. A regression tree built with a single root node (often referred to as a decision stump) leads to a split occurring at <span class="math inline">\(x = 3.1\)</span>.</p>
+<div class="inline-figure"><img src="images/tree4.jpg" width="100%"></div>
+<p>If we build a deeper tree, we’ll continue to split on the same feature (<span class="math inline">\(x\)</span>) as illustrated in the figure below. This is because <span class="math inline">\(x\)</span> is the only feature available to split on so it will continue finding the optimal splits along this feature’s values until a pre-determined stopping criteria is reached.</p>
+<div class="inline-figure"><img src="images/tree5.jpg" width="100%"></div>
+<p>However, even when many features are available, a single feature may still dominate if it continues to provide the best split after each successive partition.</p>
+<p> </p>
+</div>
+<div id="tree-depth" class="section level3 unnumbered">
+<h3>Tree Depth<a class="anchor" aria-label="anchor" href="#tree-depth"><i class="fas fa-link"></i></a>
+</h3>
+<p>This leads to an important question: how deep (i.e., complex) should we make the tree? If we grow an overly complex tree as illustrated below, we tend to overfit to our training data resulting in poor generalization performance:</p>
+<div class="inline-figure"><img src="images/tree6.jpg" width="100%"></div>
+<p>Consequently, there is a balance to be achieved in the depth and complexity of the tree to optimize predictive performance on future unseen data. To find this balance, we have two primary approaches: (1) early stopping and (2) pruning.</p>
+<p> </p>
+</div>
+<div id="early-stopping" class="section level3 unnumbered">
+<h3>Early Stopping<a class="anchor" aria-label="anchor" href="#early-stopping"><i class="fas fa-link"></i></a>
+</h3>
+<p>Early stopping explicitly restricts the growth of the tree. There are several ways we can restrict tree growth but two of the most common approaches are to restrict the tree depth to a certain level or to restrict the minimum number of observations allowed in any terminal node. When limiting tree depth we stop splitting after a certain depth (e.g., only grow a tree that has a depth of 5 levels). The shallower the tree the less variance we have in our predictions; however, at some point we can start to inject too much bias as shallow trees (e.g., stumps) are not able to capture interactions and complex patterns in our data.</p>
+<p>When restricting minimum terminal node size (e.g., leaf nodes must contain at least 10 observations for predictions) we are deciding to not split intermediate nodes which contain too few data points. At the far end of the spectrum, a terminal node’s size of one allows for a single observation to be captured in the leaf node and used as a prediction (in this case, we’re interpolating the training data). This results in high variance and poor generalizability. On the other hand, large values restrict further splits therefore reducing variance.</p>
+<p>These two approaches can be implemented independently of one another; however, they do have interaction effects as illustrated in the figure below: The columns illustrate how tree depth impacts the decision boundary and the rows illustrate how the minimum number of observations in the terminal node influences the decision boundary.</p>
+<div class="inline-figure"><img src="images/tree7.jpg" width="100%"></div>
+<p> </p>
+</div>
+<div id="pruning" class="section level3 unnumbered">
+<h3>Pruning<a class="anchor" aria-label="anchor" href="#pruning"><i class="fas fa-link"></i></a>
+</h3>
+<p>An alternative to explicitly specifying the depth of a decision tree is to grow a very large, complex tree and then <strong>prune</strong> it back to find an optimal subtree. We find the optimal subtree by using a <strong>cost complexity parameter</strong> (<span class="math inline">\(\alpha\)</span>) that penalizes our objective function (defined in the <em>Partitioning</em> section) for the number of terminal nodes of the tree (<span class="math inline">\(T\)</span>) as follows:</p>
+<p><span class="math display">\[\begin{align*}
+minimize \{SSE + \alpha|T|\}
+\end{align*}\]</span></p>
+<p>For a given value of <span class="math inline">\(\alpha\)</span> we find the smallest pruned tree that has the lowest penalized error. Smaller penalties tend to produce more complex models, which result in larger trees. Whereas larger penalties result in much smaller trees. Consequently, as a tree grows larger, the reduction in the SSE must be greater than the cost complexity penalty. Typically, we evaluate multiple models across a spectrum of <span class="math inline">\(\alpha\)</span> and use CV to identify the optimal value and, therefore, the optimal subtree that generalizes best to unseen data.</p>
+<p>The figure below illustrates the pruning results: we grow an overly complex tree (left) and then use a cost complexity parameter to identify the optimal subtree (right):</p>
+<div class="inline-figure"><img src="images/tree8.jpg" width="100%"></div>
+<p> </p>
+</div>
+</div>
+<div id="random-forest" class="section level2 unnumbered">
+<h2>Random Forest<a class="anchor" aria-label="anchor" href="#random-forest"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before we introduce a random forest method, let’s describe <strong>bagging</strong>. <strong>Bootstrap aggregating (bagging)</strong> prediction models is a general method for fitting multiple versions of a prediction model and then combining (or ensembling) them into an aggregated prediction.</p>
+<p>Bagging is a fairly straight forward algorithm in which <em>b</em> bootstrap copies of the original training data are created, the regression or classification algorithm (commonly referred to as the <strong>base learner</strong>) is applied to each bootstrap sample and, in the regression context, new predictions are made by averaging the predictions together from the individual base learners. When dealing with a classification problem, the base learner predictions are combined using plurality vote or by averaging the estimated class probabilities together.</p>
+<p>Because of the aggregation process, bagging effectively reduces the variance of an individual base learner (i.e., averaging reduces variance). The general idea behind bagging is referred to as the “wisdom of the crowd” effect. It essentially means that the aggregation of information in large diverse groups results in decisions that are often better than could have been made by any single member of the group. The more diverse the group members are then the more diverse their perspectives and predictions will be, which often leads to better aggregated information.</p>
+<p>However, when bagging trees, a problem still exists. Although the model building steps are independent, the trees in bagging are not completely independent of each other since all the original features are considered at every split of every tree. Rather, trees from different bootstrap samples typically have similar structure to each other (especially at the top of the tree) due to any underlying strong relationships.</p>
+<p>This characteristic is known as <strong>tree correlation</strong> and prevents bagging from further reducing the variance of the base learner. Now we will discuss how <strong>random forests</strong> extend and improve upon bagged decision trees by reducing this correlation and thereby improving the accuracy of the overall ensemble.</p>
+<hr>
+<p><em>Random forests</em> are a modification of bagged decision trees that build a large collection of de-correlated trees to further improve predictive performance. Random forests help to reduce tree correlation by injecting more randomness into the tree-growing process.</p>
+<p>More specifically, while growing a decision tree during the bagging process, random forests perform split-variable randomization where each time a split is to be performed, the search for the split variable is limited to a random subset of <span class="math inline">\(m\)</span> of the original <em>p</em> features. Typical default values are <span class="math inline">\(m = p/3\)</span> (regression) and <span class="math inline">\(m = \sqrt{p}\)</span> (classification) but this should be considered a tuning parameter.</p>
+<div class="inline-figure"><img src="images/rf.jpg" width="100%"></div>
+<div id="hyperparameters" class="section level4 unnumbered">
+<h4>Hyperparameters<a class="anchor" aria-label="anchor" href="#hyperparameters"><i class="fas fa-link"></i></a>
+</h4>
+<p>There are several tunable hyperparameters that we should consider when training a model:</p>
+<ul>
+<li>The number of trees in the forest</li>
+<li>The number of features to consider at any given split: <span class="math inline">\(m\)</span>
+</li>
+<li>The complexity of each tree</li>
+</ul>
+<p> </p>
+<p><strong>Number of trees</strong></p>
+<p>The first consideration is the number of trees within your random forest. Although not technically a hyperparameter, the number of trees needs to be sufficiently large to stabilize the error rate. A good rule of thumb is to start with 10 times the number of features. However, as you adjust other hyperparameters such as <span class="math inline">\(m\)</span> and node size, more or fewer trees may be required. More trees provide more robust and stable error estimates and variable importance measures; however, the impact on computation time increases linearly with the number of trees.</p>
+<p> </p>
+<p><strong>The number of features to consider at any given split: <span class="math inline">\(m\)</span></strong></p>
+<p>The hyperparameter that controls the split-variable randomization feature of random forests is often referred to as <span class="math inline">\(m\)</span> and it helps to balance low tree correlation with reasonable predictive strength. With regression problems the default value is often <span class="math inline">\(m = p/3\)</span> and for classification <span class="math inline">\(m = \sqrt{p}\)</span>. However, when there are fewer relevant predictors (e.g., noisy data) a higher value of <span class="math inline">\(m\)</span> tends to perform better because it makes it more likely to select those features with the strongest signal. When there are many relevant predictors, a lower <span class="math inline">\(m\)</span> might perform better.</p>
+<p> </p>
+<p><strong>The complexity of each tree</strong></p>
+<p>Random forests are built on individual decision trees; consequently, most random forest implementations have one or more hyperparameters that allow us to control the depth and complexity of the individual trees. This will often include hyperparameters such as node size, max depth, max number of terminal nodes, or the required node size to allow additional splits.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-18.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
