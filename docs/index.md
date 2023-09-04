@@ -1,7 +1,7 @@
 --- 
 title: "STAT 2102: Applied Statistical Computing"
 author: "Alex Pijyan"
-date: "2023-04-26"
+date: "2023-09-04"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -16,12 +16,11 @@ csl: chicago-fullnote-bibliography.csl
 
 
 
-
 # Welcome {-}
 
 &nbsp;
 
-![](images/dept.jpg)
+<img src="images/dept.jpg" width="100%" />
 
 &nbsp;
 
@@ -29,7 +28,7 @@ Welcome to **_STAT 2102: Applied Statistical Computing_** class. This website co
 
 &nbsp;
 
-**Course Description:** This course is an introduction to `R programming`. After learning basic programming components, such as defining variables and vectors, and learning different data structures in R, students will, via assignments, study more advanced topics, such as conditionals, modular programming, and data visualization. Students will also learn the fundamental concepts in computational complexity and will practice writing reports based on their data analyses.
+**Course Description:** This course is an introduction to `R programming`. After learning basic programming components, such as defining variables and vectors, and learning different data structures in R, students will, via assignments, study more advanced topics, such as conditionals, modular programming, data visualization, and various R packages. Students will also learn the fundamental concepts in computational complexity and will practice writing reports based on their data analyses.
 
 &nbsp;
 
@@ -38,8 +37,7 @@ Welcome to **_STAT 2102: Applied Statistical Computing_** class. This website co
 * Manipulate and wrangle data with different structures
 * Explore data via visualization and basic models for exploratory data analysis
 * Tackle familiar statistical concepts using R
-* Communicate their results
-
+* Communicate results obtained from data analysis
 
 
 

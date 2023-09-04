@@ -45,27 +45,8 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="active" href="lecture-01.html">Lecture 01</a></li>
-<li><a class="" href="lecture-02.html">Lecture 02</a></li>
-<li><a class="" href="lecture-03.html">Lecture 03</a></li>
-<li><a class="" href="lecture-04.html">Lecture 04</a></li>
-<li><a class="" href="lecture-05.html">Lecture 05</a></li>
-<li><a class="" href="lecture-06.html">Lecture 06</a></li>
-<li><a class="" href="lecture-07.html">Lecture 07</a></li>
-<li><a class="" href="lecture-08.html">Lecture 08</a></li>
-<li><a class="" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -96,16 +77,16 @@
 <div id="getting-started-downloading-and-installing-r-rstudio" class="section level2 unnumbered">
 <h2>Getting Started: Downloading and Installing R &amp; RStudio<a class="anchor" aria-label="anchor" href="#getting-started-downloading-and-installing-r-rstudio"><i class="fas fa-link"></i></a>
 </h2>
-<div class="inline-figure"><img src="images/r_and_rstudio.png"></div>
+<div class="inline-figure"><img src="images/r_and_rstudio.png" width="100%"></div>
 <div id="installing-r" class="section level3 unnumbered">
 <h3>Installing R<a class="anchor" aria-label="anchor" href="#installing-r"><i class="fas fa-link"></i></a>
 </h3>
 <p>The first thing we need to do is to install <code>R</code> on your computer. It works on pretty much every platform available, including the widely used Windows, Mac OS, and Linux systems. You can download R <a href="https://cran.r-project.org/">here</a>. Pick your operating system and follow the instructions stated on that page. After you download <code>R</code>, install it on your machine.</p>
 </div>
-<div id="installing-rstudio" class="section level3 unnumbered">
-<h3>Installing RStudio<a class="anchor" aria-label="anchor" href="#installing-rstudio"><i class="fas fa-link"></i></a>
+<div id="installing-rstudio-now-known-as-posit" class="section level3 unnumbered">
+<h3>Installing RStudio (now known as Posit)<a class="anchor" aria-label="anchor" href="#installing-rstudio-now-known-as-posit"><i class="fas fa-link"></i></a>
 </h3>
-<p>R itself has an old-fashion, old-school interface, which is less intuitive and makes coding harder (especially for beginners). Thus, we will be using RStudio instead. RStudio is an IDE, Integrated Development Environment, which has a user-friendly interface and is equipment with many useful features. It facilitates extensive code editing, development as well as various features that make R an easy language to implement. We will be using RStudio to call <code>R</code>. You can dowload RStudio <a href="https://posit.co/download/rstudio-desktop/#download">here</a>.</p>
+<p>R itself has an old-fashion, old-school interface, which is less intuitive and makes coding harder (especially for beginners). Thus, we will be using RStudio instead. RStudio is an IDE, Integrated Development Environment, which has a user-friendly interface and is equipped with many useful features. It facilitates extensive code editing, development as well as various features that make R an easy language to implement. We will be using RStudio to call <code>R</code>. You can dowload RStudio <a href="https://posit.co/download/rstudio-desktop/#download">here</a>.</p>
 <p>Note, in order to work in RStudio, you first need to download and install <code>R</code>.</p>
 </div>
 </div>
@@ -114,33 +95,28 @@
 </h2>
 <p>You may be initially overwhelmed by all the different panes and tabs that are available in RStudio. But, as with all things, it will take a little bit to get used to it and eventually you will learn to love this layout.</p>
 <p>RStudio has 4 main panes:</p>
-<div class="figure">
-<span style="display:block;" id="fig:unnamed-chunk-1"></span>
-<img src="images/Rstudio.png" alt="RStudio Interface" width="150%" height="110%"><p class="caption">
-Figure 1: RStudio Interface
-</p>
-</div>
+<div class="inline-figure"><img src="images/Rstudio.png" width="100%"></div>
 <div id="code-editor-source-pane" class="section level3 unnumbered">
 <h3>Code Editor (Source Pane)<a class="anchor" aria-label="anchor" href="#code-editor-source-pane"><i class="fas fa-link"></i></a>
 </h3>
-<p>Most likely the pane where you will spend a majority of your time is in the top left corner. It’s called Code Editor (a.k.a Source Pane). This is a place where you create and edit R Scripts (files with an <code>".R"</code> extension that contain your code). When you open RStudio, it will automatically start a new Untitled script. Before you start typing in an untitled R script, you should always save the file under a new file name (for example, <code>"script_1.R"</code>). That way, if something on your computer crashes while you’re working, R will have your code saved when you re-open RStudio.</p>
+<p>Most likely the pane where you will spend a majority of your time is in the <strong>top left corner</strong>. It’s called Code Editor (a.k.a Source Pane). This is a place where you create and edit R Scripts (files with an <code>".R"</code> extension that contain your code). When you open RStudio, it will automatically start a new Untitled script. Before you start typing in an untitled R script, you should always save the file under a new file name (for example, <code>"script_1.R"</code>). That way, if something on your computer crashes while you’re working, R will have your code saved when you re-open RStudio.</p>
 <p>As you will notice, typing a code in R scripts does not execute it. To run the entire code, you can click a <code>Run</code> button on the top of the pane. Or, if you want to execute a specific line of the code, then put the cursor on that line and press <code>Command + Return</code> on Mac or <code>Control + Enter</code> on PC.</p>
 </div>
 <div id="console-pane" class="section level3 unnumbered">
 <h3>Console Pane<a class="anchor" aria-label="anchor" href="#console-pane"><i class="fas fa-link"></i></a>
 </h3>
-<p>The bottom left pane is called Console. You will be using the Console as a way to check your work or thoughts. Basically, Console is a place where the R code is being run after executing it in R scripts. It is a place where the output/results will be displayed.</p>
+<p><strong>The bottom left pane</strong> is called Console. You will be using the Console as a way to check your work or thoughts. Basically, Console is a place where the R code is being run after executing it in R scripts. It is a place where the output/results will be displayed.</p>
 </div>
 <div id="environmenthistory-pane" class="section level3 unnumbered">
 <h3>Environment/History Pane<a class="anchor" aria-label="anchor" href="#environmenthistory-pane"><i class="fas fa-link"></i></a>
 </h3>
-<p>The Environment (a.k.a Global Environment, a.k.a Working Environment) tab shows you the names of all the data objects that you’ve defined in your current R session. You can also see what information these objects contain.</p>
+<p>The Environment (a.k.a Global Environment, a.k.a Working Environment) tab (<strong>top right corner</strong>) shows you the names of all the data objects that you’ve defined in your current R session. You can also see what information these objects contain.</p>
 <p>The History tab simply shows you a history of all the code you’ve previously evaluated in the Console.</p>
 </div>
 <div id="output-pane" class="section level3 unnumbered">
 <h3>Output Pane<a class="anchor" aria-label="anchor" href="#output-pane"><i class="fas fa-link"></i></a>
 </h3>
-<p>The bottom right pane in RStudio contains the most tabs by default and is a useful place to view a variety of miscellaneous information about your RStudio projects and its files.</p>
+<p><strong>The bottom right pane</strong> in RStudio contains the most tabs by default and is a useful place to view a variety of miscellaneous information about your RStudio projects and its files.</p>
 <p><strong>Files:</strong> The leftmost tab here shows the file and folder structure. This shows you where the files are stored, what they are called, and any folders that may exist in your project folder.</p>
 <p><strong>Plots/Viewer:</strong> this shows you the resulting graphs/figures that your R code generated.</p>
 <p><strong>Packages:</strong> this shows you what packages have been downloaded to your computer. You can also see which packages are loaded into the current working environment by looking to see if a check-mark exists next to the package name.</p>
@@ -150,7 +126,7 @@ Figure 1: RStudio Interface
 <div id="r-as-a-calculator-operators" class="section level2 unnumbered">
 <h2>R as a Calculator: Operators<a class="anchor" aria-label="anchor" href="#r-as-a-calculator-operators"><i class="fas fa-link"></i></a>
 </h2>
-<p>An operator is a symbol that tells R to perform specific mathematical or logical manipulations. R language is rich it built-in operators and provides the following types of operators:</p>
+<p>An operator is a symbol that tells R to perform specific mathematical or logical manipulations. R language is rich with its built-in operators and provides the following types of operators:</p>
 <ul>
 <li>Arithmetic Operators</li>
 <li>Relational Operators</li>
@@ -291,7 +267,7 @@ Figure 1: RStudio Interface
 <p>As mentioned, R stores files in the working directory. To check where the working directory on your machine is, use <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> function:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "C:/Users/alexp/OneDrive/Desktop/2102/2102"</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] "C:/Users/alexp/OneDrive/Desktop/2102/Fall 23/2102"</span></span></code></pre></div>
 </div>
 <div id="getting-help" class="section level2 unnumbered">
 <h2>Getting Help<a class="anchor" aria-label="anchor" href="#getting-help"><i class="fas fa-link"></i></a>
@@ -305,7 +281,7 @@ Figure 1: RStudio Interface
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="index.html">Welcome</a></div>
-<div class="next"><a href="lecture-02.html">Lecture 02</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -314,7 +290,7 @@ Figure 1: RStudio Interface
 <li>
 <a class="nav-link" href="#getting-started-downloading-and-installing-r-rstudio">Getting Started: Downloading and Installing R &amp; RStudio</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#installing-r">Installing R</a></li>
-<li><a class="nav-link" href="#installing-rstudio">Installing RStudio</a></li>
+<li><a class="nav-link" href="#installing-rstudio-now-known-as-posit">Installing RStudio (now known as Posit)</a></li>
 </ul>
 </li>
 <li>
@@ -357,7 +333,7 @@ Figure 1: RStudio Interface
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-09-04.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -365,34 +341,6 @@ Figure 1: RStudio Interface
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
-for (let popover of popovers) {
-  const div = document.createElement('div');
-  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
-  div.innerHTML = popover.getAttribute('data-content');
-
-  var has_math = div.querySelector("span.math");
-  if (has_math) {
-    document.body.appendChild(div);
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
-    MathJax.Hub.Queue(function() {
-      popover.setAttribute('data-content', div.innerHTML);
-      document.body.removeChild(div);
-    })
-  }
-}
-</script>
+</footer>
 </body>
 </html>

@@ -1,3 +1,6 @@
+
+# (PART) BASE R {-}
+
 # Lecture 01 {-}
 
 ## Introduction {-}
@@ -17,15 +20,15 @@ Nowadays, many companies, universities, and individuals of all backgrounds are s
 
 ## Getting Started: Downloading and Installing R & RStudio {-}
 
-![](images/r_and_rstudio.png)
+<img src="images/r_and_rstudio.png" width="100%" />
 
 ### Installing R {-}
 
 The first thing we need to do is to install `R` on your computer. It works on pretty much every platform available, including the widely used Windows, Mac OS, and Linux systems. You can download R [here](https://cran.r-project.org/). Pick your operating system and follow the instructions stated on that page. After you download `R`, install it on your machine.  
 
-### Installing RStudio {-}
+### Installing RStudio (now known as Posit) {-}
 
-R itself has an old-fashion, old-school interface, which is less intuitive and makes coding harder (especially for beginners). Thus, we will be using RStudio instead. RStudio is an IDE, Integrated Development Environment, which has a user-friendly interface and is equipment with many useful features. It facilitates extensive code editing, development as well as various features that make R an easy language to implement. We will be using RStudio to call `R`. You can dowload RStudio [here](https://posit.co/download/rstudio-desktop/#download).
+R itself has an old-fashion, old-school interface, which is less intuitive and makes coding harder (especially for beginners). Thus, we will be using RStudio instead. RStudio is an IDE, Integrated Development Environment, which has a user-friendly interface and is equipped with many useful features. It facilitates extensive code editing, development as well as various features that make R an easy language to implement. We will be using RStudio to call `R`. You can dowload RStudio [here](https://posit.co/download/rstudio-desktop/#download).
 
 
 Note, in order to work in RStudio, you first need to download and install `R`.
@@ -37,16 +40,11 @@ You may be initially overwhelmed by all the different panes and tabs that are av
 RStudio has 4 main panes:
 
 
-
-
-<div class="figure">
-<img src="images/Rstudio.png" alt="RStudio Interface" width="150%" height="110%" />
-<p class="caption">(\#fig:unnamed-chunk-1)RStudio Interface</p>
-</div>
+<img src="images/Rstudio.png" width="100%" />
 
 ### Code Editor (Source Pane) {-}
 
-Most likely the pane where you will spend a majority of your time is in the top left corner. It's called Code Editor (a.k.a Source Pane). This is a place where you create and edit R Scripts (files with an `".R"` extension that contain your code). When you open RStudio, it will automatically start a new Untitled script. Before you start typing in an untitled R script, you should always save the file under a new file name (for example, `"script_1.R"`). That way, if something on your computer crashes while you're working, R will have your code saved when you re-open RStudio.
+Most likely the pane where you will spend a majority of your time is in the **top left corner**. It's called Code Editor (a.k.a Source Pane). This is a place where you create and edit R Scripts (files with an `".R"` extension that contain your code). When you open RStudio, it will automatically start a new Untitled script. Before you start typing in an untitled R script, you should always save the file under a new file name (for example, `"script_1.R"`). That way, if something on your computer crashes while you're working, R will have your code saved when you re-open RStudio.
 
 
 As you will notice, typing a code in R scripts does not execute it. To run the entire code, you can click a `Run` button on the top of the pane. Or, if you want to execute a specific line of the code, then put the cursor on that line and press `Command + Return` on Mac or `Control + Enter` on PC.
@@ -54,18 +52,18 @@ As you will notice, typing a code in R scripts does not execute it. To run the e
 
 ### Console Pane {-}
 
-The bottom left pane is called Console. You will be using the Console as a way to check your work or thoughts. Basically, Console is a place where the R code is being run after executing it in R scripts. It is a place where the output/results will be displayed. 
+**The bottom left pane** is called Console. You will be using the Console as a way to check your work or thoughts. Basically, Console is a place where the R code is being run after executing it in R scripts. It is a place where the output/results will be displayed. 
 
 
 ### Environment/History Pane {-}
 
-The Environment (a.k.a Global Environment, a.k.a Working Environment) tab shows you the names of all the data objects that you've defined in your current R session. You can also see what information these objects contain. 
+The Environment (a.k.a Global Environment, a.k.a Working Environment) tab (**top right corner**) shows you the names of all the data objects that you've defined in your current R session. You can also see what information these objects contain. 
 
 The History tab simply shows you a history of all the code you've previously evaluated in the Console. 
 
 ### Output Pane {-}
 
-The bottom right pane in RStudio contains the most tabs by default and is a useful place to view a variety of miscellaneous information about your RStudio projects and its files.
+**The bottom right pane** in RStudio contains the most tabs by default and is a useful place to view a variety of miscellaneous information about your RStudio projects and its files.
 
 **Files:** The leftmost tab here shows the file and folder structure. This shows you where the files are stored, what they are called, and any folders that may exist in your project folder.
 
@@ -82,7 +80,7 @@ The bottom right pane in RStudio contains the most tabs by default and is a usef
 
 ## R as a Calculator: Operators {-}
 
-An operator is a symbol that tells R to perform specific mathematical or logical manipulations. R language is rich it built-in operators and provides the following types of operators:
+An operator is a symbol that tells R to perform specific mathematical or logical manipulations. R language is rich with its built-in operators and provides the following types of operators:
 
 
 * Arithmetic Operators
@@ -216,7 +214,7 @@ As mentioned, R stores files in the working directory. To check where the workin
 
 ```r
 getwd()
-#> [1] "C:/Users/alexp/OneDrive/Desktop/2102/2102"
+#> [1] "C:/Users/alexp/OneDrive/Desktop/2102/Fall 23/2102"
 ```
 
 ## Getting Help {-}
