@@ -45,27 +45,9 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="active" href="lecture-02.html">Lecture 02</a></li>
-<li><a class="" href="lecture-03.html">Lecture 03</a></li>
-<li><a class="" href="lecture-04.html">Lecture 04</a></li>
-<li><a class="" href="lecture-05.html">Lecture 05</a></li>
-<li><a class="" href="lecture-06.html">Lecture 06</a></li>
-<li><a class="" href="lecture-07.html">Lecture 07</a></li>
-<li><a class="" href="lecture-08.html">Lecture 08</a></li>
-<li><a class="" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -208,6 +190,7 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">y_char</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "character"</span></span></code></pre></div>
+<p> </p>
 </div>
 <div id="converting-data-types" class="section level3 unnumbered">
 <h3>Converting Data Types<a class="anchor" aria-label="anchor" href="#converting-data-types"><i class="fas fa-link"></i></a>
@@ -224,7 +207,15 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">x_char</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
-<p>To convert any other data type into numeric, we can use <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> function. When converting integer type data into numeric, <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> changes its type and keeps the value as it is; when converting a complex data type, it removes the imaginary part of the number; when converting logical data type, the <code>TRUE</code> value is converted to <code>1</code>, and <code>FALSE</code> is converted to <code>0</code>; finally, character values can similarly be converted into numerical values but if the string contains letters or other symbols, then the numeric value becomes <code>NA</code>:</p>
+<p>To convert any other data type into numeric, we can use <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> function:</p>
+<ul>
+<li>When converting integer type data into numeric, <code><a href="https://rdrr.io/r/base/numeric.html">as.numeric()</a></code> changes its type and keeps the value as it is</li>
+<li>When converting a complex data type, it removes the imaginary part of the number</li>
+<li>When converting logical data type, the <code>TRUE</code> value is converted to <code>1</code>, and <code>FALSE</code> is converted to <code>0</code>
+</li>
+<li>Finally, character values can similarly be converted into numerical values but if the string contains letters or other symbols, then the numeric value becomes <code>NA</code>
+</li>
+</ul>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">######################################</span></span>
@@ -304,7 +295,7 @@
 <div id="converting-into-logical-data-type" class="section level4 unnumbered">
 <h4>Converting into Logical Data Type<a class="anchor" aria-label="anchor" href="#converting-into-logical-data-type"><i class="fas fa-link"></i></a>
 </h4>
-<p>To convert any other data type into logical, we can utilize <code><a href="https://rdrr.io/r/base/logical.html">as.logical()</a></code> function. It return <code>FALSE</code> if the value is zero and <code>TRUE</code> if it anything else. Character values when converted by the <code><a href="https://rdrr.io/r/base/logical.html">as.logical()</a></code> function, always return <code>NA</code>:</p>
+<p>To convert any other data type into logical, we can utilize <code><a href="https://rdrr.io/r/base/logical.html">as.logical()</a></code> function. It returns <code>FALSE</code> if the value is zero and <code>TRUE</code> if it is anything else. Character values when converted by the <code><a href="https://rdrr.io/r/base/logical.html">as.logical()</a></code> function, always return <code>NA</code>:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">######################################</span></span>
@@ -353,7 +344,7 @@
 <div id="converting-into-character-data-type" class="section level4 unnumbered">
 <h4>Converting into Character Data Type<a class="anchor" aria-label="anchor" href="#converting-into-character-data-type"><i class="fas fa-link"></i></a>
 </h4>
-<p>We can convert any data type into character data type using the <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code> function. It converts the original value into a character string.</p>
+<p>We can convert any data type into character using the <code><a href="https://rdrr.io/r/base/character.html">as.character()</a></code> function. It converts the original value into a character string:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">######################################</span></span>
@@ -383,6 +374,7 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">char2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "20+6i"</span></span></code></pre></div>
+<p> </p>
 </div>
 </div>
 </div>
@@ -391,11 +383,11 @@
 </h2>
 <p>In any programming language, you need to use different variables to store different data. Unlike other programming languages like <code>C</code> and <code>Java</code>, R doesn’t have variables declared as some data type. Further, variables are appointed with R-objects and the knowledge form of the R-object becomes the datatype of the variable. There are many types of R-objects (data structures). The commonly used ones are:</p>
 <ul>
-<li>Vectors</li>
-<li>Lists</li>
-<li>Matrices</li>
-<li>Data Frames</li>
-<li>Factors</li>
+<li><strong>Vectors</strong></li>
+<li><strong>Lists</strong></li>
+<li><strong>Matrices</strong></li>
+<li><strong>Data Frames</strong></li>
+<li><strong>Factors</strong></li>
 </ul>
 <p>In this lecture, we will discuss <code>vectors</code> and <code>lists</code>. Later, we will go over other data structures as well.</p>
 <div id="vectors" class="section level3 unnumbered">
@@ -404,7 +396,7 @@
 <div id="creating-vectors" class="section level4 unnumbered">
 <h4>Creating Vectors<a class="anchor" aria-label="anchor" href="#creating-vectors"><i class="fas fa-link"></i></a>
 </h4>
-<p>Vector is the most basic data structure in R programming language. There are various ways of <strong>creating a vector</strong>. The most common way is using <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function:</p>
+<p>Vector is the most basic data structure in R programming language. There are various ways of creating a vector. The most common way is using <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">vec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span></span>
@@ -613,6 +605,7 @@
 <p> </p>
 <p><em>Question</em>: What if I want to store heterogeneous data (data of different types)?</p>
 <p><em>Solution</em>: Use <code>Lists</code>.</p>
+<p> </p>
 </div>
 </div>
 <div id="lists" class="section level3 unnumbered">
@@ -809,7 +802,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-01.html">Lecture 01</a></div>
-<div class="next"><a href="lecture-03.html">Lecture 03</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -847,7 +840,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-09-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -855,34 +848,6 @@
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
-for (let popover of popovers) {
-  const div = document.createElement('div');
-  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
-  div.innerHTML = popover.getAttribute('data-content');
-
-  var has_math = div.querySelector("span.math");
-  if (has_math) {
-    document.body.appendChild(div);
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
-    MathJax.Hub.Queue(function() {
-      popover.setAttribute('data-content', div.innerHTML);
-      document.body.removeChild(div);
-    })
-  }
-}
-</script>
+</footer>
 </body>
 </html>
