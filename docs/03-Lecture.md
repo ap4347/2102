@@ -83,18 +83,18 @@ print(matrix_4)
 
 ### Accessing Matrix Elements {-}
 
-Elements of a matrix can be accessed by using the column and row index of the element and square brackets:
+Elements of a matrix can be accessed by using the column and row indexes of the element and square brackets:
 
 
 
 ```r
 
-# Accessing the element in 3rd columns and 1st row
+# Accessing the element in the 3rd column and 1st row
 
 matrix_1[1, 3]
 #> [1] 3
 
-# Accessing the element in 2nd column and 4th row
+# Accessing the element in the 2nd column and 4th row
 
 matrix_1[4, 2]
 #> [1] 11
@@ -167,7 +167,7 @@ print(matrix_6)
 ```
 
 
-Use `c()` function to remove rows and columns from a matrix:
+Use the `c()` function along with negative indexes to remove rows and columns from the matrix:
 
 
 ```r
@@ -506,7 +506,7 @@ print(df)
 
 
 
-### Subsetting/Extracting Elements/Columns/Rows from a Data Frame {-}
+### Subsetting/Extracting the Elements/Columns/Rows from a Data Frame {-}
 
 We can use `[]`, `$`, `[[]]` to extract elements, columns, or rows from a data frame (uses the same rule as matrices):
 
@@ -714,7 +714,7 @@ print(df_3)
 #> 10      Amy  52    Indiana  92400         22
 #> 11     Jack  41      Texas 150000         20
 
-# Removing columns from a data frame using a `c()` function
+# Removing columns from a data frame using the `c()` function and negative indexes
 
 df_4 <- df_3[, -4]
 
@@ -900,7 +900,7 @@ print(fac3)
 #> Levels: 1 2 3
 ```
 
-To create an ordered factor, use `order` argument inside a `factor()` function:
+To create an ordered factor, use `order` argument inside the `factor()` function:
 
 
 ```r
@@ -1059,7 +1059,7 @@ print(fac7)
 
 ### Generating Factors {-}
 
-We can generate factor levels by using the `gl()` function. It takes two integers as input which indicates how many levels and how many times each level.
+We can generate factor levels using the `gl()` function. It takes two integers as input values which indicate how many levels there are and how many times each level is being used.
 
 
 ```r
@@ -1080,12 +1080,12 @@ print(fac8)
 
 ```r
 
-# Calculating a number of elements stored in a factor
+# Calculating a number of elements stored in the factor
 
 length(fac2)
 #> [1] 8
 
-# Displaying a frequency of each level of a factor
+# Displaying a frequency of each level of the factor
 
 table(fac2)
 #> fac2

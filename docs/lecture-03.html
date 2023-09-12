@@ -45,27 +45,10 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="active" href="lecture-03.html">Lecture 03</a></li>
-<li><a class="" href="lecture-04.html">Lecture 04</a></li>
-<li><a class="" href="lecture-05.html">Lecture 05</a></li>
-<li><a class="" href="lecture-06.html">Lecture 06</a></li>
-<li><a class="" href="lecture-07.html">Lecture 07</a></li>
-<li><a class="" href="lecture-08.html">Lecture 08</a></li>
-<li><a class="" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -156,15 +139,15 @@
 <div id="accessing-matrix-elements" class="section level3 unnumbered">
 <h3>Accessing Matrix Elements<a class="anchor" aria-label="anchor" href="#accessing-matrix-elements"><i class="fas fa-link"></i></a>
 </h3>
-<p>Elements of a matrix can be accessed by using the column and row index of the element and square brackets:</p>
+<p>Elements of a matrix can be accessed by using the column and row indexes of the element and square brackets:</p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co"># Accessing the element in 3rd columns and 1st row</span></span>
+<span><span class="co"># Accessing the element in the 3rd column and 1st row</span></span>
 <span></span>
 <span><span class="va">matrix_1</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] 3</span></span>
 <span></span>
-<span><span class="co"># Accessing the element in 2nd column and 4th row</span></span>
+<span><span class="co"># Accessing the element in the 2nd column and 4th row</span></span>
 <span></span>
 <span><span class="va">matrix_1</span><span class="op">[</span><span class="fl">4</span>, <span class="fl">2</span><span class="op">]</span></span>
 <span><span class="co">#&gt; [1] 11</span></span>
@@ -226,7 +209,7 @@
 <span><span class="co">#&gt; [3,]    7    8    9</span></span>
 <span><span class="co">#&gt; [4,]   10   11   12</span></span>
 <span><span class="co">#&gt; [5,]   10   20   30</span></span></code></pre></div>
-<p>Use <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function to remove rows and columns from a matrix:</p>
+<p>Use the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function along with negative indexes to remove rows and columns from the matrix:</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Removing the 1st and 2nd rows and 1st column from a matrix</span></span>
@@ -531,8 +514,8 @@
 <span><span class="co">#&gt; 9     Lucas  39   Nebraska  83000</span></span>
 <span><span class="co">#&gt; 10      Amy  52    Indiana  92400</span></span></code></pre></div>
 </div>
-<div id="subsettingextracting-elementscolumnsrows-from-a-data-frame" class="section level3 unnumbered">
-<h3>Subsetting/Extracting Elements/Columns/Rows from a Data Frame<a class="anchor" aria-label="anchor" href="#subsettingextracting-elementscolumnsrows-from-a-data-frame"><i class="fas fa-link"></i></a>
+<div id="subsettingextracting-the-elementscolumnsrows-from-a-data-frame" class="section level3 unnumbered">
+<h3>Subsetting/Extracting the Elements/Columns/Rows from a Data Frame<a class="anchor" aria-label="anchor" href="#subsettingextracting-the-elementscolumnsrows-from-a-data-frame"><i class="fas fa-link"></i></a>
 </h3>
 <p>We can use <code>[]</code>, <code>$</code>, <code>[[]]</code> to extract elements, columns, or rows from a data frame (uses the same rule as matrices):</p>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
@@ -731,7 +714,7 @@
 <span><span class="co">#&gt; 10      Amy  52    Indiana  92400         22</span></span>
 <span><span class="co">#&gt; 11     Jack  41      Texas 150000         20</span></span>
 <span></span>
-<span><span class="co"># Removing columns from a data frame using a `c()` function</span></span>
+<span><span class="co"># Removing columns from a data frame using the `c()` function and negative indexes</span></span>
 <span></span>
 <span><span class="va">df_4</span> <span class="op">&lt;-</span> <span class="va">df_3</span><span class="op">[</span>, <span class="op">-</span><span class="fl">4</span><span class="op">]</span></span>
 <span></span>
@@ -906,7 +889,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">fac3</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] 1 2 3 2 2 3 1 3 2 3 1 1</span></span>
 <span><span class="co">#&gt; Levels: 1 2 3</span></span></code></pre></div>
-<p>To create an ordered factor, use <code>order</code> argument inside a <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> function:</p>
+<p>To create an ordered factor, use <code>order</code> argument inside the <code><a href="https://rdrr.io/r/base/factor.html">factor()</a></code> function:</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">fac4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">vec3</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -1030,7 +1013,7 @@
 <div id="generating-factors" class="section level3 unnumbered">
 <h3>Generating Factors<a class="anchor" aria-label="anchor" href="#generating-factors"><i class="fas fa-link"></i></a>
 </h3>
-<p>We can generate factor levels by using the <code><a href="https://rdrr.io/r/base/gl.html">gl()</a></code> function. It takes two integers as input which indicates how many levels and how many times each level.</p>
+<p>We can generate factor levels using the <code><a href="https://rdrr.io/r/base/gl.html">gl()</a></code> function. It takes two integers as input values which indicate how many levels there are and how many times each level is being used.</p>
 <div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">fac8</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html">gl</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">5</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fall"</span>, <span class="st">"Winter"</span>, <span class="st">"Spring"</span>, <span class="st">"Summer"</span><span class="op">)</span><span class="op">)</span></span>
@@ -1046,12 +1029,12 @@
 </h3>
 <div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co"># Calculating a number of elements stored in a factor</span></span>
+<span><span class="co"># Calculating a number of elements stored in the factor</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">fac2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 8</span></span>
 <span></span>
-<span><span class="co"># Displaying a frequency of each level of a factor</span></span>
+<span><span class="co"># Displaying a frequency of each level of the factor</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">fac2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; fac2</span></span>
@@ -1088,7 +1071,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-02.html">Lecture 02</a></div>
-<div class="next"><a href="lecture-04.html">Lecture 04</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -1106,7 +1089,7 @@
 <li>
 <a class="nav-link" href="#data-frames">Data Frames</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#creating-a-data-frame">Creating a Data Frame</a></li>
-<li><a class="nav-link" href="#subsettingextracting-elementscolumnsrows-from-a-data-frame">Subsetting/Extracting Elements/Columns/Rows from a Data Frame</a></li>
+<li><a class="nav-link" href="#subsettingextracting-the-elementscolumnsrows-from-a-data-frame">Subsetting/Extracting the Elements/Columns/Rows from a Data Frame</a></li>
 <li><a class="nav-link" href="#assigning-new-value-to-data-frame-elements">Assigning New Value to Data Frame Elements</a></li>
 <li><a class="nav-link" href="#addingremoving-columnsrows">Adding/Removing Columns/Rows</a></li>
 <li><a class="nav-link" href="#re-ordering-columnsrows-in-a-data-frame">Re-ordering Columns/Rows in a Data Frame</a></li>
@@ -1141,7 +1124,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-09-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
@@ -1149,34 +1132,6 @@
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
-for (let popover of popovers) {
-  const div = document.createElement('div');
-  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
-  div.innerHTML = popover.getAttribute('data-content');
-
-  var has_math = div.querySelector("span.math");
-  if (has_math) {
-    document.body.appendChild(div);
-    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
-    MathJax.Hub.Queue(function() {
-      popover.setAttribute('data-content', div.innerHTML);
-      document.body.removeChild(div);
-    })
-  }
-}
-</script>
+</footer>
 </body>
 </html>
