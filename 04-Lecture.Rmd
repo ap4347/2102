@@ -23,8 +23,7 @@ As mentioned earlier, R Markdown can produce files of various formats (`PDF`, `W
 You can install _TinyTeX_ with the R package **tinytex**. Run the following code in your console:
 
 
-
-```r
+```{r, eval = FALSE}
 tinytex:: install_tinytex()
 
 ```
@@ -55,8 +54,7 @@ Markdown is designed to be easy to read, write, and learn. Below you can find th
 
 You can create headers in your text using `#` operator and control their size by simply adding one or more `#` in front of the text you would like to denote the header. 
 
-
-```r
+```{r, eval = FALSE}
 
 # Top Level Header (For example, Question 1)
 
@@ -66,6 +64,7 @@ You can create headers in your text using `#` operator and control their size by
 
 #### and so on
 
+
 ```
 
 
@@ -73,8 +72,7 @@ You can create headers in your text using `#` operator and control their size by
 
 You can create a block quote using `>` operator. For example the line below
 
-
-```r
+```{r, eval = FALSE}
 
 > Your first block quote
 
@@ -90,8 +88,7 @@ will produce the following result:
 In R Markdown you can create both ordered and unordered lists. To create an unordered list, use `*` operator:
 
 
-
-```r
+```{r, eval = FALSE}
 * Bullet point 1
 
 * Bullet point 2
@@ -113,8 +110,7 @@ In R Markdown you can create both ordered and unordered lists. To create an unor
 
 To create an ordered lists, simply use numbers:
 
-
-```r
+```{r, eval = FALSE}
 1. Bullet point 1
 
 2. Bullet point 2
@@ -135,8 +131,7 @@ To create an ordered lists, simply use numbers:
 Use the following formatting style to create tables in R Markdown:
 
 
-
-```r
+```{r, eval = FALSE}
 First Header  | Second Header
 ------------- | -------------
 Content Cell  | Content Cell
@@ -154,8 +149,7 @@ Content Cell  | Content Cell
 
 Use the following format to insert a link into your text:
 
-
-```r
+```{r, eval = FALSE}
 [Your first link](http://posit.co)
 ```
 
@@ -172,8 +166,7 @@ Use `$ $` operator to include equations in your text. For example, $A = \pi*r^{2
 
 In order to start a new paragraph or new line, you will need to be sure that white space exists between the two paragraphs/line:
 
-
-```r
+```{r, eval = FALSE}
 This is the first lines.
 
 
@@ -189,8 +182,7 @@ And here we have another line.
 
 Another useful way to divide up different parts of your file is by including horizontal lines. We can achieve it by using `***` operator:
 
-
-```r
+```{r, eval = FALSE}
 ***
 ```
 
@@ -201,8 +193,7 @@ It will produce the horizontal line below.
 Finally, if you want start a paragraph or a line on a new page, use `\newpage` command:
 
 
-
-```r
+```{r, eval = FALSE}
 \newpage
 ```
 
@@ -220,9 +211,8 @@ print(2 + 2)
 ``` </code></pre>
 
 
-
-```
-#> [1] 4
+```{r, echo = FALSE}
+print(2+2)
 ```
 
 

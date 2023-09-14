@@ -45,27 +45,11 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
 <li><a class="active" href="lecture-04.html">Lecture 04</a></li>
-<li><a class="" href="lecture-05.html">Lecture 05</a></li>
-<li><a class="" href="lecture-06.html">Lecture 06</a></li>
-<li><a class="" href="lecture-07.html">Lecture 07</a></li>
-<li><a class="" href="lecture-08.html">Lecture 08</a></li>
-<li><a class="" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -81,8 +65,8 @@
 <h2>R Markdown Files<a class="anchor" aria-label="anchor" href="#r-markdown-files"><i class="fas fa-link"></i></a>
 </h2>
 <p><code>R Markdown</code> provides an easy way to produce a rich, fully-documented reproducible analysis. It combines your code, results, commentary, and all metadata needed to reproduce your analysis in R. It allows to include chunks of code in the file along with text. R Markdown supports many output formats such as <code>PDF</code>, <code>Word</code>, <code>slideshows</code>, <code>presentations</code> etc.</p>
-<p>R Markdown files can be used in many ways. For instance, it can be utilized for communicating to decision makers, who wants to focus on the conclusions, not the code behind the analysis; for collaborating with other data analysts, who are interested in both your conclusions and how your reached them. In addition, it can be used as an environment in which we do analysis.</p>
-<p>Even these lecture notes are written using R Markdown files. In this lecture we will learn how to create an R Markdown file and its basic functionalities. You will be using R Markdown files to create and submit your homework assignments.</p>
+<p>R Markdown files can be used in many ways. For instance, it can be utilized for communicating to decision makers, who wants to focus on the conclusions, not the code behind the analysis; for collaborating with other data analysts, who are interested in both your conclusions and how you reached them. In addition, it can be used as an environment in which we do analysis.</p>
+<p>Even these lecture notes are written using R Markdown files. In this lecture we will learn how to create an R Markdown file and its basic functionalities. You will be using R Markdown files to create your homework assignments.</p>
 <div id="creating-r-markdown-files" class="section level3 unnumbered">
 <h3>Creating R Markdown Files<a class="anchor" aria-label="anchor" href="#creating-r-markdown-files"><i class="fas fa-link"></i></a>
 </h3>
@@ -133,8 +117,8 @@
 <h5>Block Quotes<a class="anchor" aria-label="anchor" href="#block-quotes"><i class="fas fa-link"></i></a>
 </h5>
 <p>You can create a block quote using <code>&gt;</code> operator. For example the line below</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="lecture-04.html#cb77-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-2"><a href="lecture-04.html#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> Your first block quote</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="lecture-04.html#cb77-1" tabindex="-1"></a></span>
+<span id="cb77-2"><a href="lecture-04.html#cb77-2" tabindex="-1"></a><span class="sc">&gt;</span> Your first block quote</span></code></pre></div>
 <p>will produce the following result:</p>
 <blockquote>
 <p>Your first block quote</p>
@@ -144,13 +128,13 @@
 <h5>Lists<a class="anchor" aria-label="anchor" href="#lists-1"><i class="fas fa-link"></i></a>
 </h5>
 <p>In R Markdown you can create both ordered and unordered lists. To create an unordered list, use <code>*</code> operator:</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="lecture-04.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> Bullet point <span class="dv">1</span></span>
-<span id="cb78-2"><a href="lecture-04.html#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-3"><a href="lecture-04.html#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="sc">*</span> Bullet point <span class="dv">2</span></span>
-<span id="cb78-4"><a href="lecture-04.html#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-5"><a href="lecture-04.html#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="sc">*</span> bullet point 2a</span>
-<span id="cb78-6"><a href="lecture-04.html#cb78-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-7"><a href="lecture-04.html#cb78-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">*</span> bullet point 2b</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="lecture-04.html#cb78-1" tabindex="-1"></a><span class="sc">*</span> Bullet point <span class="dv">1</span></span>
+<span id="cb78-2"><a href="lecture-04.html#cb78-2" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="lecture-04.html#cb78-3" tabindex="-1"></a><span class="sc">*</span> Bullet point <span class="dv">2</span></span>
+<span id="cb78-4"><a href="lecture-04.html#cb78-4" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="lecture-04.html#cb78-5" tabindex="-1"></a>  <span class="sc">*</span> bullet point 2a</span>
+<span id="cb78-6"><a href="lecture-04.html#cb78-6" tabindex="-1"></a></span>
+<span id="cb78-7"><a href="lecture-04.html#cb78-7" tabindex="-1"></a>  <span class="sc">*</span> bullet point 2b</span></code></pre></div>
 <ul>
 <li>Bullet point 1</li>
 <li>Bullet point 2
@@ -161,11 +145,11 @@
 </li>
 </ul>
 <p>To create an ordered lists, simply use numbers:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="lecture-04.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> Bullet point <span class="dv">1</span></span>
-<span id="cb79-2"><a href="lecture-04.html#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-3"><a href="lecture-04.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span> Bullet point <span class="dv">2</span></span>
-<span id="cb79-4"><a href="lecture-04.html#cb79-4" aria-hidden="true" tabindex="-1"></a>   <span class="sc">*</span> bullet point 2a</span>
-<span id="cb79-5"><a href="lecture-04.html#cb79-5" aria-hidden="true" tabindex="-1"></a>   <span class="sc">*</span> bullet point 2b</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="lecture-04.html#cb79-1" tabindex="-1"></a><span class="fl">1.</span> Bullet point <span class="dv">1</span></span>
+<span id="cb79-2"><a href="lecture-04.html#cb79-2" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="lecture-04.html#cb79-3" tabindex="-1"></a><span class="fl">2.</span> Bullet point <span class="dv">2</span></span>
+<span id="cb79-4"><a href="lecture-04.html#cb79-4" tabindex="-1"></a>   <span class="sc">*</span> bullet point 2a</span>
+<span id="cb79-5"><a href="lecture-04.html#cb79-5" tabindex="-1"></a>   <span class="sc">*</span> bullet point 2b</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Bullet point 1</li>
 <li>Bullet point 2
@@ -180,10 +164,10 @@
 <h5>Tables<a class="anchor" aria-label="anchor" href="#tables"><i class="fas fa-link"></i></a>
 </h5>
 <p>Use the following formatting style to create tables in R Markdown:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="lecture-04.html#cb80-1" aria-hidden="true" tabindex="-1"></a>First Header  <span class="sc">|</span> Second Header</span>
-<span id="cb80-2"><a href="lecture-04.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="sc">-------------</span> <span class="er">|</span> <span class="sc">-------------</span></span>
-<span id="cb80-3"><a href="lecture-04.html#cb80-3" aria-hidden="true" tabindex="-1"></a>Content Cell  <span class="sc">|</span> Content Cell</span>
-<span id="cb80-4"><a href="lecture-04.html#cb80-4" aria-hidden="true" tabindex="-1"></a>Content Cell  <span class="sc">|</span> Content Cell</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="lecture-04.html#cb80-1" tabindex="-1"></a>First Header  <span class="sc">|</span> Second Header</span>
+<span id="cb80-2"><a href="lecture-04.html#cb80-2" tabindex="-1"></a><span class="sc">-------------</span> <span class="er">|</span> <span class="sc">-------------</span></span>
+<span id="cb80-3"><a href="lecture-04.html#cb80-3" tabindex="-1"></a>Content Cell  <span class="sc">|</span> Content Cell</span>
+<span id="cb80-4"><a href="lecture-04.html#cb80-4" tabindex="-1"></a>Content Cell  <span class="sc">|</span> Content Cell</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th>First Header</th>
@@ -205,8 +189,8 @@
 <h5>Links<a class="anchor" aria-label="anchor" href="#links"><i class="fas fa-link"></i></a>
 </h5>
 <p>Use the following format to insert a link into your text:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="lecture-04.html#cb81-1" aria-hidden="true" tabindex="-1"></a>[Your first link](http<span class="sc">:</span><span class="er">//</span>poxit.com)</span></code></pre></div>
-<p>It produces a link to the desired webpage and can be included in your text: <a href="http://poxit.com">Your first link</a></p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="lecture-04.html#cb81-1" tabindex="-1"></a>[Your first link](http<span class="sc">:</span><span class="er">//</span>posit.co)</span></code></pre></div>
+<p>It produces a link to the desired webpage and can be included in your text: <a href="http://posit.co">Your first link</a></p>
 </div>
 <div id="inline-equations" class="section level5 unnumbered">
 <h5>Inline Equations<a class="anchor" aria-label="anchor" href="#inline-equations"><i class="fas fa-link"></i></a>
@@ -217,18 +201,18 @@
 <h5>Line Breaks<a class="anchor" aria-label="anchor" href="#line-breaks"><i class="fas fa-link"></i></a>
 </h5>
 <p>In order to start a new paragraph or new line, you will need to be sure that white space exists between the two paragraphs/line:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="lecture-04.html#cb82-1" aria-hidden="true" tabindex="-1"></a>This is the first lines.</span>
-<span id="cb82-2"><a href="lecture-04.html#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-3"><a href="lecture-04.html#cb82-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-4"><a href="lecture-04.html#cb82-4" aria-hidden="true" tabindex="-1"></a>And here we have another line.</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="lecture-04.html#cb82-1" tabindex="-1"></a>This is the first lines.</span>
+<span id="cb82-2"><a href="lecture-04.html#cb82-2" tabindex="-1"></a></span>
+<span id="cb82-3"><a href="lecture-04.html#cb82-3" tabindex="-1"></a></span>
+<span id="cb82-4"><a href="lecture-04.html#cb82-4" tabindex="-1"></a>And here we have another line.</span></code></pre></div>
 <p>This is the first lines.</p>
 <p>And here we have another line.</p>
 <p>Another useful way to divide up different parts of your file is by including horizontal lines. We can achieve it by using <code>***</code> operator:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="lecture-04.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="sc">**</span><span class="er">*</span></span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="lecture-04.html#cb83-1" tabindex="-1"></a><span class="sc">**</span><span class="er">*</span></span></code></pre></div>
 <p>It will produce the horizontal line below.</p>
 <hr>
 <p>Finally, if you want start a paragraph or a line on a new page, use <code>\newpage</code> command:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="lecture-04.html#cb84-1" aria-hidden="true" tabindex="-1"></a>\newpage</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="lecture-04.html#cb84-1" tabindex="-1"></a>\newpage</span></code></pre></div>
 </div>
 </div>
 <div id="r-chunks-of-code" class="section level4 unnumbered">
@@ -298,7 +282,7 @@ print(2 + 2)
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-03.html">Lecture 03</a></div>
-<div class="next"><a href="lecture-05.html">Lecture 05</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -328,7 +312,7 @@ print(2 + 2)
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-09-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
