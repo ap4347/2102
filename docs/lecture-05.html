@@ -45,27 +45,12 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
 <li><a class="" href="lecture-04.html">Lecture 04</a></li>
 <li><a class="active" href="lecture-05.html">Lecture 05</a></li>
-<li><a class="" href="lecture-06.html">Lecture 06</a></li>
-<li><a class="" href="lecture-07.html">Lecture 07</a></li>
-<li><a class="" href="lecture-08.html">Lecture 08</a></li>
-<li><a class="" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -354,7 +339,7 @@
 <div id="nested-if-else-statements" class="section level3 unnumbered">
 <h3>Nested IF-ELSE Statements<a class="anchor" aria-label="anchor" href="#nested-if-else-statements"><i class="fas fa-link"></i></a>
 </h3>
-<p>You can also have <code>if</code> statements inside <code>if</code> statements, this is called <code>nested if</code> statements.</p>
+<p>You can also have <code>if</code> statements inside of <code>if</code> statements, this is called <code>nested if</code> statements.</p>
 <div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">50</span></span>
@@ -509,7 +494,7 @@
 <h2>For Loops<a class="anchor" aria-label="anchor" href="#for-loops"><i class="fas fa-link"></i></a>
 </h2>
 <p>There may be a situation when you need to execute a block of code multiple times. In general, statements are executed sequentially. The first statement in a function is executed first, followed by the second, and so on.</p>
-<p>Programming languages provide various control structures that allow for more complicated execution paths. A loop statement allows us to execute a statement or groups of statements multiple times (<strong>iterate</strong>). It is a sequence of instructions that is repeated until a certain condition is reached. The most basic and commonly used type of loops is a <code>for</code> loop. The general format of a <code>for</code> loop is as follows:</p>
+<p>Programming languages provide various control structures that allow for more complicated execution paths. A loop statement allows us to execute a statement or groups of statements multiple times (<strong>iterate</strong>). It is a sequence of instructions that is repeated until a certain condition is reached. The most basic and commonly used type of loops is a <code>for</code> loop. The general format of the <code>for</code> loop is as follows:</p>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">loop.object</span> <span class="kw">in</span> <span class="va">loop.vector</span><span class="op">)</span> <span class="op">{</span></span>
@@ -517,7 +502,7 @@
 <span>  <span class="va">LOOP.CODE</span></span>
 <span></span>
 <span>  <span class="op">}</span></span></code></pre></div>
-<p>There are three key aspects of loops: The <code>loop object</code>, the <code>loop vector</code>, and the <code>loop code</code>:</p>
+<p>There are three key aspects of loops: <code>loop object</code>, <code>loop vector</code>, and <code>loop code</code>.</p>
 <ul>
 <li>
 <code>Loop object</code>: The object that will change for each iteration of the loop. This is usually a letter like <code>i</code>.</li>
@@ -590,16 +575,16 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; [1] -0.3955817</span></span>
+<span><span class="co">#&gt; [1] -0.4449204</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; [1]  0.7495219 -1.3179570</span></span>
+<span><span class="co">#&gt; [1] 0.6877384 0.5138414</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[3]]</span></span>
-<span><span class="co">#&gt; [1]  0.4757164 -0.3310434  0.5597114</span></span>
+<span><span class="co">#&gt; [1] -0.05192922  2.35895255 -0.30947434</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; [[4]]</span></span>
-<span><span class="co">#&gt; [1] -0.0277016  2.1647414  0.7576938  0.1051766</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] -0.22119227  0.05511434  0.61745288  0.05013974</span></span></code></pre></div>
 <div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Updating elements of the vector x</span></span>
@@ -629,7 +614,7 @@
 <div id="break-statement" class="section level3 unnumbered">
 <h3>Break Statement<a class="anchor" aria-label="anchor" href="#break-statement"><i class="fas fa-link"></i></a>
 </h3>
-<p>Loop control statements change execution from its normal sequence. <code>Break</code> statement stops the execution of a <code>for</code> loop when the condition specified is met. In other words, it stops before it has looped through all the items For example,</p>
+<p>Loop control statements change execution from its normal sequence. <code>Break</code> statement stops the execution of a <code>for</code> loop when the condition specified is met. In other words, it stops before it has looped through all the items. For example,</p>
 <div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">60</span><span class="op">)</span> <span class="op">{</span></span>
@@ -763,7 +748,7 @@
 <div id="nested-for-loops" class="section level3 unnumbered">
 <h3>Nested For Loops<a class="anchor" aria-label="anchor" href="#nested-for-loops"><i class="fas fa-link"></i></a>
 </h3>
-<p>Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g. matrices, lists). Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed in next lecture). Here is an example of nested loop:</p>
+<p>Nested loops are commonly needed for multidimensional or hierarchical data structures (e.g. matrices, lists). Nesting beyond 2 to 3 levels often makes it difficult to read/understand the code. If you find yourself in need of a large number of nested loops, you may want to break up the loops by using functions (discussed in the next lecture). Here is an example of the nested loop:</p>
 <div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co">## Creating and populating an empty matrix</span></span>
@@ -843,7 +828,7 @@
 <span><span class="co">#&gt; [1] 11</span></span>
 <span><span class="co">#&gt; [1] 13</span></span>
 <span><span class="co">#&gt; [1] 15</span></span></code></pre></div>
-<p>While loops can potentially result in infinite loops if not written properly. Use with care! If you accidentally created and executed infinite loops, it will run forever and take up all your storage in R. To stop an infinite while loop, press the red stop sign that shows up in the top right corner of the console. Can you check and tell what is wrong with the while loops given below:</p>
+<p>While loops can potentially result in infinite loops if not written properly. <strong>Use with care!</strong> If you accidentally created and executed infinite loops, it will run forever and take up all your storage in R. To stop an infinite while loop, press the red stop sign that shows up in the top right corner of the console. Can you check and tell what is wrong with the while loops given below:</p>
 <div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
@@ -971,7 +956,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-04.html">Lecture 04</a></div>
-<div class="next"><a href="lecture-06.html">Lecture 06</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -1022,7 +1007,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-09-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
