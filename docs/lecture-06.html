@@ -45,27 +45,13 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
 <li><a class="" href="lecture-04.html">Lecture 04</a></li>
 <li><a class="" href="lecture-05.html">Lecture 05</a></li>
 <li><a class="active" href="lecture-06.html">Lecture 06</a></li>
-<li><a class="" href="lecture-07.html">Lecture 07</a></li>
-<li><a class="" href="lecture-08.html">Lecture 08</a></li>
-<li><a class="" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -85,13 +71,13 @@
 <div id="creating-a-function" class="section level3 unnumbered">
 <h3>Creating a Function<a class="anchor" aria-label="anchor" href="#creating-a-function"><i class="fas fa-link"></i></a>
 </h3>
-<p>A function is a set of statements organized together to perform a specific task. R has a large number of in-built functions and the user can create their own functions. In R, a function is an object so the R interpreter is able to pass control to the function, along with arguments that may be necessary for the function to accomplish the actions.</p>
+<p>A function is a set of statements organized together to perform a specific task. R has a large number of in-built functions and the user can create their own functions as well. In R, a function is an object so the R interpreter is able to pass control to the function, along with arguments that may be necessary for the function to accomplish the actions.</p>
 <p>An <code>R function</code> is created by using the <code>function()</code> function (Yeah, too many functions). The basic syntax of an R function is as follows:</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="lecture-06.html#cb121-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb121-2"><a href="lecture-06.html#cb121-2" aria-hidden="true" tabindex="-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg_1, arg_2, ...) {</span>
-<span id="cb121-3"><a href="lecture-06.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb121-4"><a href="lecture-06.html#cb121-4" aria-hidden="true" tabindex="-1"></a>   Function body </span>
-<span id="cb121-5"><a href="lecture-06.html#cb121-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="lecture-06.html#cb121-1" tabindex="-1"></a></span>
+<span id="cb121-2"><a href="lecture-06.html#cb121-2" tabindex="-1"></a>function_name <span class="ot">&lt;-</span> <span class="cf">function</span>(arg_1, arg_2, ...) {</span>
+<span id="cb121-3"><a href="lecture-06.html#cb121-3" tabindex="-1"></a>  </span>
+<span id="cb121-4"><a href="lecture-06.html#cb121-4" tabindex="-1"></a>   Function body </span>
+<span id="cb121-5"><a href="lecture-06.html#cb121-5" tabindex="-1"></a>}</span></code></pre></div>
 <p>The main components of an R function are:</p>
 <ul>
 <li>
@@ -149,7 +135,7 @@
 <span><span class="co">#&gt;   }</span></span>
 <span><span class="co">#&gt;   </span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x000001d6843e3810&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; &lt;bytecode: 0x00000179b2295b20&gt;</span></span></code></pre></div>
 </div>
 <div id="function-arguments" class="section level3 unnumbered">
 <h3>Function Arguments<a class="anchor" aria-label="anchor" href="#function-arguments"><i class="fas fa-link"></i></a>
@@ -182,7 +168,7 @@
 <h4>Argument Matching<a class="anchor" aria-label="anchor" href="#argument-matching"><i class="fas fa-link"></i></a>
 </h4>
 <p>Calling an R function with arguments can be done in a variety of ways. This may be confusing at first, but it’s really handing when doing interactive work at the command line. R functions arguments can be matched by name or by position.</p>
-<p>When matched by position, R assigns the first value to the first argument, the second value to second argument and so on. For example, <code>fun_2(5, 7)</code> means R will assign <code>5</code> to the <code>x</code> argument and <code>7</code> to the <code>y</code>.</p>
+<p>When matched by position, R assigns the first value to the first argument, the second value to second argument and so on. For example, <code>fun_2(5, 7)</code> means R will assign <code>5</code> to the <code>x</code> argument and <code>7</code> to <code>y</code>.</p>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu">fun_2</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span></span>
@@ -252,6 +238,7 @@
 <code class="sourceCode R"><span></span>
 <span><span class="fu">fun_4</span><span class="op">(</span>x <span class="op">=</span> <span class="va">vec1</span>, y <span class="op">=</span> <span class="va">vec2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1]  2  4  6  8 10</span></span></code></pre></div>
+<p> </p>
 </div>
 </div>
 <div id="lazy-evaluation" class="section level3 unnumbered">
@@ -274,6 +261,7 @@
 <code class="sourceCode R"><span></span>
 <span><span class="fu">fun_5</span><span class="op">(</span>y <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in fun_5(y = 3): argument "x" is missing, with no default</span></span></code></pre></div>
+<p> </p>
 </div>
 <div id="function-environments-and-global-variables" class="section level3 unnumbered">
 <h3>Function Environments and Global Variables<a class="anchor" aria-label="anchor" href="#function-environments-and-global-variables"><i class="fas fa-link"></i></a>
@@ -338,6 +326,7 @@
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">x</span> <span class="op">+</span> <span class="va">a</span> <span class="op">+</span> <span class="va">b</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="op">}</span></span></code></pre></div>
+<p> </p>
 </div>
 <div id="nested-function" class="section level3 unnumbered">
 <h3>Nested Function<a class="anchor" aria-label="anchor" href="#nested-function"><i class="fas fa-link"></i></a>
@@ -366,7 +355,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-05.html">Lecture 05</a></div>
-<div class="next"><a href="lecture-07.html">Lecture 07</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -397,7 +386,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-09-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
