@@ -45,6 +45,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
@@ -54,18 +55,6 @@
 <li><a class="" href="lecture-07.html">Lecture 07</a></li>
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="active" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -263,7 +252,7 @@ b(x; n, p) = \binom{n}{x} p^x(1-p)^{n-x} \quad for \quad x = 0, 1, ..., n
 <p><span class="math display">\[\begin{align*}
 g(x; p) = (1-p)^{x-1}p \quad for \quad x = 1, 2, 3,  ...
 \end{align*}\]</span></p>
-<p>Here is an example that describes a geometric distribution: starting at a fixed time, we observe the gender of each newborn child at a certain hospital until a girl (<em>G</em>) is born. Let <em>P(G) = p = 0.55</em> and assume that successive births are independent.</p>
+<p>Here is an example that describes a geometric distribution: starting at a fixed time, we observe the sex of each newborn child at a certain hospital until a girl (<em>G</em>) is born. Let <em>P(G) = p = 0.55</em> and assume that successive births are independent.</p>
 <div id="dgeom-function" class="section level3 unnumbered">
 <h3>dgeom() Function<a class="anchor" aria-label="anchor" href="#dgeom-function"><i class="fas fa-link"></i></a>
 </h3>
@@ -292,7 +281,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 \end{align*}\]</span></p>
 <p>A normal distribution is bell-shaped, symmetric, and is centered at its mean value. The distribution continues to positive and negative infinity, but most of the area is close to the center.</p>
 <p>Normal distributions can look quite different. Specifically, a normal distribution can be adjusted using its mean and standard deviation. Changing the mean value of a normal distribution shifts the curve to the left or right. Changing the standard deviation of a normal distribution stretches or constricts the curve around the mean. Below are some examples of a normal distribution:</p>
-<div class="inline-figure"><img src="images/norm_curve.jpg"></div>
+<div class="inline-figure"><img src="images/norm_curve.jpg" width="100%"></div>
 <div id="dnorm-function" class="section level3 unnumbered">
 <h3>dnorm() Function<a class="anchor" aria-label="anchor" href="#dnorm-function"><i class="fas fa-link"></i></a>
 </h3>
@@ -306,7 +295,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="09-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="inline-figure"><img src="09-Lecture_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
 </div>
 <div id="pnorm-function" class="section level3 unnumbered">
 <h3>pnorm() Function<a class="anchor" aria-label="anchor" href="#pnorm-function"><i class="fas fa-link"></i></a>
@@ -358,7 +347,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <span>     col <span class="op">=</span> <span class="st">"orange"</span>,</span>
 <span>     </span>
 <span>     border <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="09-Lecture_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<div class="inline-figure"><img src="09-Lecture_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
 </div>
 </div>
 <div id="generating-data" class="section level2 unnumbered">
@@ -371,20 +360,21 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  6.090986 -4.992852  1.587376 -2.545187  1.737944</span></span>
-<span><span class="co">#&gt;  [6]  4.255104 -3.824054  4.177600  8.929933 12.007949</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  2.3909381 -0.1965371  1.4365501 -3.3529699  3.9963510</span></span>
+<span><span class="co">#&gt;  [6] -2.1444803  2.7049069  3.9751996 -2.4595614  5.0551896</span></span></code></pre></div>
 <div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  1.21300339  1.34984777  4.91131140 -1.01760256</span></span>
-<span><span class="co">#&gt;  [5]  0.96722643  0.02442185  0.09514891  6.45192826</span></span>
-<span><span class="co">#&gt;  [9]  0.39166203  6.69005864</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  6.14675947  8.33240907 -1.20825387  0.51473025</span></span>
+<span><span class="co">#&gt;  [5]  3.26552247  5.17266273 -4.56896031  3.82044404</span></span>
+<span><span class="co">#&gt;  [9]  0.09281221  8.37049561</span></span></code></pre></div>
 <div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] -3.543305  5.647237 -3.186623  6.120034 -1.376508</span></span>
-<span><span class="co">#&gt;  [6]  2.225205  5.069922 -0.518532  6.995016  1.677951</span></span></code></pre></div>
-<p>As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done random.</p>
+<span><span class="co">#&gt;  [1]  5.61208953  8.64156420  4.90462625 -0.08366601</span></span>
+<span><span class="co">#&gt;  [5] -2.17691397  5.48354710  4.22365923 11.23872190</span></span>
+<span><span class="co">#&gt;  [9]  9.10812859  5.31997000</span></span></code></pre></div>
+<p>As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done randomly.</p>
 <p>After generating random numbers, you may often want to reproduce the same sequence of “random” numbers every time your program executes. That way, you get the same results from run to run.</p>
 <p>In R, the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function sets the random number generator to a known state. The function takes one argument, an integer. Any positive integer will work, but you must use the same one in order to get the same initial state.</p>
 <p>The function returns nothing. It works behind the scenes, initializing (or reinitializing) the random number generator. The key here is that using the same seed restarts the random number generator back at the same place:</p>
@@ -459,7 +449,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-08.html">Lecture 08</a></div>
-<div class="next"><a href="lecture-10.html">Lecture 10</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -511,7 +501,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
