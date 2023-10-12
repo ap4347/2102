@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lecture 10 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
-<meta name="description" content="  Tidyverse Family of Packages The data frame is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column...">
+<meta name="description" content="  Tidyverse Family of Packages Data frame is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a...">
 <meta name="generator" content="bookdown 0.32 with bs4_book()">
 <meta property="og:title" content="Lecture 10 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-10.html">
-<meta property="og:description" content="  Tidyverse Family of Packages The data frame is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column...">
+<meta property="og:description" content="  Tidyverse Family of Packages Data frame is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lecture 10 | STAT 2102: Applied Statistical Computing">
-<meta name="twitter:description" content="  Tidyverse Family of Packages The data frame is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column...">
+<meta name="twitter:description" content="  Tidyverse Family of Packages Data frame is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -45,6 +45,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
@@ -54,18 +55,8 @@
 <li><a class="" href="lecture-07.html">Lecture 07</a></li>
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li class="book-part">TIDYVERSE</li>
 <li><a class="active" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -80,9 +71,9 @@
 <div id="tidyverse-family-of-packages" class="section level2 unnumbered">
 <h2>Tidyverse Family of Packages<a class="anchor" aria-label="anchor" href="#tidyverse-family-of-packages"><i class="fas fa-link"></i></a>
 </h2>
-<p>The <strong><em>data frame</em></strong> is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a variable, a measure, feature, or characteristic of that observation. Before you can conduct any analyses or draw any conclusions, you often need to reorganize your data. The <strong>Tidyverse</strong> is a collection of R packages (developed by RStudio’s chief scientist Hadley Wickham) that provides an efficient, fast, and well-documented workflow for general data modeling, wrangling, and visualization tasks.</p>
+<p><strong><em>Data frame</em></strong> is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a variable, a measure, feature, or characteristic of that observation. Before you can conduct any analyses or draw any conclusions, you often need to reorganize your data. The <strong>Tidyverse</strong> is a collection of R packages (developed by RStudio’s chief scientist Hadley Wickham) that provides an efficient, fast, and well-documented workflow for general data modeling, wrangling, and visualization tasks.</p>
 <p>The Tidyverse introduces a set of useful data analysis packages to help streamline your work in R. In particular, the Tidyverse was designed to address the top three common issues that arise when dealing with data analysis in base R: (1) Results obtained from a base R function often depend on the type of data being used; (2) When R expressions are used in a non-standard way, they can confuse beginners; (3) Hidden arguments often have various default operations that beginners are unaware of.</p>
-<p>The core Tidyverse includes the packages that you’re likely to use in everyday data analyses.</p>
+<p>The core Tidyverse includes the packages that you’re likely to use in everyday data analyses:</p>
 <ul>
 <li><p><code>ggplot2</code> - ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</p></li>
 <li><p><code>dplyr</code> - dplyr provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.</p></li>
@@ -111,7 +102,7 @@
 <span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
 <span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span></code></pre></div>
 <p>Today we will start learning the Tidyverse family of packages by introducing the <code>dplyr</code> package.</p>
-<p>We will be working with a <code>nyc_flights</code> data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns). Let’s import this data set into R:</p>
+<p>We will be working with <code>nyc_flights</code> data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns). Let’s import this data set into R:</p>
 <div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">flights</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"C:/Users/alexp/OneDrive/Documents/nyc_flights.csv"</span>, header <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
@@ -332,16 +323,16 @@
 <span><span class="co">#&gt; # A tibble: 10 × 19</span></span>
 <span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1  2013     9    28    1039    1030       9    1334    1326</span></span>
-<span><span class="co">#&gt;  2  2013     8     4    1920    1920       0    2022    2046</span></span>
-<span><span class="co">#&gt;  3  2013    11    14    1933    1935      -2    2146    2203</span></span>
-<span><span class="co">#&gt;  4  2013     4    11     824     811      13    1024    1008</span></span>
-<span><span class="co">#&gt;  5  2013     9    12    2154    1708     286       2    1930</span></span>
-<span><span class="co">#&gt;  6  2013     4    10    1555    1600      -5    1707    1719</span></span>
-<span><span class="co">#&gt;  7  2013     3    13    1251    1252      -1    1412    1420</span></span>
-<span><span class="co">#&gt;  8  2013     4    22    1555    1600      -5    1840    1906</span></span>
-<span><span class="co">#&gt;  9  2013    11    19     827     829      -2     954     958</span></span>
-<span><span class="co">#&gt; 10  2013    12    16    1919    1930     -11    2108    2130</span></span>
+<span><span class="co">#&gt;  1  2013     1    17     927     935      -8    1238    1238</span></span>
+<span><span class="co">#&gt;  2  2013     8    12    2202    2146      16      46      30</span></span>
+<span><span class="co">#&gt;  3  2013    11    26    1926    1834      52    2224    2209</span></span>
+<span><span class="co">#&gt;  4  2013    12    20    2145    2059      46    2337    2254</span></span>
+<span><span class="co">#&gt;  5  2013     2     9      NA    1259      NA      NA    1419</span></span>
+<span><span class="co">#&gt;  6  2013     8    11     947     948      -1    1227    1243</span></span>
+<span><span class="co">#&gt;  7  2013     3    24    1854    1901      -7    2015    2021</span></span>
+<span><span class="co">#&gt;  8  2013     7     9    1221    1208      13    1506    1452</span></span>
+<span><span class="co">#&gt;  9  2013     2    24    1610    1620     -10    1726    1750</span></span>
+<span><span class="co">#&gt; 10  2013     1    20    1458    1459      -1    1749    1737</span></span>
 <span><span class="co">#&gt; # … with 11 more variables: arr_delay &lt;int&gt;, carrier &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   air_time &lt;int&gt;, distance &lt;int&gt;, hour &lt;int&gt;,</span></span>
@@ -354,16 +345,16 @@
 <span><span class="co">#&gt; # A tibble: 336 × 19</span></span>
 <span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1  2013     8    21    2203    2146      17      44      30</span></span>
-<span><span class="co">#&gt;  2  2013     9     4    1529    1535      -6    1758    1750</span></span>
-<span><span class="co">#&gt;  3  2013     6    25     650     700     -10     759     806</span></span>
-<span><span class="co">#&gt;  4  2013     3     5    1957    1900      57    2115    2012</span></span>
-<span><span class="co">#&gt;  5  2013     7    27    1100    1055       5    1346    1345</span></span>
-<span><span class="co">#&gt;  6  2013     7    31     741     743      -2    1110    1103</span></span>
-<span><span class="co">#&gt;  7  2013     3    27     556     600      -4     834     849</span></span>
-<span><span class="co">#&gt;  8  2013     3    21     538     545      -7     944     923</span></span>
-<span><span class="co">#&gt;  9  2013     4    13    1937    1912      25    2213    2232</span></span>
-<span><span class="co">#&gt; 10  2013     8    19    2055    2055       0    2207    2219</span></span>
+<span><span class="co">#&gt;  1  2013     5     1     957    1000      -3    1300    1329</span></span>
+<span><span class="co">#&gt;  2  2013     7    29    2243    2135      68     134      30</span></span>
+<span><span class="co">#&gt;  3  2013     8    22    2047    2040       7    2153    2154</span></span>
+<span><span class="co">#&gt;  4  2013     2     5    1650    1645       5    1841    1838</span></span>
+<span><span class="co">#&gt;  5  2013    12    12    1343    1345      -2    1652    1705</span></span>
+<span><span class="co">#&gt;  6  2013    10    12     959     959       0    1150    1144</span></span>
+<span><span class="co">#&gt;  7  2013     3     1    1714    1719      -5    1909    1948</span></span>
+<span><span class="co">#&gt;  8  2013     1    11    1342    1345      -3    1617    1641</span></span>
+<span><span class="co">#&gt;  9  2013     1    13     858     905      -7    1203    1226</span></span>
+<span><span class="co">#&gt; 10  2013     6    22    1539    1535       4    1813    1826</span></span>
 <span><span class="co">#&gt; # … with 326 more rows, 11 more variables: arr_delay &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;int&gt;,</span></span>
@@ -874,7 +865,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-09.html">Lecture 09</a></div>
-<div class="next"><a href="lecture-11.html">Lecture 11</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -909,7 +900,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

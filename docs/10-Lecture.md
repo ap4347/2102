@@ -1,3 +1,6 @@
+
+# (PART) TIDYVERSE {-}
+
 # Lecture 10 {-}
 
 &nbsp;
@@ -5,13 +8,13 @@
 
 ## Tidyverse Family of Packages {-}
 
-The **_data frame_** is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a variable, a measure, feature, or characteristic of that observation. Before you can conduct any analyses or draw any conclusions, you often need to reorganize your data. The **Tidyverse** is a collection of R packages (developed by RStudio’s chief scientist Hadley Wickham) that provides an efficient, fast, and well-documented workflow for general data modeling, wrangling, and visualization tasks.
+**_Data frame_** is a key data structure in statistics and in R. The basic structure of a data frame is that there is one observation per row and each column represents a variable, a measure, feature, or characteristic of that observation. Before you can conduct any analyses or draw any conclusions, you often need to reorganize your data. The **Tidyverse** is a collection of R packages (developed by RStudio’s chief scientist Hadley Wickham) that provides an efficient, fast, and well-documented workflow for general data modeling, wrangling, and visualization tasks.
 
 
 The Tidyverse introduces a set of useful data analysis packages to help streamline your work in R. In particular, the Tidyverse was designed to address the top three common issues that arise when dealing with data analysis in  base R: (1) Results obtained from a base R function often depend on the type of data being used; (2) When R expressions are used in a non-standard way, they can confuse beginners; (3) Hidden arguments often have various default operations that beginners are unaware of.
 
 
-The core Tidyverse includes the packages that you’re likely to use in everyday data analyses. 
+The core Tidyverse includes the packages that you’re likely to use in everyday data analyses:
 
 * `ggplot2` - ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 
@@ -63,7 +66,7 @@ library(tidyverse)
 Today we will start learning the Tidyverse family of packages by introducing the `dplyr` package.
 
 
-We will be working with a `nyc_flights` data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns). Let's import this data set into R: 
+We will be working with `nyc_flights` data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns). Let's import this data set into R: 
 
 
 
@@ -321,16 +324,16 @@ slice_sample(flights, n = 10)
 #> # A tibble: 10 × 19
 #>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
 #>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     9    28    1039    1030       9    1334    1326
-#>  2  2013     8     4    1920    1920       0    2022    2046
-#>  3  2013    11    14    1933    1935      -2    2146    2203
-#>  4  2013     4    11     824     811      13    1024    1008
-#>  5  2013     9    12    2154    1708     286       2    1930
-#>  6  2013     4    10    1555    1600      -5    1707    1719
-#>  7  2013     3    13    1251    1252      -1    1412    1420
-#>  8  2013     4    22    1555    1600      -5    1840    1906
-#>  9  2013    11    19     827     829      -2     954     958
-#> 10  2013    12    16    1919    1930     -11    2108    2130
+#>  1  2013     1    17     927     935      -8    1238    1238
+#>  2  2013     8    12    2202    2146      16      46      30
+#>  3  2013    11    26    1926    1834      52    2224    2209
+#>  4  2013    12    20    2145    2059      46    2337    2254
+#>  5  2013     2     9      NA    1259      NA      NA    1419
+#>  6  2013     8    11     947     948      -1    1227    1243
+#>  7  2013     3    24    1854    1901      -7    2015    2021
+#>  8  2013     7     9    1221    1208      13    1506    1452
+#>  9  2013     2    24    1610    1620     -10    1726    1750
+#> 10  2013     1    20    1458    1459      -1    1749    1737
 #> # … with 11 more variables: arr_delay <int>, carrier <chr>,
 #> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
@@ -346,16 +349,16 @@ slice_sample(flights, prop = 0.001)
 #> # A tibble: 336 × 19
 #>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
 #>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     8    21    2203    2146      17      44      30
-#>  2  2013     9     4    1529    1535      -6    1758    1750
-#>  3  2013     6    25     650     700     -10     759     806
-#>  4  2013     3     5    1957    1900      57    2115    2012
-#>  5  2013     7    27    1100    1055       5    1346    1345
-#>  6  2013     7    31     741     743      -2    1110    1103
-#>  7  2013     3    27     556     600      -4     834     849
-#>  8  2013     3    21     538     545      -7     944     923
-#>  9  2013     4    13    1937    1912      25    2213    2232
-#> 10  2013     8    19    2055    2055       0    2207    2219
+#>  1  2013     5     1     957    1000      -3    1300    1329
+#>  2  2013     7    29    2243    2135      68     134      30
+#>  3  2013     8    22    2047    2040       7    2153    2154
+#>  4  2013     2     5    1650    1645       5    1841    1838
+#>  5  2013    12    12    1343    1345      -2    1652    1705
+#>  6  2013    10    12     959     959       0    1150    1144
+#>  7  2013     3     1    1714    1719      -5    1909    1948
+#>  8  2013     1    11    1342    1345      -3    1617    1641
+#>  9  2013     1    13     858     905      -7    1203    1226
+#> 10  2013     6    22    1539    1535       4    1813    1826
 #> # … with 326 more rows, 11 more variables: arr_delay <int>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>,
 #> #   origin <chr>, dest <chr>, air_time <int>,
