@@ -57,6 +57,7 @@
 <li><a class="" href="lecture-09.html">Lecture 09</a></li>
 <li class="book-part">TIDYVERSE</li>
 <li><a class="active" href="lecture-10.html">Lecture 10</a></li>
+<li><a class="" href="lecture-11.html">Lecture 11</a></li>
 </ul>
 
         <div class="book-extra">
@@ -323,16 +324,16 @@
 <span><span class="co">#&gt; # A tibble: 10 × 19</span></span>
 <span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1  2013     1    17     927     935      -8    1238    1238</span></span>
-<span><span class="co">#&gt;  2  2013     8    12    2202    2146      16      46      30</span></span>
-<span><span class="co">#&gt;  3  2013    11    26    1926    1834      52    2224    2209</span></span>
-<span><span class="co">#&gt;  4  2013    12    20    2145    2059      46    2337    2254</span></span>
-<span><span class="co">#&gt;  5  2013     2     9      NA    1259      NA      NA    1419</span></span>
-<span><span class="co">#&gt;  6  2013     8    11     947     948      -1    1227    1243</span></span>
-<span><span class="co">#&gt;  7  2013     3    24    1854    1901      -7    2015    2021</span></span>
-<span><span class="co">#&gt;  8  2013     7     9    1221    1208      13    1506    1452</span></span>
-<span><span class="co">#&gt;  9  2013     2    24    1610    1620     -10    1726    1750</span></span>
-<span><span class="co">#&gt; 10  2013     1    20    1458    1459      -1    1749    1737</span></span>
+<span><span class="co">#&gt;  1  2013     2     6    1550    1601     -11    1825    1847</span></span>
+<span><span class="co">#&gt;  2  2013     6    22    1325    1327      -2    1438    1448</span></span>
+<span><span class="co">#&gt;  3  2013     7    16    1311    1255      16    1505    1425</span></span>
+<span><span class="co">#&gt;  4  2013     7    22    2035    1710     205    2149    1856</span></span>
+<span><span class="co">#&gt;  5  2013    11    26    1945    1914      31    2207    2158</span></span>
+<span><span class="co">#&gt;  6  2013    10    28    2012    2018      -6    2309    2313</span></span>
+<span><span class="co">#&gt;  7  2013     4     1     756     808     -12     908     923</span></span>
+<span><span class="co">#&gt;  8  2013     5    12    1949    2000     -11    2046    2113</span></span>
+<span><span class="co">#&gt;  9  2013     3    21    1112    1115      -3    1418    1416</span></span>
+<span><span class="co">#&gt; 10  2013     5    27     823     829      -6    1001    1024</span></span>
 <span><span class="co">#&gt; # … with 11 more variables: arr_delay &lt;int&gt;, carrier &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   air_time &lt;int&gt;, distance &lt;int&gt;, hour &lt;int&gt;,</span></span>
@@ -345,16 +346,16 @@
 <span><span class="co">#&gt; # A tibble: 336 × 19</span></span>
 <span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1  2013     5     1     957    1000      -3    1300    1329</span></span>
-<span><span class="co">#&gt;  2  2013     7    29    2243    2135      68     134      30</span></span>
-<span><span class="co">#&gt;  3  2013     8    22    2047    2040       7    2153    2154</span></span>
-<span><span class="co">#&gt;  4  2013     2     5    1650    1645       5    1841    1838</span></span>
-<span><span class="co">#&gt;  5  2013    12    12    1343    1345      -2    1652    1705</span></span>
-<span><span class="co">#&gt;  6  2013    10    12     959     959       0    1150    1144</span></span>
-<span><span class="co">#&gt;  7  2013     3     1    1714    1719      -5    1909    1948</span></span>
-<span><span class="co">#&gt;  8  2013     1    11    1342    1345      -3    1617    1641</span></span>
-<span><span class="co">#&gt;  9  2013     1    13     858     905      -7    1203    1226</span></span>
-<span><span class="co">#&gt; 10  2013     6    22    1539    1535       4    1813    1826</span></span>
+<span><span class="co">#&gt;  1  2013     7    21    2239    2000     159      49    2230</span></span>
+<span><span class="co">#&gt;  2  2013    11    20    1046    1056     -10    1213    1230</span></span>
+<span><span class="co">#&gt;  3  2013     7    25    1812    1730      42    2205    2110</span></span>
+<span><span class="co">#&gt;  4  2013     9    21    1240    1105      95    1412    1215</span></span>
+<span><span class="co">#&gt;  5  2013     8     5    1515    1459      16    1707    1654</span></span>
+<span><span class="co">#&gt;  6  2013     5     3    1144    1131      13    1503    1445</span></span>
+<span><span class="co">#&gt;  7  2013     9    30    1213    1220      -7    1341    1355</span></span>
+<span><span class="co">#&gt;  8  2013     8    11     950    1000     -10    1438    1440</span></span>
+<span><span class="co">#&gt;  9  2013     8    25    1232    1235      -3    1408    1424</span></span>
+<span><span class="co">#&gt; 10  2013     5    17    1704    1700       4    2023    1956</span></span>
 <span><span class="co">#&gt; # … with 326 more rows, 11 more variables: arr_delay &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;int&gt;,</span></span>
@@ -865,7 +866,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-09.html">Lecture 09</a></div>
-<div class="empty"></div>
+<div class="next"><a href="lecture-11.html">Lecture 11</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -900,7 +901,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-12.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

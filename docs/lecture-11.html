@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lecture 11 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
-<meta name="description" content="  dplyr Package (continued) We will continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on...">
+<meta name="description" content="  dplyr Package (continued) We continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It...">
 <meta name="generator" content="bookdown 0.32 with bs4_book()">
 <meta property="og:title" content="Lecture 11 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-11.html">
-<meta property="og:description" content="  dplyr Package (continued) We will continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on...">
+<meta property="og:description" content="  dplyr Package (continued) We continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lecture 11 | STAT 2102: Applied Statistical Computing">
-<meta name="twitter:description" content="  dplyr Package (continued) We will continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on...">
+<meta name="twitter:description" content="  dplyr Package (continued) We continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -45,6 +45,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
@@ -54,18 +55,9 @@
 <li><a class="" href="lecture-07.html">Lecture 07</a></li>
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li class="book-part">TIDYVERSE</li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
 <li><a class="active" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -80,7 +72,7 @@
 <div id="dplyr-package-continued" class="section level2 unnumbered">
 <h2>dplyr Package (continued)<a class="anchor" aria-label="anchor" href="#dplyr-package-continued"><i class="fas fa-link"></i></a>
 </h2>
-<p>We will continue working with the <code>nyc_flights</code> data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns).</p>
+<p>We continue working with the <code>nyc_flights</code> data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns).</p>
 <div id="group_by-summarise-and-across-functions" class="section level3 unnumbered">
 <h3>group_by(), summarise(), and across() Functions<a class="anchor" aria-label="anchor" href="#group_by-summarise-and-across-functions"><i class="fas fa-link"></i></a>
 </h3>
@@ -720,7 +712,7 @@
 <p>Set operations expect <code>x</code> and <code>y</code> tables to have the same variables, and treat the observations as sets:</p>
 <ul>
 <li>
-<code>itersect(x, y)</code> - returns only observations in both <code>x</code> and <code>y</code>
+<code>intersect(x, y)</code> - returns only observations in both <code>x</code> and <code>y</code>
 </li>
 <li>
 <code>union(x, y)</code> - returns unique observations in both <code>x</code> and <code>y</code>
@@ -885,7 +877,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-10.html">Lecture 10</a></div>
-<div class="next"><a href="lecture-12.html">Lecture 12</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -918,7 +910,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

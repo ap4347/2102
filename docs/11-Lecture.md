@@ -11,7 +11,7 @@ output:
 ## dplyr Package (continued) {-}
 
 
-We will continue working with the `nyc_flights` data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns). 
+We continue working with the `nyc_flights` data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It contains 336 776 observations (rows) and 19 variables (columns). 
 
 
 
@@ -744,7 +744,7 @@ df1 %>%
 
 Set operations expect `x` and `y` tables to have the same variables, and treat the observations as sets:
 
-* `itersect(x, y)` - returns only observations in both `x` and `y`
+* `intersect(x, y)` - returns only observations in both `x` and `y`
 * `union(x, y)` - returns unique observations in both `x` and `y`
 * `setdiff(x, y)` - returns observations in `x`, but not in `y`
 
