@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lecture 13 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
-<meta name="description" content="  Slides containing the lecture notes are available on Courseworks.">
+<meta name="description" content="  ggplot2 Package We have already learned how to visualize data using Base R. In this (and the following) lecture(s) we are going to learn how to do it using ggplot2 package. R has several systems...">
 <meta name="generator" content="bookdown 0.32 with bs4_book()">
 <meta property="og:title" content="Lecture 13 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-13.html">
-<meta property="og:description" content="  Slides containing the lecture notes are available on Courseworks.">
+<meta property="og:description" content="  ggplot2 Package We have already learned how to visualize data using Base R. In this (and the following) lecture(s) we are going to learn how to do it using ggplot2 package. R has several systems...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lecture 13 | STAT 2102: Applied Statistical Computing">
-<meta name="twitter:description" content="  Slides containing the lecture notes are available on Courseworks.">
+<meta name="twitter:description" content="  ggplot2 Package We have already learned how to visualize data using Base R. In this (and the following) lecture(s) we are going to learn how to do it using ggplot2 package. R has several systems...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -45,6 +45,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
@@ -54,18 +55,11 @@
 <li><a class="" href="lecture-07.html">Lecture 07</a></li>
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li class="book-part">TIDYVERSE</li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
 <li><a class="" href="lecture-11.html">Lecture 11</a></li>
 <li><a class="" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="active" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -77,15 +71,341 @@
 <h1>Lecture 13<a class="anchor" aria-label="anchor" href="#lecture-13"><i class="fas fa-link"></i></a>
 </h1>
 <p> </p>
-<p>Slides containing the lecture notes are available on Courseworks.</p>
+<div id="ggplot2-package" class="section level2 unnumbered">
+<h2>ggplot2 Package<a class="anchor" aria-label="anchor" href="#ggplot2-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>We have already learned how to visualize data using <code>Base R</code>. In this (and the following) lecture(s) we are going to learn how to do it using <code>ggplot2</code> package. R has several systems for making graphs, but <code>ggplot2</code> is one of the most elegant and most versatile. <code>ggplot2</code> implements the grammar of graphics, a coherent system for describing and building graphs. With <code>ggplot2</code>, you can do more faster by learning one system and applying it in many places.</p>
+<p>We will use <code>mpg</code> dataset to illustrate functionality of the <code>ggplot2</code> package. It contains a subset of the fuel economy data that the EPA makes available. It contains only models which had a new release every year between 1999 and 2008 - this was used as a proxy for the popularity of the car.</p>
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 234 × 11</span></span>
+<span><span class="co">#&gt;    manufac…¹ model displ  year cyl   trans drv     cty   hwy</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;fct&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 audi      a4      1.8  1999 4     auto… f        18    29</span></span>
+<span><span class="co">#&gt;  2 audi      a4      1.8  1999 4     manu… f        21    29</span></span>
+<span><span class="co">#&gt;  3 audi      a4      2    2008 4     manu… f        20    31</span></span>
+<span><span class="co">#&gt;  4 audi      a4      2    2008 4     auto… f        21    30</span></span>
+<span><span class="co">#&gt;  5 audi      a4      2.8  1999 6     auto… f        16    26</span></span>
+<span><span class="co">#&gt;  6 audi      a4      2.8  1999 6     manu… f        18    26</span></span>
+<span><span class="co">#&gt;  7 audi      a4      3.1  2008 6     auto… f        18    27</span></span>
+<span><span class="co">#&gt;  8 audi      a4 q…   1.8  1999 4     manu… 4        18    26</span></span>
+<span><span class="co">#&gt;  9 audi      a4 q…   1.8  1999 4     auto… 4        16    25</span></span>
+<span><span class="co">#&gt; 10 audi      a4 q…   2    2008 4     manu… 4        20    28</span></span>
+<span><span class="co">#&gt; # … with 224 more rows, 2 more variables: fl &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   class &lt;chr&gt;, and abbreviated variable name</span></span>
+<span><span class="co">#&gt; #   ¹​manufacturer</span></span></code></pre></div>
+<p>Among the variables in <code>mpg</code> are:</p>
+<ul>
+<li>
+<code>displ</code> - a car’s engine size, in liters</li>
+<li>
+<code>hwy</code> - a car’s fuel efficiency on the highway, in miles per gallon (mpg)</li>
+<li>
+<code>cyl</code> - number of cylinders</li>
+<li>
+<code>class</code> - type of a car</li>
+<li>
+<code>drv</code> - the type of drive train</li>
+</ul>
+<p>Before we start exploring the <code>ggplot2</code> package, let’s convert one of the variables into a factor:</p>
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">mpg</span><span class="op">$</span><span class="va">cyl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span></span></code></pre></div>
+<div id="creating-a-ggplot-object" class="section level3 unnumbered">
+<h3>Creating a ggplot Object<a class="anchor" aria-label="anchor" href="#creating-a-ggplot-object"><i class="fas fa-link"></i></a>
+</h3>
+<p>Every ggplot2 plot has three key components:</p>
+<ul>
+<li><strong>Data</strong></li>
+<li>A set of <strong>aesthetic mappings</strong> between variables in the data and visual properties</li>
+<li>At least one layer which describes how to render each observations. Layers are usually created with a <strong>geom</strong> function</li>
+</ul>
+<p>To produce a scatterplot, you need to pass your data to <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> function:</p>
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<p>As you can notice, it creates a plot object but does not display data. To add datapoints to this object, we add a <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> function with a <code>+</code> sign and inside the function we specify <code>x</code> and <code>y</code> variables from the dataset, which will be <code>x</code> and <code>y</code> axes, respectively:</p>
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<p>Note that we’ve put each command on a new line. It is recommended doing this in your code, so it’s easy to scan a plot specification and see exactly what’s there.</p>
+</div>
+<div id="changing-the-color-size-and-shape-of-datapoints" class="section level3 unnumbered">
+<h3>Changing the Color, Size, and Shape of Datapoints<a class="anchor" aria-label="anchor" href="#changing-the-color-size-and-shape-of-datapoints"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can change a color, size, and shape of datapoints by passing these arguments to the <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> function:</p>
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>               color <span class="op">=</span> <span class="st">"steelblue"</span>,</span>
+<span>               </span>
+<span>               size <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>             </span>
+<span>               shape <span class="op">=</span> <span class="fl">24</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<p>In this plot the color, size, and shape of points are static, meaning that they are the same for every point. If you want a color to change based on another variable in the dataset to reflect its categories, you need to specify this inside the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> function:</p>
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>               size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<p><code>ggplot2</code> automatically assigned colors to the levels of <code>cyl</code> variable. If you want to change them manually, you need to do so using <code><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual()</a></code> function:</p>
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>               size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_colour_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>`4` <span class="op">=</span> <span class="st">"red"</span>, </span>
+<span>                                   </span>
+<span>                                   `5` <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>                                   </span>
+<span>                                   `6` <span class="op">=</span> <span class="st">"orange"</span>, </span>
+<span>                                   </span>
+<span>                                   `8` <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<p>You can also change the shape of points to reflect another variable in the dataset:</p>
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">cyl</span>, shape <span class="op">=</span> <span class="va">class</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>               size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The shape palette can deal with a maximum of 6</span></span>
+<span><span class="co">#&gt; discrete values because more than 6 becomes difficult</span></span>
+<span><span class="co">#&gt; to discriminate; you have 7. Consider specifying</span></span>
+<span><span class="co">#&gt; shapes manually if you must have them.</span></span>
+<span><span class="co">#&gt; Warning: Removed 62 rows containing missing values</span></span>
+<span><span class="co">#&gt; (geom_point).</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<p>Or you can do so by changing the transparency of the points:</p>
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, alpha <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>               size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Using alpha for a discrete variable is not advised.</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>To change the legend title, add <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> function and use <code>color</code> argument:</p>
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>               size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Number of Cylinders"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<p>Let’s save the ggplot object. We will be adding new layers to this object shortly:</p>
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">&lt;-</span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span>
+<span>               </span>
+<span>               size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"Number of Cylinders"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="adding-labels" class="section level3 unnumbered">
+<h3>Adding Labels<a class="anchor" aria-label="anchor" href="#adding-labels"><i class="fas fa-link"></i></a>
+</h3>
+<p>To add labels to your ggplot object, you can use <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> function once again. Inside this function, you specify the plot title, subtitle, labels of <code>x</code> and <code>y</code> axes:</p>
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">gg</span> <span class="op">&lt;-</span> <span class="va">gg</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Highway Miles per Galon vs Engine Displacement"</span>,</span>
+<span>       </span>
+<span>       subtitle <span class="op">=</span> <span class="st">"From mpg dataset"</span>,</span>
+<span>       </span>
+<span>       x <span class="op">=</span> <span class="st">"Engine Displacement"</span>,</span>
+<span>       </span>
+<span>       y <span class="op">=</span> <span class="st">"Highway Miles per Galon"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">gg</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+</div>
+<div id="adjusting-limits-of-axes" class="section level3 unnumbered">
+<h3>Adjusting Limits of Axes<a class="anchor" aria-label="anchor" href="#adjusting-limits-of-axes"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>x</code> and <code>y</code> axes limits can be controlled in 2 ways:</p>
+<p>You can change the axis limits using <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim()</a></code> functions. You need to pass a numeric vector of length 2 (with max and min values) or just the max and min values:</p>
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Removed 170 rows containing missing values</span></span>
+<span><span class="co">#&gt; (geom_point).</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+<p>The limitation of this approach is that it deletes the points outside the specified range. The other approach is to change the <code>x</code> and <code>y</code> limits by zooming in to the region of interest without deleting points. It is achieved using the <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian()</a></code> function:</p>
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian</a></span><span class="op">(</span>xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>                  </span>
+<span>                  ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<p>There is a primary argument that affects the appearance of the ticks on the axes: <code>breaks</code>. Breaks controls the position of the ticks, or the values associated with the keys. You pass this argument to either <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous()</a></code> or <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous()</a></code> functions, depending which axis you want to modify:</p>
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">&lt;-</span> <span class="va">gg</span> <span class="op">+</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">8</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">15</span>, <span class="fl">50</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">gg</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+</div>
+<div id="themes" class="section level3 unnumbered">
+<h3>Themes<a class="anchor" aria-label="anchor" href="#themes"><i class="fas fa-link"></i></a>
+</h3>
+<p>You can customize the non-data elements of your plot with a <code><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></code> function. For example, you can change the background of the plot:</p>
+<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">+</span></span>
+<span>   </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">+</span></span>
+<span>   </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+<div class="sourceCode" id="cb377"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">+</span></span>
+<span>   </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_dark</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">+</span></span>
+<span>   </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+<div class="sourceCode" id="cb379"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">+</span></span>
+<span>   </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_linedraw</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">+</span></span>
+<span>   </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
+<div class="sourceCode" id="cb381"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">+</span></span>
+<span>   </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_void</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
+<p>Let’s select <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code> option and update our plot:</p>
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">&lt;-</span> <span class="va">gg</span> <span class="op">+</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>Further, we can change the color and size of titles, size and angle of ticks on axes, and the location of legends:</p>
+<div class="sourceCode" id="cb383"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="va">gg</span> <span class="op">&lt;-</span> <span class="va">gg</span> <span class="op">+</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">15</span>, face<span class="op">=</span><span class="st">"bold"</span>, color <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span>,</span>
+<span>             </span>
+<span>             axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">10</span>, angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span>,</span>
+<span>             </span>
+<span>             axis.text.y<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">10</span>, angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span>,</span>
+<span>             </span>
+<span>             axis.title.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">12</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span>,</span>
+<span>             </span>
+<span>             axis.title.y<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>size<span class="op">=</span><span class="fl">12</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span>,</span>
+<span>          </span>
+<span>             legend.position <span class="op">=</span> <span class="st">"top"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">gg</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-25-1.png" width="672"></div>
+</div>
+<div id="facets" class="section level3 unnumbered">
+<h3>Facets<a class="anchor" aria-label="anchor" href="#facets"><i class="fas fa-link"></i></a>
+</h3>
+<p>When working with categorical variables, it becomes particularly useful to split your plot into facets, subplots that each display one subset of the data that correspond to the level of a categorical variable.</p>
+<p>To facet your plot by a single variable, use the <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> function. The first argument of <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> should be a formula, which you create with <code>~</code> followed by a variable name (here “formula” is the name of a data structure in R, not a synonym for “equation”). The variable that you pass to <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap()</a></code> should be discrete. Let’s plot <code>displ</code> against <code>hwy</code> for each level of the <code>class</code> variable separately:</p>
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">class</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
+<p>You can decide how the plots should be displayed by specifying the number of rows in the final plot:</p>
+<div class="sourceCode" id="cb385"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">class</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-27-1.png" width="672"></div>
+<p>To facet your plot on the combination of two variables, add <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid()</a></code> to your plot call. Let’s plot <code>displ</code> against <code>hwy</code> for different combinations of levels of the <code>class</code> and <code>drv</code> variables:</p>
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mpg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">drv</span> <span class="op">~</span> <span class="va">class</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
 
+</div>
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-12.html">Lecture 12</a></div>
-<div class="next"><a href="lecture-14.html">Lecture 14</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#lecture-13">Lecture 13</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-13">Lecture 13</a></li>
+<li>
+<a class="nav-link" href="#ggplot2-package">ggplot2 Package</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-a-ggplot-object">Creating a ggplot Object</a></li>
+<li><a class="nav-link" href="#changing-the-color-size-and-shape-of-datapoints">Changing the Color, Size, and Shape of Datapoints</a></li>
+<li><a class="nav-link" href="#adding-labels">Adding Labels</a></li>
+<li><a class="nav-link" href="#adjusting-limits-of-axes">Adjusting Limits of Axes</a></li>
+<li><a class="nav-link" href="#themes">Themes</a></li>
+<li><a class="nav-link" href="#facets">Facets</a></li>
+</ul>
+</li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -102,7 +422,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-23.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
