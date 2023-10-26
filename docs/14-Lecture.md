@@ -8,459 +8,783 @@ output:
 &nbsp;
 
 
-## ggplot2 Package {-}
+## ggplot2 Package (Cont'd) {-}
 
 
 
 
-We have already learned how to visualize data using `Base R`. In this (and the following) lecture(s) we are going to learn how to do it using `ggplot2` package. R has several systems for making graphs, but `ggplot2` is one of the most elegant and most versatile. `ggplot2` implements the grammar of graphics, a coherent system for describing and building graphs. With `ggplot2`, you can do more faster by learning one system and applying it in many places.
+We continue exploring the `ggplot2` package. In this lecture we will be using the Lung Capacity dataset available on Courseworks. We've already worked with the data, so it doesn't require an additional introduction.
+
+&nbsp;
 
 
-We will use `mpg` dataset to illustrate functionality of the `ggplot2` package. It contains a subset of the fuel economy data that the EPA makes available. It contains only models which had a new release every year between 1999 and 2008 - this was used as a proxy for the popularity of the car.
+### Barplots {-}
 
+As mentioned in `Lecture 08`, barplots refer to a graph where the bars represent the count of cases in each category of a categorical variable. This is similar to a histogram, but with a discrete instead of continuous x-axis. To generate a barplot with `ggplot2` package, add another layer to a ggplot object using the `geom_bar()` function. Here we have a `dataset1` dataset (`lungcapacity` data) and we want to generate a barplot for the `Status` variable, which is a categorical variable with 4 levels (categories):
 
 
 ```r
 
-print(mpg)
-#> # A tibble: 234 × 11
-#>    manufac…¹ model displ  year cyl   trans drv     cty   hwy
-#>    <chr>     <chr> <dbl> <int> <fct> <chr> <chr> <int> <int>
-#>  1 audi      a4      1.8  1999 4     auto… f        18    29
-#>  2 audi      a4      1.8  1999 4     manu… f        21    29
-#>  3 audi      a4      2    2008 4     manu… f        20    31
-#>  4 audi      a4      2    2008 4     auto… f        21    30
-#>  5 audi      a4      2.8  1999 6     auto… f        16    26
-#>  6 audi      a4      2.8  1999 6     manu… f        18    26
-#>  7 audi      a4      3.1  2008 6     auto… f        18    27
-#>  8 audi      a4 q…   1.8  1999 4     manu… 4        18    26
-#>  9 audi      a4 q…   1.8  1999 4     auto… 4        16    25
-#> 10 audi      a4 q…   2    2008 4     manu… 4        20    28
-#> # … with 224 more rows, 2 more variables: fl <chr>,
-#> #   class <chr>, and abbreviated variable name
-#> #   ¹​manufacturer
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status))
 ```
 
-Among the variables in `mpg` are:
-
-* `displ` - a car's engine size, in liters
-* `hwy` - a car's fuel efficiency on the highway, in miles per gallon (mpg)
-* `cyl` - number of cylinders
-* `class` - type of a car
-* `drv` - the type of drive train
+<img src="14-Lecture_files/figure-html/unnamed-chunk-2-1.png" width="672" />
 
 
-Before we start exploring the `ggplot2` package, let's convert one of the variables into a factor:
+As of now, we have a basic barplot. Let's modify its features to make it look better. We can change the color and the width of bins. This is done by adding two more arguments to the function: `fill` - used to change the color of bins; `width` - used to change the width of bins:
 
 
 ```r
 
-mpg$cyl <- as.factor(mpg$cyl)
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status),
+           
+           fill = "orange",
+           
+           width = 0.9)
 ```
 
+<img src="14-Lecture_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
-### Creating a ggplot Object {-}
-
-Every ggplot2 plot has three key components:
-
-* **Data**
-* A set of **aesthetic mappings** between variables in the data and visual properties
-* At least one layer which describes how to render each observations. Layers are usually created with a **geom** function
-
-To produce a scatterplot, you need to pass your data to `ggplot()` function:
+Let's change the values and see how it affects the plot:
 
 
 ```r
 
-ggplot(data = mpg)
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status),
+         
+         fill = "pink",
+         
+         width = 1.1)
+#> Warning: position_stack requires non-overlapping x intervals
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
-As you can notice, it creates a plot object but does not display data. To add datapoints to this object, we add a `geom_point()` function with a `+` sign and inside the function we specify `x` and `y` variables from the dataset, which will be `x` and `y` axes, respectively:
+You might also want to change the color of outlines. This is done by adding the `color` argument to the function:
+
 
 
 ```r
 
-  ggplot(data = mpg) + 
+ggplot(data = dataset1) +
   
-  geom_point(mapping = aes(x = displ, y = hwy))
+geom_bar(mapping = aes(x = Status),
+         
+         fill = "pink",
+         
+         color = "blue")
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
-Note that we’ve put each command on a new line. It is recommended doing this in your code, so it’s easy to scan a plot specification and see exactly what’s there.
 
-
-### Changing the Color, Size, and Shape of Datapoints {-}
-
-We can change the color, size, and shape of the datapoints by passing these arguments to the `geom_point()` function:
+If you want the colors of bars be automatically controlled by the levels of the categorical variable, pass the `fill` argument inside the `aes()` function:
 
 
 ```r
 
-  ggplot(data = mpg) + 
-    
-  geom_point(mapping = aes(x = displ, y = hwy),
-               
-               color = "steelblue",
-               
-               size = 3,
-             
-               shape = 24)
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status, fill = Status),
+           
+           width = 0.9)
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
-
-In this plot the color, size, and shape of points are static, meaning that they are the same for every point. If you want the color to change based on another variable in the dataset to reflect its categories, you need to specify this inside the `aes()` function:
+Sometimes you are not interested in displaying all bars together. Instead, you want to focus on certain groups that you are particularly interested in. This can be done using `scale_x_discrete()` and its argument `limits`. Let's display bars corresponding to the  `Healthy` and `Stage_3` categories only:
 
 
 ```r
 
-  ggplot(data = mpg) + 
-    
-    geom_point(mapping = aes(x = displ, y = hwy, color = cyl),
-               
-               size = 3) 
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status, fill = Status),
+         
+         width = 0.9) +
+  
+scale_x_discrete(limits = c("HEALTHY", "STAGE_3"))
+#> Warning: Removed 269 rows containing non-finite values
+#> (stat_count).
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
-`ggplot2` automatically assigned colors to the levels of `cyl` variable. If you want to change them manually, you need to do so using `scale_colour_manual()` function:
-
+You can also use this function to change the order in which bars appear in your plot:
 
 
 ```r
 
-  ggplot(data = mpg) + 
-    
-    geom_point(mapping = aes(x = displ, y = hwy, color = cyl),
-               
-               size = 3) +
-    
-    scale_colour_manual(values = c(`4` = "red", 
-                                   
-                                   `5` = "blue",
-                                   
-                                   `6` = "orange", 
-                                   
-                                   `8` = "yellow"))
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status, fill = Status),
+         
+         width = 0.9) +
+  
+scale_x_discrete(limits = c("STAGE_1", "STAGE_2", "STAGE_3", "HEALTHY"))
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
+Knowing the exact frequency of each category is often a requirement. But barplots are often hard to look at, especially when the the scale of y-axis is large. Thus, reading values from a plot becomes an approximation. To fix this issue, we can add labels to the plot. We can put text near the top of each bar to show the exact frequency of the category. It will solve the problem of reading the values from the barplot and will make it more user-friendly.
 
-You can also change the shape of points to reflect another variable in the dataset:
+
+To do so, we need to add the `geom_text()` function as shown in the code below. Keep the `label` and `stat` arguments as they are shown below; `vjust` argument changes the location of your text, and the `color` arguments changes its color. Below are a few example on how we can utilize this function:
+
 
 
 ```r
 
-  ggplot(data = mpg) + 
-    
-    geom_point(mapping = aes(x = displ, y = hwy, color = cyl, shape = class),
-               
-               size = 3)
-#> Warning: The shape palette can deal with a maximum of 6
-#> discrete values because more than 6 becomes difficult
-#> to discriminate; you have 7. Consider specifying
-#> shapes manually if you must have them.
-#> Warning: Removed 62 rows containing missing values
-#> (geom_point).
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status),
+           
+           fill = "orange") +
+  
+geom_text(aes(x = Status,label = ..count..),
+            
+            stat = "count",
+            
+            vjust = -0.5,
+            
+            colour = "black")
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
-Or you can do so by changing the transparency of the points:
 
 
 
 ```r
 
-  ggplot(data = mpg) + 
-    
-    geom_point(mapping = aes(x = displ, y = hwy, alpha = cyl),
-               
-               size = 3)
-#> Warning: Using alpha for a discrete variable is not advised.
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status),
+         
+         fill = "orange") +
+  
+geom_text(aes(x = Status,label = ..count..),
+            
+            stat = "count",
+            
+            vjust = 1.5,
+            
+            size = 6,
+            
+            colour = "black")
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
-To change the legend title, add `labs()` function and use `color` argument:
+
+Let's make our barplot more self-explanatory by adding labels to it. By setting `vjust` and `hjust` arguments, you specify the horizontal and vertical positions of an element, respectively:
 
 
 
 ```r
 
-  ggplot(data = mpg) + 
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status, fill = Status)) +
+  
+labs(title = "Disease Status",
     
-  geom_point(mapping = aes(x = displ, y = hwy, color = cyl),
-               
-               size = 3) +
+     subtitle = "From Lung Capacity Dataset",
     
-  labs(color = "Number of Cylinders")
+     x = "STATUS",
+    
+     y = "COUNT",
+    
+     caption = "STAT2102: Lecture 15") +
+  
+theme_classic() +
+  
+theme(plot.title = element_text(hjust = 0.5),
+        
+      plot.subtitle = element_text(hjust = 1),
+        
+      plot.caption = element_text(hjust = 0))
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 
-Let's save the ggplot object. We will be adding new layers to this object shortly:
+Stacked and grouped barplots are used to reflect other categorical variables in the bars. Let's display a stacked barplot that will reflect the `Sex` variable in our barplot:
+
 
 
 ```r
 
-  gg <-   ggplot(data = mpg) + 
-    
-    geom_point(mapping = aes(x = displ, y = hwy, color = cyl),
-               
-               size = 3) +
-    
-    labs(color = "Number of Cylinders")
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status, fill = Sex)) 
 ```
 
+<img src="14-Lecture_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
-
-### Adding Labels {-}
-
-To add labels to your ggplot object, you can use `labs()` function once again. Inside this function, you specify the plot title, subtitle, labels of `x` and `y` axes:
+Now we can even change the colors of segments manually:
 
 
 ```r
 
-gg <- gg +
+ggplot(data = dataset1) +
   
-  labs(title = "Highway Miles per Galon vs Engine Displacement",
-       
-       subtitle = "From mpg dataset",
-       
-       x = "Engine Displacement",
-       
-       y = "Highway Miles per Galon")
-
-
-print(gg)
+geom_bar(mapping = aes(x = Status, fill = Sex)) +
+  
+scale_fill_manual(values = c(FEMALE = "tomato",
+                                
+                             MALE = "steelblue"))
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 
-### Adjusting Limits of Axes {-}
-
-The `x` and `y` axes limits can be controlled in 2 ways:
-
-You can change the axis limits using `xlim()` and `ylim()` functions. You need to pass a numeric vector of length 2 (with max and min values) or just the max and min values:
+Like we did with a simple barplot, we can add labels to the segments of a stacked barplot to display the actual frequency of the segments:
 
 
 
 ```r
 
-  gg +
+ggplot(data = dataset1) +
   
-  xlim(c(0, 4)) +
+geom_bar(mapping = aes(x = Status, fill = Sex)) +
   
-  ylim(c(0, 25))
-#> Warning: Removed 170 rows containing missing values
-#> (geom_point).
+scale_fill_manual(values = c(FEMALE = "tomato",
+                               
+                             MALE = "steelblue")) +
+  
+geom_text(aes(x = Status, fill = Sex, label = ..count..),
+            
+            stat = "count",
+            
+            position = position_stack(vjust = 0.5),
+            
+            size = 4,
+            
+            colour = "black")
+#> Warning: Ignoring unknown aesthetics: fill
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 
-The limitation of this approach is that it deletes the points outside the specified range. The other approach is to change the `x` and `y` limits by zooming in to the region of interest without deleting points. It is achieved using the `coord_cartesian()` function:
+ 
+Having the bars of the same heights helps us to compare the proportions of segments rather than their actual counts. To achieve this, use the `position` argument and pass `fill` to it:
 
 
 ```r
 
-  gg +
+ggplot(data = dataset1) +
   
-  coord_cartesian(xlim = c(0, 4),
-                  
-                  ylim = c(0, 25))
+geom_bar(mapping = aes(x = Status, fill = Sex),
+         
+         position = "fill") 
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 
-There is a primary argument that affects the appearance of the ticks on the axes: `breaks`. Breaks controls the position of the ticks, or the values associated with the keys. You pass this argument to either `scale_x_continuous()` or `scale_y_continuous()` functions, depending which axis you want to modify:
+Grouped barplots display bars corresponding to other categorical variables next to each other instead of on top of each other. To display a grouped barplot, you need to add the `position` argument to the `geom_bar()` function and pass `position_dodge()` to it:
 
 
 ```r
 
-  gg <- gg +
-    
-    scale_x_continuous(breaks = seq(0, 8, 0.5)) +
-    
-    scale_y_continuous(breaks = seq(15, 50, 10))
-
-
-print(gg)
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status, fill = Sex),
+         
+         position = position_dodge()) +
+  
+scale_fill_manual(values = c(FEMALE = "tomato",
+                               
+                             MALE = "steelblue"))
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
+Let's add the labels to these bars to reflect the actual count of the groups:
 
-### Themes {-}
-
-You can customize the non-data elements of your plot with a `theme()` function. For example, you can change the background of the plot:
 
 
 ```r
 
-  gg +
-   
-    theme_bw() 
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status, fill = Sex),
+         
+         position = position_dodge()) +
+  
+scale_fill_manual(values = c(FEMALE = "tomato",
+                               
+                             MALE = "steelblue")) +
+  
+geom_text(aes(x = Status, fill = Sex,label = ..count..),
+            
+            stat = "count",
+            
+            position = position_dodge(0.9),
+            
+            vjust = 1.5,
+            
+            size = 4,
+            
+            colour = "black")
+#> Warning: Ignoring unknown aesthetics: fill
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 
+Sometimes you will want to add an extra touch to your barplots. For instance, you can add a horizontal line to it to visually filter out groups that have more/less observations than a certain value. This is done by adding a `geom_hline()` function. Suppose you want to see which groups have more than 100 observations:
+
 
 ```r
 
-  gg +
-   
-    theme_classic() 
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status, fill = Sex),
+         
+         position = position_dodge()) +
+  
+scale_fill_manual(values = c(FEMALE = "tomato",
+                               
+                             MALE = "steelblue")) +
+  
+geom_hline(yintercept = 100,
+           
+           linetype = "dashed",
+           
+           size = 1)
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
+Finally, use `coord_flip()` to turn a vertical barplot into a horizontal one:
+
 
 
 ```r
 
-  gg +
-   
-    theme_dark() 
+ggplot(data = dataset1) +
+  
+geom_bar(mapping = aes(x = Status, fill = Sex),
+         
+         position = position_dodge()) +
+  
+scale_fill_manual(values = c(FEMALE = "tomato",
+                               
+                             MALE = "steelblue")) +
+  
+coord_flip()
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 
+&nbsp;
+
+### Boxplots {-}
+
+In short, boxplots are used to visualize 5-number summary. It is an excellent data visualization tool for statisticians and researchers looking to visualize data distributions. `ggplot2` has a great set of tools that helps you create boxplots and adjust their features. 
+
+Let's start off with a simple boxplot that we are going to create for the `Age` variable. This is done using the `geom_boxplot()` function:
+
 
 ```r
 
-  gg +
-   
-    theme_light() 
+ggplot(data = dataset1) +
+  
+geom_boxplot(aes(y = Age))
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 
+Changing colors and other features of a boxplot is similar to what we did with barplots. Thus, we will skip most of these features here. Just for the illustrative purposes, let's change the color of the boxplot and add a notch:
+
+
 
 ```r
 
-  gg +
-   
-    theme_linedraw() 
+ggplot(data = dataset1) +
+  
+geom_boxplot(aes(y = Age),
+             
+             fill = "orange",
+             
+             notch = TRUE)
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
+Often, you’ll want to visualize multiple boxplots on a single chart, each representing a distribution of the variable with some filter condition applied. For instance, you can visualize the distribution of `Age` for every possible level of the `Status` variable:
 
 
 ```r
 
-  gg +
-   
-    theme_minimal() 
+ggplot(data = dataset1) +
+  
+geom_boxplot(aes(x = Status, y = Age))
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
+Let's change the color of boxplots that will reflect the levels of `Status`:
+
 
 ```r
 
-  gg +
-   
-    theme_void() 
+ggplot(data = dataset1) +
+  
+geom_boxplot(aes(x = Status, y = Age, fill = Status))
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 
-Let's select `theme_bw()` option and update our plot:
+You can also create multiple boxplots for each level of the `Status` variable that will reflect other categorical features:
 
 
 
 ```r
 
-  gg <- gg +
-    
-    theme_bw()
+ggplot(data = dataset1) +
+  
+geom_boxplot(aes(x = Status, y = Age, fill = Sex))
 ```
 
-Further, we can change the color and size of titles, size and angle of ticks on axes, and the location of legends:
+<img src="14-Lecture_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+
+The previous boxplot contained an outlier - an observation that stands out from the rest of data. To customize outliers, use the following code:
+
 
 
 ```r
 
-  gg <- gg +
-    
-    theme(plot.title=element_text(size=15, face="bold", color = "red"),
-             
-             axis.text.x=element_text(size=10, angle = 45),
-             
-             axis.text.y=element_text(size=10, angle = 45),
-             
-             axis.title.x=element_text(size=12, color = "blue"),
-             
-             axis.title.y=element_text(size=12, color = "blue"),
-          
-             legend.position = "top") 
-
-print(gg)
+ggplot(data = dataset1) +
+  
+geom_boxplot(aes(x = Status, y = Age, fill = Sex),
+               
+             outlier.colour = "red",
+               
+             outlier.shape = 8,
+               
+             outlier.size = 4)
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-25-1.png" width="672" />
 
 
-### Facets {-}
-
-When working with categorical variables, it becomes particularly useful to split your plot into facets, subplots that each display one subset of the data that correspond to the level of the categorical variable. 
-
-
-To facet your plot by a single variable, use the `facet_wrap()` function. The first argument of `facet_wrap()` should be a formula, which you create with `~` followed by a variable name (here “formula” is the name of a data structure in R, not a synonym for “equation”). The variable that you pass to `facet_wrap()` should be discrete. Let's plot `displ` against `hwy` for each level of the `class` variable separately:
+As mentioned earlier, boxplots visualize 5-number summary of data. They don't display the actual observations. If you want to add datapoints to your boxplot, you need to add the `geom_dotplot()` function:
 
 
 ```r
 
-  ggplot(data = mpg) + 
-    
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-    
-  facet_wrap(~ class)
+ggplot(data = dataset1, aes(x = Status, y = Age)) +
+  
+geom_boxplot() +
+  
+geom_dotplot(binaxis = "y",
+             
+             stackdir = "center",
+             
+             dotsize = 0.3)
+#> Bin width defaults to 1/30 of the range of the data. Pick better value with `binwidth`.
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-26-1.png" width="672" />
 
-You can decide how the plots should be displayed by specifying the number of rows in the final plot:
+
+Boxplots show the median as a thick line somewhere in the box. But what if you also want to show the mean value? The `stat_summary()` function does the trick. You can use this function to specify any function and shape, but let's stick with the mean value:
 
 
 ```r
 
-  ggplot(data = mpg) + 
-    
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-    
-  facet_wrap(~ class, nrow = 2)
+ggplot(data = dataset1) +
+  
+geom_boxplot(aes(x = Status, y = Age, fill = Status)) +
+  
+stat_summary(aes(x = Status, y = Age, fill = Status),
+               
+             fun = "mean",
+               
+             geom = "point",
+               
+             color = "black")
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 
 
-To facet your plot on the combination of two variables, add `facet_grid()` to your plot call. Let's plot `displ` against `hwy` for different combinations of levels of the `class` and `drv` variables:
+Quite often you will need to show relationships between variables as a scatterplot, and on the margins, you will also need to show the distribution of each variable. `ggplot2` itself does not provide this functionality, so we have to install an additional package called `ggExtra`:
 
 
 ```r
 
-  ggplot(data = mpg) + 
-    
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-    
-  facet_grid(drv ~ class)
+library(ggExtra)
+
+
+gg <- ggplot(data = dataset1) +
+  
+      geom_point(mapping = aes(x = Age, y = LungCap, color = Sex))
+
+
+
+  
+ggMarginal(gg, type = "boxplot")
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-28-1.png" width="672" />
 
 
+&nbsp;
+
+### Histograms {-}
+
+Histograms are used to describe the distribution of a continuous variable. A basic histogram can be created using the `geom_histogram()` function. All it requires is a continuous variable:
+
+
+```r
+
+ggplot(data = dataset1) +
+    
+geom_histogram(aes(x = LungCap))
+#> `stat_bin()` using `bins = 30`. Pick better value with
+#> `binwidth`.
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-29-1.png" width="672" />
+
+Similar to barplots and boxplots, you can change histogram features by adding arguments to the function. Let's change the color and width of bins, and make them transparent at some extend; also let's change the outline type:
+
+
+```r
+
+ggplot(data = dataset1) +
+    
+geom_histogram(aes(x = LungCap),
+                 
+               fill = "tomato",
+                 
+               color = "black",
+               
+               alpha = 0.3,
+                 
+               binwidth = 0.9,
+               
+               linetype = "dashed") 
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-30-1.png" width="672" />
+
+You can also add new features to a histogram. For instance, let's add a vertical line that represents the mean value of our continuous variable:
+
+
+
+```r
+
+ggplot(data = dataset1) +
+    
+geom_histogram(aes(x = LungCap), 
+                   
+               fill = "tomato",
+                   
+               alpha = 0.3,
+                   
+               color = "black") +
+    
+geom_vline(aes(xintercept = mean(LungCap)),
+               
+           color = "blue",
+               
+           size = 1)
+#> `stat_bin()` using `bins = 30`. Pick better value with
+#> `binwidth`.
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-31-1.png" width="672" />
+
+`ggplot2` allows you to add density curves to a histogram. This is done using the `geom_density()` function:
+
+
+```r
+ggplot(data = dataset1) +
+    
+geom_histogram(aes(x = LungCap, y = ..density..),
+                   
+               fill = "white", 
+                   
+               color = "black") +
+    
+geom_density(aes(x = LungCap),
+                 
+             alpha = 0.3,
+                 
+             fill = "tomato")
+#> `stat_bin()` using `bins = 30`. Pick better value with
+#> `binwidth`.
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-32-1.png" width="672" />
+
+Now let's change the color of bins so that it will reflect another categorical feature (for example, the `Sex` variable):
+
+
+```r
+
+ggplot(data = dataset1) +
+    
+geom_histogram(aes(x = LungCap, fill = Sex, color = Sex),
+               
+               alpha = 0.5)
+#> `stat_bin()` using `bins = 30`. Pick better value with
+#> `binwidth`.
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-33-1.png" width="672" />
+
+Let's add vertical lines that correspond to the mean values of these two groups:
+
+
+
+```r
+
+# Preparing inputs 
+
+data_summary = dataset1 %>% 
+  
+               group_by(Sex) %>%
+  
+               summarise(grp.mean = mean(LungCap))
+
+
+# Plotting the lines
+  
+ggplot(data = dataset1) +
+    
+geom_histogram(aes(x = LungCap, fill = Sex, color = Sex),
+               
+               alpha = 0.5) +
+    
+geom_vline(data = data_summary, 
+               
+           aes(xintercept=grp.mean, color=Sex),
+               
+           linetype="dashed",
+               
+           size = 1) 
+#> `stat_bin()` using `bins = 30`. Pick better value with
+#> `binwidth`.
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-34-1.png" width="672" />
+
+&nbsp;
+
+### Arranging Plots {-}
+
+Often you would want to show two or more plots side by side to show different aspects of the same story in a compelling way. This can be achieved using `ggplot2`'s one of the extensions, `patckwork` package. You will need to install this package and load it.
+
+
+At it’s heart, `patchwork` is a package that extends `ggplot2`’s use of the `+` operator to work between multiple plots, as well as add additional operators for specialized compositions and working with compositions of plots. To illustrate its functionality, first let's create a few ggplot objects:
+
+
+```r
+g1 <- ggplot(data = dataset1) +
+  
+      geom_bar(mapping = aes(x = Status, fill = Status), width = 0.9) +
+  
+      scale_x_discrete(limits = c("STAGE_1", "STAGE_2", "STAGE_3", "HEALTHY"))
+  
+
+
+g2 <- ggplot(data = dataset1) +
+  
+      geom_boxplot(aes(x = Status, y = Age, fill = Sex))
+ 
+
+
+g3 <-   ggplot(data = dataset1) +
+  
+        geom_histogram(aes(x = LungCap,
+                     
+                       fill = Sex,
+                     
+                       color = Sex,
+                     
+                       alpha = 0.5)) 
+  
+```
+
+The most simple use of patchwork is to use + to add plots together thus creating an assemble of plots to display together:
+
+
+```r
+
+g1 + g2
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-36-1.png" width="672" />
+
+`+` does not specify any specific layout, only that the plots should be displayed together. In the absence of a layout the same algorithm that governs the number of rows and columns in `facet_wrap()` will decide the number of rows and columns. This means that adding 3 plots together will create a 1x3 grid while adding 4 plots together will create a 2x2 grid:
+
+
+
+```r
+
+g1 + g2 + g3
+#> `stat_bin()` using `bins = 30`. Pick better value with
+#> `binwidth`.
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-37-1.png" width="672" />
+
+It is often that the automatically created grid is not what you want and it is of course possible to control it. The most direct and powerful way is to do this is to add a `plot_layout()` specification to the plot:
+
+
+```r
+
+g1 + g2 + g3 +
+  
+plot_layout(ncol = 2)
+#> `stat_bin()` using `bins = 30`. Pick better value with
+#> `binwidth`.
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-38-1.png" width="672" />
+
+A common scenario is wanting to force a single row or column. patchwork provides two operators, `|` and `/` respectively:
+
+
+```r
+
+g1/g2
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-39-1.png" width="672" />
+
+
+
+```r
+
+g1|g2
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-40-1.png" width="672" />
+
+Patchwork allows nesting layouts which means that it is possible to create various layouts using just these two operators:
+
+
+```r
+
+g1 | (g2/g3)
+#> `stat_bin()` using `bins = 30`. Pick better value with
+#> `binwidth`.
+```
+
+<img src="14-Lecture_files/figure-html/unnamed-chunk-41-1.png" width="672" />
