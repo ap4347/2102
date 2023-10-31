@@ -53,10 +53,14 @@ Now the Tidyverse is available in R, but it is not activated yet. Whenever you s
 
 library(tidyverse)
 #> ── Attaching packages ─────────────────── tidyverse 1.3.2 ──
-#> ✔ ggplot2 3.3.6      ✔ purrr   0.3.5 
+#> ✔ ggplot2 3.4.4      ✔ purrr   1.0.2 
 #> ✔ tibble  3.1.8      ✔ dplyr   1.0.10
-#> ✔ tidyr   1.2.1      ✔ stringr 1.4.1 
-#> ✔ readr   2.1.3      ✔ forcats 0.5.2 
+#> ✔ tidyr   1.3.0      ✔ stringr 1.5.0 
+#> ✔ readr   2.1.3      ✔ forcats 0.5.2
+#> Warning: package 'ggplot2' was built under R version 4.2.3
+#> Warning: package 'tidyr' was built under R version 4.2.3
+#> Warning: package 'purrr' was built under R version 4.2.3
+#> Warning: package 'stringr' was built under R version 4.2.3
 #> ── Conflicts ────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -324,16 +328,16 @@ slice_sample(flights, n = 10)
 #> # A tibble: 10 × 19
 #>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
 #>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013    12     4    1108    1118     -10    1327    1334
-#>  2  2013     4     6    1928    1935      -7    2221    2226
-#>  3  2013     8    21    1918    1922      -4    2048    2056
-#>  4  2013     5    28    1506    1457       9    1814    1751
-#>  5  2013    11    13     856     900      -4    1026    1042
-#>  6  2013     9     8    2049    2030      19    2148    2150
-#>  7  2013     7    29    2109    2110      -1    2226    2243
-#>  8  2013    11     8    1640    1645      -5    1839    1843
-#>  9  2013     6    14    1547    1512      35    1759    1736
-#> 10  2013    11    16    1716    1715       1    1843    1905
+#>  1  2013     8     2     647     650      -3     937     931
+#>  2  2013    12     2    1300    1300       0    1539    1605
+#>  3  2013    10     4    1800    1500     180    1945    1716
+#>  4  2013     6     9    1310    1245      25    1615    1543
+#>  5  2013     5    15    2206    2159       7    2255    2304
+#>  6  2013    11    18    2224    2215       9    2326    2317
+#>  7  2013    12    20    2350    2355      -5     418     445
+#>  8  2013    12    12    1703    1710      -7    2000    2021
+#>  9  2013     1    21    2035    2000      35    2143    2117
+#> 10  2013    10     3    1122     630     292    1357     919
 #> # … with 11 more variables: arr_delay <int>, carrier <chr>,
 #> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
@@ -349,16 +353,16 @@ slice_sample(flights, prop = 0.001)
 #> # A tibble: 336 × 19
 #>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
 #>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     4    25    1515    1500      15    1741    1645
-#>  2  2013    10    17    1109    1110      -1    1413    1431
-#>  3  2013     9     2    1912    1915      -3    2118    2211
-#>  4  2013     6    11    1427    1415      12    1611    1610
-#>  5  2013     2    21    1809    1815      -6    2038    2037
-#>  6  2013     4    27    1153    1200      -7    1311    1310
-#>  7  2013    10    29     652     700      -8     742     808
-#>  8  2013    11     5     951     958      -7    1200    1215
-#>  9  2013     1    25     806     630      96     930     800
-#> 10  2013     2    11     850     840      10    1034    1030
+#>  1  2013    10     1     629     630      -1     807     840
+#>  2  2013    11    16    1608    1600       8    1722    1725
+#>  3  2013     5    20    2059    2059       0    2308    2252
+#>  4  2013     6    24    2038    2025      13    2305    2309
+#>  5  2013     2    17    2038    1959      39    2214    2144
+#>  6  2013     4    28    1902    1728      94    2113    1938
+#>  7  2013     8     2     948     940       8    1117    1110
+#>  8  2013     4    28    1124    1130      -6    1444    1434
+#>  9  2013     6    12     905     900       5    1307    1305
+#> 10  2013     3    18     722     723      -1    1014    1020
 #> # … with 326 more rows, 11 more variables: arr_delay <int>,
 #> #   carrier <chr>, flight <int>, tailnum <chr>,
 #> #   origin <chr>, dest <chr>, air_time <int>,

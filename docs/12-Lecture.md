@@ -27,7 +27,7 @@ Most statistical datasets are data frames made up of **rows** and **columns**. A
 print(table1)
 #> # A tibble: 6 × 4
 #>   country      year  cases population
-#>   <chr>       <int>  <int>      <int>
+#>   <chr>       <dbl>  <dbl>      <dbl>
 #> 1 Afghanistan  1999    745   19987071
 #> 2 Afghanistan  2000   2666   20595360
 #> 3 Brazil       1999  37737  172006362
@@ -42,7 +42,7 @@ print(table1)
 print(table2)
 #> # A tibble: 12 × 4
 #>    country      year type            count
-#>    <chr>       <int> <chr>           <int>
+#>    <chr>       <dbl> <chr>           <dbl>
 #>  1 Afghanistan  1999 cases             745
 #>  2 Afghanistan  1999 population   19987071
 #>  3 Afghanistan  2000 cases            2666
@@ -63,7 +63,7 @@ print(table2)
 print(table3)
 #> # A tibble: 6 × 3
 #>   country      year rate             
-#> * <chr>       <int> <chr>            
+#>   <chr>       <dbl> <chr>            
 #> 1 Afghanistan  1999 745/19987071     
 #> 2 Afghanistan  2000 2666/20595360    
 #> 3 Brazil       1999 37737/172006362  
@@ -78,7 +78,7 @@ print(table3)
 print(table4a) # cases
 #> # A tibble: 3 × 3
 #>   country     `1999` `2000`
-#> * <chr>        <int>  <int>
+#>   <chr>        <dbl>  <dbl>
 #> 1 Afghanistan    745   2666
 #> 2 Brazil       37737  80488
 #> 3 China       212258 213766
@@ -90,7 +90,7 @@ print(table4a) # cases
 print(table4b) # population
 #> # A tibble: 3 × 3
 #>   country         `1999`     `2000`
-#> * <chr>            <int>      <int>
+#>   <chr>            <dbl>      <dbl>
 #> 1 Afghanistan   19987071   20595360
 #> 2 Brazil       172006362  174504898
 #> 3 China       1272915272 1280428583
@@ -126,7 +126,7 @@ Unfortunately, most data that you will encounter will be untidy. For example, co
 print(table4a) # cases
 #> # A tibble: 3 × 3
 #>   country     `1999` `2000`
-#> * <chr>        <int>  <int>
+#>   <chr>        <dbl>  <dbl>
 #> 1 Afghanistan    745   2666
 #> 2 Brazil       37737  80488
 #> 3 China       212258 213766
@@ -152,7 +152,7 @@ table4a %>%
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
 #> # A tibble: 6 × 3
 #>   country     year   cases
-#>   <chr>       <chr>  <int>
+#>   <chr>       <chr>  <dbl>
 #> 1 Afghanistan 1999     745
 #> 2 Afghanistan 2000    2666
 #> 3 Brazil      1999   37737
@@ -173,7 +173,7 @@ table4b %>%
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "population")
 #> # A tibble: 6 × 3
 #>   country     year  population
-#>   <chr>       <chr>      <int>
+#>   <chr>       <chr>      <dbl>
 #> 1 Afghanistan 1999    19987071
 #> 2 Afghanistan 2000    20595360
 #> 3 Brazil      1999   172006362
@@ -204,7 +204,7 @@ tidy_4a_4b <- left_join(tidy4a, tidy4b)
 print(tidy_4a_4b)
 #> # A tibble: 6 × 4
 #>   country     year   cases population
-#>   <chr>       <chr>  <int>      <int>
+#>   <chr>       <chr>  <dbl>      <dbl>
 #> 1 Afghanistan 1999     745   19987071
 #> 2 Afghanistan 2000    2666   20595360
 #> 3 Brazil      1999   37737  172006362
@@ -225,7 +225,7 @@ print(tidy_4a_4b)
 print(table2)
 #> # A tibble: 12 × 4
 #>    country      year type            count
-#>    <chr>       <int> <chr>           <int>
+#>    <chr>       <dbl> <chr>           <dbl>
 #>  1 Afghanistan  1999 cases             745
 #>  2 Afghanistan  1999 population   19987071
 #>  3 Afghanistan  2000 cases            2666
@@ -255,7 +255,7 @@ table2 %>%
   pivot_wider(names_from = type, values_from = count)
 #> # A tibble: 6 × 4
 #>   country      year  cases population
-#>   <chr>       <int>  <int>      <int>
+#>   <chr>       <dbl>  <dbl>      <dbl>
 #> 1 Afghanistan  1999    745   19987071
 #> 2 Afghanistan  2000   2666   20595360
 #> 3 Brazil       1999  37737  172006362
@@ -278,7 +278,7 @@ table2 %>%
 print(table3)
 #> # A tibble: 6 × 3
 #>   country      year rate             
-#> * <chr>       <int> <chr>            
+#>   <chr>       <dbl> <chr>            
 #> 1 Afghanistan  1999 745/19987071     
 #> 2 Afghanistan  2000 2666/20595360    
 #> 3 Brazil       1999 37737/172006362  
@@ -297,7 +297,7 @@ table3 %>%
   separate(rate, into = c("cases", "population"), sep = "/")
 #> # A tibble: 6 × 4
 #>   country      year cases  population
-#>   <chr>       <int> <chr>  <chr>     
+#>   <chr>       <dbl> <chr>  <chr>     
 #> 1 Afghanistan  1999 745    19987071  
 #> 2 Afghanistan  2000 2666   20595360  
 #> 3 Brazil       1999 37737  172006362 
@@ -317,7 +317,7 @@ table3 %>%
   separate(rate, into = c("cases", "population"), convert = TRUE)
 #> # A tibble: 6 × 4
 #>   country      year  cases population
-#>   <chr>       <int>  <int>      <int>
+#>   <chr>       <dbl>  <int>      <int>
 #> 1 Afghanistan  1999    745   19987071
 #> 2 Afghanistan  2000   2666   20595360
 #> 3 Brazil       1999  37737  172006362
@@ -391,7 +391,7 @@ table3 %>%
 print(table5)
 #> # A tibble: 6 × 4
 #>   country     century year  rate             
-#> * <chr>       <chr>   <chr> <chr>            
+#>   <chr>       <chr>   <chr> <chr>            
 #> 1 Afghanistan 19      99    745/19987071     
 #> 2 Afghanistan 20      00    2666/20595360    
 #> 3 Brazil      19      99    37737/172006362  
@@ -662,7 +662,7 @@ who1 <- who %>%
 print(who1)
 #> # A tibble: 76,046 × 6
 #>    country     iso2  iso3   year key          cases
-#>    <chr>       <chr> <chr> <int> <chr>        <int>
+#>    <chr>       <chr> <chr> <dbl> <chr>        <dbl>
 #>  1 Afghanistan AF    AFG    1997 new_sp_m014      0
 #>  2 Afghanistan AF    AFG    1997 new_sp_m1524    10
 #>  3 Afghanistan AF    AFG    1997 new_sp_m2534     6
@@ -698,7 +698,7 @@ who3 <- who2 %>%
 print(who3)
 #> # A tibble: 76,046 × 8
 #>    country     iso2  iso3   year new   type  sexage cases
-#>    <chr>       <chr> <chr> <int> <chr> <chr> <chr>  <int>
+#>    <chr>       <chr> <chr> <dbl> <chr> <chr> <chr>  <dbl>
 #>  1 Afghanistan AF    AFG    1997 new   sp    m014       0
 #>  2 Afghanistan AF    AFG    1997 new   sp    m1524     10
 #>  3 Afghanistan AF    AFG    1997 new   sp    m2534      6
@@ -722,7 +722,7 @@ who4 <- who3 %>%
 print(who4)
 #> # A tibble: 76,046 × 9
 #>    country   iso2  iso3   year new   type  sex   age   cases
-#>    <chr>     <chr> <chr> <int> <chr> <chr> <chr> <chr> <int>
+#>    <chr>     <chr> <chr> <dbl> <chr> <chr> <chr> <chr> <dbl>
 #>  1 Afghanis… AF    AFG    1997 new   sp    m     014       0
 #>  2 Afghanis… AF    AFG    1997 new   sp    m     1524     10
 #>  3 Afghanis… AF    AFG    1997 new   sp    m     2534      6

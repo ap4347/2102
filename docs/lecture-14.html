@@ -61,6 +61,8 @@
 <li><a class="" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="" href="lecture-13.html">Lecture 13</a></li>
 <li><a class="active" href="lecture-14.html">Lecture 14</a></li>
+<li class="book-part">STATISTICAL ANALYSIS</li>
+<li><a class="" href="lecture-15.html">Lecture 15</a></li>
 </ul>
 
         <div class="book-extra">
@@ -108,7 +110,8 @@
 <span>         fill <span class="op">=</span> <span class="st">"pink"</span>,</span>
 <span>         </span>
 <span>         width <span class="op">=</span> <span class="fl">1.1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: position_stack requires non-overlapping x intervals</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: `position_stack()` requires non-overlapping x</span></span>
+<span><span class="co">#&gt; intervals</span></span></code></pre></div>
 <div class="inline-figure"><img src="14-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
 <p>You might also want to change the color of outlines. This is done by adding the <code>color</code> argument to the function:</p>
 <div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
@@ -141,7 +144,7 @@
 <span>  </span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"HEALTHY"</span>, <span class="st">"STAGE_3"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 269 rows containing non-finite values</span></span>
-<span><span class="co">#&gt; (stat_count).</span></span></code></pre></div>
+<span><span class="co">#&gt; (`stat_count()`).</span></span></code></pre></div>
 <div class="inline-figure"><img src="14-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
 <p>You can also use this function to change the order in which bars appear in your plot:</p>
 <div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
@@ -170,7 +173,13 @@
 <span>            </span>
 <span>            vjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>,</span>
 <span>            </span>
-<span>            colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
+<span>            colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The dot-dot notation (`..count..`) was deprecated in</span></span>
+<span><span class="co">#&gt; ggplot2 3.4.0.</span></span>
+<span><span class="co">#&gt; ℹ Please use `after_stat(count)` instead.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where</span></span>
+<span><span class="co">#&gt; this warning was generated.</span></span></code></pre></div>
 <div class="inline-figure"><img src="14-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
 <div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -253,7 +262,9 @@
 <span>            size <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>            </span>
 <span>            colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Ignoring unknown aesthetics: fill</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning in geom_text(aes(x = Status, fill = Sex, label</span></span>
+<span><span class="co">#&gt; = ..count..), stat = "count", : Ignoring unknown aesthetics:</span></span>
+<span><span class="co">#&gt; fill</span></span></code></pre></div>
 <div class="inline-figure"><img src="14-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
 <p>Having the bars of the same heights helps us to compare the proportions of segments rather than their actual counts. To achieve this, use the <code>position</code> argument and pass <code>fill</code> to it:</p>
 <div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
@@ -301,7 +312,9 @@
 <span>            size <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>            </span>
 <span>            colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Ignoring unknown aesthetics: fill</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning in geom_text(aes(x = Status, fill = Sex, label</span></span>
+<span><span class="co">#&gt; = ..count..), stat = "count", : Ignoring unknown aesthetics:</span></span>
+<span><span class="co">#&gt; fill</span></span></code></pre></div>
 <div class="inline-figure"><img src="14-Lecture_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
 <p>Sometimes you will want to add an extra touch to your barplots. For instance, you can add a horizontal line to it to visually filter out groups that have more/less observations than a certain value. This is done by adding a <code><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline()</a></code> function. Suppose you want to see which groups have more than 100 observations:</p>
 <div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
@@ -320,7 +333,13 @@
 <span>           </span>
 <span>           linetype <span class="op">=</span> <span class="st">"dashed"</span>,</span>
 <span>           </span>
-<span>           size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span>           size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2</span></span>
+<span><span class="co">#&gt; 3.4.0.</span></span>
+<span><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where</span></span>
+<span><span class="co">#&gt; this warning was generated.</span></span></code></pre></div>
 <div class="inline-figure"><img src="14-Lecture_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
 <p>Finally, use <code><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip()</a></code> to turn a vertical barplot into a horizontal one:</p>
 <div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
@@ -407,7 +426,8 @@
 <span>             stackdir <span class="op">=</span> <span class="st">"center"</span>,</span>
 <span>             </span>
 <span>             dotsize <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Bin width defaults to 1/30 of the range of the data. Pick better value with `binwidth`.</span></span></code></pre></div>
+<span><span class="co">#&gt; Bin width defaults to 1/30 of the range of the data. Pick</span></span>
+<span><span class="co">#&gt; better value with `binwidth`.</span></span></code></pre></div>
 <div class="inline-figure"><img src="14-Lecture_files/figure-html/unnamed-chunk-26-1.png" width="672"></div>
 <p>Boxplots show the median as a thick line somewhere in the box. But what if you also want to show the mean value? The <code><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary()</a></code> function does the trick. You can use this function to specify any function and shape, but let’s stick with the mean value:</p>
 <div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
@@ -437,7 +457,11 @@
 <span></span>
 <span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/ggExtra/man/ggMarginal.html">ggMarginal</a></span><span class="op">(</span><span class="va">gg</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/ggExtra/man/ggMarginal.html">ggMarginal</a></span><span class="op">(</span><span class="va">gg</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Continuous x aesthetic</span></span>
+<span><span class="co">#&gt; ℹ did you forget `aes(group = ...)`?</span></span>
+<span><span class="co">#&gt; Continuous x aesthetic</span></span>
+<span><span class="co">#&gt; ℹ did you forget `aes(group = ...)`?</span></span></code></pre></div>
 <div class="inline-figure"><img src="14-Lecture_files/figure-html/unnamed-chunk-28-1.png" width="672"></div>
 <p> </p>
 </div>
@@ -623,9 +647,12 @@
 </div>
 </div>
 </div>
+
+
+
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-13.html">Lecture 13</a></div>
-<div class="empty"></div>
+<div class="next"><a href="lecture-15.html">Lecture 15</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -655,7 +682,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

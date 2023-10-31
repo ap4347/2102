@@ -61,7 +61,8 @@ geom_bar(mapping = aes(x = Status),
          fill = "pink",
          
          width = 1.1)
-#> Warning: position_stack requires non-overlapping x intervals
+#> Warning: `position_stack()` requires non-overlapping x
+#> intervals
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672" />
@@ -111,7 +112,7 @@ geom_bar(mapping = aes(x = Status, fill = Status),
   
 scale_x_discrete(limits = c("HEALTHY", "STAGE_3"))
 #> Warning: Removed 269 rows containing non-finite values
-#> (stat_count).
+#> (`stat_count()`).
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672" />
@@ -154,6 +155,12 @@ geom_text(aes(x = Status,label = ..count..),
             vjust = -0.5,
             
             colour = "black")
+#> Warning: The dot-dot notation (`..count..`) was deprecated in
+#> ggplot2 3.4.0.
+#> ℹ Please use `after_stat(count)` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where
+#> this warning was generated.
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672" />
@@ -268,7 +275,9 @@ geom_text(aes(x = Status, fill = Sex, label = ..count..),
             size = 4,
             
             colour = "black")
-#> Warning: Ignoring unknown aesthetics: fill
+#> Warning in geom_text(aes(x = Status, fill = Sex, label
+#> = ..count..), stat = "count", : Ignoring unknown aesthetics:
+#> fill
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672" />
@@ -334,7 +343,9 @@ geom_text(aes(x = Status, fill = Sex,label = ..count..),
             size = 4,
             
             colour = "black")
-#> Warning: Ignoring unknown aesthetics: fill
+#> Warning in geom_text(aes(x = Status, fill = Sex, label
+#> = ..count..), stat = "count", : Ignoring unknown aesthetics:
+#> fill
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-17-1.png" width="672" />
@@ -360,6 +371,12 @@ geom_hline(yintercept = 100,
            linetype = "dashed",
            
            size = 1)
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2
+#> 3.4.0.
+#> ℹ Please use `linewidth` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where
+#> this warning was generated.
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-18-1.png" width="672" />
@@ -494,7 +511,8 @@ geom_dotplot(binaxis = "y",
              stackdir = "center",
              
              dotsize = 0.3)
-#> Bin width defaults to 1/30 of the range of the data. Pick better value with `binwidth`.
+#> Bin width defaults to 1/30 of the range of the data. Pick
+#> better value with `binwidth`.
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-26-1.png" width="672" />
@@ -537,6 +555,10 @@ gg <- ggplot(data = dataset1) +
 
   
 ggMarginal(gg, type = "boxplot")
+#> Warning: Continuous x aesthetic
+#> ℹ did you forget `aes(group = ...)`?
+#> Continuous x aesthetic
+#> ℹ did you forget `aes(group = ...)`?
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-28-1.png" width="672" />

@@ -61,6 +61,8 @@
 <li><a class="" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="active" href="lecture-13.html">Lecture 13</a></li>
 <li><a class="" href="lecture-14.html">Lecture 14</a></li>
+<li class="book-part">STATISTICAL ANALYSIS</li>
+<li><a class="" href="lecture-15.html">Lecture 15</a></li>
 </ul>
 
         <div class="book-extra">
@@ -191,7 +193,7 @@
 <span><span class="co">#&gt; to discriminate; you have 7. Consider specifying</span></span>
 <span><span class="co">#&gt; shapes manually if you must have them.</span></span>
 <span><span class="co">#&gt; Warning: Removed 62 rows containing missing values</span></span>
-<span><span class="co">#&gt; (geom_point).</span></span></code></pre></div>
+<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
 <div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
 <p>Or you can do so by changing the transparency of the points:</p>
 <div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
@@ -258,7 +260,7 @@
 <span>  </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 170 rows containing missing values</span></span>
-<span><span class="co">#&gt; (geom_point).</span></span></code></pre></div>
+<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
 <div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
 <p>The limitation of this approach is that it deletes the points outside the specified range. The other approach is to change the <code>x</code> and <code>y</code> limits by zooming in to the region of interest without deleting points. It is achieved using the <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian()</a></code> function:</p>
 <div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
@@ -423,7 +425,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -61,6 +61,8 @@
 <li><a class="active" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="" href="lecture-13.html">Lecture 13</a></li>
 <li><a class="" href="lecture-14.html">Lecture 14</a></li>
+<li class="book-part">STATISTICAL ANALYSIS</li>
+<li><a class="" href="lecture-15.html">Lecture 15</a></li>
 </ul>
 
         <div class="book-extra">
@@ -83,7 +85,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country      year  cases population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
@@ -95,7 +97,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 12 × 4</span></span>
 <span><span class="co">#&gt;    country      year type            count</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 Afghanistan  1999 cases             745</span></span>
 <span><span class="co">#&gt;  2 Afghanistan  1999 population   19987071</span></span>
 <span><span class="co">#&gt;  3 Afghanistan  2000 cases            2666</span></span>
@@ -113,7 +115,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span><span class="co">#&gt;   country      year rate             </span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            </span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></span>
 <span><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></span>
@@ -125,7 +127,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table4a</span><span class="op">)</span> <span class="co"># cases</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
 <span><span class="co">#&gt;   country     `1999` `2000`</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan    745   2666</span></span>
 <span><span class="co">#&gt; 2 Brazil       37737  80488</span></span>
 <span><span class="co">#&gt; 3 China       212258 213766</span></span></code></pre></div>
@@ -134,7 +136,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table4b</span><span class="op">)</span> <span class="co"># population</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
 <span><span class="co">#&gt;   country         `1999`     `2000`</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;            &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan   19987071   20595360</span></span>
 <span><span class="co">#&gt; 2 Brazil       172006362  174504898</span></span>
 <span><span class="co">#&gt; 3 China       1272915272 1280428583</span></span></code></pre></div>
@@ -162,7 +164,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table4a</span><span class="op">)</span> <span class="co"># cases</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 3</span></span>
 <span><span class="co">#&gt;   country     `1999` `2000`</span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan    745   2666</span></span>
 <span><span class="co">#&gt; 2 Brazil       37737  80488</span></span>
 <span><span class="co">#&gt; 3 China       212258 213766</span></span></code></pre></div>
@@ -184,7 +186,7 @@
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`1999`</span>, <span class="va">`2000`</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span><span class="co">#&gt;   country     year   cases</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan 1999     745</span></span>
 <span><span class="co">#&gt; 2 Afghanistan 2000    2666</span></span>
 <span><span class="co">#&gt; 3 Brazil      1999   37737</span></span>
@@ -199,7 +201,7 @@
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">`1999`</span>, <span class="va">`2000`</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">"year"</span>, values_to <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span><span class="co">#&gt;   country     year  population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan 1999    19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan 2000    20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil      1999   172006362</span></span>
@@ -226,7 +228,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">tidy_4a_4b</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country     year   cases population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan 1999     745   19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan 2000    2666   20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil      1999   37737  172006362</span></span>
@@ -243,7 +245,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 12 × 4</span></span>
 <span><span class="co">#&gt;    country      year type            count</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 Afghanistan  1999 cases             745</span></span>
 <span><span class="co">#&gt;  2 Afghanistan  1999 population   19987071</span></span>
 <span><span class="co">#&gt;  3 Afghanistan  2000 cases            2666</span></span>
@@ -270,7 +272,7 @@
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">type</span>, values_from <span class="op">=</span> <span class="va">count</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country      year  cases population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
@@ -291,7 +293,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 3</span></span>
 <span><span class="co">#&gt;   country      year rate             </span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;            </span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999 745/19987071     </span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000 2666/20595360    </span></span>
 <span><span class="co">#&gt; 3 Brazil       1999 37737/172006362  </span></span>
@@ -306,7 +308,7 @@
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">rate</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cases"</span>, <span class="st">"population"</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country      year cases  population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;     </span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999 745    19987071  </span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000 2666   20595360  </span></span>
 <span><span class="co">#&gt; 3 Brazil       1999 37737  172006362 </span></span>
@@ -321,7 +323,7 @@
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/separate.html">separate</a></span><span class="op">(</span><span class="va">rate</span>, into <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cases"</span>, <span class="st">"population"</span><span class="op">)</span>, convert <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country      year  cases population</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;dbl&gt;  &lt;int&gt;      &lt;int&gt;</span></span>
 <span><span class="co">#&gt; 1 Afghanistan  1999    745   19987071</span></span>
 <span><span class="co">#&gt; 2 Afghanistan  2000   2666   20595360</span></span>
 <span><span class="co">#&gt; 3 Brazil       1999  37737  172006362</span></span>
@@ -381,7 +383,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">table5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 4</span></span>
 <span><span class="co">#&gt;   country     century year  rate             </span></span>
-<span><span class="co">#&gt; * &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;            </span></span>
 <span><span class="co">#&gt; 1 Afghanistan 19      99    745/19987071     </span></span>
 <span><span class="co">#&gt; 2 Afghanistan 20      00    2666/20595360    </span></span>
 <span><span class="co">#&gt; 3 Brazil      19      99    37737/172006362  </span></span>
@@ -610,7 +612,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">who1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 76,046 × 6</span></span>
 <span><span class="co">#&gt;    country     iso2  iso3   year key          cases</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;        &lt;int&gt;</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 Afghanistan AF    AFG    1997 new_sp_m014      0</span></span>
 <span><span class="co">#&gt;  2 Afghanistan AF    AFG    1997 new_sp_m1524    10</span></span>
 <span><span class="co">#&gt;  3 Afghanistan AF    AFG    1997 new_sp_m2534     6</span></span>
@@ -638,7 +640,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">who3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 76,046 × 8</span></span>
 <span><span class="co">#&gt;    country     iso2  iso3   year new   type  sexage cases</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 Afghanistan AF    AFG    1997 new   sp    m014       0</span></span>
 <span><span class="co">#&gt;  2 Afghanistan AF    AFG    1997 new   sp    m1524     10</span></span>
 <span><span class="co">#&gt;  3 Afghanistan AF    AFG    1997 new   sp    m2534      6</span></span>
@@ -659,7 +661,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">who4</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 76,046 × 9</span></span>
 <span><span class="co">#&gt;    country   iso2  iso3   year new   type  sex   age   cases</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 Afghanis… AF    AFG    1997 new   sp    m     014       0</span></span>
 <span><span class="co">#&gt;  2 Afghanis… AF    AFG    1997 new   sp    m     1524     10</span></span>
 <span><span class="co">#&gt;  3 Afghanis… AF    AFG    1997 new   sp    m     2534      6</span></span>
@@ -794,7 +796,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-31.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
