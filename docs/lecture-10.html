@@ -63,6 +63,7 @@
 <li><a class="" href="lecture-14.html">Lecture 14</a></li>
 <li class="book-part">STATISTICAL ANALYSIS</li>
 <li><a class="" href="lecture-15.html">Lecture 15</a></li>
+<li><a class="" href="lecture-16.html">Lecture 16</a></li>
 </ul>
 
         <div class="book-extra">
@@ -333,16 +334,16 @@
 <span><span class="co">#&gt; # A tibble: 10 × 19</span></span>
 <span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1  2013     8     2     647     650      -3     937     931</span></span>
-<span><span class="co">#&gt;  2  2013    12     2    1300    1300       0    1539    1605</span></span>
-<span><span class="co">#&gt;  3  2013    10     4    1800    1500     180    1945    1716</span></span>
-<span><span class="co">#&gt;  4  2013     6     9    1310    1245      25    1615    1543</span></span>
-<span><span class="co">#&gt;  5  2013     5    15    2206    2159       7    2255    2304</span></span>
-<span><span class="co">#&gt;  6  2013    11    18    2224    2215       9    2326    2317</span></span>
-<span><span class="co">#&gt;  7  2013    12    20    2350    2355      -5     418     445</span></span>
-<span><span class="co">#&gt;  8  2013    12    12    1703    1710      -7    2000    2021</span></span>
-<span><span class="co">#&gt;  9  2013     1    21    2035    2000      35    2143    2117</span></span>
-<span><span class="co">#&gt; 10  2013    10     3    1122     630     292    1357     919</span></span>
+<span><span class="co">#&gt;  1  2013    11    28    1142    1145      -3    1354    1403</span></span>
+<span><span class="co">#&gt;  2  2013     9    18    1506    1520     -14    1705    1740</span></span>
+<span><span class="co">#&gt;  3  2013     6    13     534     540      -6     754     807</span></span>
+<span><span class="co">#&gt;  4  2013     7     6     611     615      -4     740     806</span></span>
+<span><span class="co">#&gt;  5  2013    10    13    1829    1825       4    2025    2042</span></span>
+<span><span class="co">#&gt;  6  2013     9    10    1543    1545      -2    1746    1805</span></span>
+<span><span class="co">#&gt;  7  2013     5    29    1528    1515      13    1803    1806</span></span>
+<span><span class="co">#&gt;  8  2013     1    10     707     715      -8    1014    1045</span></span>
+<span><span class="co">#&gt;  9  2013     9     3     905     909      -4    1131    1155</span></span>
+<span><span class="co">#&gt; 10  2013     1    27    1949    2000     -11    2150    2224</span></span>
 <span><span class="co">#&gt; # … with 11 more variables: arr_delay &lt;int&gt;, carrier &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   air_time &lt;int&gt;, distance &lt;int&gt;, hour &lt;int&gt;,</span></span>
@@ -355,16 +356,16 @@
 <span><span class="co">#&gt; # A tibble: 336 × 19</span></span>
 <span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
 <span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1  2013    10     1     629     630      -1     807     840</span></span>
-<span><span class="co">#&gt;  2  2013    11    16    1608    1600       8    1722    1725</span></span>
-<span><span class="co">#&gt;  3  2013     5    20    2059    2059       0    2308    2252</span></span>
-<span><span class="co">#&gt;  4  2013     6    24    2038    2025      13    2305    2309</span></span>
-<span><span class="co">#&gt;  5  2013     2    17    2038    1959      39    2214    2144</span></span>
-<span><span class="co">#&gt;  6  2013     4    28    1902    1728      94    2113    1938</span></span>
-<span><span class="co">#&gt;  7  2013     8     2     948     940       8    1117    1110</span></span>
-<span><span class="co">#&gt;  8  2013     4    28    1124    1130      -6    1444    1434</span></span>
-<span><span class="co">#&gt;  9  2013     6    12     905     900       5    1307    1305</span></span>
-<span><span class="co">#&gt; 10  2013     3    18     722     723      -1    1014    1020</span></span>
+<span><span class="co">#&gt;  1  2013     3    31    2132    2135      -3      44      50</span></span>
+<span><span class="co">#&gt;  2  2013    12    30    1954    1955      -1    2221    2241</span></span>
+<span><span class="co">#&gt;  3  2013    11     2    1030    1030       0    1251    1310</span></span>
+<span><span class="co">#&gt;  4  2013    12    16    1535    1545     -10    1933    1858</span></span>
+<span><span class="co">#&gt;  5  2013     3    28     633     630       3     926     926</span></span>
+<span><span class="co">#&gt;  6  2013     9     7    1540    1525      15    1643    1650</span></span>
+<span><span class="co">#&gt;  7  2013    10    27     808     811      -3    1051    1106</span></span>
+<span><span class="co">#&gt;  8  2013    10     8    1344    1335       9    1501    1500</span></span>
+<span><span class="co">#&gt;  9  2013    12    27    1158    1200      -2    1647    1654</span></span>
+<span><span class="co">#&gt; 10  2013     4     3    1025    1030      -5    1349    1340</span></span>
 <span><span class="co">#&gt; # … with 326 more rows, 11 more variables: arr_delay &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;int&gt;,</span></span>
@@ -910,7 +911,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-10-31.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-11-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lecture 16 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
-<meta name="description" content="  Data Analysis  Introduction Now that we are equipped with enough programming tools we can finally move to the Data Analysis part of this course. You will use your new tools of data wrangling and...">
+<meta name="description" content="  Modeling  Introduction Patterns in your data provide clues about relationships among variables. If a systematic relationship exists between two variables it will appear as a pattern in the data....">
 <meta name="generator" content="bookdown 0.32 with bs4_book()">
 <meta property="og:title" content="Lecture 16 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-16.html">
-<meta property="og:description" content="  Data Analysis  Introduction Now that we are equipped with enough programming tools we can finally move to the Data Analysis part of this course. You will use your new tools of data wrangling and...">
+<meta property="og:description" content="  Modeling  Introduction Patterns in your data provide clues about relationships among variables. If a systematic relationship exists between two variables it will appear as a pattern in the data....">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lecture 16 | STAT 2102: Applied Statistical Computing">
-<meta name="twitter:description" content="  Data Analysis  Introduction Now that we are equipped with enough programming tools we can finally move to the Data Analysis part of this course. You will use your new tools of data wrangling and...">
+<meta name="twitter:description" content="  Modeling  Introduction Patterns in your data provide clues about relationships among variables. If a systematic relationship exists between two variables it will appear as a pattern in the data....">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -45,6 +45,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
@@ -54,18 +55,15 @@
 <li><a class="" href="lecture-07.html">Lecture 07</a></li>
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li class="book-part">TIDYVERSE</li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
 <li><a class="" href="lecture-11.html">Lecture 11</a></li>
 <li><a class="" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="" href="lecture-13.html">Lecture 13</a></li>
 <li><a class="" href="lecture-14.html">Lecture 14</a></li>
+<li class="book-part">STATISTICAL ANALYSIS</li>
 <li><a class="" href="lecture-15.html">Lecture 15</a></li>
 <li><a class="active" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -77,524 +75,428 @@
 <h1>Lecture 16<a class="anchor" aria-label="anchor" href="#lecture-16"><i class="fas fa-link"></i></a>
 </h1>
 <p> </p>
-<div id="data-analysis" class="section level2 unnumbered">
-<h2>Data Analysis<a class="anchor" aria-label="anchor" href="#data-analysis"><i class="fas fa-link"></i></a>
+<div id="modeling" class="section level2 unnumbered">
+<h2>Modeling<a class="anchor" aria-label="anchor" href="#modeling"><i class="fas fa-link"></i></a>
 </h2>
-<div id="introduction-1" class="section level3 unnumbered">
-<h3>Introduction<a class="anchor" aria-label="anchor" href="#introduction-1"><i class="fas fa-link"></i></a>
+<div id="introduction-2" class="section level3 unnumbered">
+<h3>Introduction<a class="anchor" aria-label="anchor" href="#introduction-2"><i class="fas fa-link"></i></a>
 </h3>
-<p>Now that we are equipped with enough programming tools we can finally move to the Data Analysis part of this course. You will use your new tools of data wrangling and programming to perform certain statistical procedures, including Exploratory Data Analysis (EDA) and Formal Inference. In general, EDA is an iterative process that involves</p>
-<ol style="list-style-type: decimal">
-<li>Generating questions about your data</li>
-<li>Searching for answers by visualizing, transforming, and modelling your data</li>
-<li>Using what you learn to refine your questions and/or generate new questions</li>
-</ol>
-<p>EDA is not a formal process with a strict set of rules. During the initial phases of EDA you should feel free to investigate every idea that occurs to you. Some of these ideas will pan out, and some will be dead ends. As your exploration continues, you will home in on a few particularly productive areas that you’ll eventually write up and communicate to others.</p>
-<p>EDA is an important part of any data analysis, because you always need to investigate the quality of your data. Data cleaning is just one application of EDA: you ask questions about whether your data meets your expectations or not. To do data cleaning, you’ll need to deploy all the tools of EDA: visualization, transformation, and modelling.</p>
-<p>On the other hand, formal inference is the process of inferring properties of an underlying distribution of a variables. It infers properties of a population by testing hypothesis and deriving estimates. In this class, we will cover <em>t</em> - tests for a population mean (both one sample and two sample tests), <span class="math inline">\(\chi^2\)</span> goodness of fit test and <span class="math inline">\(\chi^2\)</span> test of independence, and predictive models.</p>
-<p>In this class we are not going to cover the aspects of the mathematical theory that underlies models. We will, however, build your intuition about how statistical models work, and give you a family of useful tools that allow you to use models to better understand your data. Specifically, you will learn</p>
-<ol style="list-style-type: decimal">
-<li>how models work mechanistically and how to gain insights into what a model tells you about your data</li>
-<li>how to pull out known patterns in real data</li>
-</ol>
-<p>To illustrate all these tools, we will use the <code>carseats_full</code> dataset, which is available on Courseworks.</p>
-<p> </p>
-<p><strong>Data Description:</strong> A company is interested in studying the sales related to certain products they produce. They collected data on sales of child car seats at 400 different stores. The data contains the following variables:</p>
+<p>Patterns in your data provide clues about relationships among variables. If a systematic relationship exists between two variables it will appear as a pattern in the data. If you spot a pattern, ask yourself:</p>
 <ul>
-<li>
-<strong>Sales</strong> - Unit sales (in thousands) at each location</li>
-<li>
-<strong>CompPrice</strong> - Price charged by competitor at each location</li>
-<li>
-<strong>Income</strong> - Community income level (in thousands of dollars)</li>
-<li>
-<strong>Advertising</strong> - Local advertising budget for company at each location (in thousands of dollars)</li>
-<li>
-<strong>Population</strong> - Population size in region (in thousands)</li>
-<li>
-<strong>Price</strong> - Price the company charges for car seats at each site</li>
-<li>
-<strong>ShelveLoc</strong> - A factor variables with levels <em>Bad</em>, <em>Good</em>, and <em>Medium</em> indicating the quality of the shelving location for the car seats at each site</li>
-<li>
-<strong>Age</strong> - Average age of the local population</li>
-<li>
-<strong>Education</strong> - Education level at each location</li>
-<li>
-<strong>Urban</strong> - A factor variable with levels <em>No</em> and <em>Yes</em> to indicate whether the store is in an urban or rural location</li>
-<li>
-<strong>US</strong> - A factor variable with levels <em>No</em> and <em>Yes</em> to indicate whether the store is in the US or not</li>
+<li>Could this pattern be due to coincidence (i.e. random chance)?</li>
+<li>How can you describe the relationship implied by the pattern?</li>
+<li>How strong is the relationship implied by the pattern?</li>
+<li>What other variables might affect the relationship?</li>
+<li>Does the relationship change if you look at individual subgroups of the data?</li>
 </ul>
+<p>Patterns provide one of the most useful tools for data analysts because they reveal <strong>covariation</strong>. If you think of <strong>variation</strong> as a phenomenon that creates uncertainty, <strong>covariation</strong> is a phenomenon that reduces it. If two variables covary, you can use the values of one variable to make better predictions about the values of the second. If the covariation is due to a causal relationship (a special case), then you can use the value of one variable to control the value of the second.</p>
+<p><strong>Models</strong> are a tool for extracting patterns out of data. The goal of a model is to provide a simple low-dimensional summary of a dataset. Ideally, the model will capture true “signals” (i.e. patterns generated by the phenomenon of interest), and ignore “noise” (i.e. random variation that you’re not interested in).</p>
+<p>In this class we only cover <strong>predictive models</strong>, which, as the name suggests, generate predictions. Specifically, we are going to focus on linear regression models, which are the most famous and arguably the simplest models, but yet they are widely used in all of statistics.</p>
 <p> </p>
 </div>
-<div id="hypothesis-tests" class="section level3 unnumbered">
-<h3>Hypothesis Tests<a class="anchor" aria-label="anchor" href="#hypothesis-tests"><i class="fas fa-link"></i></a>
+<div id="simple-linear-regression-slr-model" class="section level3 unnumbered">
+<h3>Simple Linear Regression (SLR) Model<a class="anchor" aria-label="anchor" href="#simple-linear-regression-slr-model"><i class="fas fa-link"></i></a>
 </h3>
-<p>In statistics, a <strong>population</strong> is the total group of individuals or objects that you want to make conclusions about. In other words, it is the totality of the individuals or objects that are of interest in a statistical study. Typically, we cannot observe every individual/object in the population due to limitations. Instead of measuring every item in a population, we take a <strong>sample</strong>. A sample is a subset of the cases that is often a small fraction of the overall population.</p>
-<p>A summary value calculated from a population is called a <strong>parameter</strong>. Similarly, a summary value calculated from samples is called a <strong>statistic</strong>. A parameter can be estimated from sample data either by a single number (a <strong>point estimate</strong>) or an entire interval of plausible values (a <strong>confidence interval</strong>). Frequently, however, the objective of an investigation is not to estimate a parameter but to decide which of two contradictory claims about the parameter is correct.</p>
-<p>Methods for accomplishing this comprise the part of statistical inference called <strong>hypothesis testing</strong>. A <strong>statistical hypothesis</strong> is a claim or assertion either about the value of a single parameter, about the values of several parameters, or about the form of an entire probability distribution. A hypothesis test is used to determine whether results obtained from a sample are convincing enough to allow us to infer something about a population.</p>
-<p>In any hypothesis-testing problem, there are two contradictory hypotheses under consideration:</p>
-<ul>
-<li>The <strong>Null Hypothesis</strong>, denoted by <span class="math inline">\(H_0\)</span>, is the claim that is initially assumed to be true. It is the claim that any difference we see in sample results compared to the population is <strong>due to chance</strong>, that is, due to uninteresting variation or randomness in the sampling distribution that is expected.</li>
-<li>The <strong>Alternative Hypothesis</strong>, denoted by <span class="math inline">\(H_a\)</span>, is the assertion that is contradictory to <span class="math inline">\(H_0\)</span>. It is the claim that the difference in sample results compared to the population <strong>is NOT due to chance</strong>.</li>
-</ul>
-<p>There are two types of hypotheses:</p>
-<ul>
-<li>An alternative hypothesis that is equally interested in deviations on either side of the null hypothesis value is called <strong>two-sided alternative</strong> and the corresponding hypothesis test is called a <strong>two-sided test</strong>.</li>
-<li>An alternative hypothesis that focuses on deviations from the null hypothesis value in only one direction is called a <strong>one-sided alternative</strong> and the corresponding hypothesis test is called a <strong>one-sided test</strong>.</li>
-</ul>
-<p>The null hypothesis will be rejected in favor of the alternative hypothesis only if sample evidence suggests that <span class="math inline">\(H_0\)</span> does not fit the data well. If the sample does not strongly contradict <span class="math inline">\(H_0\)</span>, we will continue to believe in the plausibility of the null hypothesis. The two possible conclusions from hypothesis-testing analysis are then <strong>reject</strong> <span class="math inline">\(H_0\)</span> or <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span>.</p>
-<p>To help us evaluate the null model (the model under the null hypothesis), we use a probability called a <strong>P-value</strong>. This probability is calculated assuming that the null hypothesis is true. If the p-value is <strong>large</strong>, this indicates that our observed results look like they could be a result of the natural variation that we expect to see when we take random sample. <strong>A large p-value supports the null hypothesis.</strong></p>
-<p>On the other hand, the <strong>smaller</strong> a p-value is, the less inclined we will be to think that our sample result is simply due to natural variation. <strong>A small p-value supports the alternative hypothesis</strong>.</p>
-<p>In other words, the p-value is the probability, calculated assuming that the null hypothesis is true, of obtaining a value of the test statistic at least as contradictory to <span class="math inline">\(H_0\)</span> as the value calculated from the available sample data.</p>
-<p>A <strong>Test Statistic</strong> is a function of the sample data used as a basis for deciding whether <span class="math inline">\(H_0\)</span> should be rejected. Values of the test statistic that tend to result when <span class="math inline">\(H_0\)</span> is true should be quite different from those typically observed when <span class="math inline">\(H_0\)</span> is not true.</p>
-<p>A conclusion is reached in a hypothesis testing analysis by selecting a number <span class="math inline">\(\alpha\)</span>, called the <strong>significance level</strong> of the test, that is reasonably close to 0:</p>
-<ul>
-<li>Then <span class="math inline">\(H_0\)</span> will be rejected in favor of <span class="math inline">\(H_a\)</span> if p-value <span class="math inline">\(\leq\)</span> <span class="math inline">\(\alpha\)</span>
-</li>
-<li>Whereas <span class="math inline">\(H_0\)</span> will not be rejected if p-value &gt; <span class="math inline">\(\alpha\)</span>
-</li>
-</ul>
-<p> </p>
-<p>In general, the basic structure of hypothesis test is as follows:</p>
-<ol style="list-style-type: decimal">
-<li>An overall model and related assumptions are made</li>
-<li>The null and alternative hypotheses are specified. Usually the null hypothesis specifies a particular value of a parameter</li>
-<li>With given data, the value of the test statistic is calculated</li>
-<li>Under the general assumptions, as well as assuming the null hypothesis is true, the distribution of the test statistic is known</li>
-<li>Given the distribution and value of the test statistic, as well as the form of the alternative hypothesis, a p-value is calculated</li>
-<li>Based on the p-value and pre-specified level of significance, a conclusion is made.</li>
-</ol>
-<p>In this class we will consider hypothesis tests concerning various population parameters. We will start off with a population mean.</p>
-<p> </p>
-<div id="one-sample-t-test-for-a-population-mean" class="section level4 unnumbered">
-<h4>One Sample t-test for a Population Mean<a class="anchor" aria-label="anchor" href="#one-sample-t-test-for-a-population-mean"><i class="fas fa-link"></i></a>
+<p>As mentioned, a <strong>linear regression model</strong> is one of the simplest models for doing data analysis. Though it may seem somewhat dull compared to some of the more modern statistical learning approaches, linear regression is still a useful and widely applied statistical learning method.</p>
+<p>Moreover, it serves as a good starting point for more advanced approaches; in fact, many of the more sophisticated statistical learning approaches can be seen as generalizations to or extensions of ordinary linear regression. Consequently, it is important to have a good understanding of linear regression before studying more complex learning methods.</p>
+<p>Before discussing linear regression models more in detail, we will first give its general definition. We will start off with a <strong>simple linear regression (SLR) model</strong>, a linear model that contains only one predictor.</p>
+<div id="model-set-up" class="section level4 unnumbered">
+<h4>Model Set Up<a class="anchor" aria-label="anchor" href="#model-set-up"><i class="fas fa-link"></i></a>
 </h4>
-<p>In the context of testing about the value of a population mean <span class="math inline">\(\mu\)</span>, the possible hypothesis statements are:</p>
+<p>A simple linear regression model defines a relationship between two variables as follows:</p>
+<p> </p>
 <p><span class="math display">\[\begin{align*}
-H_0: \mu = \mu_0  \quad versus \quad H_a: \mu \neq \mu_0
+Y_i = \beta_0 + \beta_1 X_i + \epsilon_i \quad  for  \quad  i = 1, \dots, n
 \end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}
-H_0: \mu = \mu_0  \quad versus \quad H_a: \mu &gt; \mu_0
-\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}
-H_0: \mu = \mu_0  \quad versus \quad H_a: \mu &lt; \mu_0
-\end{align*}\]</span></p>
-<p>A test statistic is given by</p>
-<p><span class="math display">\[\begin{align*}
-t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} \sim t(n-1)
-\end{align*}\]</span></p>
-<p>And a <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for <span class="math inline">\(\mu\)</span> is given by</p>
-<p><span class="math display">\[\begin{align*}
-\bar{x} \pm t_{\alpha/2, n-1}\frac{s}{\sqrt{n}}
-\end{align*}\]</span></p>
-<p>In order to perform a one-sample t-test, the following condition must be met:</p>
-<ol style="list-style-type: decimal">
-<li>Observations must be independent of one another</li>
-<li>Population distribution must be nearly normal <strong>OR</strong> the sample size must be sufficiently large (usually, a sample size of 30 is enough to satisfy this condition)</li>
-</ol>
-<p>In this class, you will not be asked to manually calculate the test statistic and make a conclusion. Instead, you will be using an R function to get these results. To illustrate it, let’s go back to our <code>carseats_full</code> dataset.</p>
-<p><strong>Example</strong>:</p>
-<p>Suppose a researcher at the company suspects that stores on average spend more than $5000 on advertising, which might not be reasonable given the company’s budget. Since they don’t have access to the data from all available stores, instead they will use a sample of 400 stores to perform a statistical test to check their hypothesis. They would like to test it at the <span class="math inline">\(\alpha = 0.05\)</span> significance level.</p>
-<p>For a given question, the null and alternative hypotheses are given by</p>
-<p><span class="math display">\[\begin{align*}
-H_0: \mu = 5  \quad versus \quad H_a: \mu &gt; 5
-\end{align*}\]</span></p>
-<p>To perform a test, we use a <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function from R. It has the following arguments:</p>
+<p> </p>
+<p>where</p>
 <ul>
 <li>
-<code>x</code> - a (non-empty) numeric vector of data values</li>
+<span class="math inline">\(Y\)</span> is a <strong>response</strong> (also known as <strong>target</strong>, <strong>outcome</strong>, and <strong>dependent</strong>) variable</li>
 <li>
-<code>y</code> - an optional (non-empty) numeric vector of data values</li>
+<span class="math inline">\(X\)</span> is a <strong>predictor</strong> (also known as <strong>explanatory</strong> and <strong>independent</strong>) variable and its values are <strong>fixed</strong>
+</li>
 <li>
-<code>alternative</code> - a character string specifying the alternative hypothesis, must be one of <strong>“two.sided”</strong> (default), <strong>“greater”</strong> or <strong>“less”</strong>. You can specify just the initial letter</li>
+<span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are <strong>fixed model parameters</strong>; specifically, an <strong>intercept</strong> and <strong>slope</strong> of the regression function, respectively</li>
 <li>
-<code>mu</code> - a number indicating the true value of the mean (or difference in means if you are performing a two sample test)</li>
-<li>
-<code>var.equal</code> - a logical variable indicating whether to treat the two variances as being equal. If TRUE then the pooled variance is used to estimate the variance otherwise the Welch (or Satterthwaite) approximation to the degrees of freedom is used</li>
-<li>
-<code>conf.level</code> - confidence level of the interval</li>
+<span class="math inline">\(\epsilon\)</span> (epsilon) is an error term and it’s a <strong>random variable</strong>; it is assumed to be normally distributed with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>, that is, <span class="math inline">\(\epsilon \sim N(0, \sigma^2)\)</span>.</li>
 </ul>
-<p>Now since we work with a single population, we don’t need the <code>y</code> argument (we will come back to it shortly). Here <code>x</code> is a vector of the <code>Advertising</code> variable, <code>mu</code> is 5, <code>alternative</code> is <code>greater</code> (this options should correspond to the alternative hypothesis), <code>conf.level</code> is 0.95, and for a one-sample test with don’t need the <code>var.equal</code> argument (again, we will come back to this argument shortly). Thus,</p>
-<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">Advertising</span>,</span>
-<span>       </span>
-<span>       alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
-<span>       </span>
-<span>       mu <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>       </span>
-<span>       conf.level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  One Sample t-test</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; data:  dataset1$Advertising</span></span>
-<span><span class="co">#&gt; t = 4.917, df = 399, p-value = 6.431e-07</span></span>
-<span><span class="co">#&gt; alternative hypothesis: true mean is greater than 5</span></span>
-<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  6.086783      Inf</span></span>
-<span><span class="co">#&gt; sample estimates:</span></span>
-<span><span class="co">#&gt; mean of x </span></span>
-<span><span class="co">#&gt;     6.635</span></span></code></pre></div>
-<p>The function output provides information about the test statistic (t = 4.917), degrees of freedom (df = 399) and the p-value. From the output we can see that the p-value is approximately 0 and it is less than the significance level <span class="math inline">\(\alpha = 0.05\)</span>, thus, we reject the <span class="math inline">\(H_0\)</span> hypothesis.</p>
-<p>We conclude that, based on the sample data, we have evidence that the stores on average spend more than $5000 on advertising, so the leadership might want to send a note to the store managers asking to cut the advertising budgets.</p>
+<p> </p>
+<p>This model is <strong>linear</strong>, because it uses a linear function to describe a relationship between the response and predictor variables. And it is <strong>simple</strong>, because it contains only one predictor.</p>
+<p> </p>
+<p><strong>Interpretation of parameters:</strong></p>
+<p>The slope parameter <span class="math inline">\(\beta_1\)</span> indicates the change in the mean value of response variable <span class="math inline">\(Y\)</span> per unit increase in the predictor variable <span class="math inline">\(X\)</span>.</p>
+<p>The intercept parameter <span class="math inline">\(\beta_0\)</span> is the <span class="math inline">\(Y\)</span> intercept of the regression line. When the scope of the model includes <span class="math inline">\(X = 0\)</span>, then <span class="math inline">\(\beta_0\)</span> given the mean value of <span class="math inline">\(Y\)</span> at <span class="math inline">\(X = 0\)</span>.</p>
+<p> </p>
+<p><strong>Model Assumptions:</strong></p>
+<p>Linear regression models must meet certain assumptions to be valid. These assumptions are</p>
+<ul>
+<li>Linearity of the regression function</li>
+<li>Constant variance of the error terms</li>
+<li>Independence of the error terms</li>
+<li>No outliers</li>
+<li>Normality of the error terms</li>
+</ul>
+<p> </p>
+<p>In this class, we won’t focus much on checking these assumptions as it requires covering additional procedures that are beyond the scope of this class. If you are interested in learning more about linear regression models, I highly recommend taking the <strong>UN2103 Applied Linear Regression Analysis</strong> class. Now let’s get back to the model.</p>
+<p>If we assume that the relationship between variables can be described using the SLR model, then this model can be utilized to make predictions about the response variable <span class="math inline">\(Y\)</span> based on the values of the predictor variable <span class="math inline">\(X\)</span>.</p>
+<p>Normally, we make predictions about the mean value of the response variable. In other words, using the predictive models such as SLR, we predict what the average value of the response value would be for a given value of the explanatory variable. It can be written as</p>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+E(Y_i) = E(\beta_0 + \beta_1 X_i + \epsilon_i) = \beta_0 + \beta_1 X_i + 0  = \beta_0 + \beta_1 X_i
+\end{align*}\]</span></p>
+<p>Thus,</p>
+<p><span class="math display">\[\begin{align*}
+E(Y_i) = \beta_0 + \beta_1 X_i  \quad  for  \quad  i = 1, \dots, n
+\end{align*}\]</span></p>
+<p> </p>
+<p>As you noticed, SLR model contains three parameters: <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma^2\)</span>. These parameters are fixed (they are constant), but their are <strong>unknown</strong> to us. Thus, we first need to estimate these parameters in order to set up a model and make predictions based on this model.</p>
 <p> </p>
 </div>
-<div id="two-sample-t-test-for-a-difference-between-population-means" class="section level4 unnumbered">
-<h4>Two Sample t-test for a Difference between Population Means<a class="anchor" aria-label="anchor" href="#two-sample-t-test-for-a-difference-between-population-means"><i class="fas fa-link"></i></a>
+<div id="parameter-estimation-least-squares-approach" class="section level4 unnumbered">
+<h4>Parameter Estimation: Least Squares Approach<a class="anchor" aria-label="anchor" href="#parameter-estimation-least-squares-approach"><i class="fas fa-link"></i></a>
 </h4>
-<p>So far we’ve worked with only one population mean. What if we want to compare means taken from two populations? In this case, you have to perform a two-sample t-test. In the context of testing about the difference between two population means, the possible hypotheses are:</p>
-<p><span class="math display">\[\begin{align*}
-H_0: \mu_1 - \mu_2 = \mu_0  \quad versus \quad H_a: \mu_1 - \mu_2 \neq \mu_0
-\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}
-H_0: \mu_1 - \mu_2 = \mu_0  \quad versus \quad H_a: \mu_1 - \mu_2 &gt; \mu_0
-\end{align*}\]</span></p>
-<p><span class="math display">\[\begin{align*}
-H_0: \mu_1 - \mu_2 = \mu_0 \quad versus \quad H_a: \mu_1 - \mu_2 &lt; \mu_0
-\end{align*}\]</span></p>
-<p>A test statistic is given by</p>
-<p><span class="math display">\[\begin{align*}
-t = \frac{(\bar{x}_1 - \bar{x}_2) - \mu_0}{\sqrt{s_1^2/n_1 + s_2^2/n_2}} \sim t(n_1 + n_2 - 2)
-\end{align*}\]</span></p>
-<p>And a <span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval for the difference between two population means is given by</p>
-<p><span class="math display">\[\begin{align*}
-(\bar{x}_1 - \bar{x}_2) \pm t_{\alpha/2, n_1 + n_2 - 2}\sqrt{s_1^2/n_1 + s_2^2/n_2}
-\end{align*}\]</span></p>
-<p>In order to perform a two-sample t-test, the following condition must be met:</p>
-<ol style="list-style-type: decimal">
-<li>Observations in each group must be independent of one another</li>
-<li>Two groups must be independent of one another</li>
-<li>Population distributions must be nearly normal <strong>OR</strong> the sample sizes must be sufficiently large (usually, a sample size of 30 is enough to satisfy this condition)</li>
-<li>The population variances must be equal</li>
-</ol>
-<p> </p>
-<p><strong>Example 1:</strong></p>
-<p>The same researcher thinks that the sales on average might be higher in the stores located in rural areas since people in these areas tend to use cars more often. In other words, <span class="math inline">\(\mu_R - \mu_U &gt; 0\)</span>. She wants to test her hypothesis at the <span class="math inline">\(\alpha = 0.02\)</span> significance level. For a given research question, the null and alternative hypotheses are:</p>
-<p><span class="math display">\[\begin{align*}
-H_0: \mu_R - \mu_U = 0  \quad versus \quad H_a: \mu_R - \mu_U &gt; 0
-\end{align*}\]</span></p>
-<p>Before we perform a formal test, let’s visualize our data:</p>
-<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
+<p>Before we introduce the estimation method, let’s consider an example. Recall the lung capacity dataset that we’ve used in our lectures notes. Suppose you believe that an SLR model can be used to predict <em>lung capacity</em> based on patient’s <em>height</em>. As adviced earlier, it is always a good idea to visualize your data as a part of EDA (Explanatory Data Analysis):</p>
+<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">data_summary</span> <span class="op">=</span> <span class="va">dataset1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span> <span class="va">gg</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Height</span>, y <span class="op">=</span> <span class="va">LungCap</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  </span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Urban</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>grp.mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Sales</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Lung Capacity versus Height"</span>,</span>
+<span>       </span>
+<span>       subtitle <span class="op">=</span> <span class="st">"From lung_capacity dataset"</span>,</span>
+<span>       </span>
+<span>       x <span class="op">=</span> <span class="st">"Height"</span>,</span>
+<span>       </span>
+<span>       y <span class="op">=</span> <span class="st">"Lung Capacity"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="co"># Plotting the lines</span></span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sales</span>, fill <span class="op">=</span> <span class="va">Urban</span>, color <span class="op">=</span> <span class="va">Urban</span><span class="op">)</span>,</span>
-<span>               </span>
-<span>               alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_summary</span>, </span>
-<span>               </span>
-<span>           <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xintercept<span class="op">=</span><span class="va">grp.mean</span>, color<span class="op">=</span><span class="va">Urban</span><span class="op">)</span>,</span>
-<span>               </span>
-<span>           size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
-<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
-<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gg</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<p>From the scatterplot it becomes clear that a linear model will indeed be a good fit to our data as it displays a strong linear pattern/trend. Now it’s time to estimate the parameters and set up the model.</p>
+<p>But how can we estimate these parameters? In general, our goal is to build a predictive model (known as a <strong>fitted model</strong>) of the form</p>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+\hat{Y} = b_0 + b_1X
+\end{align*}\]</span></p>
+<p> </p>
+<p>where <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are the estimates of the model parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, respectively, and <span class="math inline">\(\hat{Y}\)</span> is the <strong>fitted value</strong> of the response variable. There are infinite number of combinations of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> values. And these combinations define a family of predictive models.</p>
+<p>Let’s plot some of them. For example, we could try to model the data with a horizontal line representing the mean value of the <em>lung capacity</em> variable. That is, we are building a model where the response outcome does not depend on the predictor variable:</p>
+<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">mean_lungcap</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dataset1</span><span class="op">$</span><span class="va">LungCap</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">gg</span> <span class="op">+</span> </span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">mean_lungcap</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2</span></span>
+<span><span class="co">#&gt; 3.4.0.</span></span>
+<span><span class="co">#&gt; ℹ Please use `linewidth` instead.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where</span></span>
+<span><span class="co">#&gt; this warning was generated.</span></span></code></pre></div>
 <div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
-<p>As it was mentioned, one of the assumptions of a two-sample t-test is that the populations variances must be equal. First, we have to check this assumption by performing another test called <strong>Levene’s test</strong>. To do so, we will use the <code>LeveneTest()</code> function. This function is available in the <code>car</code> package, thus, first you will need to install this package:</p>
-<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
+<p>In the plot above, we see this doesn’t seem to do a very good job. Many of the data points are very far from the line representing the mean value of the response variable. This is an example of <strong>underfitting</strong>. The obvious fix is to make the fitted model actually depend on the predictor. Below we illustrate a few of these models:</p>
+<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: carData</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'car'</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:dplyr':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     recode</span></span>
-<span><span class="co">#&gt; The following object is masked from 'package:purrr':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     some</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
+<span>  b0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">250</span>, <span class="op">-</span><span class="fl">20</span>, <span class="fl">40</span><span class="op">)</span>,</span>
+<span>  b1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">250</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/car/man/leveneTest.html">leveneTest</a></span><span class="op">(</span><span class="va">Sales</span> <span class="op">~</span> <span class="va">Urban</span>, data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Levene's Test for Homogeneity of Variance (center = median)</span></span>
-<span><span class="co">#&gt;        Df F value Pr(&gt;F)</span></span>
-<span><span class="co">#&gt; group   1       0 0.9986</span></span>
-<span><span class="co">#&gt;       398</span></span></code></pre></div>
-<p>The p-value of this test is extremely high, which indicates that the variances of two populations are equal. Thus, in the <code>t.test</code> the <code>var.equal</code> argument will be set to <code>TRUE</code>:</p>
-<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">Rural</span> <span class="op">&lt;-</span> <span class="va">dataset1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span></span>
+<span><span class="va">gg</span> <span class="op">+</span></span>
 <span>  </span>
-<span>         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Urban</span> <span class="op">==</span> <span class="st">"No"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>          </span>
-<span>         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Sales</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">Urban</span> <span class="op">&lt;-</span> <span class="va">dataset1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  </span>
-<span>         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Urban</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>          </span>
-<span>         <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Sales</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Rural</span>,</span>
-<span>       </span>
-<span>       y <span class="op">=</span> <span class="va">Urban</span>,</span>
-<span>       </span>
-<span>       alternative <span class="op">=</span> <span class="st">"greater"</span>,</span>
-<span>       </span>
-<span>       mu <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>       </span>
-<span>       var.equal <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>       </span>
-<span>       conf.level <span class="op">=</span> <span class="fl">0.98</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Two Sample t-test</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; data:  Rural and Urban</span></span>
-<span><span class="co">#&gt; t = 0.30765, df = 398, p-value = 0.3793</span></span>
-<span><span class="co">#&gt; alternative hypothesis: true difference in means is greater than 0</span></span>
-<span><span class="co">#&gt; 98 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -0.543356       Inf</span></span>
-<span><span class="co">#&gt; sample estimates:</span></span>
-<span><span class="co">#&gt; mean of x mean of y </span></span>
-<span><span class="co">#&gt;  7.563559  7.468191</span></span></code></pre></div>
-<p>Since the p-value 0.3793 is greater than the significance level 0.02, we fail to reject the null hypothesis and we conclude that there is no statistical difference between average sales in Rural and Urban areas.</p>
-<p><strong>Example 2:</strong></p>
-<p>Now suppose we would like to test the claim that on average stores in the US and outside of the US are equally profitable. In other words, the sales in the stores located in the US and outside of the US are on average equal. We want to test this claim at the <span class="math inline">\(\alpha = 0.05\)</span> significance level. The null and alternative hypotheses are given by:</p>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="va">b0</span>, slope <span class="op">=</span> <span class="va">b1</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">models</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<p>Each line on the plot represents a fitted model. There are 250 models on the plot (not all of them are depicted on the plot). Most of these models are really bad! But how are we going to decide which one is the best? And what should the selection criterion be?</p>
+<p>We need to find the good models by making precise our intuition that a good model is “close” to the data. We need a way to quantify the distance between the data and a model. Then we can fit the model by finding the value of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> that generate the model with the smallest distance from this data.</p>
+<p>One easy place to start is to find the vertical distance between each point and the model. This distance is just the difference between the fitted value (predicted) given by the model and the actual response value in the data:</p>
 <p><span class="math display">\[\begin{align*}
-H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_US} \neq 0
+Y_i - \hat{Y}_i
 \end{align*}\]</span></p>
-<p>Let’s visualize our data:</p>
-<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
+<pre><code>#&gt; `geom_smooth()` using formula = 'y ~ x'</code></pre>
+<div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<p>Next, we need some way to compute an overall distance between the predicted and actual values. One common way to do this in statistics is to use the sum of squared deviations (also known as <strong>Error Sum of Squares (SSE)</strong>). We compute the difference between actual and predicted, square them, and add them up:</p>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+SSE = \sum_{i = 1}^{n}(Y_i - \hat{Y}_i)^2 = \sum_{i = 1}^{n}(Y_i - (b_0 + b_1X_i))^2
+\end{align*}\]</span></p>
+<p> </p>
+<p>This distance has lots of appealing mathematical properties, which we’re not going to talk about here.</p>
+<p>Now a pair of values <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> that minimize the quantity given above are known to be the best estimates of the model parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. This approach is known as the <strong>least squares method</strong>, the estimates are called <strong>least squares estimates</strong>, and the fitted model is referred to as <strong>ordinary least squares (OLS) regression</strong>.</p>
+<p>We will skip the derivation of these estimates as it is beyond the scope of this class and simply provide formulas:</p>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+b_1 = \frac{\sum_{i = 1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i = 1}^{n}(x_i - \bar{x})^2}
+\end{align*}\]</span></p>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+b_0 = \bar{y} - b_1\bar{x}
+\end{align*}\]</span></p>
+<p> </p>
+<p>Now when we know the best estimates of the model parameters, let’s calculate their values. First, we will do it manually using the formulas:</p>
+<div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">US</span>, y <span class="op">=</span> <span class="va">Sales</span>, fill <span class="op">=</span> <span class="va">US</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">US</span>, y <span class="op">=</span> <span class="va">Sales</span>, fill <span class="op">=</span> <span class="va">US</span><span class="op">)</span>,</span>
-<span>               </span>
-<span>             fun <span class="op">=</span> <span class="st">"mean"</span>,</span>
-<span>               </span>
-<span>             geom <span class="op">=</span> <span class="st">"point"</span>,</span>
-<span>               </span>
-<span>             color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
-<p>From the plot we observe that on average sales in the stores located in the US are higher than the sales in the stores located outside of the US. But is this difference statistically significant? We are about to find it out.</p>
-<p>As usual, before we perform a formal t-test, let’s test the assumption of equal variances at the 5% significance level:</p>
-<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">Height</span></span>
+<span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">LungCap</span></span>
+<span></span>
+<span><span class="va">Sxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">y</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Sxx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Syy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">y</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">b_1</span> <span class="op">&lt;-</span> <span class="va">Sxy</span> <span class="op">/</span> <span class="va">Sxx</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">b_1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.3371566</span></span>
+<span></span>
+<span><span class="va">b_0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">-</span> <span class="va">b_1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">b_0</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -13.99683</span></span></code></pre></div>
+<p>Thus, a fitted function for our fitted model is given by</p>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+\hat{Y} = -13.996 + 0.337 X
+\end{align*}\]</span></p>
+<p>Or, specifically</p>
+<p><span class="math display">\[\begin{align*}
+\hat{Lung Capacity} = -13.996 + 0.337 Height
+\end{align*}\]</span></p>
+<p> </p>
+<p>We can interpret the model estimates as follows:</p>
+<p>We can expect the mean value of <code>lung capacity</code> to increase by 0.337 units per unit increase in the <code>Height</code> predictor.</p>
+<p>In given context, it makes no sense to interpret the intercept as the scope of the model does not include <span class="math inline">\(X = 0\)</span> (you cannot have a patient with <code>Height = 0</code>).</p>
+<p>Now, instead of doing calculations manually we can use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function:</p>
+<div class="sourceCode" id="cb445"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/car/man/leveneTest.html">leveneTest</a></span><span class="op">(</span><span class="va">Sales</span> <span class="op">~</span> <span class="va">US</span>, data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Levene's Test for Homogeneity of Variance (center = median)</span></span>
-<span><span class="co">#&gt;        Df F value  Pr(&gt;F)  </span></span>
-<span><span class="co">#&gt; group   1  3.6316 0.05741 .</span></span>
-<span><span class="co">#&gt;       398                  </span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">LungCap</span> <span class="op">~</span> <span class="va">Height</span>, data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = LungCap ~ Height, data = dataset1)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residuals:</span></span>
+<span><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span><span class="co">#&gt; -3.3619 -0.7014 -0.0032  0.7787  3.2938 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;               Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">#&gt; (Intercept) -13.996829   0.367451  -38.09   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; Height        0.337157   0.005633   59.86   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  </span></span>
+<span><span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residual standard error: 1.092 on 723 degrees of freedom</span></span>
+<span><span class="co">#&gt; Multiple R-squared:  0.8321, Adjusted R-squared:  0.8319 </span></span>
+<span><span class="co">#&gt; F-statistic:  3583 on 1 and 723 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<p>The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function provides a model summary (we will come back to it shortly).</p>
+<p>Now we can visualize our results and plot the fitted regression line:</p>
+<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">gg</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">'lm'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code></pre></div>
+<div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<p>Set <code>se = FALSE</code> if you want to remove the confidence band around the regression line:</p>
+<div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">gg</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">'lm'</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; `geom_smooth()` using formula = 'y ~ x'</span></span></code></pre></div>
+<div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<p> </p>
+</div>
+<div id="making-predictions" class="section level4 unnumbered">
+<h4>Making Predictions<a class="anchor" aria-label="anchor" href="#making-predictions"><i class="fas fa-link"></i></a>
+</h4>
+<p>We can now utilize our fitted model to make predictions. Once again, we first do it manually, then present an R function. Suppose based on the fitted model you want to predict what the mean lung capacity would be for a patient with <span class="math inline">\(Height = 75\)</span>.</p>
+<p>To do so, we simply plug this value into the model and calculate the corresponding predicted value:</p>
+<p><span class="math display">\[\begin{align*}
+\hat{Lung Capacity} = -13.996 + 0.337 Height = -13.996 + 0.337\times 75 = 11.289
+\end{align*}\]</span></p>
+<p>Thus, the expected lung capacity for a patient with <code>Height = 75</code> is 11.289. Most of the time, you will want to make predictions for multiple values, and the number of inputs might be quite large. So instead of doing it manually, you can use the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function. You need to pass the fitted model object to the function and values of the predictor variable that you are trying to make predictions for:</p>
+<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Height <span class="op">=</span> <span class="fl">75</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        1 </span></span>
+<span><span class="co">#&gt; 11.28991</span></span></code></pre></div>
+<p>You can even make predictions for multiple values. For example let’s calculate the expected mean lung capacity for <code>Height = 67.5</code>, <code>Height = 64</code>, and <code>Height = 53.8</code>:</p>
+<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">67.5</span>, <span class="fl">64</span>, <span class="fl">53.8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;        1        2        3 </span></span>
+<span><span class="co">#&gt; 8.761240 7.581192 4.142195</span></span></code></pre></div>
+<p><code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function can also be used to construct confidence interval. We will come back to this function later.</p>
+<p> </p>
+</div>
+<div id="residuals" class="section level4 unnumbered">
+<h4>Residuals<a class="anchor" aria-label="anchor" href="#residuals"><i class="fas fa-link"></i></a>
+</h4>
+<p>If we think of our model as “Response = Prediction + Error,” we can then write it as</p>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+Y = \hat{Y} + e
+\end{align*}\]</span></p>
+<p>We then define a <strong>residual</strong> to be the observed value minus the predicted value:</p>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+e = Y - \hat{Y}
+\end{align*}\]</span></p>
+<p>Residuals play a crucial role in a model building process and they are used in many statistical procedures. To obtained residuals for your data, use <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> function (we will display the first 10 residuals as the dataset is large and displaying all residuals will take up much space):</p>
+<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Obtaining first 10 residuals</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>  </span>
+<span><span class="co">#&gt;           1           2           3           4           5 </span></span>
+<span><span class="co">#&gt; -0.46559420 -1.06376699  0.04701586  1.18371232 -0.38738003 </span></span>
+<span><span class="co">#&gt;           6           7           8           9          10 </span></span>
+<span><span class="co">#&gt;  0.43073814 -2.39518208 -2.41399374 -0.89770940  0.83715986</span></span></code></pre></div>
+<p>It is a good idea to bind together the residuals and the predictor variable in one data frame so that you know what residual corresponds to what predictor value (values of the independent variable, <strong>not predictions!</strong>):</p>
+<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Obtaining first 10 residuals and corresponding predictor values</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Height <span class="op">=</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">Height</span>, Residuals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span></span>
+<span><span class="co">#&gt;    Height   Residuals</span></span>
+<span><span class="co">#&gt; 1    62.1 -0.46559420</span></span>
+<span><span class="co">#&gt; 2    74.7 -1.06376699</span></span>
+<span><span class="co">#&gt; 3    69.7  0.04701586</span></span>
+<span><span class="co">#&gt; 4    71.0  1.18371232</span></span>
+<span><span class="co">#&gt; 5    56.9 -0.38738003</span></span>
+<span><span class="co">#&gt; 6    58.7  0.43073814</span></span>
+<span><span class="co">#&gt; 7    63.3 -2.39518208</span></span>
+<span><span class="co">#&gt; 8    70.4 -2.41399374</span></span>
+<span><span class="co">#&gt; 9    70.5 -0.89770940</span></span>
+<span><span class="co">#&gt; 10   59.2  0.83715986</span></span></code></pre></div>
+<p>One of the main properties of residuals is that their summation is equal to zero. This property is used to derive some other important features of linear regression models. Let’s show that the residuals for our model indeed add up to zero:</p>
+<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -1.496546e-14</span></span></code></pre></div>
+<p> </p>
+</div>
+<div id="variance-estimation" class="section level4 unnumbered">
+<h4>Variance Estimation<a class="anchor" aria-label="anchor" href="#variance-estimation"><i class="fas fa-link"></i></a>
+</h4>
+<p>We will now use the residuals to estimate the model variance, <span class="math inline">\(\sigma^2\)</span>. The best estimate of the model variance <span class="math inline">\(\sigma^2\)</span> (derivations once again are omitted) is the <strong>Error Mean Square (MSE)</strong> given by</p>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+MSE = \frac{\sum_{i = 1}^{n}(Y_i - \hat{Y}_i)^2}{n-2} = \frac{SSE}{n-2} = \frac{\sum Residuals^2}{n-2}
+\end{align*}\]</span></p>
+<p> </p>
+<p>Let’s estimate the model variance based on our data. First, let’s do it manually:</p>
+<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">dataset1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.191535</span></span></code></pre></div>
+<p>The output of the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function includes MSE, that is, an estimate of the model variance. Thus, it can be used for variance estimation:</p>
+<div class="sourceCode" id="cb454"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Analysis of Variance Table</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Response: LungCap</span></span>
+<span><span class="co">#&gt;            Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
+<span><span class="co">#&gt; Height      1 4269.0  4269.0  3582.8 &lt; 2.2e-16 ***</span></span>
+<span><span class="co">#&gt; Residuals 723  861.5     1.2                      </span></span>
 <span><span class="co">#&gt; ---</span></span>
 <span><span class="co">#&gt; Signif. codes:  </span></span>
 <span><span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div>
-<p>Since the p-value 0.05741 is greater than 0.05, we assume that the variances are equal. Now we move on to the t-test:</p>
-<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">Sales</span> <span class="op">~</span> <span class="va">US</span>, </span>
-<span>       </span>
-<span>       data <span class="op">=</span> <span class="va">dataset1</span>,</span>
-<span>       </span>
-<span>       mu <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>       </span>
-<span>       alternative <span class="op">=</span> <span class="st">"two.sided"</span>,</span>
-<span>       </span>
-<span>       var.equal <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>       </span>
-<span>       conf.level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Two Sample t-test</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; data:  Sales by US</span></span>
-<span><span class="co">#&gt; t = -3.5897, df = 398, p-value = 0.0003723</span></span>
-<span><span class="co">#&gt; alternative hypothesis: true difference in means between group No and group Yes is not equal to 0</span></span>
-<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -1.6155534 -0.4721887</span></span>
-<span><span class="co">#&gt; sample estimates:</span></span>
-<span><span class="co">#&gt;  mean in group No mean in group Yes </span></span>
-<span><span class="co">#&gt;          6.823028          7.866899</span></span></code></pre></div>
-<p>Since the p-value of 0.00037 is less than the significance level 0.05, we reject the null hypothesis and conclude that on average stores in the US and outside of the US have different profitability.</p>
-</div>
-<div id="chi2-goodness-of-fit-test-gof" class="section level4 unnumbered">
-<h4>
-<span class="math inline">\(\chi^2\)</span> Goodness of Fit Test (GOF)<a class="anchor" aria-label="anchor" href="#chi2-goodness-of-fit-test-gof"><i class="fas fa-link"></i></a>
-</h4>
-<p>Sometimes you are interested to check whether your data comes from a specified distribution or not. The <span class="math inline">\(\chi^2\)</span> (chi-squared) goodness of fit test helps you answer this question. In chi-squared goodness of fit test, the term goodness of fit is used to compare the observed sample distribution with the expected probability distribution. In this class, we will perform a chi-squared goodness of fit test on categorical variables.</p>
-<p>In the context of the chi-squared goodness of fit test, the test statistic is given by:</p>
-<p><span class="math display">\[\begin{align*}
-\chi^2 = \sum_{i = 1}^{k}\frac{(observed_i - expected_i)^2}{expected_i}
-\end{align*}\]</span></p>
-<p>where <span class="math inline">\(observed_i\)</span> is the observed frequency of the level <span class="math inline">\(i\)</span> and <span class="math inline">\(expected_i\)</span> is the expected frequency of the level <span class="math inline">\(i\)</span> under the null hypothesis, and <span class="math inline">\(k\)</span> is the number of levels of the categorical variable.</p>
-<p>In order to perform a chi-squared goodness of fit test, the following condition must be met:</p>
-<ol style="list-style-type: decimal">
-<li>Each case that contributes a count to the table must be independent of all other cases in the table.</li>
-<li>The expected counts for each level of the categorical variable must be at least 5.</li>
-<li>There must be at least 3 levels of the categorical variable.</li>
-</ol>
-<p> </p>
-<p>Let’s consider an example to better understand how this test works:</p>
-<p><strong>Example:</strong></p>
-<p>Data analysts at the company believe that in order to achieve the desired number of sales for their child car seat product, 55% of the items should be placed on medium quality shelves, 25% on good quality shelves, and the remaining 20% can be placed on bad quality shelves. Thus, the desired distribution of the <code>ShelveLoc</code> variable is</p>
-<div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
-<th>Bad</th>
-<th>Medium</th>
-<th>Good</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td>20%</td>
-<td>55%</td>
-<td>25%</td>
-</tr></tbody>
-</table></div>
-<p>Now let’s check whether the sample distribution follows the distribution given in the table above. In other words, we are going to test whether the sample data fits the specified distribution well. The null and alternative hypotheses that correspond to our research question are given by</p>
-<p><span class="math inline">\(H_0\)</span>: The distribution of shelve locations is <strong>the same as</strong> the distribution proposed by the analysts. The observed difference is due to chance.</p>
-<p><span class="math inline">\(H_a\)</span>: The distribution of shelve locations is <strong>different from</strong> the distribution proposed by the analysts. The observed difference is not due to chance.</p>
-<p>Before we test these hypotheses, let’s visualize our sample data:</p>
-<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>, fill <span class="op">=</span> <span class="va">ShelveLoc</span><span class="op">)</span>,</span>
-<span>         </span>
-<span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bad"</span>, <span class="st">"Medium"</span>, <span class="st">"Good"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>,label <span class="op">=</span> <span class="va">..count..</span><span class="op">)</span>,</span>
-<span>            </span>
-<span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
-<span>            </span>
-<span>            vjust <span class="op">=</span> <span class="fl">1.5</span>,</span>
-<span>          </span>
-<span>            size <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>            </span>
-<span>            colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
-<p>Let’s convert the count frequency into percentages:</p>
-<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>, fill <span class="op">=</span> <span class="va">ShelveLoc</span><span class="op">)</span>,</span>
-<span>         </span>
-<span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_discrete.html">scale_x_discrete</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bad"</span>, <span class="st">"Medium"</span>, <span class="st">"Good"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>,label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            </span>
-<span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
-<span>            </span>
-<span>            vjust <span class="op">=</span> <span class="fl">1.5</span>,</span>
-<span>          </span>
-<span>            size <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>            </span>
-<span>            colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
-<p>As you can notice, the sample distribution differs from the desired distribution of the shelve locations. But is this difference statistically significant? We are going to figure this out.</p>
-<p>In the table below we have the observed and expected counts.The observed counts are obtained from the sample, and the expected counts are calculated assuming the null hypothesis is true. In other words, these are the frequencies you would expect to get if the null hypothesis is true:</p>
-<div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
-<th>Shelve Location</th>
-<th>Observed Count</th>
-<th>Expected Count</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>Bad</td>
-<td>96</td>
-<td><span class="math inline">\(400\times0.2 = 80\)</span></td>
-</tr>
-<tr class="even">
-<td>Medium</td>
-<td>219</td>
-<td><span class="math inline">\(400\times0.55 = 220\)</span></td>
-</tr>
-<tr class="odd">
-<td>Good</td>
-<td>85</td>
-<td><span class="math inline">\(400\times0.25 = 100\)</span></td>
-</tr>
-</tbody>
-</table></div>
-<p>Now we use these observed and expected counts to calculate the chi-squared test statistic and then the corresponding p-value. Instead of doing this manually by hand, we are going to use the <code><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test()</a></code> function. This function needs the following arguments:</p>
-<ul>
-<li>
-<code>x</code> - a numeric vector or matrix</li>
-<li>
-<code>p</code> - a vector of probabilities of the same length as <code>x</code>
-</li>
-</ul>
-<p>Let’s test our hypothesis at the <span class="math inline">\(\alpha = 0.05\)</span> significance level:</p>
-<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">96</span>, <span class="fl">219</span>, <span class="fl">85</span><span class="op">)</span>, p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.55</span>, <span class="fl">0.25</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Chi-squared test for given probabilities</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; data:  c(96, 219, 85)</span></span>
-<span><span class="co">#&gt; X-squared = 5.4545, df = 2, p-value = 0.0654</span></span></code></pre></div>
-<p>The function output contains the test statistic (<span class="math inline">\(\chi^2\)</span> = 5.4545), degrees of freedom (df = 2), and the p-value. Since the p-value 0.0654 is greater than the significance level 0.05, we fail to reject the <span class="math inline">\(H_0\)</span>. Thus, based on our data, the actual distribution of the <code>ShelveLoc</code> variable follows the desired distribution.</p>
+<p>In this output the value in the intersection of the <code>Mean.Sq</code> column and the <code>Residuals</code> row is MSE. Here, it is equal to 1.2.</p>
 <p> </p>
 </div>
-<div id="chi2-test-of-independence" class="section level4 unnumbered">
-<h4>
-<span class="math inline">\(\chi^2\)</span> Test of Independence<a class="anchor" aria-label="anchor" href="#chi2-test-of-independence"><i class="fas fa-link"></i></a>
+<div id="lm-useful-functions" class="section level4 unnumbered">
+<h4>lm(): Useful Functions<a class="anchor" aria-label="anchor" href="#lm-useful-functions"><i class="fas fa-link"></i></a>
 </h4>
-<p>A chi-squared test of independence is used to check whether two categorical variables are related or not. In other words, it tests whether two categorical variables are independent. In general, if the two categorical variables are related, the probability of one variable having a certain value is dependent on the value of the other variables.</p>
-<p>A chi-squared test of independence can be used to test the following set of hypotheses:</p>
-<p><span class="math inline">\(H_0:\)</span> Variable A and Variable B are <strong>independent</strong>. The observed difference is due to chance.</p>
-<p><span class="math inline">\(H_a:\)</span> Variable A and Variable B are <strong>NOT independent</strong>. The observed difference is not due to chance.</p>
-<p>A test statistic for this test is identical to what we had for a chi-squared goodness of fit test:</p>
-<p><span class="math display">\[\begin{align*}
-\chi^2 = \sum_{i = 1}^{k}\frac{(observed_i - expected_i)^2}{expected_i}
-\end{align*}\]</span></p>
-<p>Again, <span class="math inline">\(observed_i\)</span> is the observed frequency of the level <span class="math inline">\(i\)</span> and <span class="math inline">\(expected_i\)</span> is the expected frequency of the level <span class="math inline">\(i\)</span> under the null hypothesis, and <span class="math inline">\(k\)</span> is the number of levels of the categorical variable.</p>
-<p>We have a slightly different set of conditions that need to be met in order to perform a chi-squared test of independence:</p>
-<ol style="list-style-type: decimal">
-<li>Each case that contributes a count to the table must be independent of all other cases in the table.</li>
-<li>The expected count for each cell of the two-way table must be at least 5.</li>
-</ol>
-<p> </p>
-<p>To better understand how this test works, let’s consider an example.</p>
-<p><strong>Example:</strong></p>
-<p>Suppose you are interested to know whether the <code>ShelveLoc</code> and <code>Urban</code> variables are related. In other words, you are trying to figure out whether the distribution of items on shelves depends on whether the store is located in rural or urban area. The set of hypotheses that correspond to your research question are</p>
-<p><span class="math inline">\(H_0:\)</span> Variables <code>ShelveLoc</code> and <code>Urban</code> are <strong>independent</strong>. The observed difference is due to chance.</p>
-<p><span class="math inline">\(H_a:\)</span> Variables <code>ShelveLoc</code> and <code>Urban</code> are <strong>not independent</strong>. The observed difference is not due to chance.</p>
-<p>We are going to test these hypotheses using our sample data at the <span class="math inline">\(\alpha = 0.1\)</span> significance level. The best way to display your sample data is using a two-way contingency table. In a two-way contingency table, rows represent levels(categories) of one categorical variable and columns represent levels of the other categorical variable:</p>
-<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
+<p>In this section I would like to share with you some useful functions that will allow you extract important information/features from your fitted model.</p>
+<p><strong>summary()</strong></p>
+<p><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function, as you’ve already seen, summarizes the fitted model:</p>
+<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">dataset1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Urban</span>, <span class="va">ShelveLoc</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      ShelveLoc</span></span>
-<span><span class="co">#&gt; Urban Bad Good Medium</span></span>
-<span><span class="co">#&gt;   No   22   28     68</span></span>
-<span><span class="co">#&gt;   Yes  74   57    151</span></span></code></pre></div>
-<p>If the variables are independent, that is, they are not related, then the distribution of the <code>ShelveLoc</code> variable should the same for every level of the <code>Urban</code> variable and vice versa.</p>
-<p>We can visualize our data using a stacked barplot:</p>
-<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">ShelveLoc</span>, fill <span class="op">=</span> <span class="va">Urban</span><span class="op">)</span>,</span>
-<span>         </span>
-<span>         position <span class="op">=</span> <span class="st">"fill"</span><span class="op">)</span> </span></code></pre></div>
-<div class="inline-figure"><img src="16-Lecture_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
-<p>Stacked barplots are particularly useful at describing the relationship (or lack of it) between two categorical variables. If some columns on the plot are divided in different vertical locations than others, then this might be an indication that the variable are related, that is, they are not independent. But per usual, to formally test our hypothesis, we need to perform a statistical test. in this case, this would be chi-squared test of independence:</p>
-<div class="sourceCode" id="cb439"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">dataset1</span><span class="op">$</span><span class="va">ShelveLoc</span>, <span class="va">dataset1</span><span class="op">$</span><span class="va">Urban</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Pearson's Chi-squared test</span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = LungCap ~ Height, data = dataset1)</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; data:  dataset1$ShelveLoc and dataset1$Urban</span></span>
-<span><span class="co">#&gt; X-squared = 2.7376, df = 2, p-value = 0.2544</span></span></code></pre></div>
-<p>Since the p-value of 0.2544 is greater than the significance level of 0.1, we fail to reject the null hypothesis. We conclude that, based on our sample data, the <code>ShelveLoc</code> and <code>Urban</code> variables are independent of one another.</p>
+<span><span class="co">#&gt; Residuals:</span></span>
+<span><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span><span class="co">#&gt; -3.3619 -0.7014 -0.0032  0.7787  3.2938 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;               Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">#&gt; (Intercept) -13.996829   0.367451  -38.09   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; Height        0.337157   0.005633   59.86   &lt;2e-16 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  </span></span>
+<span><span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residual standard error: 1.092 on 723 degrees of freedom</span></span>
+<span><span class="co">#&gt; Multiple R-squared:  0.8321, Adjusted R-squared:  0.8319 </span></span>
+<span><span class="co">#&gt; F-statistic:  3583 on 1 and 723 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<p>It contains all sorts of information presented in one output.</p>
+<p><strong>coef()</strong></p>
+<p>If your goal is to extract just the model coefficients (estimates), then use the <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code> function:</p>
+<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; (Intercept)      Height </span></span>
+<span><span class="co">#&gt; -13.9968289   0.3371566</span></span></code></pre></div>
+<p><strong>resid()</strong></p>
+<p>The <code><a href="https://rdrr.io/r/stats/residuals.html">resid()</a></code> function is the same as the <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> functions and displays residuals for the fitted model:</p>
+<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Obtaining residuals for the first 10 observations in the dataset</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
+<span><span class="co">#&gt;           1           2           3           4           5 </span></span>
+<span><span class="co">#&gt; -0.46559420 -1.06376699  0.04701586  1.18371232 -0.38738003 </span></span>
+<span><span class="co">#&gt;           6           7           8           9          10 </span></span>
+<span><span class="co">#&gt;  0.43073814 -2.39518208 -2.41399374 -0.89770940  0.83715986</span></span></code></pre></div>
+<p><strong>fitted()</strong></p>
+<p>The <code><a href="https://rdrr.io/r/stats/fitted.values.html">fitted()</a></code> function is used to obtain the fitted values:</p>
+<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Obtaining fitted values for the first 10 observations in the dataset</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
+<span><span class="co">#&gt;         1         2         3         4         5         6 </span></span>
+<span><span class="co">#&gt;  6.940594 11.188767  9.502984  9.941288  5.187380  5.794262 </span></span>
+<span><span class="co">#&gt;         7         8         9        10 </span></span>
+<span><span class="co">#&gt;  7.345182  9.738994  9.772709  5.962840</span></span></code></pre></div>
+<p>As you understand, there is relationship among the actual response values, fitted values, and the residuals:</p>
+<div class="sourceCode" id="cb459"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">actual</span> <span class="op">&lt;-</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">LungCap</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">fitted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">residuals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
+<span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">residuals</span>, <span class="va">actual</span> <span class="op">-</span> <span class="va">fitted</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      residuals actual...fitted</span></span>
+<span><span class="co">#&gt; 1  -0.46559420     -0.46559420</span></span>
+<span><span class="co">#&gt; 2  -1.06376699     -1.06376699</span></span>
+<span><span class="co">#&gt; 3   0.04701586      0.04701586</span></span>
+<span><span class="co">#&gt; 4   1.18371232      1.18371232</span></span>
+<span><span class="co">#&gt; 5  -0.38738003     -0.38738003</span></span>
+<span><span class="co">#&gt; 6   0.43073814      0.43073814</span></span>
+<span><span class="co">#&gt; 7  -2.39518208     -2.39518208</span></span>
+<span><span class="co">#&gt; 8  -2.41399374     -2.41399374</span></span>
+<span><span class="co">#&gt; 9  -0.89770940     -0.89770940</span></span>
+<span><span class="co">#&gt; 10  0.83715986      0.83715986</span></span></code></pre></div>
 
 </div>
 </div>
@@ -602,15 +504,15 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-15.html">Lecture 15</a></div>
-<div class="next"><a href="lecture-17.html">Lecture 17</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#lecture-16">Lecture 16</a></li>
 <li>
-<a class="nav-link" href="#data-analysis">Data Analysis</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#introduction-1">Introduction</a></li>
-<li><a class="nav-link" href="#hypothesis-tests">Hypothesis Tests</a></li>
+<a class="nav-link" href="#modeling">Modeling</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-2">Introduction</a></li>
+<li><a class="nav-link" href="#simple-linear-regression-slr-model">Simple Linear Regression (SLR) Model</a></li>
 </ul>
 </li>
 </ul>
@@ -630,7 +532,7 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-11-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
