@@ -43,30 +43,7 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="lecture-01.html">Lecture 01</a></li>
-<li><a class="" href="lecture-02.html">Lecture 02</a></li>
-<li><a class="" href="lecture-03.html">Lecture 03</a></li>
-<li><a class="" href="lecture-04.html">Lecture 04</a></li>
-<li><a class="" href="lecture-05.html">Lecture 05</a></li>
-<li><a class="" href="lecture-06.html">Lecture 06</a></li>
-<li><a class="" href="lecture-07.html">Lecture 07</a></li>
-<li><a class="" href="lecture-08.html">Lecture 08</a></li>
-<li><a class="" href="lecture-09.html">Lecture 09</a></li>
-<li><a class="" href="lecture-10.html">Lecture 10</a></li>
-<li><a class="" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="active" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html">Lecture 18</a></li></ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/ap4347/2102">View book source <i class="fab fa-github"></i></a></p>
@@ -190,7 +167,7 @@
 <li>
 <code>depth</code> - Depth in mm</li>
 </ul>
-<div class="sourceCode" id="cb460"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 10</span></span>
@@ -219,7 +196,7 @@
 <li><code>and more ...</code></li>
 </ul>
 <p> </p>
-<div class="sourceCode" id="cb461"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Attaching packages ────────────────── tidymodels 1.0.0 ──</span></span>
@@ -236,7 +213,7 @@
 <span><span class="co">#&gt; ✖ dplyr::lag()      masks stats::lag()</span></span>
 <span><span class="co">#&gt; ✖ yardstick::spec() masks readr::spec()</span></span>
 <span><span class="co">#&gt; ✖ recipes::step()   masks stats::step()</span></span>
-<span><span class="co">#&gt; • Use suppressPackageStartupMessages() to eliminate package startup messages</span></span>
+<span><span class="co">#&gt; • Learn how to get started at https://www.tidymodels.org/start/</span></span>
 <span></span>
 <span><span class="va">attrition</span> <span class="op">&lt;-</span> <span class="va">attrition</span></span>
 <span></span>
@@ -320,40 +297,40 @@
 <p>Most of the time, a simple random sample does a good job in preserving the target distribution (for sufficiently large sample size). To take a simple random sample, we will use <code>initial_split()</code> and <code>training()</code> functions from the <code>rsample</code> package (<code>rsample</code> package is a part of <code>tidymodels</code> package, thus, to activate <code>rsample</code> it is enough to install the <code>tidymodels</code> package and load it into R).</p>
 <p><code>initial_split</code> creates a single binary split of the data into a training set and testing set (later you will see what these training and testing datasets mean) and <code>training</code> is used to extract the resulting data.</p>
 <p>For example, let’s take a simple random sample from the <code>Diamonds</code> datasets containing 20% of the original data.</p>
-<div class="sourceCode" id="cb462"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sample_SRS</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">initial_split</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">training</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">sample_SRS</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">%&gt;%</span> <span class="fu">initial_split</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">training</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>To see how well the target distribution was preserved in the sample, we can plot a histogram of the target distribution for both original and sample data side-by-side:</p>
-<div class="sourceCode" id="cb463"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: package 'patchwork' was built under R version 4.2.3</span></span>
 <span></span>
 <span></span>
-<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    </span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
+<span>            <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
 <span>                           </span>
 <span>                           fill <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (original data)"</span>,</span>
+<span>            <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (original data)"</span>,</span>
 <span>       </span>
 <span>                 x <span class="op">=</span> <span class="st">"Price"</span>,</span>
 <span>       </span>
 <span>                 y <span class="op">=</span> <span class="st">"Frequency"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample_SRS</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample_SRS</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    </span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
+<span>            <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
 <span>                           </span>
 <span>                           fill <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (sample data)"</span>,</span>
+<span>            <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (sample data)"</span>,</span>
 <span>                 </span>
 <span>                 subtitle <span class="op">=</span>  <span class="st">"Simple Random Sampling (SRS)"</span>,</span>
 <span>       </span>
@@ -367,7 +344,7 @@
 <span><span class="co">#&gt; `binwidth`.</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
 <span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
-<div class="inline-figure"><img src="18-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
 <p>You can see that the original and sample distributions of the target variable are almost identical. Thus, for this case, SRS does a great job in preserving the underlying distribution.</p>
 <p> </p>
 </div>
@@ -376,38 +353,38 @@
 </h4>
 <p>To take a systematic sample from our data, we have to first order the dataset in some way, select a fixed starting point, and then select every <em>k</em>-th observation in the ordered population.</p>
 <p>Let’s use the <em>price</em> variable to re-order the observations in the dataset in descending order. Then, we will select every 5-th observation in the dataset starting from the 1-st observation (in this case <em>k</em> = 5, because we want our sample to contain 20% of original data):</p>
-<div class="sourceCode" id="cb464"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sample_sys</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">sample_sys</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op">%&gt;%</span> <span class="fu">arrange</span><span class="op">(</span><span class="fu">desc</span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  </span>
-<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb465"><pre class="downlit sourceCode r">
+<span>              <span class="fu">slice</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    </span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
+<span>            <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
 <span>                           </span>
 <span>                           fill <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (original data)"</span>,</span>
+<span>            <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (original data)"</span>,</span>
 <span>       </span>
 <span>                 x <span class="op">=</span> <span class="st">"Price"</span>,</span>
 <span>       </span>
 <span>                 y <span class="op">=</span> <span class="st">"Frequency"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample_sys</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample_sys</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    </span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
+<span>            <span class="fu">geom_histogram</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
 <span>                           </span>
 <span>                           fill <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (sample data)"</span>,</span>
+<span>            <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (sample data)"</span>,</span>
 <span>                 </span>
 <span>                 subtitle <span class="op">=</span>  <span class="st">"Systematic Sampling"</span>,</span>
 <span>       </span>
@@ -421,7 +398,7 @@
 <span><span class="co">#&gt; `binwidth`.</span></span>
 <span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
 <span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
-<div class="inline-figure"><img src="18-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
 <p>Once again, we can observe that the original and sample distributions of the target variable are almost identical.</p>
 <p> </p>
 </div>
@@ -430,7 +407,7 @@
 </h4>
 <p>Sometimes a target variable in your data is a categorical variable (a factor). This is more common with classification problems, where you aim to predict a class of a new observation. A categorical variable can be severely imbalanced (vast majority of observations belong to one category of the variable, and the remaining observations are spread across the other levels).</p>
 <p><code>Attrition</code> dataset is one of such examples. Here, roughly 84% of the observations belong to <code>No</code> category and the remaining 16% of observations belong to <code>Yes</code> category.</p>
-<div class="sourceCode" id="cb466"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">attrition</span><span class="op">$</span><span class="va">Attrition</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">attrition</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -438,29 +415,29 @@
 <span><span class="co">#&gt; 0.8387755 0.1612245</span></span></code></pre></div>
 <p>In this scenario, we would want to explicitly control the underlying distribution of the target variable in our sample. Thus, simple random sampling might not be the best choice since it fails to do so. For instance, if we randomly select 20% of the observations (like SRS does), we might end up having all observations taken from one single category, and, as a result, our sample will no longer be representative.</p>
 <p>In such cases, the solutions is using stratified sampling. To take a stratified sample, you need to add <code>strata</code> argument to the <code>initial_split</code> function and pass the name of variable whose distribution you want to preserve in a sample:</p>
-<div class="sourceCode" id="cb467"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sample_strata</span> <span class="op">&lt;-</span> <span class="va">attrition</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">sample_strata</span> <span class="op">&lt;-</span> <span class="va">attrition</span> <span class="op">%&gt;%</span></span>
 <span>  </span>
-<span>                 <span class="fu">initial_split</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.2</span>, strata <span class="op">=</span> <span class="va">Attrition</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>                 <span class="fu">initial_split</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.2</span>, strata <span class="op">=</span> <span class="va">Attrition</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
 <span>  </span>
 <span>                 <span class="fu">training</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb468"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">attrition</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">attrition</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span><span class="op">)</span>,</span>
 <span>         </span>
 <span>         fill <span class="op">=</span> <span class="st">"orange"</span>,</span>
 <span>         </span>
 <span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span>,label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_text</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span>,label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>            </span>
 <span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>            </span>
@@ -470,18 +447,18 @@
 <span>            </span>
 <span>            colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Original Dataset"</span><span class="op">)</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Original Dataset"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample_strata</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample_strata</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_bar</span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span><span class="op">)</span>,</span>
 <span>         </span>
 <span>         fill <span class="op">=</span> <span class="st">"orange"</span>,</span>
 <span>         </span>
 <span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span>,label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span><span class="fu">geom_text</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span>,label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>            </span>
 <span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>            </span>
@@ -491,38 +468,79 @@
 <span>            </span>
 <span>            colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">+</span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Stratified Sample"</span><span class="op">)</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Stratified Sample"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="va">original</span> <span class="op">+</span> <span class="va">sample</span></span></code></pre></div>
-<div class="inline-figure"><img src="18-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
-<p>As illustrated in barplots above, stratified sampling method perfectly preserves the underlying distribution of the <code>Attrition</code> variable.</p>
+<span><span class="va">original</span> <span class="op">+</span> <span class="va">sample</span></span>
+<span><span class="co">#&gt; Warning: The dot-dot notation (`..count..`) was deprecated in</span></span>
+<span><span class="co">#&gt; ggplot2 3.4.0.</span></span>
+<span><span class="co">#&gt; ℹ Please use `after_stat(count)` instead.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where</span></span>
+<span><span class="co">#&gt; this warning was generated.</span></span></code></pre></div>
+<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>As illustrated in the barplots above, stratified sampling method perfectly preserves the underlying distribution of the <code>Attrition</code> variable.</p>
+</div>
+</div>
+</div>
+<div id="resampling-methods" class="section level2 unnumbered">
+<h2>Resampling Methods<a class="anchor" aria-label="anchor" href="#resampling-methods"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are several steps to creating a useful model, including parameter estimation, model selection and tuning, and performance assessment. At the start of a new project, there is usually an initial finite pool of data available for all these tasks, which we can think of as an available data budget. How should the data be applied to different steps or tasks? The idea of <strong>data spending</strong> is an important first consideration when modeling, especially as it relates to empirical validation.</p>
+<p>Approaching model-building process correctly means approaching it strategically by spending our data wisely on learning and validation procedures, properly pre-processing the feature and target variables, minimizing <em>data leakage</em>, tuning hyperparameters, and assessing model performance.</p>
+<p>In this section we will discuss basics of <strong>data splitting</strong>.</p>
+<p> </p>
+<div id="data-splitting" class="section level3 unnumbered">
+<h3>Data Splitting<a class="anchor" aria-label="anchor" href="#data-splitting"><i class="fas fa-link"></i></a>
+</h3>
+<p>A major goal of any model-building process is to find an algorithm that most accurately predicts future values of the response variable <em>Y</em> based on a set of predictor variables <em>Xs</em>. In other words, we want an algorithm that not only fits well to our past data, but more importantly, one that predicts a future outcome accurately. This is called the <strong>generalizability</strong> of our algorithm. How we “spend” our data will help us understand how well our algorithm generalizes to unseen data.</p>
+<p>To provide an accurate understanding of the generalizability of our final optimal model, we can split our data into training and test data sets:</p>
+<ul>
+<li><p><strong>Training set</strong>: this data is used to develop feature sets, train our algorithms, tune hyperparameters, compare models, and all of the other activities required to choose a final model (e.g., the model we want to put into production).</p></li>
+<li><p><strong>Test set</strong>: having chosen a final model, this data is used to estimate an unbiased assessment of the model’s performance, which we refer to as the <em>generalization error</em>.</p></li>
+</ul>
+<p>Note: it is critical that the test set not be used prior to selecting your final model. Assessing results on the test set prior to final model selection biases the model selection process since the testing data will have become part of the model development process.</p>
+<div class="inline-figure"><img src="images/split.jpg"></div>
+<p>Given a fixed amount of data, typical recommendations for splitting your data into training-test splits include 60% (training)–40% (testing), 70%–30%, or 80%–20%. Generally speaking, these are appropriate guidelines to follow; however, it is good to keep the following points in mind:</p>
+<ul>
+<li><p>Spending too much in training (e.g., &gt;80%) won’t allow us to get a good assessment of predictive performance. We may find a model that fits the training data very well, but is not generalizable (<strong>overfitting</strong>).</p></li>
+<li><p>Sometimes too much spent in testing ( &gt;40%) won’t allow us to get a good assessment of model parameters (<strong>underfitting</strong>).</p></li>
+</ul>
+<p>The two most common ways of splitting data include <strong>Simple Random Sampling</strong> and <strong>Stratified Sampling</strong> (both methods were discussed in <strong>Lecture 18</strong>).</p>
+<p>Sometimes imbalanced data can have a significant impact on model predictions and performance. Most often this involves classification problems where one class has a very small proportion of observations (e.g., defaults - 5% versus nondefaults - 95%). Several sampling methods have been developed to help remedy class imbalance and most of them can be categorized as either <strong>up-sampling</strong> or <strong>down-sampling</strong>.</p>
+<p><strong>Down-sampling</strong> balances the dataset by reducing the size of the abundant class(es) to match the frequencies in the least prevalent class. This method is used when the quantity of data is sufficient. By keeping all samples in the rare class and randomly selecting an equal number of samples in the abundant class, a balanced new dataset can be retrieved for further modeling. Furthermore, the reduced sample size reduces the computation burden imposed by further steps in the model-building process.</p>
+<p>On the contrary, <strong>up-sampling</strong> is used when the quantity of data is insufficient. It tries to balance the dataset by increasing the size of rarer samples. Rather than getting rid of abundant samples, new rare samples are generated by using repetition or bootstrapping (discussed later). Note that there is no absolute advantage of one sampling method over another. Application of these two methods depends on the use case it applies to and the data set itself.</p>
+<hr>
+<p>So far we’ve discussed splitting our data into training and testing sets. Furthermore, we were very explicit about the fact that we <strong>do not</strong> use the test set to assess model performance during the training phase. So how do we assess the generalization performance of the model?</p>
+<p><strong>Solution 1:</strong> Assess the model performance based on the training data. Disadvantages - this leads to biased results as some models can perform very well on the training data but not generalize well to a new data set (overfitting).</p>
+<p><strong>Solution 2:</strong> Use a validation approach, which involves splitting the training set further to create two parts: a training set and a <strong>validation set</strong> (a.k.a. <strong>holdout set</strong>). Disadvantages - validation using a single holdout set can be highly variable and unreliable unless you are working with very large data sets.</p>
+<div class="inline-figure"><img src="images/val.webp" width="100%"></div>
+<p><strong>Solution 3:</strong> Resampling methods. They allow to repeatedly fit a model to parts of the training data and test its performance on other parts. The two commonly used resampling methods include <strong>k-fold cross validation</strong> and <strong>bootstrapping</strong>.</p>
+<p> </p>
+<div id="k-fold-cross-validation" class="section level4 unnumbered">
+<h4>k-fold cross validation<a class="anchor" aria-label="anchor" href="#k-fold-cross-validation"><i class="fas fa-link"></i></a>
+</h4>
+<p>k-fold cross-validation (aka k-fold CV) is a resampling method that randomly divides the training data into <em>k</em> groups (aka folds) of approximately equal size. The model is fit on <em>k-1</em> folds and then the remaining fold is used to compute model performance.</p>
+<p>This procedure is repeated <em>k</em> times; each time, a different fold is treated as the validation set. This process results in <em>k</em> estimates of the generalization error. Thus, the k-fold CV estimate is computed by averaging the <em>k</em> test errors, providing us with an approximation of the error we might expect on unseen data.</p>
+<div class="inline-figure"><img src="images/folds.jpg" width="100%"></div>
+<p>Consequently, with k-fold CV, every observation in the training data will be held out one time to be included in the test set as illustrated in the figure above. In practice, one typically uses <strong>k = 5</strong> or <strong>k = 10</strong>. There is no formal rule as to the size of <em>k</em>; however, as <em>k</em> gets larger, the difference between the estimated performance and the true performance to be seen on the test set will decrease. On the other hand, using too large <em>k</em> can introduce computational burdens</p>
+<p>One special variation of cross-validation is <strong>Leave-One-Out (LOO) Cross-Validation</strong>. If there are <em>n</em> training set samples, <em>n</em> models (<em>n</em> folds) are fit using <em>n − 1</em> observations from the training set. Each model predicts the single excluded data point. At the end of resampling, the <em>n</em> predictions are pooled to produce a single performance statistic.</p>
+<p>Leave-one-out methods are deficient compared to almost any other method. For anything but pathologically small samples, LOO is computationally excessive, and it may not have good statistical properties.</p>
 
 </div>
 </div>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="lecture-17.html">Lecture 17</a></div>
-<div class="next"><a href="lecture-19.html">Lecture 19</a></div>
+<div class="empty"></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#lecture-18">Lecture 18</a></li>
-<li>
-<a class="nav-link" href="#sampling-methods">Sampling Methods</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#probability-sampling-methods">Probability Sampling Methods</a></li>
-<li><a class="nav-link" href="#non-probability-sampling-methods">Non-Probability Sampling Methods</a></li>
-<li><a class="nav-link" href="#practice-problems-guess-the-sampling-method">Practice Problems: Guess the Sampling Method</a></li>
-<li><a class="nav-link" href="#sampling-with-r">Sampling with R</a></li>
-</ul>
-</li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/ap4347/2102/blob/master/18-Lecture.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/ap4347/2102/edit/master/18-Lecture.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>
@@ -534,7 +552,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-11-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

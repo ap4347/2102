@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lecture 17 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
-<meta name="description" content="  Modeling  Introduction Patterns in your data provide clues about relationships among variables. If a systematic relationship exists between two variables it will appear as a pattern in the data....">
+<meta name="description" content="  Sampling Methods When working on a research project/study, you always have a specific population of interest that you would like to target. For instance, if you want to do some research on...">
 <meta name="generator" content="bookdown 0.32 with bs4_book()">
 <meta property="og:title" content="Lecture 17 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-17.html">
-<meta property="og:description" content="  Modeling  Introduction Patterns in your data provide clues about relationships among variables. If a systematic relationship exists between two variables it will appear as a pattern in the data....">
+<meta property="og:description" content="  Sampling Methods When working on a research project/study, you always have a specific population of interest that you would like to target. For instance, if you want to do some research on...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lecture 17 | STAT 2102: Applied Statistical Computing">
-<meta name="twitter:description" content="  Modeling  Introduction Patterns in your data provide clues about relationships among variables. If a systematic relationship exists between two variables it will appear as a pattern in the data....">
+<meta name="twitter:description" content="  Sampling Methods When working on a research project/study, you always have a specific population of interest that you would like to target. For instance, if you want to do some research on...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -45,6 +45,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
@@ -54,18 +55,16 @@
 <li><a class="" href="lecture-07.html">Lecture 07</a></li>
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li class="book-part">TIDYVERSE</li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
 <li><a class="" href="lecture-11.html">Lecture 11</a></li>
 <li><a class="" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="" href="lecture-13.html">Lecture 13</a></li>
 <li><a class="" href="lecture-14.html">Lecture 14</a></li>
+<li class="book-part">STATISTICAL ANALYSIS</li>
 <li><a class="" href="lecture-15.html">Lecture 15</a></li>
 <li><a class="" href="lecture-16.html">Lecture 16</a></li>
 <li><a class="active" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -77,422 +76,478 @@
 <h1>Lecture 17<a class="anchor" aria-label="anchor" href="#lecture-17"><i class="fas fa-link"></i></a>
 </h1>
 <p> </p>
-<div id="modeling" class="section level2 unnumbered">
-<h2>Modeling<a class="anchor" aria-label="anchor" href="#modeling"><i class="fas fa-link"></i></a>
+<div id="sampling-methods" class="section level2 unnumbered">
+<h2>Sampling Methods<a class="anchor" aria-label="anchor" href="#sampling-methods"><i class="fas fa-link"></i></a>
 </h2>
-<div id="introduction-2" class="section level3 unnumbered">
-<h3>Introduction<a class="anchor" aria-label="anchor" href="#introduction-2"><i class="fas fa-link"></i></a>
+<p>When working on a research project/study, you always have a specific population of interest that you would like to target. For instance, if you want to do some research on everyone in North America, then all people living in North America will be the population of interest. Or, suppose you work for a manufacturing plant and you are interested in examining the quality of valves that this manufacturing plant produces. Then, all valves produced by this manufacturing plant will be your population of interest. In general, a <strong>population</strong> is the complete set of all objects or people of interest. In other words, it is a totality of the individuals of objects that are of interest in a statistical study.</p>
+<p>Typically, you are interested in assessing certain characteristics of a population. These characteristics are summary values calculated from a population and are called <strong>population parameters</strong>. It is normally impractical to study a whole population to deterministically calculate population parameters, because we would need to observe every individual/object in the population and this procedure has some limitations (for instance, it might take too long to complete the study, the research costs are too high, or it might destroy all items in the population in the process of measurement).</p>
+<p>Thus, instead of measuring/examining every element in a population, we take a <strong>sample</strong>. A sample is a subset of the elements that is often a small fraction of the overall population. For instance, instead of surveying all people in North America, we will take a sample of 10,000 people. Or, instead of examining all valves produced by the manufacturing plant, we will take a sample of 300 valves. Characteristics describing a sample are called <strong>sample statistics</strong>. We then use a sample statistic to estimate the corresponding population parameter.</p>
+<p>In this lecture, we will discuss different <strong>sampling methods</strong>. As you already understand, <strong>sampling</strong> is a method that allows researchers to infer information about a population based on results from a subset of the population, without having to investigate every individual. Sampling is an essential part of any research project. The right sampling method can make or break the validity of your research, and it’s essential to choose the right method for your specific question.</p>
+<p>If a sample is to be used, by whatever method it is chosen, it is important that the individuals/objects selected are <strong>representative</strong> of the whole population. The best way to ensure a sample is representative of the population is to ensure all the observations that comprise it were selected <strong>at random</strong>. Representative samples allow us to generalize the results from the sample to the population.</p>
+<p>There are several different sampling techniques available, and they can be subdivided into two groups: <strong>probability sampling</strong> and <strong>non-probability sampling</strong>. In probability (random) sampling, you start with a complete sampling frame of all eligible individuals from which you select your sample. In this way, all eligible individuals have a chance of being chosen for the sample, and you will be more able to generalise the results from your study. Probability sampling methods tend to be more time-consuming and expensive than non-probability sampling.</p>
+<p>In non-probability (non-random) sampling, you do not start with a complete sampling frame, so some individuals have no chance of being selected. Consequently, you cannot estimate the effect of sampling error and there is a significant risk of ending up with a non-representative sample which produces non-generalisable results. However, non-probability sampling methods tend to be cheaper and more convenient, and they are useful for exploratory research and hypothesis generation.</p>
+<p> </p>
+<div id="probability-sampling-methods" class="section level3 unnumbered">
+<h3>Probability Sampling Methods<a class="anchor" aria-label="anchor" href="#probability-sampling-methods"><i class="fas fa-link"></i></a>
 </h3>
-<p>Patterns in your data provide clues about relationships among variables. If a systematic relationship exists between two variables it will appear as a pattern in the data. If you spot a pattern, ask yourself:</p>
-<ul>
-<li>Could this pattern be due to coincidence (i.e. random chance)?</li>
-<li>How can you describe the relationship implied by the pattern?</li>
-<li>How strong is the relationship implied by the pattern?</li>
-<li>What other variables might affect the relationship?</li>
-<li>Does the relationship change if you look at individual subgroups of the data?</li>
-</ul>
-<p>Patterns provide one of the most useful tools for data analysts because they reveal <strong>covariation</strong>. If you think of <strong>variation</strong> as a phenomenon that creates uncertainty, <strong>covariation</strong> is a phenomenon that reduces it. If two variables covary, you can use the values of one variable to make better predictions about the values of the second. If the covariation is due to a causal relationship (a special case), then you can use the value of one variable to control the value of the second.</p>
-<p><strong>Models</strong> are a tool for extracting patterns out of data. The goal of a model is to provide a simple low-dimensional summary of a dataset. Ideally, the model will capture true “signals” (i.e. patterns generated by the phenomenon of interest), and ignore “noise” (i.e. random variation that you’re not interested in).</p>
-<p>In this class we only cover <strong>predictive models</strong>, which, as the name suggests, generate predictions. Specifically, we are going to focus on linear regression models, which are the most famous and arguably the simplest models, but yet they are widely used in all of statistics.</p>
+<p>Consider the salaries of Major League Baseball (MLB) players, where each player is a member of one of 30 teams. We would like to know what an average salary of MLB player is. In this example, all MLB players are a population of interest and their average salary is a population parameter. Now you know that you have to take a sample from the population of all MLB players in order to estimate their average salary. But how can we do that?</p>
+<p>Below we discuss different sampling methods that you can utilize.</p>
+<div id="simple-random-sampling" class="section level4 unnumbered">
+<h4>Simple Random Sampling<a class="anchor" aria-label="anchor" href="#simple-random-sampling"><i class="fas fa-link"></i></a>
+</h4>
+<p>A <strong>Simple Random Sample (SRS)</strong> from a population is one in which each possible sample of that size has the same chance of selection. In other words, every member of the population has the exact same chance of being selected into the sample. In this case each individual is chosen entirely by chance. SRS is a good way of ensuring that your sample is representative of the population it is chosen from.</p>
+<p>One way of obtaining a random sample is to give each individual in a population a number, and then use a table of random numbers to decide which individuals to include. Or, for instance, in our example we might write last year’s salary for each of the MLB players on a scrap of paper and randomly jumble them in a bag. Thereafter, we could blindly pull a sample of these paper scraps out of the bag.</p>
+<div class="inline-figure"><img src="images/SRS.jpg"></div>
+<p>A specific advantage of SRS is that it is the most straightforward method of probability sampling. A disadvantage of simple random sampling is that you may not select enough individuals with your characteristic of interest, especially if that characteristic is uncommon.</p>
 <p> </p>
 </div>
-<div id="simple-linear-regression-slr-model" class="section level3 unnumbered">
-<h3>Simple Linear Regression (SLR) Model<a class="anchor" aria-label="anchor" href="#simple-linear-regression-slr-model"><i class="fas fa-link"></i></a>
-</h3>
-<p>As mentioned, a <strong>linear regression model</strong> is one of the simplest models for doing data analysis. Though it may seem somewhat dull compared to some of the more modern statistical learning approaches, linear regression is still a useful and widely applied statistical learning method.</p>
-<p>Moreover, it serves as a good starting point for more advanced approaches; in fact, many of the more sophisticated statistical learning approaches can be seen as generalizations to or extensions of ordinary linear regression. Consequently, it is important to have a good understanding of linear regression before studying more complex learning methods.</p>
-<p>Before discussing linear regression models more in detail, we will first give its general definition. We will start off with a <strong>simple linear regression (SLR) model</strong>, a linear model that contains only one predictor.</p>
-<div id="model-set-up" class="section level4 unnumbered">
-<h4>Model Set Up<a class="anchor" aria-label="anchor" href="#model-set-up"><i class="fas fa-link"></i></a>
+<div id="stratified-sampling" class="section level4 unnumbered">
+<h4>Stratified Sampling<a class="anchor" aria-label="anchor" href="#stratified-sampling"><i class="fas fa-link"></i></a>
 </h4>
-<p>A simple linear regression model defines a relationship between two variables as follows:</p>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-Y_i = \beta_0 + \beta_1 X_i + \epsilon_i \quad  for  \quad  i = 1, \dots, n
-\end{align*}\]</span></p>
-<p> </p>
-<p>where</p>
-<ul>
-<li>
-<span class="math inline">\(Y\)</span> is the <strong>response</strong> (also known as <strong>target</strong>, <strong>outcome</strong>, and <strong>dependent</strong>) variable</li>
-<li>
-<span class="math inline">\(X\)</span> is the <strong>predictor</strong> (also known as <strong>explanatory</strong> and <strong>independent</strong>) variable and its values are <strong>fixed</strong>
-</li>
-<li>
-<span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are the <strong>fixed model parameters</strong>; specifically, an <strong>intercept</strong> and <strong>slope</strong> of the regression function, respectively</li>
-<li>
-<span class="math inline">\(\epsilon\)</span> (epsilon) is an error term and it’s a <strong>random variable</strong>; it is assumed to be normally distributed with mean 0 and variance <span class="math inline">\(\sigma^2\)</span>, that is, <span class="math inline">\(\epsilon \sim N(0, \sigma^2)\)</span>.</li>
-</ul>
-<p> </p>
-<p>This model is <strong>linear</strong>, because it uses a linear function to describe a relationship between the response and predictor variables. And it is <strong>simple</strong>, because it contains only one predictor.</p>
-<p> </p>
-<p><strong>Interpretation of parameters:</strong></p>
-<p>The slope parameter <span class="math inline">\(\beta_1\)</span> indicates the change in the mean value of response variable <span class="math inline">\(Y\)</span> per unit increase in the predictor variable <span class="math inline">\(X\)</span>.</p>
-<p>The intercept parameter <span class="math inline">\(\beta_0\)</span> is the <span class="math inline">\(Y\)</span> intercept of the regression line. When the scope of the model includes <span class="math inline">\(X = 0\)</span>, then <span class="math inline">\(\beta_0\)</span> given the mean value of <span class="math inline">\(Y\)</span> at <span class="math inline">\(X = 0\)</span>.</p>
-<p> </p>
-<p><strong>Model Assumptions:</strong></p>
-<p>Linear regression models must meet certain assumptions to be valid. These assumptions are</p>
-<ul>
-<li>Linearity of the regression function</li>
-<li>Constant variance of the error terms</li>
-<li>Independence of the error terms</li>
-<li>No outliers</li>
-<li>Normality of the error terms</li>
-</ul>
-<p> </p>
-<p>In this class, we won’t focus much on checking these assumptions as it requires covering additional procedures that are beyond the scope of this class. If you are interested in learning more about linear regression models, I highly recommend taking the <strong>UN2103 Applied Linear Regression Analysis</strong> class. Now let’s get back to the model.</p>
-<p>If we assume that the relationship between variables can be described using the SLR model, then this model can be utilized to make predictions about the response variable <span class="math inline">\(Y\)</span> based on the values of the predictor variable <span class="math inline">\(X\)</span>.</p>
-<p>Normally, we make predictions about the mean value of the response variable. In other words, using the predictive models such as SLR, we predict what the average value of the response value would be for a given value of the explanatory variable. It can be written as</p>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-E(Y_i) = E(\beta_0 + \beta_1 X_i + \epsilon_i) = \beta_0 + \beta_1 X_i + 0  = \beta_0 + \beta_1 X_i
-\end{align*}\]</span></p>
-<p>Thus,</p>
-<p><span class="math display">\[\begin{align*}
-E(Y_i) = \beta_0 + \beta_1 X_i  \quad  for  \quad  i = 1, \dots, n
-\end{align*}\]</span></p>
-<p> </p>
-<p>As you noticed, SLR model contains three parameters: <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span>, and <span class="math inline">\(\sigma^2\)</span>. These parameters are fixed (they are constant), but their are <strong>unknown</strong> to us. Thus, we first need to estimate these parameters in order to set up a model and make predictions based on this model.</p>
+<p>In this method, the population is first divided into subgroups (or <strong>strata</strong>) who all share a similar characteristic. Thereafter, a simple random sample (SRS) is taken from each stratum. It is used when we might reasonably expect the measurement of interest to vary between the different subgroups, and we want to ensure representation from all the subgroups. This method works best when there is a lot of variability <strong>between</strong> each stratum, but not much variability <strong>within</strong> each one.</p>
+<p>In our example, instead of randomly sampling from the population of MLB salaries blindly, we could categorize (stratify) the salaries according to the position played by each player (pitcher, short-stop, catcher, etc.) Ideally, all the observations in each stratum are similar with respect to the outcome of interest.</p>
+<div class="inline-figure"><img src="images/strata.jpg"></div>
+<p>Stratified sampling improves the accuracy and representativeness of the results by reducing sampling bias. However, it requires knowledge of the appropriate characteristics of the sampling frame (the details of which are not always available), and it can be difficult to decide which characteristic(s) to stratify by.</p>
 <p> </p>
 </div>
-<div id="parameter-estimation-least-squares-approach" class="section level4 unnumbered">
-<h4>Parameter Estimation: Least Squares Approach<a class="anchor" aria-label="anchor" href="#parameter-estimation-least-squares-approach"><i class="fas fa-link"></i></a>
+<div id="clustered-sampling" class="section level4 unnumbered">
+<h4>Clustered Sampling<a class="anchor" aria-label="anchor" href="#clustered-sampling"><i class="fas fa-link"></i></a>
 </h4>
-<p>Before we introduce the estimation method, let’s consider an example. Recall the lung capacity dataset that we’ve used in our lectures notes. Suppose you believe that an SLR model can be used to predict <em>lung capacity</em> based on patient’s <em>height</em>. As adviced earlier, it is always a good idea to visualize your data as a part of EDA (Explanatory Data Analysis):</p>
-<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span> <span class="va">gg</span> <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dataset1</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Height</span>, y <span class="op">=</span> <span class="va">LungCap</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"steelblue"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Lung Capacity versus Height"</span>,</span>
-<span>       </span>
-<span>       subtitle <span class="op">=</span> <span class="st">"From lung_capacity dataset"</span>,</span>
-<span>       </span>
-<span>       x <span class="op">=</span> <span class="st">"Height"</span>,</span>
-<span>       </span>
-<span>       y <span class="op">=</span> <span class="st">"Lung Capacity"</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">gg</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
-<p>From the scatterplot it becomes clear that a linear model will indeed be a good fit to our data as it displays a strong linear pattern/trend. Now it’s time to estimate the parameters and set up the model.</p>
-<p>But how can we estimate these parameters? In general, our goal is to build a predictive model (known as a <strong>fitted model</strong>) of the form</p>
+<p>In a clustered sample, subgroups of the population are used as the sampling unit, rather than individuals. The population is divided into subgroups, known as clusters, which are randomly selected to be included in the study. This method works best when there is <strong>a lot</strong> of variability within each cluster and <strong>not a lot</strong> of variability between each cluster.</p>
+<p>In our example, we could cluster players by their teams, then randomly select a few of these clusters (teams) and then observe all the players in the chosen clusters.</p>
+<div class="inline-figure"><img src="images/cluster.jpg"></div>
+<p>Cluster sampling can be more efficient than simple random sampling, especially where a study takes place over a wide geographical region. Disadvantages include an increased risk of bias, if the chosen clusters are not representative of the population, resulting in an increased sampling error.</p>
 <p> </p>
-<p><span class="math display">\[\begin{align*}
-\hat{Y} = b_0 + b_1X
-\end{align*}\]</span></p>
+</div>
+<div id="systematic-sampling" class="section level4 unnumbered">
+<h4>Systematic Sampling<a class="anchor" aria-label="anchor" href="#systematic-sampling"><i class="fas fa-link"></i></a>
+</h4>
+<p>In systematic sampling, individuals are selected at regular intervals from the sampling frame. The intervals are chosen to ensure an adequate sample size. Specifically, we randomly select a fixed starting point and then select every <strong><em>k</em></strong>-th observation in the ordered population to be in the sample (where <strong><em>k</em></strong> is the population size divided by the desired sample size). Systematic sampling works well when your population can be ordered in some way. It is <strong>similar</strong> to SRS, since every member of the population has an equal chance of being chosen. But it <strong>is not the same as</strong> SRS, since not every possible sample has the same probability of being selected.</p>
+<p>In our example, we can first order all MLB players by their last names. Then we would choose a random number between 1 and 15 as a starting point, and then select every 15-th person on the list to be in our sample.</p>
+<div class="inline-figure"><img src="images/system.jpg"></div>
+<p>Systematic sampling is often more convenient than simple random sampling, and it is easy to administer. However, it may also lead to bias, for example if there are underlying patterns in the order of the individuals in the sampling frame, such that the sampling technique coincides with the periodicity of the underlying pattern.</p>
 <p> </p>
-<p>where <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are the estimates of the model parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>, respectively, and <span class="math inline">\(\hat{Y}\)</span> is the <strong>fitted value</strong> of the response variable. There are infinite number of combinations of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> values. And these combinations define a family of predictive models.</p>
-<p>Let’s plot some of them. For example, we could try to model the data with a horizontal line representing the mean value of the <em>lung capacity</em> variable. That is, we are building a model where the response outcome does not depend on the predictor variable:</p>
-<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
+</div>
+</div>
+<div id="non-probability-sampling-methods" class="section level3 unnumbered">
+<h3>Non-Probability Sampling Methods<a class="anchor" aria-label="anchor" href="#non-probability-sampling-methods"><i class="fas fa-link"></i></a>
+</h3>
+<div id="convenience-sampling" class="section level4 unnumbered">
+<h4>Convenience Sampling<a class="anchor" aria-label="anchor" href="#convenience-sampling"><i class="fas fa-link"></i></a>
+</h4>
+<p>Convenience sampling is perhaps the easiest method of sampling, because participants are selected based on availability and willingness to take part. Useful results can be obtained, but the results are prone to significant bias, because those who volunteer to take part may be different from those who choose not to (volunteer bias), and the sample may not be representative of other characteristics, such as age or sex.</p>
+<p>Note: volunteer bias is a risk of all non-probability sampling methods. Thus, while it’s possible to get interesting information from a convenience sample, they are rarely (if ever) representative of a larger population.</p>
+<p>In our example, we could browse websites and collect salaries of several MLB players that are publicly available.</p>
+<div class="inline-figure"><img src="images/conv.jpg"></div>
+<p> </p>
+</div>
+</div>
+<div id="practice-problems-guess-the-sampling-method" class="section level3 unnumbered">
+<h3>Practice Problems: Guess the Sampling Method<a class="anchor" aria-label="anchor" href="#practice-problems-guess-the-sampling-method"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>A third-grade teacher has a bag of craft sticks. Each stick has the name of one student in the class written on it. To select three students to help with a school assembly the teacher reaches into the bag without looking and chooses 3 sticks.</p></li>
+<li><p>A researcher studying short-term memory believes that age plays a role. From a large group of people who have agreed to be part of a research study, the researcher randomly selects 40 people over the age of 50, 40 people between the ages of 30 and 50, and 40 people who are between the ages of 15 and 30.</p></li>
+<li><p>Marcus and Caroline are collecting data about the price of soda and candy bars at service stations. They collect the information from the service stations that are close enough to their house to ride their bikes to.</p></li>
+<li><p>Columbia University housing officials want to collect in-depth information about student life on campus. They create a list of every floor of every dorm on campus, and then randomly select 4 floors from the list and survey every resident on those 4 floors.</p></li>
+<li><p>To select a sample of 12 Kentucky Derby winning horses, we arrange the winner by year, select a random number between 1 and 10, and then include that horse and every 10th horse on the list.</p></li>
+<li><p>Motivated by a student who died from binge drinking, the administration at a university conducts a study of student drinking by randomly selecting 10 different classes being taught this semester and interviewing all of the students in each of those classes.</p></li>
+</ol>
+<p><strong>Answers:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Simple Random Sampling</p></li>
+<li><p>Stratified Sampling</p></li>
+<li><p>Convenience Sampling</p></li>
+<li><p>Clustered Sampling</p></li>
+<li><p>Systematic Sampling</p></li>
+<li><p>Clustered Sampling</p></li>
+</ol>
+<p> </p>
+</div>
+<div id="sampling-with-r" class="section level3 unnumbered">
+<h3>Sampling with R<a class="anchor" aria-label="anchor" href="#sampling-with-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>For illustrative purposes, we will be using <code>Diamonds</code> and <code>Attrition</code>datasets. Below are brief descriptions of these datasets:</p>
+<p><strong>Diamonds - </strong> a dataset (available in <code>ggplot2</code> package) containing the prices and other attributes of almost 54,000 diamonds with the following variables:</p>
+<ul>
+<li>
+<code>carat</code> - Weight of the diamond</li>
+<li>
+<code>cut</code> - Quality of the cut (a categorical variable with Fair, Good, Very Good, Premium, Ideal levels)</li>
+<li>
+<code>color</code> - Diamond color (a categorical variable with levels from D (best) to J (worst))</li>
+<li>
+<code>clarity</code> - A measurement of how clear the diamond is (a categorical variable with I1 (worst), SI2, SI1, VS2, VS1, VVS2, VVS1, IF (best) levels)</li>
+<li>
+<code>table</code> - Width of top of diamond relative to widest point</li>
+<li>
+<code>price</code> - Price in US dollars</li>
+<li>
+<code>length</code> - Length in mm</li>
+<li>
+<code>width</code> - Width in mm</li>
+<li>
+<code>depth</code> - Depth in mm</li>
+</ul>
+<div class="sourceCode" id="cb460"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">mean_lungcap</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dataset1</span><span class="op">$</span><span class="va">LungCap</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="va">gg</span> <span class="op">+</span> </span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">mean_lungcap</span>, size <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
-<p>In the plot above, we see this doesn’t seem to do a very good job. Many of the data points are very far from the line representing the mean value of the response variable. This is an example of <strong>underfitting</strong>. The obvious fix is to make the fitted model actually depend on the predictor. Below we illustrate a few of these models:</p>
-<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 10</span></span>
+<span><span class="co">#&gt;   carat cut      color clarity depth table price     x     y</span></span>
+<span><span class="co">#&gt;   &lt;dbl&gt; &lt;ord&gt;    &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1  0.23 Ideal    E     SI2      61.5    55   326  3.95  3.98</span></span>
+<span><span class="co">#&gt; 2  0.21 Premium  E     SI1      59.8    61   326  3.89  3.84</span></span>
+<span><span class="co">#&gt; 3  0.23 Good     E     VS1      56.9    65   327  4.05  4.07</span></span>
+<span><span class="co">#&gt; 4  0.29 Premium  I     VS2      62.4    58   334  4.2   4.23</span></span>
+<span><span class="co">#&gt; 5  0.31 Good     J     SI2      63.3    58   335  4.34  4.35</span></span>
+<span><span class="co">#&gt; 6  0.24 Very Go… J     VVS2     62.8    57   336  3.94  3.96</span></span>
+<span><span class="co">#&gt; # … with 1 more variable: z &lt;dbl&gt;</span></span></code></pre></div>
+<p> </p>
+<p><strong>Attrition - </strong> a dataset (available in <code>tidymodels</code> package) containing employee attrition information originally provided by IBM Watson Analytics Lab. It contains 1470 observations and 31 variables, among which:</p>
+<ul>
+<li>
+<code>Attrition</code> - Employee attrition (a categorical variable with Yes and No levels)</li>
+<li>
+<code>Age</code> - Employee’s age</li>
+<li>
+<code>Gender</code> - Employee’s gender</li>
+<li>
+<code>MonthlyIncome</code> - Employee’s monthly income</li>
+<li>
+<code>OverTime</code> - A categorical variable indicating whether an employee worked overtime (Yes/No)</li>
+<li><code>and more ...</code></li>
+</ul>
+<p> </p>
+<div class="sourceCode" id="cb461"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span></span>
-<span><span class="va">models</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span></span>
-<span>  b0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">250</span>, <span class="op">-</span><span class="fl">20</span>, <span class="fl">40</span><span class="op">)</span>,</span>
-<span>  b1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">250</span>, <span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── Attaching packages ────────────────── tidymodels 1.0.0 ──</span></span>
+<span><span class="co">#&gt; ✔ broom        1.0.1     ✔ rsample      1.1.0</span></span>
+<span><span class="co">#&gt; ✔ dials        1.1.0     ✔ tune         1.0.1</span></span>
+<span><span class="co">#&gt; ✔ infer        1.0.3     ✔ workflows    1.1.0</span></span>
+<span><span class="co">#&gt; ✔ modeldata    1.0.1     ✔ workflowsets 1.0.0</span></span>
+<span><span class="co">#&gt; ✔ parsnip      1.0.3     ✔ yardstick    1.1.0</span></span>
+<span><span class="co">#&gt; ✔ recipes      1.0.3</span></span>
+<span><span class="co">#&gt; ── Conflicts ───────────────────── tidymodels_conflicts() ──</span></span>
+<span><span class="co">#&gt; ✖ scales::discard() masks purrr::discard()</span></span>
+<span><span class="co">#&gt; ✖ dplyr::filter()   masks stats::filter()</span></span>
+<span><span class="co">#&gt; ✖ recipes::fixed()  masks stringr::fixed()</span></span>
+<span><span class="co">#&gt; ✖ dplyr::lag()      masks stats::lag()</span></span>
+<span><span class="co">#&gt; ✖ yardstick::spec() masks readr::spec()</span></span>
+<span><span class="co">#&gt; ✖ recipes::step()   masks stats::step()</span></span>
+<span><span class="co">#&gt; • Use suppressPackageStartupMessages() to eliminate package startup messages</span></span>
+<span></span>
+<span><span class="va">attrition</span> <span class="op">&lt;-</span> <span class="va">attrition</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">attrition</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Age Attrition    BusinessTravel DailyRate</span></span>
+<span><span class="co">#&gt; 1  41       Yes     Travel_Rarely      1102</span></span>
+<span><span class="co">#&gt; 2  49        No Travel_Frequently       279</span></span>
+<span><span class="co">#&gt; 4  37       Yes     Travel_Rarely      1373</span></span>
+<span><span class="co">#&gt; 5  33        No Travel_Frequently      1392</span></span>
+<span><span class="co">#&gt; 7  27        No     Travel_Rarely       591</span></span>
+<span><span class="co">#&gt; 8  32        No Travel_Frequently      1005</span></span>
+<span><span class="co">#&gt;             Department DistanceFromHome     Education</span></span>
+<span><span class="co">#&gt; 1                Sales                1       College</span></span>
+<span><span class="co">#&gt; 2 Research_Development                8 Below_College</span></span>
+<span><span class="co">#&gt; 4 Research_Development                2       College</span></span>
+<span><span class="co">#&gt; 5 Research_Development                3        Master</span></span>
+<span><span class="co">#&gt; 7 Research_Development                2 Below_College</span></span>
+<span><span class="co">#&gt; 8 Research_Development                2       College</span></span>
+<span><span class="co">#&gt;   EducationField EnvironmentSatisfaction Gender HourlyRate</span></span>
+<span><span class="co">#&gt; 1  Life_Sciences                  Medium Female         94</span></span>
+<span><span class="co">#&gt; 2  Life_Sciences                    High   Male         61</span></span>
+<span><span class="co">#&gt; 4          Other               Very_High   Male         92</span></span>
+<span><span class="co">#&gt; 5  Life_Sciences               Very_High Female         56</span></span>
+<span><span class="co">#&gt; 7        Medical                     Low   Male         40</span></span>
+<span><span class="co">#&gt; 8  Life_Sciences               Very_High   Male         79</span></span>
+<span><span class="co">#&gt;   JobInvolvement JobLevel               JobRole</span></span>
+<span><span class="co">#&gt; 1           High        2       Sales_Executive</span></span>
+<span><span class="co">#&gt; 2         Medium        2    Research_Scientist</span></span>
+<span><span class="co">#&gt; 4         Medium        1 Laboratory_Technician</span></span>
+<span><span class="co">#&gt; 5           High        1    Research_Scientist</span></span>
+<span><span class="co">#&gt; 7           High        1 Laboratory_Technician</span></span>
+<span><span class="co">#&gt; 8           High        1 Laboratory_Technician</span></span>
+<span><span class="co">#&gt;   JobSatisfaction MaritalStatus MonthlyIncome MonthlyRate</span></span>
+<span><span class="co">#&gt; 1       Very_High        Single          5993       19479</span></span>
+<span><span class="co">#&gt; 2          Medium       Married          5130       24907</span></span>
+<span><span class="co">#&gt; 4            High        Single          2090        2396</span></span>
+<span><span class="co">#&gt; 5            High       Married          2909       23159</span></span>
+<span><span class="co">#&gt; 7          Medium       Married          3468       16632</span></span>
+<span><span class="co">#&gt; 8       Very_High        Single          3068       11864</span></span>
+<span><span class="co">#&gt;   NumCompaniesWorked OverTime PercentSalaryHike</span></span>
+<span><span class="co">#&gt; 1                  8      Yes                11</span></span>
+<span><span class="co">#&gt; 2                  1       No                23</span></span>
+<span><span class="co">#&gt; 4                  6      Yes                15</span></span>
+<span><span class="co">#&gt; 5                  1      Yes                11</span></span>
+<span><span class="co">#&gt; 7                  9       No                12</span></span>
+<span><span class="co">#&gt; 8                  0       No                13</span></span>
+<span><span class="co">#&gt;   PerformanceRating RelationshipSatisfaction</span></span>
+<span><span class="co">#&gt; 1         Excellent                      Low</span></span>
+<span><span class="co">#&gt; 2       Outstanding                Very_High</span></span>
+<span><span class="co">#&gt; 4         Excellent                   Medium</span></span>
+<span><span class="co">#&gt; 5         Excellent                     High</span></span>
+<span><span class="co">#&gt; 7         Excellent                Very_High</span></span>
+<span><span class="co">#&gt; 8         Excellent                     High</span></span>
+<span><span class="co">#&gt;   StockOptionLevel TotalWorkingYears TrainingTimesLastYear</span></span>
+<span><span class="co">#&gt; 1                0                 8                     0</span></span>
+<span><span class="co">#&gt; 2                1                10                     3</span></span>
+<span><span class="co">#&gt; 4                0                 7                     3</span></span>
+<span><span class="co">#&gt; 5                0                 8                     3</span></span>
+<span><span class="co">#&gt; 7                1                 6                     3</span></span>
+<span><span class="co">#&gt; 8                0                 8                     2</span></span>
+<span><span class="co">#&gt;   WorkLifeBalance YearsAtCompany YearsInCurrentRole</span></span>
+<span><span class="co">#&gt; 1             Bad              6                  4</span></span>
+<span><span class="co">#&gt; 2          Better             10                  7</span></span>
+<span><span class="co">#&gt; 4          Better              0                  0</span></span>
+<span><span class="co">#&gt; 5          Better              8                  7</span></span>
+<span><span class="co">#&gt; 7          Better              2                  2</span></span>
+<span><span class="co">#&gt; 8            Good              7                  7</span></span>
+<span><span class="co">#&gt;   YearsSinceLastPromotion YearsWithCurrManager</span></span>
+<span><span class="co">#&gt; 1                       0                    5</span></span>
+<span><span class="co">#&gt; 2                       1                    7</span></span>
+<span><span class="co">#&gt; 4                       0                    0</span></span>
+<span><span class="co">#&gt; 5                       3                    0</span></span>
+<span><span class="co">#&gt; 7                       2                    2</span></span>
+<span><span class="co">#&gt; 8                       3                    6</span></span></code></pre></div>
+<p> </p>
+<div id="simple-random-sampling-1" class="section level4 unnumbered">
+<h4>Simple Random Sampling<a class="anchor" aria-label="anchor" href="#simple-random-sampling-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>As it was mentioned, the simplest way of doing sampling is to take a simple random sample. This does not control for any data attributes, such as the distribution of your response variable <em>Y</em>. For instance, let’s consider the <code>Diamonds</code> dataset. The target (response) variable in the dataset is <code>price</code>, a price of diamonds given in US dollars.</p>
+<p>Typically, as discussed earlier, if a sample is to be used, by whatever method it is chosen, it is important that the individuals/objects selected are representative of the whole population. Normally, you would want your sample to preserve the distribution of the target variable. In other words, the distribution of the target variable in a sample should be somewhat similar to the population distribution of the target variable.</p>
+<p>Most of the time, a simple random sample does a good job in preserving the target distribution (for sufficiently large sample size). To take a simple random sample, we will use <code>initial_split()</code> and <code>training()</code> functions from the <code>rsample</code> package (<code>rsample</code> package is a part of <code>tidymodels</code> package, thus, to activate <code>rsample</code> it is enough to install the <code>tidymodels</code> package and load it into R).</p>
+<p><code>initial_split</code> creates a single binary split of the data into a training set and testing set (later you will see what these training and testing datasets mean) and <code>training</code> is used to extract the resulting data.</p>
+<p>For example, let’s take a simple random sample from the <code>Diamonds</code> datasets containing 20% of the original data.</p>
+<div class="sourceCode" id="cb462"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sample_SRS</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">initial_split</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">training</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>To see how well the target distribution was preserved in the sample, we can plot a histogram of the target distribution for both original and sample data side-by-side:</p>
+<div class="sourceCode" id="cb463"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'patchwork' was built under R version 4.2.3</span></span>
 <span></span>
 <span></span>
-<span><span class="va">gg</span> <span class="op">+</span></span>
+<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
+<span>                           </span>
+<span>                           fill <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="va">b0</span>, slope <span class="op">=</span> <span class="va">b1</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">models</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
-<p>Each line on the plot represents a fitted model. There are 250 models on the plot (not all of them are depicted on the plot). Most of these models are really bad! But how are we going to decide which one is the best? And what should be the selection criterion?</p>
-<p>We need to find the good models by making precise our intuition that a good model is “close” to the data. We need a way to quantify the distance between the data and a model. Then we can fit the model by finding the value of <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> that generate the model with the smallest distance from this data.</p>
-<p>One easy place to start is to find the vertical distance between each point and the model. This distance is just the difference between the fitted value (predicted) given by the model and the actual response value in the data:</p>
-<p><span class="math display">\[\begin{align*}
-Y_i - \hat{Y}_i
-\end{align*}\]</span></p>
-<pre><code>#&gt; `geom_smooth()` using formula 'y ~ x'</code></pre>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (original data)"</span>,</span>
+<span>       </span>
+<span>                 x <span class="op">=</span> <span class="st">"Price"</span>,</span>
+<span>       </span>
+<span>                 y <span class="op">=</span> <span class="st">"Frequency"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample_SRS</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
+<span>                           </span>
+<span>                           fill <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (sample data)"</span>,</span>
+<span>                 </span>
+<span>                 subtitle <span class="op">=</span>  <span class="st">"Simple Random Sampling (SRS)"</span>,</span>
+<span>       </span>
+<span>                 x <span class="op">=</span> <span class="st">"Price"</span>,</span>
+<span>       </span>
+<span>                 y <span class="op">=</span> <span class="st">"Frequency"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">original</span> <span class="op">+</span> <span class="va">sample</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
 <div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
-<p>Next, we need some way to compute an overall distance between the predicted and actual values. One common way to do this in statistics is to use the sum of squared deviations (also known as <strong>Error Sum of Squares (SSE)</strong>). We compute the difference between actual and predicted, square them, and add them up:</p>
+<p>You can see that the original and sample distributions of the target variable are almost identical. Thus, for this case, SRS does a great job in preserving the underlying distribution.</p>
 <p> </p>
-<p><span class="math display">\[\begin{align*}
-SSE = \sum_{i = 1}^{n}(Y_i - \hat{Y}_i)^2 = \sum_{i = 1}^{n}(Y_i - (b_0 + b_1X_i))^2
-\end{align*}\]</span></p>
-<p> </p>
-<p>This distance has lots of appealing mathematical properties, which we’re not going to talk about here.</p>
-<p>Now a pair of values <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> that minimize the quantity given above are known to be the best estimates of the model parameters <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>. This approach is known as the <strong>least squares method</strong>, the estimates are called <strong>least squares estimates</strong>, and the fitted model is referred to as <strong>ordinary least squares (OLS) regression</strong>.</p>
-<p>We will skip the derivation of these estimates as it is beyond the scope of this class and simply provide formulas:</p>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-b_1 = \frac{\sum_{i = 1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i = 1}^{n}(x_i - \bar{x})^2}
-\end{align*}\]</span></p>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-b_0 = \bar{y} - b_1\bar{x}
-\end{align*}\]</span></p>
-<p> </p>
-<p>Now when we know the best estimates of the model parameters, let’s calculate their values. First, we will do it manually using the formulas:</p>
-<div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
+</div>
+<div id="systematic-sampling-1" class="section level4 unnumbered">
+<h4>Systematic Sampling<a class="anchor" aria-label="anchor" href="#systematic-sampling-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>To take a systematic sample from our data, we have to first order the dataset in some way, select a fixed starting point, and then select every <em>k</em>-th observation in the ordered population.</p>
+<p>Let’s use the <em>price</em> variable to re-order the observations in the dataset in descending order. Then, we will select every 5-th observation in the dataset starting from the 1-st observation (in this case <em>k</em> = 5, because we want our sample to contain 20% of original data):</p>
+<div class="sourceCode" id="cb464"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">Height</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">LungCap</span></span>
-<span></span>
-<span><span class="va">Sxy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="op">(</span><span class="va">y</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">Sxx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">x</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">Syy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">y</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">^</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">b_1</span> <span class="op">&lt;-</span> <span class="va">Sxy</span> <span class="op">/</span> <span class="va">Sxx</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">b_1</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.3371566</span></span>
-<span></span>
-<span><span class="va">b_0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">-</span> <span class="va">b_1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">b_0</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] -13.99683</span></span></code></pre></div>
-<p>Thus, a fitted function for our fitted model is given by</p>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-\hat{Y} = -13.996 + 0.337 X
-\end{align*}\]</span></p>
-<p>Or, specifically</p>
-<p><span class="math display">\[\begin{align*}
-\hat{Lung Capacity} = -13.996 + 0.337 Height
-\end{align*}\]</span></p>
-<p> </p>
-<p>We can interpret the model estimates as follows:</p>
-<p>We can expect the mean value of <code>lung capacity</code> to increase by 0.337 units per unit increase in the <code>Height</code> predictor.</p>
-<p>In given context, it makes no sense to interpret the intercept as the scope of the model does not include <span class="math inline">\(X = 0\)</span> (you cannot have a patient with <code>Height = 0</code>).</p>
-<p>Now, instead of doing calculations manually we can use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function:</p>
-<div class="sourceCode" id="cb445"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">LungCap</span> <span class="op">~</span> <span class="va">Height</span>, data <span class="op">=</span> <span class="va">dataset1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Call:</span></span>
-<span><span class="co">#&gt; lm(formula = LungCap ~ Height, data = dataset1)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Residuals:</span></span>
-<span><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span><span class="co">#&gt; -3.3619 -0.7014 -0.0032  0.7787  3.2938 </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Coefficients:</span></span>
-<span><span class="co">#&gt;               Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">#&gt; (Intercept) -13.996829   0.367451  -38.09   &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; Height        0.337157   0.005633   59.86   &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  </span></span>
-<span><span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Residual standard error: 1.092 on 723 degrees of freedom</span></span>
-<span><span class="co">#&gt; Multiple R-squared:  0.8321, Adjusted R-squared:  0.8319 </span></span>
-<span><span class="co">#&gt; F-statistic:  3583 on 1 and 723 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
-<p>The <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function provides a model summary (we will come back to it shortly).</p>
-<p>Now we can visualize our results and plot the fitted regression line:</p>
-<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">gg</span> <span class="op">+</span></span>
+<span><span class="va">sample_sys</span> <span class="op">&lt;-</span> <span class="va">diamonds</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">price</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">'lm'</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></span></code></pre></div>
-<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
-<p>Set <code>se = FALSE</code> if you want to remove the confidence band around the regression line:</p>
-<div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
+<span>              <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">diamonds</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">gg</span> <span class="op">+</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
+<span>                           </span>
+<span>                           fill <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">'lm'</span>, se <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></span></code></pre></div>
-<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (original data)"</span>,</span>
+<span>       </span>
+<span>                 x <span class="op">=</span> <span class="st">"Price"</span>,</span>
+<span>       </span>
+<span>                 y <span class="op">=</span> <span class="st">"Frequency"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample_sys</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    </span>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">price</span><span class="op">)</span>,</span>
+<span>                           </span>
+<span>                           fill <span class="op">=</span> <span class="st">"tomato"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>            <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Histogram of Price (sample data)"</span>,</span>
+<span>                 </span>
+<span>                 subtitle <span class="op">=</span>  <span class="st">"Systematic Sampling"</span>,</span>
+<span>       </span>
+<span>                 x <span class="op">=</span> <span class="st">"Price"</span>,</span>
+<span>       </span>
+<span>                 y <span class="op">=</span> <span class="st">"Frequency"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">original</span> <span class="op">+</span> <span class="va">sample</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span>
+<span><span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span></span>
+<span><span class="co">#&gt; `binwidth`.</span></span></code></pre></div>
+<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<p>Once again, we can observe that the original and sample distributions of the target variable are almost identical.</p>
 <p> </p>
 </div>
-<div id="making-predictions" class="section level4 unnumbered">
-<h4>Making Predictions<a class="anchor" aria-label="anchor" href="#making-predictions"><i class="fas fa-link"></i></a>
+<div id="stratified-sampling-1" class="section level4 unnumbered">
+<h4>Stratified Sampling<a class="anchor" aria-label="anchor" href="#stratified-sampling-1"><i class="fas fa-link"></i></a>
 </h4>
-<p>We can now utilize our fitted model to make predictions. Once again, we first do it manually, then present an R function. Suppose based on the fitted model you want to predict what would the mean lung capacity be for a patient with <span class="math inline">\(Height = 75\)</span>?</p>
-<p>To do so, we simply plug this value into the model and calculate the corresponding predicted value:</p>
-<p><span class="math display">\[\begin{align*}
-\hat{Lung Capacity} = -13.996 + 0.337 Height = -13.996 + 0.337\times 75 = 11.289
-\end{align*}\]</span></p>
-<p>Thus, the expected lung capacity for a patient with <code>Height = 75</code> is 11.289. Most of the time, you will want to make predictions for multiple values, and the number of inputs might be quite large. So instead of doing it manually, you can use the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function. You need to pass the fitted model object to the function and values of the predictor variable that you are trying to make predictions for:</p>
-<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
+<p>Sometimes a target variable in your data is a categorical variable (a factor). This is more common with classification problems, where you aim to predict a class of a new observation. A categorical variable can be severely imbalanced (vast majority of observations belong to one category of the variable, and the remaining observations are spread across the other levels).</p>
+<p><code>Attrition</code> dataset is one of such examples. Here, roughly 84% of the observations belong to <code>No</code> category and the remaining 16% of observations belong to <code>Yes</code> category.</p>
+<div class="sourceCode" id="cb466"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Height <span class="op">=</span> <span class="fl">75</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        1 </span></span>
-<span><span class="co">#&gt; 11.28991</span></span></code></pre></div>
-<p>You can even make predictions for multiple values. For example let’s calculate the expected mean lung capacity for <code>Height = 67.5</code>, <code>Height = 64</code>, and <code>Height = 53.8</code>:</p>
-<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">attrition</span><span class="op">$</span><span class="va">Attrition</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">attrition</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;        No       Yes </span></span>
+<span><span class="co">#&gt; 0.8387755 0.1612245</span></span></code></pre></div>
+<p>In this scenario, we would want to explicitly control the underlying distribution of the target variable in our sample. Thus, simple random sampling might not be the best choice since it fails to do so. For instance, if we randomly select 20% of the observations (like SRS does), we might end up having all observations taken from one single category, and, as a result, our sample will no longer be representative.</p>
+<p>In such cases, the solutions is using stratified sampling. To take a stratified sample, you need to add <code>strata</code> argument to the <code>initial_split</code> function and pass the name of variable whose distribution you want to preserve in a sample:</p>
+<div class="sourceCode" id="cb467"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Height <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">67.5</span>, <span class="fl">64</span>, <span class="fl">53.8</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        1        2        3 </span></span>
-<span><span class="co">#&gt; 8.761240 7.581192 4.142195</span></span></code></pre></div>
-<p><code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function can also be used to construct confidence interval. We will come back to this function later.</p>
-<p> </p>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sample_strata</span> <span class="op">&lt;-</span> <span class="va">attrition</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>                 <span class="fu">initial_split</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.2</span>, strata <span class="op">=</span> <span class="va">Attrition</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  </span>
+<span>                 <span class="fu">training</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">attrition</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         fill <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>         </span>
+<span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span>,label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>            </span>
+<span>            vjust <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>          </span>
+<span>            size <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>            </span>
+<span>            colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Original Dataset"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sample_strata</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span><span class="op">)</span>,</span>
+<span>         </span>
+<span>         fill <span class="op">=</span> <span class="st">"orange"</span>,</span>
+<span>         </span>
+<span>         width <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  </span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Attrition</span>,label <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu"><a href="https://scales.r-lib.org/reference/percent_format.html">percent</a></span><span class="op">(</span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">..count..</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>            </span>
+<span>            stat <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>            </span>
+<span>            vjust <span class="op">=</span> <span class="fl">1.5</span>,</span>
+<span>          </span>
+<span>            size <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>            </span>
+<span>            colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Stratified Sample"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">original</span> <span class="op">+</span> <span class="va">sample</span></span>
+<span><span class="co">#&gt; Warning: The dot-dot notation (`..count..`) was deprecated in</span></span>
+<span><span class="co">#&gt; ggplot2 3.4.0.</span></span>
+<span><span class="co">#&gt; ℹ Please use `after_stat(count)` instead.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where</span></span>
+<span><span class="co">#&gt; this warning was generated.</span></span></code></pre></div>
+<div class="inline-figure"><img src="17-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>As illustrated in the barplots above, stratified sampling method perfectly preserves the underlying distribution of the <code>Attrition</code> variable.</p>
 </div>
-<div id="residuals" class="section level4 unnumbered">
-<h4>Residuals<a class="anchor" aria-label="anchor" href="#residuals"><i class="fas fa-link"></i></a>
-</h4>
-<p>If we think of our model as “Response = Prediction + Error,” we can then write it as</p>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-Y = \hat{Y} + e
-\end{align*}\]</span></p>
-<p>We then define a <strong>residual</strong> to be the observed value minus the predicted value:</p>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-e = Y - \hat{Y}
-\end{align*}\]</span></p>
-<p>Residuals play a crucial role in a model building process and they are used in many statistical procedures. To obtained residuals for your data, use <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> function (we will display the first 10 residuals as the dataset is large and displaying all residuals will take up much space):</p>
-<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># Obtaining first 10 residuals</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>  </span>
-<span><span class="co">#&gt;           1           2           3           4           5 </span></span>
-<span><span class="co">#&gt; -0.46559420 -1.06376699  0.04701586  1.18371232 -0.38738003 </span></span>
-<span><span class="co">#&gt;           6           7           8           9          10 </span></span>
-<span><span class="co">#&gt;  0.43073814 -2.39518208 -2.41399374 -0.89770940  0.83715986</span></span></code></pre></div>
-<p>It is a good idea to bind together the residuals and the predictor variable in one data frame so that you know what residual corresponds to what predictor value (values of the independent variable, <strong>not predictions!</strong>):</p>
-<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># Obtaining first 10 residuals and corresponding predictor values</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Height <span class="op">=</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">Height</span>, Residuals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="op">]</span></span>
-<span><span class="co">#&gt;    Height   Residuals</span></span>
-<span><span class="co">#&gt; 1    62.1 -0.46559420</span></span>
-<span><span class="co">#&gt; 2    74.7 -1.06376699</span></span>
-<span><span class="co">#&gt; 3    69.7  0.04701586</span></span>
-<span><span class="co">#&gt; 4    71.0  1.18371232</span></span>
-<span><span class="co">#&gt; 5    56.9 -0.38738003</span></span>
-<span><span class="co">#&gt; 6    58.7  0.43073814</span></span>
-<span><span class="co">#&gt; 7    63.3 -2.39518208</span></span>
-<span><span class="co">#&gt; 8    70.4 -2.41399374</span></span>
-<span><span class="co">#&gt; 9    70.5 -0.89770940</span></span>
-<span><span class="co">#&gt; 10   59.2  0.83715986</span></span></code></pre></div>
-<p>One of the main properties of residuals is that their summation is equal to zero. This property is used to derive some other important features of linear regression models. Let’s show that the residuals for our model indeed add up to zero:</p>
-<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] -1.496546e-14</span></span></code></pre></div>
-<p> </p>
 </div>
-<div id="variance-estimation" class="section level4 unnumbered">
-<h4>Variance Estimation<a class="anchor" aria-label="anchor" href="#variance-estimation"><i class="fas fa-link"></i></a>
-</h4>
-<p>We will now use the residuals to estimate the model variance, <span class="math inline">\(\sigma^2\)</span>. The best estimate of the model variance <span class="math inline">\(\sigma^2\)</span> (derivations once again are omitted) is the <strong>Error Mean Square (MSE)</strong> given by</p>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-MSE = \frac{\sum_{i = 1}^{n}(Y_i - \hat{Y}_i)^2}{n-2} = \frac{SSE}{n-2} = \frac{\sum Residuals^2}{n-2}
-\end{align*}\]</span></p>
-<p> </p>
-<p>Let’s estimate the model variance based on our data. First, let’s do it manually:</p>
-<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">dataset1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1.191535</span></span></code></pre></div>
-<p>The output of the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function includes MSE, that is, an estimate of the model variance. Thus, it can be used for variance estimation:</p>
-<div class="sourceCode" id="cb454"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Analysis of Variance Table</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Response: LungCap</span></span>
-<span><span class="co">#&gt;            Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span></span>
-<span><span class="co">#&gt; Height      1 4269.0  4269.0  3582.8 &lt; 2.2e-16 ***</span></span>
-<span><span class="co">#&gt; Residuals 723  861.5     1.2                      </span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  </span></span>
-<span><span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div>
-<p>In this output the value in the intersection of the <code>Mean.Sq</code> column and the <code>Residuals</code> row is MSE. Here, it is equal to 1.2.</p>
-<p> </p>
 </div>
-<div id="lm-useful-functions" class="section level4 unnumbered">
-<h4>lm(): Useful Functions<a class="anchor" aria-label="anchor" href="#lm-useful-functions"><i class="fas fa-link"></i></a>
+<div id="resampling-methods" class="section level2 unnumbered">
+<h2>Resampling Methods<a class="anchor" aria-label="anchor" href="#resampling-methods"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are several steps to creating a useful model, including parameter estimation, model selection and tuning, and performance assessment. At the start of a new project, there is usually an initial finite pool of data available for all these tasks, which we can think of as an available data budget. How should the data be applied to different steps or tasks? The idea of <strong>data spending</strong> is an important first consideration when modeling, especially as it relates to empirical validation.</p>
+<p>Approaching model-building process correctly means approaching it strategically by spending our data wisely on learning and validation procedures, properly pre-processing the feature and target variables, minimizing <em>data leakage</em>, tuning hyperparameters, and assessing model performance.</p>
+<p>In this section we will discuss basics of <strong>data splitting</strong>.</p>
+<p> </p>
+<div id="data-splitting" class="section level3 unnumbered">
+<h3>Data Splitting<a class="anchor" aria-label="anchor" href="#data-splitting"><i class="fas fa-link"></i></a>
+</h3>
+<p>A major goal of any model-building process is to find an algorithm that most accurately predicts future values of the response variable <em>Y</em> based on a set of predictor variables <em>Xs</em>. In other words, we want an algorithm that not only fits well to our past data, but more importantly, one that predicts a future outcome accurately. This is called the <strong>generalizability</strong> of our algorithm. How we “spend” our data will help us understand how well our algorithm generalizes to unseen data.</p>
+<p>To provide an accurate understanding of the generalizability of our final optimal model, we can split our data into training and test data sets:</p>
+<ul>
+<li><p><strong>Training set</strong>: this data is used to develop feature sets, train our algorithms, tune hyperparameters, compare models, and all of the other activities required to choose a final model (e.g., the model we want to put into production).</p></li>
+<li><p><strong>Test set</strong>: having chosen a final model, this data is used to estimate an unbiased assessment of the model’s performance, which we refer to as the <em>generalization error</em>.</p></li>
+</ul>
+<p>Note: it is critical that the test set not be used prior to selecting your final model. Assessing results on the test set prior to final model selection biases the model selection process since the testing data will have become part of the model development process.</p>
+<div class="inline-figure"><img src="images/split.jpg"></div>
+<p>Given a fixed amount of data, typical recommendations for splitting your data into training-test splits include 60% (training)–40% (testing), 70%–30%, or 80%–20%. Generally speaking, these are appropriate guidelines to follow; however, it is good to keep the following points in mind:</p>
+<ul>
+<li><p>Spending too much in training (e.g., &gt;80%) won’t allow us to get a good assessment of predictive performance. We may find a model that fits the training data very well, but is not generalizable (<strong>overfitting</strong>).</p></li>
+<li><p>Sometimes too much spent in testing ( &gt;40%) won’t allow us to get a good assessment of model parameters (<strong>underfitting</strong>).</p></li>
+</ul>
+<p>The two most common ways of splitting data include <strong>Simple Random Sampling</strong> and <strong>Stratified Sampling</strong>.</p>
+<p>Sometimes imbalanced data can have a significant impact on model predictions and performance. Most often this involves classification problems where one class has a very small proportion of observations (e.g., defaults - 5% versus nondefaults - 95%). Several sampling methods have been developed to help remedy class imbalance and most of them can be categorized as either <strong>up-sampling</strong> or <strong>down-sampling</strong>.</p>
+<p><strong>Down-sampling</strong> balances the dataset by reducing the size of the abundant class(es) to match the frequencies in the least prevalent class. This method is used when the quantity of data is sufficient. By keeping all samples in the rare class and randomly selecting an equal number of samples in the abundant class, a balanced new dataset can be retrieved for further modeling. Furthermore, the reduced sample size reduces the computation burden imposed by further steps in the model-building process.</p>
+<p>On the contrary, <strong>up-sampling</strong> is used when the quantity of data is insufficient. It tries to balance the dataset by increasing the size of rarer samples. Rather than getting rid of abundant samples, new rare samples are generated by using repetition or bootstrapping (discussed later). Note that there is no absolute advantage of one sampling method over another. Application of these two methods depends on the use case it applies to and the data set itself.</p>
+<hr>
+<p>So far we’ve discussed splitting our data into training and testing sets. Furthermore, we were very explicit about the fact that we <strong>do not</strong> use the test set to assess model performance during the training phase. So how do we assess the generalization performance of the model?</p>
+<p><strong>Solution 1:</strong> Assess the model performance based on the training data. Disadvantages - this leads to biased results as some models can perform very well on the training data but not generalize well to a new data set (overfitting).</p>
+<p><strong>Solution 2:</strong> Use a validation approach, which involves splitting the training set further to create two parts: a training set and a <strong>validation set</strong> (a.k.a. <strong>holdout set</strong>). Disadvantages - validation using a single holdout set can be highly variable and unreliable unless you are working with very large data sets.</p>
+<div class="inline-figure"><img src="images/val.webp" width="100%"></div>
+<p><strong>Solution 3:</strong> Resampling methods. They allow to repeatedly fit a model to parts of the training data and test its performance on other parts. The two commonly used resampling methods include <strong>k-fold cross validation</strong> and <strong>bootstrapping</strong>.</p>
+<p> </p>
+<div id="k-fold-cross-validation" class="section level4 unnumbered">
+<h4>k-fold cross validation<a class="anchor" aria-label="anchor" href="#k-fold-cross-validation"><i class="fas fa-link"></i></a>
 </h4>
-<p>In this section I would like to share with you some useful functions that will allow you extract important information/features from your fitted model.</p>
-<p><strong>summary()</strong></p>
-<p><code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function, as you’ve already seen, summarizes the fitted model:</p>
-<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Call:</span></span>
-<span><span class="co">#&gt; lm(formula = LungCap ~ Height, data = dataset1)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Residuals:</span></span>
-<span><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
-<span><span class="co">#&gt; -3.3619 -0.7014 -0.0032  0.7787  3.2938 </span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Coefficients:</span></span>
-<span><span class="co">#&gt;               Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">#&gt; (Intercept) -13.996829   0.367451  -38.09   &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; Height        0.337157   0.005633   59.86   &lt;2e-16 ***</span></span>
-<span><span class="co">#&gt; ---</span></span>
-<span><span class="co">#&gt; Signif. codes:  </span></span>
-<span><span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Residual standard error: 1.092 on 723 degrees of freedom</span></span>
-<span><span class="co">#&gt; Multiple R-squared:  0.8321, Adjusted R-squared:  0.8319 </span></span>
-<span><span class="co">#&gt; F-statistic:  3583 on 1 and 723 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
-<p>It contains all sorts of information presented in one output. We will discuss them more in detail later on.</p>
-<p><strong>coef()</strong></p>
-<p>If your goal is to extract just the model coefficients (estimates), then use the <code><a href="https://rdrr.io/r/stats/coef.html">coef()</a></code> function:</p>
-<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
-<span><span class="co">#&gt; (Intercept)      Height </span></span>
-<span><span class="co">#&gt; -13.9968289   0.3371566</span></span></code></pre></div>
-<p><strong>resid()</strong></p>
-<p>The <code><a href="https://rdrr.io/r/stats/residuals.html">resid()</a></code> function is the same as the <code><a href="https://rdrr.io/r/stats/residuals.html">residuals()</a></code> functions and displays residuals for the fitted model:</p>
-<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># Obtaining residuals for the first 10 observations in the dataset</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
-<span><span class="co">#&gt;           1           2           3           4           5 </span></span>
-<span><span class="co">#&gt; -0.46559420 -1.06376699  0.04701586  1.18371232 -0.38738003 </span></span>
-<span><span class="co">#&gt;           6           7           8           9          10 </span></span>
-<span><span class="co">#&gt;  0.43073814 -2.39518208 -2.41399374 -0.89770940  0.83715986</span></span></code></pre></div>
-<p><strong>fitted()</strong></p>
-<p>The <code><a href="https://rdrr.io/r/stats/fitted.values.html">fitted()</a></code> function is used to obtain the fitted values:</p>
-<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># Obtaining fitted values for the first 10 observations in the dataset</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
-<span><span class="co">#&gt;         1         2         3         4         5         6 </span></span>
-<span><span class="co">#&gt;  6.940594 11.188767  9.502984  9.941288  5.187380  5.794262 </span></span>
-<span><span class="co">#&gt;         7         8         9        10 </span></span>
-<span><span class="co">#&gt;  7.345182  9.738994  9.772709  5.962840</span></span></code></pre></div>
-<p>As you understand, there is relationship among the actual response values, fitted values, and the residuals:</p>
-<div class="sourceCode" id="cb459"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">actual</span> <span class="op">&lt;-</span> <span class="va">dataset1</span><span class="op">$</span><span class="va">LungCap</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
-<span></span>
-<span><span class="va">fitted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
-<span></span>
-<span><span class="va">residuals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">residuals</span>, <span class="va">actual</span> <span class="op">-</span> <span class="va">fitted</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      residuals actual...fitted</span></span>
-<span><span class="co">#&gt; 1  -0.46559420     -0.46559420</span></span>
-<span><span class="co">#&gt; 2  -1.06376699     -1.06376699</span></span>
-<span><span class="co">#&gt; 3   0.04701586      0.04701586</span></span>
-<span><span class="co">#&gt; 4   1.18371232      1.18371232</span></span>
-<span><span class="co">#&gt; 5  -0.38738003     -0.38738003</span></span>
-<span><span class="co">#&gt; 6   0.43073814      0.43073814</span></span>
-<span><span class="co">#&gt; 7  -2.39518208     -2.39518208</span></span>
-<span><span class="co">#&gt; 8  -2.41399374     -2.41399374</span></span>
-<span><span class="co">#&gt; 9  -0.89770940     -0.89770940</span></span>
-<span><span class="co">#&gt; 10  0.83715986      0.83715986</span></span></code></pre></div>
+<p>k-fold cross-validation (aka k-fold CV) is a resampling method that randomly divides the training data into <em>k</em> groups (aka folds) of approximately equal size. The model is fit on <em>k-1</em> folds and then the remaining fold is used to compute model performance.</p>
+<p>This procedure is repeated <em>k</em> times; each time, a different fold is treated as the validation set. This process results in <em>k</em> estimates of the generalization error. Thus, the k-fold CV estimate is computed by averaging the <em>k</em> test errors, providing us with an approximation of the error we might expect on unseen data.</p>
+<div class="inline-figure"><img src="images/folds.jpg" width="100%"></div>
+<p>Consequently, with k-fold CV, every observation in the training data will be held out one time to be included in the test set as illustrated in the figure above. In practice, one typically uses <strong>k = 5</strong> or <strong>k = 10</strong>. There is no formal rule as to the size of <em>k</em>; however, as <em>k</em> gets larger, the difference between the estimated performance and the true performance to be seen on the test set will decrease. On the other hand, using too large <em>k</em> can introduce computational burdens.</p>
+<p>One special variation of cross-validation is <strong>Leave-One-Out (LOO) Cross-Validation</strong>. If there are <em>n</em> training set samples, <em>n</em> models (<em>n</em> folds) are fit using <em>n − 1</em> observations from the training set. Each model predicts the single excluded data point. At the end of resampling, the <em>n</em> predictions are pooled to produce a single performance statistic.</p>
+<p>Leave-one-out methods are deficient compared to almost any other method. For anything but pathologically small samples, LOO is computationally excessive, and it may not have good statistical properties.</p>
 
 </div>
 </div>
@@ -500,16 +555,21 @@ MSE = \frac{\sum_{i = 1}^{n}(Y_i - \hat{Y}_i)^2}{n-2} = \frac{SSE}{n-2} = \frac{
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-16.html">Lecture 16</a></div>
-<div class="next"><a href="lecture-18.html">Lecture 18</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#lecture-17">Lecture 17</a></li>
 <li>
-<a class="nav-link" href="#modeling">Modeling</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#introduction-2">Introduction</a></li>
-<li><a class="nav-link" href="#simple-linear-regression-slr-model">Simple Linear Regression (SLR) Model</a></li>
+<a class="nav-link" href="#sampling-methods">Sampling Methods</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#probability-sampling-methods">Probability Sampling Methods</a></li>
+<li><a class="nav-link" href="#non-probability-sampling-methods">Non-Probability Sampling Methods</a></li>
+<li><a class="nav-link" href="#practice-problems-guess-the-sampling-method">Practice Problems: Guess the Sampling Method</a></li>
+<li><a class="nav-link" href="#sampling-with-r">Sampling with R</a></li>
 </ul>
+</li>
+<li>
+<a class="nav-link" href="#resampling-methods">Resampling Methods</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#data-splitting">Data Splitting</a></li></ul>
 </li>
 </ul>
 
@@ -528,7 +588,7 @@ MSE = \frac{\sum_{i = 1}^{n}(Y_i - \hat{Y}_i)^2}{n-2} = \frac{SSE}{n-2} = \frac{
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-11-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
