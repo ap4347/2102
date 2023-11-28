@@ -8,7 +8,11 @@ output:
 &nbsp;
 
 
+```{r, include=FALSE}
 
+library(tidyverse)
+
+```
 
 ## Resampling Methods {-}
 
@@ -57,7 +61,9 @@ So far we've discussed splitting our data into training and testing sets. Furthe
 
 **Solution 2:** Use a validation approach, which involves splitting the training set further to create two parts: a training set and a **validation set** (a.k.a. **holdout set**). Disadvantages - validation using a single holdout set can be highly variable and unreliable unless you are working with very large data sets.
 
-<img src="images/val.webp" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/val.webp")
+```
 
 **Solution 3:** Resampling methods. They allow to repeatedly fit a model to parts of the training data and test its performance on other parts. The two commonly used resampling methods include **k-fold cross validation** and **bootstrapping**.
 
@@ -70,7 +76,9 @@ k-fold cross-validation (aka k-fold CV) is a resampling method that randomly div
 This procedure is repeated _k_ times; each time, a different fold is treated as the validation set. This process results in _k_ estimates of the generalization error. Thus, the k-fold CV estimate is computed by averaging the _k_ test errors, providing us with an approximation of the error we might expect on unseen data.
 
 
-<img src="images/folds.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/folds.jpg")
+```
 
 
 Consequently, with k-fold CV, every observation in the training data will be held out one time to be included in the test set as illustrated in the figure above. In practice, one typically uses **k = 5** or **k = 10**. There is no formal rule as to the size of _k_; however, as _k_ gets larger, the difference between the estimated performance and the true performance to be seen on the test set will decrease. On the other hand, using too large _k_ can introduce computational burdens
@@ -89,7 +97,9 @@ A bootstrap sample is a random sample of the data taken with replacement. This m
 
 The figure below provides a schematic of bootstrap sampling where each bootstrap sample contains 12 observations just as in the original data set. Furthermore, bootstrap sampling will contain approximately the same distribution of values (represented by colors) as the original data set.
 
-<img src="images/boot.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/boot.jpg")
+```
 
 
 Since samples are drawn with replacement, each bootstrap sample is likely to contain duplicate values. In fact, on average, approximately 63.21\% of the original sample ends up in any particular bootstrap sample. The original observations not contained in a particular bootstrap sample are considered **out-of-bag (OOB)**. When bootstrapping, a model can be built on the selected samples and validated on the OOB samples.
@@ -126,7 +136,9 @@ Before we discuss evaluation metrics for classification problems, I would like t
 
 It is a special kind of contingency table, with two dimensions ("actual" and "predicted"), and identical sets of "classes" in both dimensions (each combination of dimension and class is a variable in the contingency table):
 
-<img src="images/conf.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/conf.jpg")
+```
 
 * **Accuracy:** accuracy tells you, overall, how often the classifier is correct.
 
@@ -138,7 +150,9 @@ Accuracy = \frac{TP + TN}{Total}
 
 &nbsp;
 
-<img src="images/conf2.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/conf2.jpg")
+```
 
 * **Sensitivity (aka Recall):** sensitivity tells you how accurately the classifier classifies actual events.
 
