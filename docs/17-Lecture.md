@@ -206,7 +206,7 @@ library(tidymodels)
 #> ✖ dplyr::lag()      masks stats::lag()
 #> ✖ yardstick::spec() masks readr::spec()
 #> ✖ recipes::step()   masks stats::step()
-#> • Dig deeper into tidy modeling with R at https://www.tmwr.org
+#> • Learn how to get started at https://www.tidymodels.org/start/
 
 attrition <- attrition
 

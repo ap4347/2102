@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lecture 19 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
-<meta name="description" content="  Resampling Methods There are several steps to creating a useful model, including parameter estimation, model selection and tuning, and performance assessment. At the start of a new project,...">
+<meta name="description" content="  Decision Trees Tree-based models are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response...">
 <meta name="generator" content="bookdown 0.32 with bs4_book()">
 <meta property="og:title" content="Lecture 19 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-19.html">
-<meta property="og:description" content="  Resampling Methods There are several steps to creating a useful model, including parameter estimation, model selection and tuning, and performance assessment. At the start of a new project,...">
+<meta property="og:description" content="  Decision Trees Tree-based models are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lecture 19 | STAT 2102: Applied Statistical Computing">
-<meta name="twitter:description" content="  Resampling Methods There are several steps to creating a useful model, including parameter estimation, model selection and tuning, and performance assessment. At the start of a new project,...">
+<meta name="twitter:description" content="  Decision Trees Tree-based models are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -45,6 +45,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
@@ -54,18 +55,18 @@
 <li><a class="" href="lecture-07.html">Lecture 07</a></li>
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li class="book-part">TIDYVERSE</li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
 <li><a class="" href="lecture-11.html">Lecture 11</a></li>
 <li><a class="" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="" href="lecture-13.html">Lecture 13</a></li>
 <li><a class="" href="lecture-14.html">Lecture 14</a></li>
+<li class="book-part">STATISTICAL ANALYSIS</li>
 <li><a class="" href="lecture-15.html">Lecture 15</a></li>
 <li><a class="" href="lecture-16.html">Lecture 16</a></li>
 <li><a class="" href="lecture-17.html">Lecture 17</a></li>
 <li><a class="" href="lecture-18.html">Lecture 18</a></li>
 <li><a class="active" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -77,141 +78,127 @@
 <h1>Lecture 19<a class="anchor" aria-label="anchor" href="#lecture-19"><i class="fas fa-link"></i></a>
 </h1>
 <p> </p>
-<div id="resampling-methods" class="section level2 unnumbered">
-<h2>Resampling Methods<a class="anchor" aria-label="anchor" href="#resampling-methods"><i class="fas fa-link"></i></a>
+<div id="decision-trees" class="section level2 unnumbered">
+<h2>Decision Trees<a class="anchor" aria-label="anchor" href="#decision-trees"><i class="fas fa-link"></i></a>
 </h2>
-<p>There are several steps to creating a useful model, including parameter estimation, model selection and tuning, and performance assessment. At the start of a new project, there is usually an initial finite pool of data available for all these tasks, which we can think of as an available data budget. How should the data be applied to different steps or tasks? The idea of <strong>data spending</strong> is an important first consideration when modeling, especially as it relates to empirical validation.</p>
-<p>Approaching model-building process correctly means approaching it strategically by spending our data wisely on learning and validation procedures, properly pre-processing the feature and target variables, minimizing <em>data leakage</em>, tuning hyperparameters, and assessing model performance.</p>
-<p>In this lecture we will discuss basics of <strong>data splitting</strong>.</p>
+<p><strong>Tree-based models</strong> are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response values using a set of <strong>splitting rules</strong>. Predictions are obtained by fitting a simpler model (e.g., a constant like the average response value) in each region.</p>
+<p>Such methods can produce simple rules that are easy to interpret and visualize with tree diagrams. As we’ll see, decision trees offer many benefits; however, they typically lack in predictive performance compared to more complex algorithms such as neural networks.</p>
 <p> </p>
-<div id="data-splitting" class="section level3 unnumbered">
-<h3>Data Splitting<a class="anchor" aria-label="anchor" href="#data-splitting"><i class="fas fa-link"></i></a>
+<div id="structure" class="section level3 unnumbered">
+<h3>Structure<a class="anchor" aria-label="anchor" href="#structure"><i class="fas fa-link"></i></a>
 </h3>
-<p>A major goal of any model-building process is to find an algorithm that most accurately predicts future values of the response variable <em>Y</em> based on a set of predictor variables <em>Xs</em>. In other words, we want an algorithm that not only fits well to our past data, but more importantly, one that predicts a future outcome accurately. This is called the <strong>generalizability</strong> of our algorithm. How we “spend” our data will help us understand how well our algorithm generalizes to unseen data.</p>
-<p>To provide an accurate understanding of the generalizability of our final optimal model, we can split our data into training and test data sets:</p>
-<ul>
-<li><p><strong>Training set</strong>: this data is used to develop feature sets, train our algorithms, tune hyperparameters, compare models, and all of the other activities required to choose a final model (e.g., the model we want to put into production).</p></li>
-<li><p><strong>Test set</strong>: having chosen a final model, this data is used to estimate an unbiased assessment of the model’s performance, which we refer to as the <em>generalization error</em>.</p></li>
-</ul>
-<p>Note: it is critical that the test set not be used prior to selecting your final model. Assessing results on the test set prior to final model selection biases the model selection process since the testing data will have become part of the model development process.</p>
-<div class="inline-figure"><img src="images/split.jpg"></div>
-<p>Given a fixed amount of data, typical recommendations for splitting your data into training-test splits include 60% (training)–40% (testing), 70%–30%, or 80%–20%. Generally speaking, these are appropriate guidelines to follow; however, it is good to keep the following points in mind:</p>
-<ul>
-<li><p>Spending too much in training (e.g., &gt;80%) won’t allow us to get a good assessment of predictive performance. We may find a model that fits the training data very well, but is not generalizable (<strong>overfitting</strong>).</p></li>
-<li><p>Sometimes too much spent in testing ( &gt;40%) won’t allow us to get a good assessment of model parameters (<strong>underfitting</strong>).</p></li>
-</ul>
-<p>The two most common ways of splitting data include <strong>Simple Random Sampling</strong> and <strong>Stratified Sampling</strong> (both methods were discussed in <strong>Lecture 18</strong>).</p>
-<p>Sometimes imbalanced data can have a significant impact on model predictions and performance. Most often this involves classification problems where one class has a very small proportion of observations (e.g., defaults - 5% versus nondefaults - 95%). Several sampling methods have been developed to help remedy class imbalance and most of them can be categorized as either <strong>up-sampling</strong> or <strong>down-sampling</strong>.</p>
-<p><strong>Down-sampling</strong> balances the dataset by reducing the size of the abundant class(es) to match the frequencies in the least prevalent class. This method is used when the quantity of data is sufficient. By keeping all samples in the rare class and randomly selecting an equal number of samples in the abundant class, a balanced new dataset can be retrieved for further modeling. Furthermore, the reduced sample size reduces the computation burden imposed by further steps in the model-building process.</p>
-<p>On the contrary, <strong>up-sampling</strong> is used when the quantity of data is insufficient. It tries to balance the dataset by increasing the size of rarer samples. Rather than getting rid of abundant samples, new rare samples are generated by using repetition or bootstrapping (discussed later). Note that there is no absolute advantage of one sampling method over another. Application of these two methods depends on the use case it applies to and the data set itself.</p>
+<p>There are many methodologies for constructing decision trees but the most well-known is the <strong>Classification and Regression Tree (CART)</strong> algorithm. A basic decision tree partitions the training data into homogeneous subgroups (i.e., groups with similar response values) and then fits a <strong>simple constant</strong> in each subgroup (e.g., the mean of the within group response values for regression).</p>
+<p>The subgroups (also called <strong>nodes</strong>) are formed recursively using binary partitions formed by asking simple yes-or-no questions about each feature (e.g., is <code>age &lt; 18?</code>). This is done a number of times until a suitable stopping criteria is satisfied (e.g., a maximum depth of the tree is reached). After all the partitioning has been done, the model predicts the output based on (1) the average response values for all observations that fall in that subgroup (regression problem), or (2) the class that has majority representation (classification problem).</p>
+<p>In essence, our tree is a set of rules that allows us to make predictions by asking simple yes-or-no questions about each feature. Consider the following example: suppose you are interested in predicting whether or not a customer will redeem a coupon (<code>yes</code> or <code>no</code>) based on the customer’s loyalty, household income, last month’s spend, coupon placement, and shopping mode. You can build a decision tree to make these predictions. The tree diagram given in the figure below depicts such a model:</p>
+<div class="inline-figure"><img src="images/tree.jpg" width="100%"></div>
+<p>For example, based on this decision tree, we predict that if the customer is loyal, has household income greater than $150,000, and is shopping in a store, then the customer will redeem a coupon.</p>
+<div class="inline-figure"><img src="images/tree2.jpg" width="100%"></div>
+<p>We refer to the first subgroup at the top of the tree as the <strong>root node</strong> (this node contains all of the training data). The final subgroups at the bottom of the tree are called the <strong>terminal nodes</strong> or <strong>leaves</strong>. Every subgroup in between is referred to as an <strong>internal node</strong>. The connections between nodes are called <strong>branches</strong>:</p>
+<div class="inline-figure"><img src="images/tree3.jpg" width="100%"></div>
+<p> </p>
+</div>
+<div id="partitioning" class="section level3 unnumbered">
+<h3>Partitioning<a class="anchor" aria-label="anchor" href="#partitioning"><i class="fas fa-link"></i></a>
+</h3>
+<p>As illustrated above, CART uses <strong>binary recursive partitioning</strong> (it’s recursive because each split or rule depends on the the splits above it). The objective at each node is to find the “best” feature (<span class="math inline">\(x_i\)</span>) to partition the remaining data into one of two regions (<span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span>) such that the overall error between the actual response (<span class="math inline">\(y_i\)</span>) and the predictor constant (<span class="math inline">\(c_i\)</span>) is minimized. For regression problems, the objective function to minimize is the total SSE as defined below:</p>
+<p><span class="math display">\[\begin{align*}
+SSE = \sum_{i \in R_1}(y_i - c_1)^2 + \sum_{i \in R_2}(y_i - c_2)^2
+\end{align*}\]</span></p>
+<p>For classification problems, the partitioning is usually made to maximize the reduction in <strong>cross-entropy</strong> or the <strong>Gini index</strong> (aka <strong>Gini impurity</strong>). Gini index measures the degree or probability of a particular variable being wrongly classified when it is randomly chosen and is given by</p>
+<p><span class="math display">\[\begin{align*}
+Gini = 1 - \sum_{i = 1}^{n}(p_i)^2
+\end{align*}\]</span></p>
+<p>where <span class="math inline">\(p_i\)</span> is the probability of an object being classified to a particular class.</p>
+<p>Having found the best feature/split combination, the data are partitioned into two regions and the splitting process is repeated on each of the two regions (hence the name binary recursive partitioning). This process is continued until a suitable stopping criterion is reached (e.g., a maximum depth is reached or the tree becomes “too complex”).</p>
+<p>It’s important to note that a single feature can be used multiple times in a tree. For example, say we have data generated from a simple <strong><em>sin</em></strong> function with Gaussian noise: <span class="math inline">\(Y_i \sim N(sin(X_i), \sigma^2)\)</span> for <span class="math inline">\(i = 1, 2, 3, \dots, 500\)</span>. A regression tree built with a single root node (often referred to as a decision stump) leads to a split occurring at <span class="math inline">\(x = 3.1\)</span>.</p>
+<div class="inline-figure"><img src="images/tree4.jpg" width="100%"></div>
+<p>If we build a deeper tree, we’ll continue to split on the same feature (<span class="math inline">\(x\)</span>) as illustrated in the figure below. This is because <span class="math inline">\(x\)</span> is the only feature available to split on so it will continue finding the optimal splits along this feature’s values until a pre-determined stopping criteria is reached.</p>
+<div class="inline-figure"><img src="images/tree5.jpg" width="100%"></div>
+<p>However, even when many features are available, a single feature may still dominate if it continues to provide the best split after each successive partition.</p>
+<p> </p>
+</div>
+<div id="tree-depth" class="section level3 unnumbered">
+<h3>Tree Depth<a class="anchor" aria-label="anchor" href="#tree-depth"><i class="fas fa-link"></i></a>
+</h3>
+<p>This leads to an important question: how deep (i.e., complex) should we make the tree? If we grow an overly complex tree as illustrated below, we tend to overfit to our training data resulting in poor generalization performance:</p>
+<div class="inline-figure"><img src="images/tree6.jpg" width="100%"></div>
+<p>Consequently, there is a balance to be achieved in the depth and complexity of the tree to optimize predictive performance on future unseen data. To find this balance, we have two primary approaches: (1) early stopping and (2) pruning.</p>
+<p> </p>
+</div>
+<div id="early-stopping" class="section level3 unnumbered">
+<h3>Early Stopping<a class="anchor" aria-label="anchor" href="#early-stopping"><i class="fas fa-link"></i></a>
+</h3>
+<p>Early stopping explicitly restricts the growth of the tree. There are several ways we can restrict tree growth but two of the most common approaches are to restrict the tree depth to a certain level or to restrict the minimum number of observations allowed in any terminal node. When limiting tree depth we stop splitting after a certain depth (e.g., only grow a tree that has a depth of 5 levels). The shallower the tree the less variance we have in our predictions; however, at some point we can start to inject too much bias as shallow trees (e.g., stumps) are not able to capture interactions and complex patterns in our data.</p>
+<p>When restricting minimum terminal node size (e.g., leaf nodes must contain at least 10 observations for predictions) we are deciding to not split intermediate nodes which contain too few data points. At the far end of the spectrum, a terminal node’s size of one allows for a single observation to be captured in the leaf node and used as a prediction (in this case, we’re interpolating the training data). This results in high variance and poor generalizability. On the other hand, large values restrict further splits therefore reducing variance.</p>
+<p>These two approaches can be implemented independently of one another; however, they do have interaction effects as illustrated in the figure below: The columns illustrate how tree depth impacts the decision boundary and the rows illustrate how the minimum number of observations in the terminal node influences the decision boundary.</p>
+<div class="inline-figure"><img src="images/tree7.jpg" width="100%"></div>
+<p> </p>
+</div>
+<div id="pruning" class="section level3 unnumbered">
+<h3>Pruning<a class="anchor" aria-label="anchor" href="#pruning"><i class="fas fa-link"></i></a>
+</h3>
+<p>An alternative to explicitly specifying the depth of a decision tree is to grow a very large, complex tree and then <strong>prune</strong> it back to find an optimal subtree. We find the optimal subtree by using a <strong>cost complexity parameter</strong> (<span class="math inline">\(\alpha\)</span>) that penalizes our objective function (defined in the <em>Partitioning</em> section) for the number of terminal nodes of the tree (<span class="math inline">\(T\)</span>) as follows:</p>
+<p><span class="math display">\[\begin{align*}
+minimize \{SSE + \alpha|T|\}
+\end{align*}\]</span></p>
+<p>For a given value of <span class="math inline">\(\alpha\)</span> we find the smallest pruned tree that has the lowest penalized error. Smaller penalties tend to produce more complex models, which result in larger trees. Whereas larger penalties result in much smaller trees. Consequently, as a tree grows larger, the reduction in the SSE must be greater than the cost complexity penalty. Typically, we evaluate multiple models across a spectrum of <span class="math inline">\(\alpha\)</span> and use CV to identify the optimal value and, therefore, the optimal subtree that generalizes best to unseen data.</p>
+<p>The figure below illustrates the pruning results: we grow an overly complex tree (left) and then use a cost complexity parameter to identify the optimal subtree (right):</p>
+<div class="inline-figure"><img src="images/tree8.jpg" width="100%"></div>
+<p> </p>
+</div>
+</div>
+<div id="random-forest" class="section level2 unnumbered">
+<h2>Random Forest<a class="anchor" aria-label="anchor" href="#random-forest"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before we introduce a random forest method, let’s describe <strong>bagging</strong>. <strong>Bootstrap aggregating (bagging)</strong> prediction models is a general method for fitting multiple versions of a prediction model and then combining (or ensembling) them into an aggregated prediction.</p>
+<p>Bagging is a fairly straight forward algorithm in which <em>b</em> bootstrap copies of the original training data are created, the regression or classification algorithm (commonly referred to as the <strong>base learner</strong>) is applied to each bootstrap sample and, in the regression context, new predictions are made by averaging the predictions together from the individual base learners. When dealing with a classification problem, the base learner predictions are combined using plurality vote or by averaging the estimated class probabilities together.</p>
+<p>Because of the aggregation process, bagging effectively reduces the variance of an individual base learner (i.e., averaging reduces variance). The general idea behind bagging is referred to as the “wisdom of the crowd” effect. It essentially means that the aggregation of information in large diverse groups results in decisions that are often better than could have been made by any single member of the group. The more diverse the group members are then the more diverse their perspectives and predictions will be, which often leads to better aggregated information.</p>
+<p>However, when bagging trees, a problem still exists. Although the model building steps are independent, the trees in bagging are not completely independent of each other since all the original features are considered at every split of every tree. Rather, trees from different bootstrap samples typically have similar structure to each other (especially at the top of the tree) due to any underlying strong relationships.</p>
+<p>This characteristic is known as <strong>tree correlation</strong> and prevents bagging from further reducing the variance of the base learner. Now we will discuss how <strong>random forests</strong> extend and improve upon bagged decision trees by reducing this correlation and thereby improving the accuracy of the overall ensemble.</p>
 <hr>
-<p>So far we’ve discussed splitting our data into training and testing sets. Furthermore, we were very explicit about the fact that we <strong>do not</strong> use the test set to assess model performance during the training phase. So how do we assess the generalization performance of the model?</p>
-<p><strong>Solution 1:</strong> Assess the model performance based on the training data. Disadvantages - this leads to biased results as some models can perform very well on the training data but not generalize well to a new data set (overfitting).</p>
-<p><strong>Solution 2:</strong> Use a validation approach, which involves splitting the training set further to create two parts: a training set and a <strong>validation set</strong> (a.k.a. <strong>holdout set</strong>). Disadvantages - validation using a single holdout set can be highly variable and unreliable unless you are working with very large data sets.</p>
-<div class="inline-figure"><img src="images/val.webp" width="100%"></div>
-<p><strong>Solution 3:</strong> Resampling methods. They allow to repeatedly fit a model to parts of the training data and test its performance on other parts. The two commonly used resampling methods include <strong>k-fold cross validation</strong> and <strong>bootstrapping</strong>.</p>
-<p> </p>
-<div id="k-fold-cross-validation" class="section level4 unnumbered">
-<h4>k-fold cross validation<a class="anchor" aria-label="anchor" href="#k-fold-cross-validation"><i class="fas fa-link"></i></a>
+<p><em>Random forests</em> are a modification of bagged decision trees that build a large collection of de-correlated trees to further improve predictive performance. Random forests help to reduce tree correlation by injecting more randomness into the tree-growing process.</p>
+<p>More specifically, while growing a decision tree during the bagging process, random forests perform split-variable randomization where each time a split is to be performed, the search for the split variable is limited to a random subset of <span class="math inline">\(m\)</span> of the original <em>p</em> features. Typical default values are <span class="math inline">\(m = p/3\)</span> (regression) and <span class="math inline">\(m = \sqrt{p}\)</span> (classification) but this should be considered a tuning parameter.</p>
+<div class="inline-figure"><img src="images/rf.jpg" width="100%"></div>
+<div id="hyperparameters" class="section level4 unnumbered">
+<h4>Hyperparameters<a class="anchor" aria-label="anchor" href="#hyperparameters"><i class="fas fa-link"></i></a>
 </h4>
-<p>k-fold cross-validation (aka k-fold CV) is a resampling method that randomly divides the training data into <em>k</em> groups (aka folds) of approximately equal size. The model is fit on <em>k-1</em> folds and then the remaining fold is used to compute model performance.</p>
-<p>This procedure is repeated <em>k</em> times; each time, a different fold is treated as the validation set. This process results in <em>k</em> estimates of the generalization error. Thus, the k-fold CV estimate is computed by averaging the <em>k</em> test errors, providing us with an approximation of the error we might expect on unseen data.</p>
-<div class="inline-figure"><img src="images/folds.jpg" width="100%"></div>
-<p>Consequently, with k-fold CV, every observation in the training data will be held out one time to be included in the test set as illustrated in the figure above. In practice, one typically uses <strong>k = 5</strong> or <strong>k = 10</strong>. There is no formal rule as to the size of <em>k</em>; however, as <em>k</em> gets larger, the difference between the estimated performance and the true performance to be seen on the test set will decrease. On the other hand, using too large <em>k</em> can introduce computational burdens</p>
-<p>One special variation of cross-validation is <strong>Leave-One-Out (LOO) Cross-Validation</strong>. If there are <em>n</em> training set samples, <em>n</em> models (<em>n</em> folds) are fit using <em>n − 1</em> observations from the training set. Each model predicts the single excluded data point. At the end of resampling, the <em>n</em> predictions are pooled to produce a single performance statistic.</p>
-<p>Leave-one-out methods are deficient compared to almost any other method. For anything but pathologically small samples, LOO is computationally excessive, and it may not have good statistical properties.</p>
-<p> </p>
-</div>
-<div id="bootstrapping" class="section level4 unnumbered">
-<h4>Bootstrapping<a class="anchor" aria-label="anchor" href="#bootstrapping"><i class="fas fa-link"></i></a>
-</h4>
-<p>A bootstrap sample is a random sample of the data taken with replacement. This means that, after a data point is selected for inclusion in the subset, it’s still available for further selection. A bootstrap sample is the same size as the original data set from which it was constructed.</p>
-<p>The figure below provides a schematic of bootstrap sampling where each bootstrap sample contains 12 observations just as in the original data set. Furthermore, bootstrap sampling will contain approximately the same distribution of values (represented by colors) as the original data set.</p>
-<div class="inline-figure"><img src="images/boot.jpg" width="100%"></div>
-<p>Since samples are drawn with replacement, each bootstrap sample is likely to contain duplicate values. In fact, on average, approximately 63.21% of the original sample ends up in any particular bootstrap sample. The original observations not contained in a particular bootstrap sample are considered <strong>out-of-bag (OOB)</strong>. When bootstrapping, a model can be built on the selected samples and validated on the OOB samples.</p>
-<p> </p>
-</div>
-</div>
-<div id="model-evaluation" class="section level3 unnumbered">
-<h3>Model Evaluation<a class="anchor" aria-label="anchor" href="#model-evaluation"><i class="fas fa-link"></i></a>
-</h3>
-<p>Today, it has become widely accepted that a more sound approach to assessing model performance is to assess the predictive accuracy via <strong>loss functions</strong>. Loss functions are metrics that compare the predicted values to the actual value. When performing resampling methods, we assess the predicted values for a validation set compared to the actual target value.</p>
-<p>For example, in regression, one way to measure error is to take the difference between the actual and predicted value for a given observation (this is the usual definition of a residual in ordinary linear regression). The overall validation error of the model is computed by aggregating the errors across the entire validation data set.</p>
-<p>There are many loss functions to choose from when assessing the performance of a predictive model, each providing a unique understanding of the predictive accuracy and differing between regression and classification models. Furthermore, the way a loss function is computed will tend to emphasize certain types of errors over others and can lead to drastic differences in how we interpret the “optimal model”.</p>
-<p>Its important to consider the problem context when identifying the preferred performance metric to use. And when comparing multiple models, we need to compare them across the same metric.</p>
-<p>Depending on the problem context, we can divide them into two groups: <strong>Regression</strong> and <strong>Classification</strong> problems.</p>
-<p> </p>
-<div id="regression-metrics" class="section level4 unnumbered">
-<h4>Regression Metrics<a class="anchor" aria-label="anchor" href="#regression-metrics"><i class="fas fa-link"></i></a>
-</h4>
+<p>There are several tunable hyperparameters that we should consider when training a model:</p>
 <ul>
-<li><p><strong>MSE - Mean Squared Error:</strong> Mean squared error is the average of the squared error (<span class="math inline">\(MSE = \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}\)</span>). The squared component results in larger errors having larger penalties. This (along with RMSE) is the most common error metric to use. <strong>Objective: minimize</strong></p></li>
-<li><p><strong>RMSE - Root Mean Squared Error:</strong> Root mean squared error. This simply takes the square root of the MSE metric (<span class="math inline">\(RMSE =\sqrt{ \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}}\)</span>) so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. <strong>Objective: minimize</strong></p></li>
-<li><p><strong><span class="math inline">\(R^2\)</span>:</strong> This is a popular metric that represents the proportion of the variance in the dependent variable that is predictable from the independent variable(s). Unfortunately, it has several limitations. For example, two models built from two different data sets could have the exact same RMSE but if one has less variability in the response variable then it would have a lower <span class="math inline">\(R^2\)</span> than the other. You should not place too much emphasis on this metric. <strong>Objective: maximize</strong></p></li>
+<li>The number of trees in the forest</li>
+<li>The number of features to consider at any given split: <span class="math inline">\(m\)</span>
+</li>
+<li>The complexity of each tree</li>
 </ul>
 <p> </p>
-</div>
-<div id="classification-metrics" class="section level4 unnumbered">
-<h4>Classification Metrics<a class="anchor" aria-label="anchor" href="#classification-metrics"><i class="fas fa-link"></i></a>
-</h4>
-<p>Before we discuss evaluation metrics for classification problems, I would like to introduce a <strong>confusion matrix</strong>. In the field of statistics and machine learning, a confusion matrix is a table that visualizes the performance of a model. Each row of the confusion matrix represents the instances in an actual class while each column represents the instances in a predicted class, or vice versa (both variants are accepted and found in the literature).</p>
-<p>It is a special kind of contingency table, with two dimensions (“actual” and “predicted”), and identical sets of “classes” in both dimensions (each combination of dimension and class is a variable in the contingency table):</p>
-<div class="inline-figure"><img src="images/conf.jpg" width="100%"></div>
-<ul>
-<li>
-<strong>Accuracy:</strong> accuracy tells you, overall, how often the classifier is correct.</li>
-</ul>
+<p><strong>Number of trees</strong></p>
+<p>The first consideration is the number of trees within your random forest. Although not technically a hyperparameter, the number of trees needs to be sufficiently large to stabilize the error rate. A good rule of thumb is to start with 10 times the number of features. However, as you adjust other hyperparameters such as <span class="math inline">\(m\)</span> and node size, more or fewer trees may be required. More trees provide more robust and stable error estimates and variable importance measures; however, the impact on computation time increases linearly with the number of trees.</p>
 <p> </p>
-<p><span class="math display">\[\begin{align*}
-Accuracy = \frac{TP + TN}{Total}
-\end{align*}\]</span></p>
+<p><strong>The number of features to consider at any given split: <span class="math inline">\(m\)</span></strong></p>
+<p>The hyperparameter that controls the split-variable randomization feature of random forests is often referred to as <span class="math inline">\(m\)</span> and it helps to balance low tree correlation with reasonable predictive strength. With regression problems the default value is often <span class="math inline">\(m = p/3\)</span> and for classification <span class="math inline">\(m = \sqrt{p}\)</span>. However, when there are fewer relevant predictors (e.g., noisy data) a higher value of <span class="math inline">\(m\)</span> tends to perform better because it makes it more likely to select those features with the strongest signal. When there are many relevant predictors, a lower <span class="math inline">\(m\)</span> might perform better.</p>
 <p> </p>
-<div class="inline-figure"><img src="images/conf2.jpg" width="100%"></div>
-<ul>
-<li>
-<strong>Sensitivity (aka Recall):</strong> sensitivity tells you how accurately the classifier classifies actual events.</li>
-</ul>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-Sensitivity = \frac{TP}{TP + FN}
-\end{align*}\]</span></p>
-<p> </p>
-<ul>
-<li>
-<strong>Specificity:</strong> specificity tells you how accurately the classifier classifies actual non-events.</li>
-</ul>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-Specificity = \frac{TN}{FP + TN}
-\end{align*}\]</span></p>
-<p> </p>
-<ul>
-<li>
-<strong>Precision:</strong> precision tells you how accurately the classifier predicts actual events.</li>
-</ul>
-<p> </p>
-<p><span class="math display">\[\begin{align*}
-Precision = \frac{TP}{TP + FP}
-\end{align*}\]</span></p>
-<p> </p>
+<p><strong>The complexity of each tree</strong></p>
+<p>Random forests are built on individual decision trees; consequently, most random forest implementations have one or more hyperparameters that allow us to control the depth and complexity of the individual trees. This will often include hyperparameters such as node size, max depth, max number of terminal nodes, or the required node size to allow additional splits.</p>
 
-</div>
 </div>
 </div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-18.html">Lecture 18</a></div>
-<div class="next"><a href="lecture-20.html">Lecture 20</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#lecture-19">Lecture 19</a></li>
 <li>
-<a class="nav-link" href="#resampling-methods">Resampling Methods</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#data-splitting">Data Splitting</a></li>
-<li><a class="nav-link" href="#model-evaluation">Model Evaluation</a></li>
+<a class="nav-link" href="#decision-trees">Decision Trees</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#structure">Structure</a></li>
+<li><a class="nav-link" href="#partitioning">Partitioning</a></li>
+<li><a class="nav-link" href="#tree-depth">Tree Depth</a></li>
+<li><a class="nav-link" href="#early-stopping">Early Stopping</a></li>
+<li><a class="nav-link" href="#pruning">Pruning</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#random-forest">Random Forest</a></li>
 </ul>
 
       <div class="book-extra">
@@ -229,7 +216,7 @@ Precision = \frac{TP}{TP + FP}
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-11-29.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

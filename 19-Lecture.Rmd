@@ -24,15 +24,21 @@ The subgroups (also called **nodes**) are formed recursively using binary partit
 
 In essence, our tree is a set of rules that allows us to make predictions by asking simple yes-or-no questions about each feature. Consider the following example: suppose you are interested in predicting whether or not a customer will redeem a coupon (`yes` or `no`) based on the customer’s loyalty, household income, last month’s spend, coupon placement, and shopping mode. You can build a decision tree to make these predictions. The tree diagram given in the figure below depicts such a model:
 
-<img src="images/tree.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/tree.jpg")
+```
 
 For example, based on this decision tree, we predict that if the customer is loyal, has household income greater than $150,000, and is shopping in a store, then the customer will redeem a coupon.
 
-<img src="images/tree2.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/tree2.jpg")
+```
 
 We refer to the first subgroup at the top of the tree as the **root node** (this node contains all of the training data). The final subgroups at the bottom of the tree are called the **terminal nodes** or **leaves**. Every subgroup in between is referred to as an **internal node**. The connections between nodes are called **branches**:
 
-<img src="images/tree3.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/tree3.jpg")
+```
 
 &nbsp;
 
@@ -56,11 +62,15 @@ Having found the best feature/split combination, the data are partitioned into t
 
 It’s important to note that a single feature can be used multiple times in a tree. For example, say we have data generated from a simple **_sin_** function with Gaussian noise: $Y_i \sim N(sin(X_i), \sigma^2)$ for $i = 1, 2, 3, \dots, 500$. A regression tree built with a single root node (often referred to as a decision stump) leads to a split occurring at $x = 3.1$.
 
-<img src="images/tree4.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/tree4.jpg")
+```
 
 If we build a deeper tree, we’ll continue to split on the same feature ($x$) as illustrated in the figure below. This is because $x$ is the only feature available to split on so it will continue finding the optimal splits along this feature’s values until a pre-determined stopping criteria is reached. 
 
-<img src="images/tree5.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/tree5.jpg")
+```
 
 However, even when many features are available, a single feature may still dominate if it continues to provide the best split after each successive partition. 
 
@@ -70,7 +80,9 @@ However, even when many features are available, a single feature may still domin
 
 This leads to an important question: how deep (i.e., complex) should we make the tree? If we grow an overly complex tree as illustrated below, we tend to overfit to our training data resulting in poor generalization performance:
 
-<img src="images/tree6.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/tree6.jpg")
+```
 
 Consequently, there is a balance to be achieved in the depth and complexity of the tree to optimize predictive performance on future unseen data. To find this balance, we have two primary approaches: (1) early stopping and (2) pruning.
 
@@ -84,7 +96,9 @@ When restricting minimum terminal node size (e.g., leaf nodes must contain at le
 
 These two approaches can be implemented independently of one another; however, they do have interaction effects as illustrated in the figure below: The columns illustrate how tree depth impacts the decision boundary and the rows illustrate how the minimum number of observations in the terminal node influences the decision boundary.
 
-<img src="images/tree7.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/tree7.jpg")
+```
 
 &nbsp;
 
@@ -100,7 +114,9 @@ For a given value of $\alpha$ we find the smallest pruned tree that has the lowe
 
 The figure below illustrates the pruning results: we grow an overly complex tree (left) and then use a cost complexity parameter to identify the optimal subtree (right):
 
-<img src="images/tree8.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/tree8.jpg")
+```
 
 
 &nbsp;
@@ -123,7 +139,9 @@ _Random forests_ are a modification of bagged decision trees that build a large 
 
 More specifically, while growing a decision tree during the bagging process, random forests perform split-variable randomization where each time a split is to be performed, the search for the split variable is limited to a random subset of $m$ of the original _p_ features. Typical default values are $m = p/3$ (regression) and $m = \sqrt{p}$ (classification) but this should be considered a tuning parameter.
 
-<img src="images/rf.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/rf.jpg")
+```
 
 #### Hyperparameters {-}
 
