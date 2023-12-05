@@ -6,15 +6,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Lecture 20 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
-<meta name="description" content="  Decision Trees Tree-based models are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response...">
+<meta name="description" content="  Resampling Methods: Example In this lecture, we are going to illustrate a model-building and evaluation processes using resampling methods. To do so, we will utilize rsample and caret packages....">
 <meta name="generator" content="bookdown 0.32 with bs4_book()">
 <meta property="og:title" content="Lecture 20 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-20.html">
-<meta property="og:description" content="  Decision Trees Tree-based models are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response...">
+<meta property="og:description" content="  Resampling Methods: Example In this lecture, we are going to illustrate a model-building and evaluation processes using resampling methods. To do so, we will utilize rsample and caret packages....">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lecture 20 | STAT 2102: Applied Statistical Computing">
-<meta name="twitter:description" content="  Decision Trees Tree-based models are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response...">
+<meta name="twitter:description" content="  Resampling Methods: Example In this lecture, we are going to illustrate a model-building and evaluation processes using resampling methods. To do so, we will utilize rsample and caret packages....">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -45,6 +45,7 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">BASE R</li>
 <li><a class="" href="lecture-01.html">Lecture 01</a></li>
 <li><a class="" href="lecture-02.html">Lecture 02</a></li>
 <li><a class="" href="lecture-03.html">Lecture 03</a></li>
@@ -54,18 +55,19 @@
 <li><a class="" href="lecture-07.html">Lecture 07</a></li>
 <li><a class="" href="lecture-08.html">Lecture 08</a></li>
 <li><a class="" href="lecture-09.html">Lecture 09</a></li>
+<li class="book-part">TIDYVERSE</li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
 <li><a class="" href="lecture-11.html">Lecture 11</a></li>
 <li><a class="" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="" href="lecture-13.html">Lecture 13</a></li>
 <li><a class="" href="lecture-14.html">Lecture 14</a></li>
+<li class="book-part">STATISTICAL ANALYSIS</li>
 <li><a class="" href="lecture-15.html">Lecture 15</a></li>
 <li><a class="" href="lecture-16.html">Lecture 16</a></li>
 <li><a class="" href="lecture-17.html">Lecture 17</a></li>
 <li><a class="" href="lecture-18.html">Lecture 18</a></li>
 <li><a class="" href="lecture-19.html">Lecture 19</a></li>
 <li><a class="active" href="lecture-20.html">Lecture 20</a></li>
-<li><a class="" href="lecture-21.html">Lecture 21</a></li>
 </ul>
 
         <div class="book-extra">
@@ -77,127 +79,722 @@
 <h1>Lecture 20<a class="anchor" aria-label="anchor" href="#lecture-20"><i class="fas fa-link"></i></a>
 </h1>
 <p> </p>
-<div id="decision-trees" class="section level2 unnumbered">
-<h2>Decision Trees<a class="anchor" aria-label="anchor" href="#decision-trees"><i class="fas fa-link"></i></a>
+<div id="resampling-methods-example" class="section level2 unnumbered">
+<h2>Resampling Methods: Example<a class="anchor" aria-label="anchor" href="#resampling-methods-example"><i class="fas fa-link"></i></a>
 </h2>
-<p><strong>Tree-based models</strong> are a class of nonparametric algorithms that work by partitioning the feature space into a number of smaller (non-overlapping) regions with similar response values using a set of <strong>splitting rules</strong>. Predictions are obtained by fitting a simpler model (e.g., a constant like the average response value) in each region.</p>
-<p>Such methods can produce simple rules that are easy to interpret and visualize with tree diagrams. As we’ll see, decision trees offer many benefits; however, they typically lack in predictive performance compared to more complex algorithms such as neural networks.</p>
-<p> </p>
-<div id="structure" class="section level3 unnumbered">
-<h3>Structure<a class="anchor" aria-label="anchor" href="#structure"><i class="fas fa-link"></i></a>
-</h3>
-<p>There are many methodologies for constructing decision trees but the most well-known is the <strong>Classification and Regression Tree (CART)</strong> algorithm. A basic decision tree partitions the training data into homogeneous subgroups (i.e., groups with similar response values) and then fits a <strong>simple constant</strong> in each subgroup (e.g., the mean of the within group response values for regression).</p>
-<p>The subgroups (also called <strong>nodes</strong>) are formed recursively using binary partitions formed by asking simple yes-or-no questions about each feature (e.g., is <code>age &lt; 18?</code>). This is done a number of times until a suitable stopping criteria is satisfied (e.g., a maximum depth of the tree is reached). After all the partitioning has been done, the model predicts the output based on (1) the average response values for all observations that fall in that subgroup (regression problem), or (2) the class that has majority representation (classification problem).</p>
-<p>In essence, our tree is a set of rules that allows us to make predictions by asking simple yes-or-no questions about each feature. Consider the following example: suppose you are interested in predicting whether or not a customer will redeem a coupon (<code>yes</code> or <code>no</code>) based on the customer’s loyalty, household income, last month’s spend, coupon placement, and shopping mode. You can build a decision tree to make these predictions. The tree diagram given in the figure below depicts such a model:</p>
-<div class="inline-figure"><img src="images/tree.jpg" width="100%"></div>
-<p>For example, based on this decision tree, we predict that if the customer is loyal, has household income greater than $150,000, and is shopping in a store, then the customer will redeem a coupon.</p>
-<div class="inline-figure"><img src="images/tree2.jpg" width="100%"></div>
-<p>We refer to the first subgroup at the top of the tree as the <strong>root node</strong> (this node contains all of the training data). The final subgroups at the bottom of the tree are called the <strong>terminal nodes</strong> or <strong>leaves</strong>. Every subgroup in between is referred to as an <strong>internal node</strong>. The connections between nodes are called <strong>branches</strong>:</p>
-<div class="inline-figure"><img src="images/tree3.jpg" width="100%"></div>
-<p> </p>
-</div>
-<div id="partitioning" class="section level3 unnumbered">
-<h3>Partitioning<a class="anchor" aria-label="anchor" href="#partitioning"><i class="fas fa-link"></i></a>
-</h3>
-<p>As illustrated above, CART uses <strong>binary recursive partitioning</strong> (it’s recursive because each split or rule depends on the the splits above it). The objective at each node is to find the “best” feature (<span class="math inline">\(x_i\)</span>) to partition the remaining data into one of two regions (<span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span>) such that the overall error between the actual response (<span class="math inline">\(y_i\)</span>) and the predictor constant (<span class="math inline">\(c_i\)</span>) is minimized. For regression problems, the objective function to minimize is the total SSE as defined below:</p>
-<p><span class="math display">\[\begin{align*}
-SSE = \sum_{i \in R_1}(y_i - c_1)^2 + \sum_{i \in R_2}(y_i - c_2)^2
-\end{align*}\]</span></p>
-<p>For classification problems, the partitioning is usually made to maximize the reduction in <strong>cross-entropy</strong> or the <strong>Gini index</strong> (aka <strong>Gini impurity</strong>). Gini index measures the degree or probability of a particular variable being wrongly classified when it is randomly chosen and is given by</p>
-<p><span class="math display">\[\begin{align*}
-Gini = 1 - \sum_{i = 1}^{n}(p_i)^2
-\end{align*}\]</span></p>
-<p>where <span class="math inline">\(p_i\)</span> is the probability of an object being classified to a particular class.</p>
-<p>Having found the best feature/split combination, the data are partitioned into two regions and the splitting process is repeated on each of the two regions (hence the name binary recursive partitioning). This process is continued until a suitable stopping criterion is reached (e.g., a maximum depth is reached or the tree becomes “too complex”).</p>
-<p>It’s important to note that a single feature can be used multiple times in a tree. For example, say we have data generated from a simple <strong><em>sin</em></strong> function with Gaussian noise: <span class="math inline">\(Y_i \sim N(sin(X_i), \sigma^2)\)</span> for <span class="math inline">\(i = 1, 2, 3, \dots, 500\)</span>. A regression tree built with a single root node (often referred to as a decision stump) leads to a split occurring at <span class="math inline">\(x = 3.1\)</span>.</p>
-<div class="inline-figure"><img src="images/tree4.jpg" width="100%"></div>
-<p>If we build a deeper tree, we’ll continue to split on the same feature (<span class="math inline">\(x\)</span>) as illustrated in the figure below. This is because <span class="math inline">\(x\)</span> is the only feature available to split on so it will continue finding the optimal splits along this feature’s values until a pre-determined stopping criteria is reached.</p>
-<div class="inline-figure"><img src="images/tree5.jpg" width="100%"></div>
-<p>However, even when many features are available, a single feature may still dominate if it continues to provide the best split after each successive partition.</p>
-<p> </p>
-</div>
-<div id="tree-depth" class="section level3 unnumbered">
-<h3>Tree Depth<a class="anchor" aria-label="anchor" href="#tree-depth"><i class="fas fa-link"></i></a>
-</h3>
-<p>This leads to an important question: how deep (i.e., complex) should we make the tree? If we grow an overly complex tree as illustrated below, we tend to overfit to our training data resulting in poor generalization performance:</p>
-<div class="inline-figure"><img src="images/tree6.jpg" width="100%"></div>
-<p>Consequently, there is a balance to be achieved in the depth and complexity of the tree to optimize predictive performance on future unseen data. To find this balance, we have two primary approaches: (1) early stopping and (2) pruning.</p>
-<p> </p>
-</div>
-<div id="early-stopping" class="section level3 unnumbered">
-<h3>Early Stopping<a class="anchor" aria-label="anchor" href="#early-stopping"><i class="fas fa-link"></i></a>
-</h3>
-<p>Early stopping explicitly restricts the growth of the tree. There are several ways we can restrict tree growth but two of the most common approaches are to restrict the tree depth to a certain level or to restrict the minimum number of observations allowed in any terminal node. When limiting tree depth we stop splitting after a certain depth (e.g., only grow a tree that has a depth of 5 levels). The shallower the tree the less variance we have in our predictions; however, at some point we can start to inject too much bias as shallow trees (e.g., stumps) are not able to capture interactions and complex patterns in our data.</p>
-<p>When restricting minimum terminal node size (e.g., leaf nodes must contain at least 10 observations for predictions) we are deciding to not split intermediate nodes which contain too few data points. At the far end of the spectrum, a terminal node’s size of one allows for a single observation to be captured in the leaf node and used as a prediction (in this case, we’re interpolating the training data). This results in high variance and poor generalizability. On the other hand, large values restrict further splits therefore reducing variance.</p>
-<p>These two approaches can be implemented independently of one another; however, they do have interaction effects as illustrated in the figure below: The columns illustrate how tree depth impacts the decision boundary and the rows illustrate how the minimum number of observations in the terminal node influences the decision boundary.</p>
-<div class="inline-figure"><img src="images/tree7.jpg" width="100%"></div>
-<p> </p>
-</div>
-<div id="pruning" class="section level3 unnumbered">
-<h3>Pruning<a class="anchor" aria-label="anchor" href="#pruning"><i class="fas fa-link"></i></a>
-</h3>
-<p>An alternative to explicitly specifying the depth of a decision tree is to grow a very large, complex tree and then <strong>prune</strong> it back to find an optimal subtree. We find the optimal subtree by using a <strong>cost complexity parameter</strong> (<span class="math inline">\(\alpha\)</span>) that penalizes our objective function (defined in the <em>Partitioning</em> section) for the number of terminal nodes of the tree (<span class="math inline">\(T\)</span>) as follows:</p>
-<p><span class="math display">\[\begin{align*}
-minimize \{SSE + \alpha|T|\}
-\end{align*}\]</span></p>
-<p>For a given value of <span class="math inline">\(\alpha\)</span> we find the smallest pruned tree that has the lowest penalized error. Smaller penalties tend to produce more complex models, which result in larger trees. Whereas larger penalties result in much smaller trees. Consequently, as a tree grows larger, the reduction in the SSE must be greater than the cost complexity penalty. Typically, we evaluate multiple models across a spectrum of <span class="math inline">\(\alpha\)</span> and use CV to identify the optimal value and, therefore, the optimal subtree that generalizes best to unseen data.</p>
-<p>The figure below illustrates the pruning results: we grow an overly complex tree (left) and then use a cost complexity parameter to identify the optimal subtree (right):</p>
-<div class="inline-figure"><img src="images/tree8.jpg" width="100%"></div>
-<p> </p>
-</div>
-</div>
-<div id="random-forest" class="section level2 unnumbered">
-<h2>Random Forest<a class="anchor" aria-label="anchor" href="#random-forest"><i class="fas fa-link"></i></a>
-</h2>
-<p>Before we introduce a random forest method, let’s describe <strong>bagging</strong>. <strong>Bootstrap aggregating (bagging)</strong> prediction models is a general method for fitting multiple versions of a prediction model and then combining (or ensembling) them into an aggregated prediction.</p>
-<p>Bagging is a fairly straight forward algorithm in which <em>b</em> bootstrap copies of the original training data are created, the regression or classification algorithm (commonly referred to as the <strong>base learner</strong>) is applied to each bootstrap sample and, in the regression context, new predictions are made by averaging the predictions together from the individual base learners. When dealing with a classification problem, the base learner predictions are combined using plurality vote or by averaging the estimated class probabilities together.</p>
-<p>Because of the aggregation process, bagging effectively reduces the variance of an individual base learner (i.e., averaging reduces variance). The general idea behind bagging is referred to as the “wisdom of the crowd” effect. It essentially means that the aggregation of information in large diverse groups results in decisions that are often better than could have been made by any single member of the group. The more diverse the group members are then the more diverse their perspectives and predictions will be, which often leads to better aggregated information.</p>
-<p>However, when bagging trees, a problem still exists. Although the model building steps are independent, the trees in bagging are not completely independent of each other since all the original features are considered at every split of every tree. Rather, trees from different bootstrap samples typically have similar structure to each other (especially at the top of the tree) due to any underlying strong relationships.</p>
-<p>This characteristic is known as <strong>tree correlation</strong> and prevents bagging from further reducing the variance of the base learner. Now we will discuss how <strong>random forests</strong> extend and improve upon bagged decision trees by reducing this correlation and thereby improving the accuracy of the overall ensemble.</p>
-<hr>
-<p><em>Random forests</em> are a modification of bagged decision trees that build a large collection of de-correlated trees to further improve predictive performance. Random forests help to reduce tree correlation by injecting more randomness into the tree-growing process.</p>
-<p>More specifically, while growing a decision tree during the bagging process, random forests perform split-variable randomization where each time a split is to be performed, the search for the split variable is limited to a random subset of <span class="math inline">\(m\)</span> of the original <em>p</em> features. Typical default values are <span class="math inline">\(m = p/3\)</span> (regression) and <span class="math inline">\(m = \sqrt{p}\)</span> (classification) but this should be considered a tuning parameter.</p>
-<div class="inline-figure"><img src="images/rf.jpg" width="100%"></div>
-<div id="hyperparameters" class="section level4 unnumbered">
-<h4>Hyperparameters<a class="anchor" aria-label="anchor" href="#hyperparameters"><i class="fas fa-link"></i></a>
-</h4>
-<p>There are several tunable hyperparameters that we should consider when training a model:</p>
+<p>In this lecture, we are going to illustrate a model-building and evaluation processes using resampling methods. To do so, we will utilize <code>rsample</code> and <code>caret</code> packages. As mentioned earlier, <code>rsample</code> package is a part of the family of packages <code>tidymodels</code>, thus, installing and loading <code>tidymodels</code> package should be enough to activate it.</p>
+<p>Similarly, if you have not done it yet, first install the <code>caret</code> package in your machine. Then, you can load/activate both packages using a <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function as shown below:</p>
+<div class="sourceCode" id="cb469"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── Attaching packages ────────────────── tidymodels 1.0.0 ──</span></span>
+<span><span class="co">#&gt; ✔ broom        1.0.1      ✔ recipes      1.0.3 </span></span>
+<span><span class="co">#&gt; ✔ dials        1.1.0      ✔ rsample      1.1.0 </span></span>
+<span><span class="co">#&gt; ✔ dplyr        1.0.10     ✔ tibble       3.1.8 </span></span>
+<span><span class="co">#&gt; ✔ ggplot2      3.4.4      ✔ tidyr        1.3.0 </span></span>
+<span><span class="co">#&gt; ✔ infer        1.0.3      ✔ tune         1.0.1 </span></span>
+<span><span class="co">#&gt; ✔ modeldata    1.0.1      ✔ workflows    1.1.0 </span></span>
+<span><span class="co">#&gt; ✔ parsnip      1.0.3      ✔ workflowsets 1.0.0 </span></span>
+<span><span class="co">#&gt; ✔ purrr        1.0.2      ✔ yardstick    1.1.0</span></span>
+<span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'purrr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; Warning: package 'tidyr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; ── Conflicts ───────────────────── tidymodels_conflicts() ──</span></span>
+<span><span class="co">#&gt; ✖ purrr::discard() masks scales::discard()</span></span>
+<span><span class="co">#&gt; ✖ dplyr::filter()  masks stats::filter()</span></span>
+<span><span class="co">#&gt; ✖ dplyr::lag()     masks stats::lag()</span></span>
+<span><span class="co">#&gt; ✖ recipes::step()  masks stats::step()</span></span>
+<span><span class="co">#&gt; • Dig deeper into tidy modeling with R at https://www.tmwr.org</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/topepo/caret/">caret</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: lattice</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'caret'</span></span>
+<span><span class="co">#&gt; The following objects are masked from 'package:yardstick':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     precision, recall, sensitivity, specificity</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:purrr':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     lift</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── Attaching packages</span></span>
+<span><span class="co">#&gt; ─────────────────── tidyverse 1.3.2 ──</span></span>
+<span><span class="co">#&gt; ✔ readr   2.1.3     ✔ forcats 0.5.2</span></span>
+<span><span class="co">#&gt; ✔ stringr 1.5.0</span></span>
+<span><span class="co">#&gt; Warning: package 'stringr' was built under R version 4.2.3</span></span>
+<span><span class="co">#&gt; ── Conflicts ────────────────────── tidyverse_conflicts() ──</span></span>
+<span><span class="co">#&gt; ✖ readr::col_factor() masks scales::col_factor()</span></span>
+<span><span class="co">#&gt; ✖ purrr::discard()    masks scales::discard()</span></span>
+<span><span class="co">#&gt; ✖ dplyr::filter()     masks stats::filter()</span></span>
+<span><span class="co">#&gt; ✖ stringr::fixed()    masks recipes::fixed()</span></span>
+<span><span class="co">#&gt; ✖ dplyr::lag()        masks stats::lag()</span></span>
+<span><span class="co">#&gt; ✖ caret::lift()       masks purrr::lift()</span></span>
+<span><span class="co">#&gt; ✖ readr::spec()       masks yardstick::spec()</span></span></code></pre></div>
+<p>The <code>caret</code> package (short for <strong>C</strong>lassification <strong>A</strong>nd <strong>RE</strong>gression <strong>T</strong>raining) is a set of functions that attempt to streamline the process for creating predictive models. The package contains tools for:</p>
 <ul>
-<li>The number of trees in the forest</li>
-<li>The number of features to consider at any given split: <span class="math inline">\(m\)</span>
-</li>
-<li>The complexity of each tree</li>
+<li>Data splitting</li>
+<li>Pre-processing</li>
+<li>Feature selection</li>
+<li>Model tuning using resampling</li>
+<li>Variable importance estimation</li>
+<li>And more</li>
+</ul>
+<p>There are many different modeling functions in R. Some have different syntax for model training and/or prediction. The package started off as a way to provide a uniform interface the functions themselves, as well as a way to standardize common tasks (such as parameter tuning and variable importance).</p>
+<p>To illustrate a model-building and evaluations procedures, we will use <code>sonar.csv</code> dataset (available on Courseworks). This is the data set used by Gorman and Sejnowski in their study of the classification of sonar signals. It contains 61 variables and 208 observations. Each observation is a set f 60 numbers in the range 0.0 to 1.0. Each number represents the energy within a particular frequency band, integrated over a certain period of time. The integration aperture for higher frequencies occur later in time, since these frequencies are transmitted later during the chirp.</p>
+<p>The response variable <code>Class</code> has two levels: <code>R</code> if the object is a rock and <code>M</code> if it is a mine (mental cylinder).</p>
+<p>Our goal is to build a predictive model that will predict a class (<code>R</code> or <code>M</code>) of an observation. We will do it using a random forest method.</p>
+<p> </p>
+<div id="data-splitting-2" class="section level3 unnumbered">
+<h3>Data Splitting<a class="anchor" aria-label="anchor" href="#data-splitting-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>As mentioned in <strong>Lecture 19</strong>, we can split our data into training and test data sets to provide an accurate understanding of the generalizability of our final optimal model: training set is used to develop feature sets, train our algorithms, tune hyperparameters, compare models, and all of the other activities required to choose a final model; test set is used to estimate an unbiased assessment of the model’s performance, which we refer to as the <em>generalization error</em>.</p>
+<p>In our example, we will use a stratified sampling method to preserve the underlying distribution of the response variable <code>Class</code>. 65% of the original data will be used to train the model and tune its parameters, and the remaining 35% will be used to assess its performance.</p>
+<p><strong>Note:</strong> It is fair to say that a simple random sample method will be equally good in this example, because the <code>Class</code> variable is not severely imbalanced.</p>
+<div class="sourceCode" id="cb470"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">data_split</span> <span class="op">&lt;-</span> <span class="va">Sonar</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">initial_split</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.65</span>, strata <span class="op">=</span> <span class="va">Class</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_training</span> <span class="op">&lt;-</span> <span class="va">data_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">training</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_test</span> <span class="op">&lt;-</span> <span class="va">data_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">testing</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>You’ve noticed that the sampling indices are chosen using random numbers, that is, observations are randomly selected into the sample. If you or someone else need to reproduce your results later, then you have to ensure that the same samples will be used between calls. This can be done using <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function:</p>
+<div class="sourceCode" id="cb471"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">data_split</span> <span class="op">&lt;-</span> <span class="va">Sonar</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">initial_split</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.65</span>, strata <span class="op">=</span> <span class="va">Class</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_training</span> <span class="op">&lt;-</span> <span class="va">data_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">training</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_test</span> <span class="op">&lt;-</span> <span class="va">data_split</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu">testing</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p> </p>
+</div>
+<div id="model-training-and-parameter-tuning" class="section level3 unnumbered">
+<h3>Model Training and Parameter Tuning<a class="anchor" aria-label="anchor" href="#model-training-and-parameter-tuning"><i class="fas fa-link"></i></a>
+</h3>
+<p>The model-training process starts with a parameter tuning procedure. As mentioned in the previous lecture, a random forest method has multiple hyperparameters and optimal values for these parameters must be chosen in order to achieve a better performance. In other words, we have to choose a combination of hyperparameter values that enhances the model’s performance.</p>
+<p>We are going to consider the following hyperparameters: splitting rule (<code>splitrule</code>), minimal node size to split at (<code>min.node.size</code>), and a number of variables to possibly split at in each node (<code>mtry</code>).</p>
+<p>The tuning parameter grid can be specified by the user. Suppose we have the following set of values for our hyperparameters: <code>splitrule = {"gini", "extratrees"}</code>, <code>min.node.size = {5, 7, 9, 11, 13}</code>, <code>mtry = {13, 15, 17, 19, 21, 23, 25}</code>. Use <code><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid()</a></code> function to create all possible combinations of these parameters:</p>
+<div class="sourceCode" id="cb472"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">rf_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid</a></span><span class="op">(</span>.mtry <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">13</span>, <span class="fl">15</span>, <span class="fl">17</span>, <span class="fl">19</span>, <span class="fl">21</span>, <span class="fl">23</span>, <span class="fl">25</span><span class="op">)</span>,</span>
+<span>                        </span>
+<span>                       .min.node.size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">9</span>, <span class="fl">11</span>, <span class="fl">13</span><span class="op">)</span>,</span>
+<span>                        </span>
+<span>                       .splitrule <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"gini"</span>, <span class="st">"extratrees"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>This approach is called <em>full Cartesian grid searches</em> where we assess every combination of hyperparameters of interest:</p>
+<div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">rf_grid</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    .mtry .min.node.size .splitrule</span></span>
+<span><span class="co">#&gt; 1     13              5       gini</span></span>
+<span><span class="co">#&gt; 2     15              5       gini</span></span>
+<span><span class="co">#&gt; 3     17              5       gini</span></span>
+<span><span class="co">#&gt; 4     19              5       gini</span></span>
+<span><span class="co">#&gt; 5     21              5       gini</span></span>
+<span><span class="co">#&gt; 6     23              5       gini</span></span>
+<span><span class="co">#&gt; 7     25              5       gini</span></span>
+<span><span class="co">#&gt; 8     13              7       gini</span></span>
+<span><span class="co">#&gt; 9     15              7       gini</span></span>
+<span><span class="co">#&gt; 10    17              7       gini</span></span>
+<span><span class="co">#&gt; 11    19              7       gini</span></span>
+<span><span class="co">#&gt; 12    21              7       gini</span></span>
+<span><span class="co">#&gt; 13    23              7       gini</span></span>
+<span><span class="co">#&gt; 14    25              7       gini</span></span>
+<span><span class="co">#&gt; 15    13              9       gini</span></span>
+<span><span class="co">#&gt; 16    15              9       gini</span></span>
+<span><span class="co">#&gt; 17    17              9       gini</span></span>
+<span><span class="co">#&gt; 18    19              9       gini</span></span>
+<span><span class="co">#&gt; 19    21              9       gini</span></span>
+<span><span class="co">#&gt; 20    23              9       gini</span></span>
+<span><span class="co">#&gt; 21    25              9       gini</span></span>
+<span><span class="co">#&gt; 22    13             11       gini</span></span>
+<span><span class="co">#&gt; 23    15             11       gini</span></span>
+<span><span class="co">#&gt; 24    17             11       gini</span></span>
+<span><span class="co">#&gt; 25    19             11       gini</span></span>
+<span><span class="co">#&gt; 26    21             11       gini</span></span>
+<span><span class="co">#&gt; 27    23             11       gini</span></span>
+<span><span class="co">#&gt; 28    25             11       gini</span></span>
+<span><span class="co">#&gt; 29    13             13       gini</span></span>
+<span><span class="co">#&gt; 30    15             13       gini</span></span>
+<span><span class="co">#&gt; 31    17             13       gini</span></span>
+<span><span class="co">#&gt; 32    19             13       gini</span></span>
+<span><span class="co">#&gt; 33    21             13       gini</span></span>
+<span><span class="co">#&gt; 34    23             13       gini</span></span>
+<span><span class="co">#&gt; 35    25             13       gini</span></span>
+<span><span class="co">#&gt; 36    13              5 extratrees</span></span>
+<span><span class="co">#&gt; 37    15              5 extratrees</span></span>
+<span><span class="co">#&gt; 38    17              5 extratrees</span></span>
+<span><span class="co">#&gt; 39    19              5 extratrees</span></span>
+<span><span class="co">#&gt; 40    21              5 extratrees</span></span>
+<span><span class="co">#&gt; 41    23              5 extratrees</span></span>
+<span><span class="co">#&gt; 42    25              5 extratrees</span></span>
+<span><span class="co">#&gt; 43    13              7 extratrees</span></span>
+<span><span class="co">#&gt; 44    15              7 extratrees</span></span>
+<span><span class="co">#&gt; 45    17              7 extratrees</span></span>
+<span><span class="co">#&gt; 46    19              7 extratrees</span></span>
+<span><span class="co">#&gt; 47    21              7 extratrees</span></span>
+<span><span class="co">#&gt; 48    23              7 extratrees</span></span>
+<span><span class="co">#&gt; 49    25              7 extratrees</span></span>
+<span><span class="co">#&gt; 50    13              9 extratrees</span></span>
+<span><span class="co">#&gt; 51    15              9 extratrees</span></span>
+<span><span class="co">#&gt; 52    17              9 extratrees</span></span>
+<span><span class="co">#&gt; 53    19              9 extratrees</span></span>
+<span><span class="co">#&gt; 54    21              9 extratrees</span></span>
+<span><span class="co">#&gt; 55    23              9 extratrees</span></span>
+<span><span class="co">#&gt; 56    25              9 extratrees</span></span>
+<span><span class="co">#&gt; 57    13             11 extratrees</span></span>
+<span><span class="co">#&gt; 58    15             11 extratrees</span></span>
+<span><span class="co">#&gt; 59    17             11 extratrees</span></span>
+<span><span class="co">#&gt; 60    19             11 extratrees</span></span>
+<span><span class="co">#&gt; 61    21             11 extratrees</span></span>
+<span><span class="co">#&gt; 62    23             11 extratrees</span></span>
+<span><span class="co">#&gt; 63    25             11 extratrees</span></span>
+<span><span class="co">#&gt; 64    13             13 extratrees</span></span>
+<span><span class="co">#&gt; 65    15             13 extratrees</span></span>
+<span><span class="co">#&gt; 66    17             13 extratrees</span></span>
+<span><span class="co">#&gt; 67    19             13 extratrees</span></span>
+<span><span class="co">#&gt; 68    21             13 extratrees</span></span>
+<span><span class="co">#&gt; 69    23             13 extratrees</span></span>
+<span><span class="co">#&gt; 70    25             13 extratrees</span></span></code></pre></div>
+<p>Next, we need to select a resampling method. It is done using a <code><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl()</a></code> function. This function has the following arguments:</p>
+<ul>
+<li>
+<code>method</code> - the resampling method: <code>boot</code>, <code>cv</code>, <code>LOOCV</code>, <code>LGOCV</code>, <code>repeatedcv</code>, and so on</li>
+<li>
+<code>number</code> and <code>repeats</code> - <code>number</code> controls the number of folds in <em>K</em>-fold cross validation or number of resampling iterations for bootstrapping and leave-group-out cross-validation. <code>repeats</code> applies only to repeated <em>K</em>-fold cross validation and indicates how many times it should be repeated</li>
+<li>
+<code>classProbs</code> - a logical value determining whether class probabilities should be computed for held-out samples during resample</li>
+<li>
+<code>summaryFunction</code> - a function to compute alternate performance summaries</li>
 </ul>
 <p> </p>
-<p><strong>Number of trees</strong></p>
-<p>The first consideration is the number of trees within your random forest. Although not technically a hyperparameter, the number of trees needs to be sufficiently large to stabilize the error rate. A good rule of thumb is to start with 10 times the number of features. However, as you adjust other hyperparameters such as <span class="math inline">\(m\)</span> and node size, more or fewer trees may be required. More trees provide more robust and stable error estimates and variable importance measures; however, the impact on computation time increases linearly with the number of trees.</p>
+<p>For instance, the following function performs 5-fold cross validation:</p>
+<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># keep classProbs and summaryFunction values as they are </span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fitControl_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>,</span>
+<span>                           </span>
+<span>                             number <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                           </span>
+<span>                             classProbs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                           </span>
+<span>                             summaryFunction <span class="op">=</span> <span class="va">twoClassSummary</span><span class="op">)</span></span></code></pre></div>
+<p>And the next function performs 10-fold cross validation:</p>
+<div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fitControl_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cv"</span>,</span>
+<span>                           </span>
+<span>                             number <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                           </span>
+<span>                             classProbs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                           </span>
+<span>                             summaryFunction <span class="op">=</span> <span class="va">twoClassSummary</span><span class="op">)</span></span></code></pre></div>
+<p>Use the following function if you want to perform a 5-fold cross validation repeated 7 times:</p>
+<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fitControl_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"repeatedcv"</span>,</span>
+<span>                           </span>
+<span>                             number <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                           </span>
+<span>                             repeats <span class="op">=</span> <span class="fl">7</span>,</span>
+<span>                           </span>
+<span>                             classProbs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                           </span>
+<span>                             summaryFunction <span class="op">=</span> <span class="va">twoClassSummary</span><span class="op">)</span></span></code></pre></div>
+<p>Finally, the next function can be utilized for generating 10 bootstrap samples:</p>
+<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fitControl_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"boot"</span>,</span>
+<span>                             </span>
+<span>                             number <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                             </span>
+<span>                             classProbs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                             </span>
+<span>                             summaryFunction <span class="op">=</span> <span class="va">twoClassSummary</span><span class="op">)</span></span></code></pre></div>
+<p>For our analysis we will stick with a 5-fold cross validation technique. In order to identify an optimal combination of hyperparameter values, that is to train the model, we will use a <code><a href="https://rdrr.io/pkg/caret/man/train.html">train()</a></code> function. After resampling, the <code>train</code> function produces a profile of performance measures to guide the user as to which tuning parameter values should be chosen:</p>
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">RF_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">data_training</span>,</span>
+<span>             </span>
+<span>             method <span class="op">=</span> <span class="st">"ranger"</span>,</span>
+<span>             </span>
+<span>             trControl <span class="op">=</span> <span class="va">fitControl_1</span>,</span>
+<span>             </span>
+<span>             verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>             </span>
+<span>             tuneGrid <span class="op">=</span> <span class="va">rf_grid</span>,</span>
+<span>             </span>
+<span>             metric <span class="op">=</span> <span class="st">"ROC"</span>,</span>
+<span>             </span>
+<span>             num.tree <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span></code></pre></div>
+<p>Note that <code>num.tree</code> is also a hyperparameter, but instead of tuning this parameter, we’ve decided to just give it a default value of 600. Here, method argument specifies a type of model you are going to use (in this case, <code>ranger</code> corresponds to a random forest model); keep <code>verbose</code> and <code>metric</code> arguments as they are.</p>
+<p>Model-training process might take some time, so be patient. After the process is complete, it will produce the following output:</p>
+<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">RF_model</span><span class="op">$</span><span class="va">results</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    mtry min.node.size  splitrule       ROC      Sens</span></span>
+<span><span class="co">#&gt; 1    13             5       gini 0.9006227 0.8733333</span></span>
+<span><span class="co">#&gt; 3    13             7       gini 0.9061905 0.8590476</span></span>
+<span><span class="co">#&gt; 5    13             9       gini 0.9110806 0.8733333</span></span>
+<span><span class="co">#&gt; 7    13            11       gini 0.8997802 0.8590476</span></span>
+<span><span class="co">#&gt; 9    13            13       gini 0.8990842 0.8590476</span></span>
+<span><span class="co">#&gt; 2    13             5 extratrees 0.9296886 0.9285714</span></span>
+<span><span class="co">#&gt; 4    13             7 extratrees 0.9229487 0.9142857</span></span>
+<span><span class="co">#&gt; 6    13             9 extratrees 0.9238645 0.9285714</span></span>
+<span><span class="co">#&gt; 8    13            11 extratrees 0.9308059 0.9285714</span></span>
+<span><span class="co">#&gt; 10   13            13 extratrees 0.9256777 0.9285714</span></span>
+<span><span class="co">#&gt; 11   15             5       gini 0.9039744 0.8457143</span></span>
+<span><span class="co">#&gt; 13   15             7       gini 0.9010440 0.8457143</span></span>
+<span><span class="co">#&gt; 15   15             9       gini 0.8984066 0.8733333</span></span>
+<span><span class="co">#&gt; 17   15            11       gini 0.8926190 0.8590476</span></span>
+<span><span class="co">#&gt; 19   15            13       gini 0.8960989 0.8733333</span></span>
+<span><span class="co">#&gt; 12   15             5 extratrees 0.9245421 0.9000000</span></span>
+<span><span class="co">#&gt; 14   15             7 extratrees 0.9318864 0.9142857</span></span>
+<span><span class="co">#&gt; 16   15             9 extratrees 0.9320696 0.9142857</span></span>
+<span><span class="co">#&gt; 18   15            11 extratrees 0.9253846 0.9142857</span></span>
+<span><span class="co">#&gt; 20   15            13 extratrees 0.9262821 0.9142857</span></span>
+<span><span class="co">#&gt; 21   17             5       gini 0.8919048 0.8590476</span></span>
+<span><span class="co">#&gt; 23   17             7       gini 0.8907875 0.8590476</span></span>
+<span><span class="co">#&gt; 25   17             9       gini 0.8952198 0.8457143</span></span>
+<span><span class="co">#&gt; 27   17            11       gini 0.9023443 0.8590476</span></span>
+<span><span class="co">#&gt; 29   17            13       gini 0.8968681 0.8457143</span></span>
+<span><span class="co">#&gt; 22   17             5 extratrees 0.9255128 0.9285714</span></span>
+<span><span class="co">#&gt; 24   17             7 extratrees 0.9292491 0.9142857</span></span>
+<span><span class="co">#&gt; 26   17             9 extratrees 0.9227106 0.9142857</span></span>
+<span><span class="co">#&gt; 28   17            11 extratrees 0.9268681 0.9142857</span></span>
+<span><span class="co">#&gt; 30   17            13 extratrees 0.9291758 0.9142857</span></span>
+<span><span class="co">#&gt; 31   19             5       gini 0.9004396 0.8590476</span></span>
+<span><span class="co">#&gt; 33   19             7       gini 0.9004212 0.8457143</span></span>
+<span><span class="co">#&gt; 35   19             9       gini 0.8973810 0.8590476</span></span>
+<span><span class="co">#&gt; 37   19            11       gini 0.8969597 0.8447619</span></span>
+<span><span class="co">#&gt; 39   19            13       gini 0.8998352 0.8590476</span></span>
+<span><span class="co">#&gt; 32   19             5 extratrees 0.9222344 0.9142857</span></span>
+<span><span class="co">#&gt; 34   19             7 extratrees 0.9241392 0.9285714</span></span>
+<span><span class="co">#&gt; 36   19             9 extratrees 0.9277289 0.9142857</span></span>
+<span><span class="co">#&gt; 38   19            11 extratrees 0.9251832 0.9009524</span></span>
+<span><span class="co">#&gt; 40   19            13 extratrees 0.9168132 0.9142857</span></span>
+<span><span class="co">#&gt; 41   21             5       gini 0.8973626 0.8590476</span></span>
+<span><span class="co">#&gt; 43   21             7       gini 0.8967399 0.8590476</span></span>
+<span><span class="co">#&gt; 45   21             9       gini 0.8962088 0.8590476</span></span>
+<span><span class="co">#&gt; 47   21            11       gini 0.8930952 0.8590476</span></span>
+<span><span class="co">#&gt; 49   21            13       gini 0.8890293 0.8590476</span></span>
+<span><span class="co">#&gt; 42   21             5 extratrees 0.9304029 0.9152381</span></span>
+<span><span class="co">#&gt; 44   21             7 extratrees 0.9204945 0.9142857</span></span>
+<span><span class="co">#&gt; 46   21             9 extratrees 0.9162271 0.9285714</span></span>
+<span><span class="co">#&gt; 48   21            11 extratrees 0.9199817 0.9142857</span></span>
+<span><span class="co">#&gt; 50   21            13 extratrees 0.9169780 0.9142857</span></span>
+<span><span class="co">#&gt; 51   23             5       gini 0.8963919 0.8457143</span></span>
+<span><span class="co">#&gt; 53   23             7       gini 0.9016484 0.8590476</span></span>
+<span><span class="co">#&gt; 55   23             9       gini 0.8971429 0.8457143</span></span>
+<span><span class="co">#&gt; 57   23            11       gini 0.8969597 0.8590476</span></span>
+<span><span class="co">#&gt; 59   23            13       gini 0.8933333 0.8457143</span></span>
+<span><span class="co">#&gt; 52   23             5 extratrees 0.9318681 0.9000000</span></span>
+<span><span class="co">#&gt; 54   23             7 extratrees 0.9243223 0.9142857</span></span>
+<span><span class="co">#&gt; 56   23             9 extratrees 0.9267766 0.9142857</span></span>
+<span><span class="co">#&gt; 58   23            11 extratrees 0.9266850 0.9285714</span></span>
+<span><span class="co">#&gt; 60   23            13 extratrees 0.9187912 0.9009524</span></span>
+<span><span class="co">#&gt; 61   25             5       gini 0.8959158 0.8590476</span></span>
+<span><span class="co">#&gt; 63   25             7       gini 0.8883516 0.8590476</span></span>
+<span><span class="co">#&gt; 65   25             9       gini 0.8941026 0.8590476</span></span>
+<span><span class="co">#&gt; 67   25            11       gini 0.8895604 0.8457143</span></span>
+<span><span class="co">#&gt; 69   25            13       gini 0.8927289 0.8457143</span></span>
+<span><span class="co">#&gt; 62   25             5 extratrees 0.9301648 0.9152381</span></span>
+<span><span class="co">#&gt; 64   25             7 extratrees 0.9287546 0.9285714</span></span>
+<span><span class="co">#&gt; 66   25             9 extratrees 0.9270147 0.9285714</span></span>
+<span><span class="co">#&gt; 68   25            11 extratrees 0.9143773 0.9142857</span></span>
+<span><span class="co">#&gt; 70   25            13 extratrees 0.9232051 0.9142857</span></span>
+<span><span class="co">#&gt;         Spec      ROCSD    SensSD     SpecSD</span></span>
+<span><span class="co">#&gt; 1  0.7320513 0.08990768 0.1384069 0.08239112</span></span>
+<span><span class="co">#&gt; 3  0.7474359 0.07419924 0.1440663 0.05903007</span></span>
+<span><span class="co">#&gt; 5  0.7794872 0.06438628 0.1185513 0.05832981</span></span>
+<span><span class="co">#&gt; 7  0.7794872 0.09560822 0.1440663 0.07975554</span></span>
+<span><span class="co">#&gt; 9  0.7948718 0.08449915 0.1440663 0.03511042</span></span>
+<span><span class="co">#&gt; 2  0.8256410 0.07212311 0.1237179 0.08640778</span></span>
+<span><span class="co">#&gt; 4  0.7769231 0.06673128 0.1277753 0.08664523</span></span>
+<span><span class="co">#&gt; 6  0.7935897 0.07200154 0.1237179 0.08817307</span></span>
+<span><span class="co">#&gt; 8  0.7782051 0.07468626 0.1237179 0.06306858</span></span>
+<span><span class="co">#&gt; 10 0.7474359 0.07363915 0.1010153 0.05903007</span></span>
+<span><span class="co">#&gt; 11 0.7961538 0.07426084 0.1384478 0.08387399</span></span>
+<span><span class="co">#&gt; 13 0.7487179 0.09249908 0.1384478 0.09447248</span></span>
+<span><span class="co">#&gt; 15 0.7487179 0.08986927 0.1384069 0.07724292</span></span>
+<span><span class="co">#&gt; 17 0.7641026 0.08659265 0.1440663 0.07057107</span></span>
+<span><span class="co">#&gt; 19 0.7641026 0.08439979 0.1185513 0.07057107</span></span>
+<span><span class="co">#&gt; 12 0.7935897 0.06470093 0.1564922 0.08817307</span></span>
+<span><span class="co">#&gt; 14 0.7935897 0.06775704 0.1277753 0.04309676</span></span>
+<span><span class="co">#&gt; 16 0.8423077 0.07276194 0.1277753 0.11246301</span></span>
+<span><span class="co">#&gt; 18 0.7641026 0.06104033 0.1277753 0.07057107</span></span>
+<span><span class="co">#&gt; 20 0.7782051 0.07143591 0.1277753 0.06306858</span></span>
+<span><span class="co">#&gt; 21 0.7794872 0.07910205 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 23 0.7641026 0.10437005 0.1440663 0.08910026</span></span>
+<span><span class="co">#&gt; 25 0.7961538 0.07769558 0.1384478 0.08387399</span></span>
+<span><span class="co">#&gt; 27 0.7641026 0.07679808 0.1440663 0.07057107</span></span>
+<span><span class="co">#&gt; 29 0.7641026 0.08234440 0.1384478 0.07057107</span></span>
+<span><span class="co">#&gt; 22 0.7935897 0.07164502 0.1010153 0.12132162</span></span>
+<span><span class="co">#&gt; 24 0.8282051 0.07240074 0.1548535 0.11380688</span></span>
+<span><span class="co">#&gt; 26 0.7782051 0.07074391 0.1277753 0.03192282</span></span>
+<span><span class="co">#&gt; 28 0.7615385 0.07327488 0.1277753 0.08088108</span></span>
+<span><span class="co">#&gt; 30 0.7807692 0.06816071 0.1277753 0.12727225</span></span>
+<span><span class="co">#&gt; 31 0.7641026 0.08362865 0.1440663 0.07057107</span></span>
+<span><span class="co">#&gt; 33 0.7641026 0.07908652 0.1384478 0.07057107</span></span>
+<span><span class="co">#&gt; 35 0.7794872 0.08782232 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 37 0.7794872 0.08638746 0.1717457 0.05832981</span></span>
+<span><span class="co">#&gt; 39 0.7794872 0.08621989 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 32 0.7769231 0.05901719 0.1277753 0.03987777</span></span>
+<span><span class="co">#&gt; 34 0.7769231 0.06811197 0.1237179 0.08664523</span></span>
+<span><span class="co">#&gt; 36 0.8115385 0.07423590 0.1277753 0.11885798</span></span>
+<span><span class="co">#&gt; 38 0.7782051 0.07228095 0.1198260 0.06306858</span></span>
+<span><span class="co">#&gt; 40 0.8269231 0.06965189 0.1277753 0.09847623</span></span>
+<span><span class="co">#&gt; 41 0.7641026 0.08142646 0.1440663 0.07057107</span></span>
+<span><span class="co">#&gt; 43 0.7794872 0.07983798 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 45 0.7166667 0.09334520 0.1440663 0.11161948</span></span>
+<span><span class="co">#&gt; 47 0.7487179 0.08087194 0.1440663 0.09447248</span></span>
+<span><span class="co">#&gt; 49 0.7961538 0.09004152 0.1440663 0.08387399</span></span>
+<span><span class="co">#&gt; 42 0.7769231 0.06419149 0.1175332 0.08664523</span></span>
+<span><span class="co">#&gt; 44 0.7923077 0.06740898 0.1277753 0.07373188</span></span>
+<span><span class="co">#&gt; 46 0.7615385 0.07935135 0.1010153 0.05540331</span></span>
+<span><span class="co">#&gt; 48 0.7948718 0.07375225 0.1277753 0.08754167</span></span>
+<span><span class="co">#&gt; 50 0.7782051 0.06720856 0.1277753 0.06306858</span></span>
+<span><span class="co">#&gt; 51 0.7628205 0.07228633 0.1384478 0.05047441</span></span>
+<span><span class="co">#&gt; 53 0.7474359 0.09005690 0.1440663 0.05903007</span></span>
+<span><span class="co">#&gt; 55 0.7807692 0.09077218 0.1384478 0.09619657</span></span>
+<span><span class="co">#&gt; 57 0.7794872 0.08510096 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 59 0.7474359 0.07727523 0.1384478 0.05903007</span></span>
+<span><span class="co">#&gt; 52 0.8256410 0.06147346 0.1564922 0.08640778</span></span>
+<span><span class="co">#&gt; 54 0.8102564 0.07208459 0.1277753 0.10401616</span></span>
+<span><span class="co">#&gt; 56 0.8102564 0.06941155 0.1277753 0.10401616</span></span>
+<span><span class="co">#&gt; 58 0.7615385 0.06870432 0.1237179 0.08088108</span></span>
+<span><span class="co">#&gt; 60 0.7628205 0.07227121 0.1198260 0.05047441</span></span>
+<span><span class="co">#&gt; 61 0.7628205 0.07859884 0.1440663 0.05047441</span></span>
+<span><span class="co">#&gt; 63 0.7794872 0.08351142 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 65 0.7474359 0.10129666 0.1440663 0.09696241</span></span>
+<span><span class="co">#&gt; 67 0.7641026 0.08992432 0.1384478 0.07057107</span></span>
+<span><span class="co">#&gt; 69 0.7307692 0.09462799 0.1384478 0.03597747</span></span>
+<span><span class="co">#&gt; 62 0.8102564 0.06503171 0.1175332 0.07001573</span></span>
+<span><span class="co">#&gt; 64 0.7923077 0.07341270 0.1237179 0.07373188</span></span>
+<span><span class="co">#&gt; 66 0.8102564 0.06699248 0.1237179 0.07001573</span></span>
+<span><span class="co">#&gt; 68 0.7782051 0.07859736 0.1277753 0.06306858</span></span>
+<span><span class="co">#&gt; 70 0.7320513 0.06743837 0.1277753 0.08239112</span></span></code></pre></div>
+<p>For each of these combinations in the grid, it provides resampling results. In this case these metrics are <code>ROC</code>, <code>Sens</code> (Sensitivity), and <code>Spec</code> (Specificity). You can pick one of these metrics to decide which of these combinations performed better than others.</p>
+<p>Let’s make this decision using a Sensitivity metric. To make the search process easier, you can arrange the <code>Sens</code> column in descending order:</p>
+<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">RF_model</span><span class="op">$</span><span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">Sens</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    mtry min.node.size  splitrule       ROC      Sens</span></span>
+<span><span class="co">#&gt; 1    13             5 extratrees 0.9296886 0.9285714</span></span>
+<span><span class="co">#&gt; 2    13             9 extratrees 0.9238645 0.9285714</span></span>
+<span><span class="co">#&gt; 3    13            11 extratrees 0.9308059 0.9285714</span></span>
+<span><span class="co">#&gt; 4    13            13 extratrees 0.9256777 0.9285714</span></span>
+<span><span class="co">#&gt; 5    17             5 extratrees 0.9255128 0.9285714</span></span>
+<span><span class="co">#&gt; 6    19             7 extratrees 0.9241392 0.9285714</span></span>
+<span><span class="co">#&gt; 7    21             9 extratrees 0.9162271 0.9285714</span></span>
+<span><span class="co">#&gt; 8    23            11 extratrees 0.9266850 0.9285714</span></span>
+<span><span class="co">#&gt; 9    25             7 extratrees 0.9287546 0.9285714</span></span>
+<span><span class="co">#&gt; 10   25             9 extratrees 0.9270147 0.9285714</span></span>
+<span><span class="co">#&gt; 11   21             5 extratrees 0.9304029 0.9152381</span></span>
+<span><span class="co">#&gt; 12   25             5 extratrees 0.9301648 0.9152381</span></span>
+<span><span class="co">#&gt; 13   13             7 extratrees 0.9229487 0.9142857</span></span>
+<span><span class="co">#&gt; 14   15             7 extratrees 0.9318864 0.9142857</span></span>
+<span><span class="co">#&gt; 15   15             9 extratrees 0.9320696 0.9142857</span></span>
+<span><span class="co">#&gt; 16   15            11 extratrees 0.9253846 0.9142857</span></span>
+<span><span class="co">#&gt; 17   15            13 extratrees 0.9262821 0.9142857</span></span>
+<span><span class="co">#&gt; 18   17             7 extratrees 0.9292491 0.9142857</span></span>
+<span><span class="co">#&gt; 19   17             9 extratrees 0.9227106 0.9142857</span></span>
+<span><span class="co">#&gt; 20   17            11 extratrees 0.9268681 0.9142857</span></span>
+<span><span class="co">#&gt; 21   17            13 extratrees 0.9291758 0.9142857</span></span>
+<span><span class="co">#&gt; 22   19             5 extratrees 0.9222344 0.9142857</span></span>
+<span><span class="co">#&gt; 23   19             9 extratrees 0.9277289 0.9142857</span></span>
+<span><span class="co">#&gt; 24   19            13 extratrees 0.9168132 0.9142857</span></span>
+<span><span class="co">#&gt; 25   21             7 extratrees 0.9204945 0.9142857</span></span>
+<span><span class="co">#&gt; 26   21            11 extratrees 0.9199817 0.9142857</span></span>
+<span><span class="co">#&gt; 27   21            13 extratrees 0.9169780 0.9142857</span></span>
+<span><span class="co">#&gt; 28   23             7 extratrees 0.9243223 0.9142857</span></span>
+<span><span class="co">#&gt; 29   23             9 extratrees 0.9267766 0.9142857</span></span>
+<span><span class="co">#&gt; 30   25            11 extratrees 0.9143773 0.9142857</span></span>
+<span><span class="co">#&gt; 31   25            13 extratrees 0.9232051 0.9142857</span></span>
+<span><span class="co">#&gt; 32   19            11 extratrees 0.9251832 0.9009524</span></span>
+<span><span class="co">#&gt; 33   23            13 extratrees 0.9187912 0.9009524</span></span>
+<span><span class="co">#&gt; 34   15             5 extratrees 0.9245421 0.9000000</span></span>
+<span><span class="co">#&gt; 35   23             5 extratrees 0.9318681 0.9000000</span></span>
+<span><span class="co">#&gt; 36   13             5       gini 0.9006227 0.8733333</span></span>
+<span><span class="co">#&gt; 37   13             9       gini 0.9110806 0.8733333</span></span>
+<span><span class="co">#&gt; 38   15             9       gini 0.8984066 0.8733333</span></span>
+<span><span class="co">#&gt; 39   15            13       gini 0.8960989 0.8733333</span></span>
+<span><span class="co">#&gt; 40   13             7       gini 0.9061905 0.8590476</span></span>
+<span><span class="co">#&gt; 41   13            11       gini 0.8997802 0.8590476</span></span>
+<span><span class="co">#&gt; 42   13            13       gini 0.8990842 0.8590476</span></span>
+<span><span class="co">#&gt; 43   15            11       gini 0.8926190 0.8590476</span></span>
+<span><span class="co">#&gt; 44   17             5       gini 0.8919048 0.8590476</span></span>
+<span><span class="co">#&gt; 45   17             7       gini 0.8907875 0.8590476</span></span>
+<span><span class="co">#&gt; 46   17            11       gini 0.9023443 0.8590476</span></span>
+<span><span class="co">#&gt; 47   19             5       gini 0.9004396 0.8590476</span></span>
+<span><span class="co">#&gt; 48   19             9       gini 0.8973810 0.8590476</span></span>
+<span><span class="co">#&gt; 49   19            13       gini 0.8998352 0.8590476</span></span>
+<span><span class="co">#&gt; 50   21             5       gini 0.8973626 0.8590476</span></span>
+<span><span class="co">#&gt; 51   21             7       gini 0.8967399 0.8590476</span></span>
+<span><span class="co">#&gt; 52   21             9       gini 0.8962088 0.8590476</span></span>
+<span><span class="co">#&gt; 53   21            11       gini 0.8930952 0.8590476</span></span>
+<span><span class="co">#&gt; 54   21            13       gini 0.8890293 0.8590476</span></span>
+<span><span class="co">#&gt; 55   23             7       gini 0.9016484 0.8590476</span></span>
+<span><span class="co">#&gt; 56   23            11       gini 0.8969597 0.8590476</span></span>
+<span><span class="co">#&gt; 57   25             5       gini 0.8959158 0.8590476</span></span>
+<span><span class="co">#&gt; 58   25             7       gini 0.8883516 0.8590476</span></span>
+<span><span class="co">#&gt; 59   25             9       gini 0.8941026 0.8590476</span></span>
+<span><span class="co">#&gt; 60   15             5       gini 0.9039744 0.8457143</span></span>
+<span><span class="co">#&gt; 61   15             7       gini 0.9010440 0.8457143</span></span>
+<span><span class="co">#&gt; 62   17             9       gini 0.8952198 0.8457143</span></span>
+<span><span class="co">#&gt; 63   17            13       gini 0.8968681 0.8457143</span></span>
+<span><span class="co">#&gt; 64   19             7       gini 0.9004212 0.8457143</span></span>
+<span><span class="co">#&gt; 65   23             5       gini 0.8963919 0.8457143</span></span>
+<span><span class="co">#&gt; 66   23             9       gini 0.8971429 0.8457143</span></span>
+<span><span class="co">#&gt; 67   23            13       gini 0.8933333 0.8457143</span></span>
+<span><span class="co">#&gt; 68   25            11       gini 0.8895604 0.8457143</span></span>
+<span><span class="co">#&gt; 69   25            13       gini 0.8927289 0.8457143</span></span>
+<span><span class="co">#&gt; 70   19            11       gini 0.8969597 0.8447619</span></span>
+<span><span class="co">#&gt;         Spec      ROCSD    SensSD     SpecSD</span></span>
+<span><span class="co">#&gt; 1  0.8256410 0.07212311 0.1237179 0.08640778</span></span>
+<span><span class="co">#&gt; 2  0.7935897 0.07200154 0.1237179 0.08817307</span></span>
+<span><span class="co">#&gt; 3  0.7782051 0.07468626 0.1237179 0.06306858</span></span>
+<span><span class="co">#&gt; 4  0.7474359 0.07363915 0.1010153 0.05903007</span></span>
+<span><span class="co">#&gt; 5  0.7935897 0.07164502 0.1010153 0.12132162</span></span>
+<span><span class="co">#&gt; 6  0.7769231 0.06811197 0.1237179 0.08664523</span></span>
+<span><span class="co">#&gt; 7  0.7615385 0.07935135 0.1010153 0.05540331</span></span>
+<span><span class="co">#&gt; 8  0.7615385 0.06870432 0.1237179 0.08088108</span></span>
+<span><span class="co">#&gt; 9  0.7923077 0.07341270 0.1237179 0.07373188</span></span>
+<span><span class="co">#&gt; 10 0.8102564 0.06699248 0.1237179 0.07001573</span></span>
+<span><span class="co">#&gt; 11 0.7769231 0.06419149 0.1175332 0.08664523</span></span>
+<span><span class="co">#&gt; 12 0.8102564 0.06503171 0.1175332 0.07001573</span></span>
+<span><span class="co">#&gt; 13 0.7769231 0.06673128 0.1277753 0.08664523</span></span>
+<span><span class="co">#&gt; 14 0.7935897 0.06775704 0.1277753 0.04309676</span></span>
+<span><span class="co">#&gt; 15 0.8423077 0.07276194 0.1277753 0.11246301</span></span>
+<span><span class="co">#&gt; 16 0.7641026 0.06104033 0.1277753 0.07057107</span></span>
+<span><span class="co">#&gt; 17 0.7782051 0.07143591 0.1277753 0.06306858</span></span>
+<span><span class="co">#&gt; 18 0.8282051 0.07240074 0.1548535 0.11380688</span></span>
+<span><span class="co">#&gt; 19 0.7782051 0.07074391 0.1277753 0.03192282</span></span>
+<span><span class="co">#&gt; 20 0.7615385 0.07327488 0.1277753 0.08088108</span></span>
+<span><span class="co">#&gt; 21 0.7807692 0.06816071 0.1277753 0.12727225</span></span>
+<span><span class="co">#&gt; 22 0.7769231 0.05901719 0.1277753 0.03987777</span></span>
+<span><span class="co">#&gt; 23 0.8115385 0.07423590 0.1277753 0.11885798</span></span>
+<span><span class="co">#&gt; 24 0.8269231 0.06965189 0.1277753 0.09847623</span></span>
+<span><span class="co">#&gt; 25 0.7923077 0.06740898 0.1277753 0.07373188</span></span>
+<span><span class="co">#&gt; 26 0.7948718 0.07375225 0.1277753 0.08754167</span></span>
+<span><span class="co">#&gt; 27 0.7782051 0.06720856 0.1277753 0.06306858</span></span>
+<span><span class="co">#&gt; 28 0.8102564 0.07208459 0.1277753 0.10401616</span></span>
+<span><span class="co">#&gt; 29 0.8102564 0.06941155 0.1277753 0.10401616</span></span>
+<span><span class="co">#&gt; 30 0.7782051 0.07859736 0.1277753 0.06306858</span></span>
+<span><span class="co">#&gt; 31 0.7320513 0.06743837 0.1277753 0.08239112</span></span>
+<span><span class="co">#&gt; 32 0.7782051 0.07228095 0.1198260 0.06306858</span></span>
+<span><span class="co">#&gt; 33 0.7628205 0.07227121 0.1198260 0.05047441</span></span>
+<span><span class="co">#&gt; 34 0.7935897 0.06470093 0.1564922 0.08817307</span></span>
+<span><span class="co">#&gt; 35 0.8256410 0.06147346 0.1564922 0.08640778</span></span>
+<span><span class="co">#&gt; 36 0.7320513 0.08990768 0.1384069 0.08239112</span></span>
+<span><span class="co">#&gt; 37 0.7794872 0.06438628 0.1185513 0.05832981</span></span>
+<span><span class="co">#&gt; 38 0.7487179 0.08986927 0.1384069 0.07724292</span></span>
+<span><span class="co">#&gt; 39 0.7641026 0.08439979 0.1185513 0.07057107</span></span>
+<span><span class="co">#&gt; 40 0.7474359 0.07419924 0.1440663 0.05903007</span></span>
+<span><span class="co">#&gt; 41 0.7794872 0.09560822 0.1440663 0.07975554</span></span>
+<span><span class="co">#&gt; 42 0.7948718 0.08449915 0.1440663 0.03511042</span></span>
+<span><span class="co">#&gt; 43 0.7641026 0.08659265 0.1440663 0.07057107</span></span>
+<span><span class="co">#&gt; 44 0.7794872 0.07910205 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 45 0.7641026 0.10437005 0.1440663 0.08910026</span></span>
+<span><span class="co">#&gt; 46 0.7641026 0.07679808 0.1440663 0.07057107</span></span>
+<span><span class="co">#&gt; 47 0.7641026 0.08362865 0.1440663 0.07057107</span></span>
+<span><span class="co">#&gt; 48 0.7794872 0.08782232 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 49 0.7794872 0.08621989 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 50 0.7641026 0.08142646 0.1440663 0.07057107</span></span>
+<span><span class="co">#&gt; 51 0.7794872 0.07983798 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 52 0.7166667 0.09334520 0.1440663 0.11161948</span></span>
+<span><span class="co">#&gt; 53 0.7487179 0.08087194 0.1440663 0.09447248</span></span>
+<span><span class="co">#&gt; 54 0.7961538 0.09004152 0.1440663 0.08387399</span></span>
+<span><span class="co">#&gt; 55 0.7474359 0.09005690 0.1440663 0.05903007</span></span>
+<span><span class="co">#&gt; 56 0.7794872 0.08510096 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 57 0.7628205 0.07859884 0.1440663 0.05047441</span></span>
+<span><span class="co">#&gt; 58 0.7794872 0.08351142 0.1440663 0.05832981</span></span>
+<span><span class="co">#&gt; 59 0.7474359 0.10129666 0.1440663 0.09696241</span></span>
+<span><span class="co">#&gt; 60 0.7961538 0.07426084 0.1384478 0.08387399</span></span>
+<span><span class="co">#&gt; 61 0.7487179 0.09249908 0.1384478 0.09447248</span></span>
+<span><span class="co">#&gt; 62 0.7961538 0.07769558 0.1384478 0.08387399</span></span>
+<span><span class="co">#&gt; 63 0.7641026 0.08234440 0.1384478 0.07057107</span></span>
+<span><span class="co">#&gt; 64 0.7641026 0.07908652 0.1384478 0.07057107</span></span>
+<span><span class="co">#&gt; 65 0.7628205 0.07228633 0.1384478 0.05047441</span></span>
+<span><span class="co">#&gt; 66 0.7807692 0.09077218 0.1384478 0.09619657</span></span>
+<span><span class="co">#&gt; 67 0.7474359 0.07727523 0.1384478 0.05903007</span></span>
+<span><span class="co">#&gt; 68 0.7641026 0.08992432 0.1384478 0.07057107</span></span>
+<span><span class="co">#&gt; 69 0.7307692 0.09462799 0.1384478 0.03597747</span></span>
+<span><span class="co">#&gt; 70 0.7794872 0.08638746 0.1717457 0.05832981</span></span></code></pre></div>
+<p>Since the highest Sensitivity (almost 0.93) is achieved when <code>mtry = 13</code>, <code>min.mode.size = 5</code>, and <code>splitrule = "extratrees"</code>, we will use these hyperparameter values to fit the final model. <strong>Note</strong>: if there are multiple models with the same results, then pick the one with the simpliest model structure.</p>
+<p>Before we move on, let’s visualize the resampling results. We can do it in two ways: (1) using regular plots (ggplot objects) and (2) using a heat map, where darker colors represent higher results. Below are some examples:</p>
+<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">RF_model</span>, metric <span class="op">=</span> <span class="st">"Spec"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="20-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">RF_model</span>, metric <span class="op">=</span> <span class="st">"Sens"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="20-Lecture_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<div class="sourceCode" id="cb483"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">## Heat map</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/trellis.par.get.html">trellis.par.set</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/caret/man/caret-internal.html">caretTheme</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">RF_model</span>, metric <span class="op">=</span> <span class="st">"ROC"</span>, plotType <span class="op">=</span> <span class="st">"level"</span>,</span>
+<span>     </span>
+<span>     scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>rot <span class="op">=</span> <span class="fl">90</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="20-Lecture_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
 <p> </p>
-<p><strong>The number of features to consider at any given split: <span class="math inline">\(m\)</span></strong></p>
-<p>The hyperparameter that controls the split-variable randomization feature of random forests is often referred to as <span class="math inline">\(m\)</span> and it helps to balance low tree correlation with reasonable predictive strength. With regression problems the default value is often <span class="math inline">\(m = p/3\)</span> and for classification <span class="math inline">\(m = \sqrt{p}\)</span>. However, when there are fewer relevant predictors (e.g., noisy data) a higher value of <span class="math inline">\(m\)</span> tends to perform better because it makes it more likely to select those features with the strongest signal. When there are many relevant predictors, a lower <span class="math inline">\(m\)</span> might perform better.</p>
-<p> </p>
-<p><strong>The complexity of each tree</strong></p>
-<p>Random forests are built on individual decision trees; consequently, most random forest implementations have one or more hyperparameters that allow us to control the depth and complexity of the individual trees. This will often include hyperparameters such as node size, max depth, max number of terminal nodes, or the required node size to allow additional splits.</p>
+</div>
+<div id="building-the-final-model-and-assesing-the-models-performance" class="section level3 unnumbered">
+<h3>Building the Final Model and Assesing the Model’s Performance<a class="anchor" aria-label="anchor" href="#building-the-final-model-and-assesing-the-models-performance"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now when we know the optimal combination of hyperparameter values, we can start fitting the final model. We build the final model on the entire training dataset. This is done using the same <code>train</code> function. The only difference is that we now pass specific values to our hyperparameters and we DO NOT perform resampling (this is done by passing <code>"none"</code> to the method argument in the <code>trainControl</code> function):</p>
+<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">fitControl_final</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/trainControl.html">trainControl</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"none"</span>, classProbs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">RF_final</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/train.html">train</a></span><span class="op">(</span><span class="va">Class</span> <span class="op">~</span><span class="va">.</span>, data <span class="op">=</span> <span class="va">data_training</span>,</span>
+<span>                   </span>
+<span>                   method <span class="op">=</span> <span class="st">"ranger"</span>,</span>
+<span>                   </span>
+<span>                   trControl <span class="op">=</span> <span class="va">fitControl_final</span>,</span>
+<span>                   </span>
+<span>                   verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>                   </span>
+<span>                   metric <span class="op">=</span> <span class="st">"ROC"</span>,</span>
+<span>                   </span>
+<span>                   tuneGrid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>.mtry <span class="op">=</span> <span class="fl">13</span>,</span>
+<span>                                         </span>
+<span>                                         .min.node.size <span class="op">=</span> <span class="fl">5</span>,</span>
+<span>                                         </span>
+<span>                                         .splitrule <span class="op">=</span> <span class="st">"extratrees"</span><span class="op">)</span>,</span>
+<span>                   </span>
+<span>                   num.tree <span class="op">=</span> <span class="fl">600</span><span class="op">)</span></span></code></pre></div>
+<p>Use <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function to make predictions based on the final model: pass the final model to this function along with the dataset you are making predictions for. We will do it for both training and test sets:</p>
+<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">RF_pred_train</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">RF_final</span>, newdata <span class="op">=</span> <span class="va">data_training</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">RF_pred_test</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">RF_final</span>, newdata <span class="op">=</span> <span class="va">data_test</span><span class="op">)</span></span></code></pre></div>
+<p>To assess the model’s performance, we build a confusion matrix. It is done using a <code><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix()</a></code> function. It requires two input vector: predictions and actual values of the response variable. First, let’s build it for the training set:</p>
+<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">RF_train_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">RF_pred_train</span>, <span class="va">data_training</span><span class="op">$</span><span class="va">Class</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">RF_train_results</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Confusion Matrix and Statistics</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;           Reference</span></span>
+<span><span class="co">#&gt; Prediction  M  R</span></span>
+<span><span class="co">#&gt;          M 72  0</span></span>
+<span><span class="co">#&gt;          R  0 63</span></span>
+<span><span class="co">#&gt;                                     </span></span>
+<span><span class="co">#&gt;                Accuracy : 1         </span></span>
+<span><span class="co">#&gt;                  95% CI : (0.973, 1)</span></span>
+<span><span class="co">#&gt;     No Information Rate : 0.5333    </span></span>
+<span><span class="co">#&gt;     P-Value [Acc &gt; NIR] : &lt; 2.2e-16 </span></span>
+<span><span class="co">#&gt;                                     </span></span>
+<span><span class="co">#&gt;                   Kappa : 1         </span></span>
+<span><span class="co">#&gt;                                     </span></span>
+<span><span class="co">#&gt;  Mcnemar's Test P-Value : NA        </span></span>
+<span><span class="co">#&gt;                                     </span></span>
+<span><span class="co">#&gt;             Sensitivity : 1.0000    </span></span>
+<span><span class="co">#&gt;             Specificity : 1.0000    </span></span>
+<span><span class="co">#&gt;          Pos Pred Value : 1.0000    </span></span>
+<span><span class="co">#&gt;          Neg Pred Value : 1.0000    </span></span>
+<span><span class="co">#&gt;              Prevalence : 0.5333    </span></span>
+<span><span class="co">#&gt;          Detection Rate : 0.5333    </span></span>
+<span><span class="co">#&gt;    Detection Prevalence : 0.5333    </span></span>
+<span><span class="co">#&gt;       Balanced Accuracy : 1.0000    </span></span>
+<span><span class="co">#&gt;                                     </span></span>
+<span><span class="co">#&gt;        'Positive' Class : M         </span></span>
+<span><span class="co">#&gt; </span></span></code></pre></div>
+<p>To simply the output, we can extract the confusion matrix and take a transpose of it:</p>
+<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">RF_train_results</span><span class="op">$</span><span class="va">table</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           Reference</span></span>
+<span><span class="co">#&gt; Prediction  M  R</span></span>
+<span><span class="co">#&gt;          M 72  0</span></span>
+<span><span class="co">#&gt;          R  0 63</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">RF_train_results</span><span class="op">$</span><span class="va">table</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;          Prediction</span></span>
+<span><span class="co">#&gt; Reference  M  R</span></span>
+<span><span class="co">#&gt;         M 72  0</span></span>
+<span><span class="co">#&gt;         R  0 63</span></span></code></pre></div>
+<p>Now using this table, we can calculate metrics such as accuracy, sensitivity, specificity, and precision (see <strong>lecture 19</strong> for more information on these metrics).</p>
+<p>As mentioned earlier, the model performance is mainly assessed using the unseen test set. Thus, we are more interested in obtaining a confusion matrix for the test set:</p>
+<div class="sourceCode" id="cb488"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">RF_test_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/confusionMatrix.html">confusionMatrix</a></span><span class="op">(</span><span class="va">RF_pred_test</span>, <span class="va">data_test</span><span class="op">$</span><span class="va">Class</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">RF_test_results</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Confusion Matrix and Statistics</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;           Reference</span></span>
+<span><span class="co">#&gt; Prediction  M  R</span></span>
+<span><span class="co">#&gt;          M 38  7</span></span>
+<span><span class="co">#&gt;          R  1 27</span></span>
+<span><span class="co">#&gt;                                           </span></span>
+<span><span class="co">#&gt;                Accuracy : 0.8904          </span></span>
+<span><span class="co">#&gt;                  95% CI : (0.7954, 0.9515)</span></span>
+<span><span class="co">#&gt;     No Information Rate : 0.5342          </span></span>
+<span><span class="co">#&gt;     P-Value [Acc &gt; NIR] : 6.926e-11       </span></span>
+<span><span class="co">#&gt;                                           </span></span>
+<span><span class="co">#&gt;                   Kappa : 0.7773          </span></span>
+<span><span class="co">#&gt;                                           </span></span>
+<span><span class="co">#&gt;  Mcnemar's Test P-Value : 0.0771          </span></span>
+<span><span class="co">#&gt;                                           </span></span>
+<span><span class="co">#&gt;             Sensitivity : 0.9744          </span></span>
+<span><span class="co">#&gt;             Specificity : 0.7941          </span></span>
+<span><span class="co">#&gt;          Pos Pred Value : 0.8444          </span></span>
+<span><span class="co">#&gt;          Neg Pred Value : 0.9643          </span></span>
+<span><span class="co">#&gt;              Prevalence : 0.5342          </span></span>
+<span><span class="co">#&gt;          Detection Rate : 0.5205          </span></span>
+<span><span class="co">#&gt;    Detection Prevalence : 0.6164          </span></span>
+<span><span class="co">#&gt;       Balanced Accuracy : 0.8842          </span></span>
+<span><span class="co">#&gt;                                           </span></span>
+<span><span class="co">#&gt;        'Positive' Class : M               </span></span>
+<span><span class="co">#&gt; </span></span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">RF_test_results</span><span class="op">$</span><span class="va">table</span><span class="op">)</span></span>
+<span><span class="co">#&gt;           Reference</span></span>
+<span><span class="co">#&gt; Prediction  M  R</span></span>
+<span><span class="co">#&gt;          M 38  7</span></span>
+<span><span class="co">#&gt;          R  1 27</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span><span class="op">(</span><span class="va">RF_test_results</span><span class="op">$</span><span class="va">table</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="co">#&gt;          Prediction</span></span>
+<span><span class="co">#&gt; Reference  M  R</span></span>
+<span><span class="co">#&gt;         M 38  1</span></span>
+<span><span class="co">#&gt;         R  7 27</span></span></code></pre></div>
 
 </div>
 </div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-19.html">Lecture 19</a></div>
-<div class="next"><a href="lecture-21.html">Lecture 21</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#lecture-20">Lecture 20</a></li>
 <li>
-<a class="nav-link" href="#decision-trees">Decision Trees</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#structure">Structure</a></li>
-<li><a class="nav-link" href="#partitioning">Partitioning</a></li>
-<li><a class="nav-link" href="#tree-depth">Tree Depth</a></li>
-<li><a class="nav-link" href="#early-stopping">Early Stopping</a></li>
-<li><a class="nav-link" href="#pruning">Pruning</a></li>
+<a class="nav-link" href="#resampling-methods-example">Resampling Methods: Example</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-splitting-2">Data Splitting</a></li>
+<li><a class="nav-link" href="#model-training-and-parameter-tuning">Model Training and Parameter Tuning</a></li>
+<li><a class="nav-link" href="#building-the-final-model-and-assesing-the-models-performance">Building the Final Model and Assesing the Model’s Performance</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#random-forest">Random Forest</a></li>
 </ul>
 
       <div class="book-extra">
@@ -215,7 +812,7 @@ minimize \{SSE + \alpha|T|\}
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-04-26.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-12-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

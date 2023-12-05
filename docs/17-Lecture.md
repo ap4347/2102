@@ -206,7 +206,7 @@ library(tidymodels)
 #> ✖ dplyr::lag()      masks stats::lag()
 #> ✖ yardstick::spec() masks readr::spec()
 #> ✖ recipes::step()   masks stats::step()
-#> • Learn how to get started at https://www.tidymodels.org/start/
+#> • Search for functions across packages at https://www.tidymodels.org/find/
 
 attrition <- attrition
 
