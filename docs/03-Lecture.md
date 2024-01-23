@@ -2,7 +2,7 @@
 
 &nbsp;
 
-We continue exploring different data structures in R programming language. In this lecture we will discuss `matrices` and `data frames`.
+We continue exploring different data structures in R programming language. In this lecture we will discuss `matrices`, `data frames`, and `factors`.
 
 
 ## Matrices {-}
