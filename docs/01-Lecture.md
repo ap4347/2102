@@ -164,7 +164,7 @@ Note, R is case sensitive. What does that mean? This means that for R `x` and `X
 
 ```r
 print(X)
-#> Error in print(X): object 'X' not found
+#> Error in eval(expr, envir, enclos): object 'X' not found
 ```
 
 
