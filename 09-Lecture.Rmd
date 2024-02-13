@@ -104,20 +104,18 @@ We can use the probability mass function to calculate probabilities of certain e
 
 To answer this question, we will use `dbinom()` function:
 
-
-```r
+```{r}
 
 dbinom(x = 3, size = 5, prob = 0.7)
-#> [1] 0.3087
+
 ```
 
 We can do this manually as well using a definition of the pmf of a binomial distribution:
 
-
-```r
+```{r}
 
 choose(n = 5, k = 3)*(0.7^3)*(0.3^2)
-#> [1] 0.3087
+
 ```
 
 
@@ -125,24 +123,22 @@ choose(n = 5, k = 3)*(0.7^3)*(0.3^2)
 
 Now, suppose you want to calculate the probability that you will attend at most 4 meetings, that is, either 0, 1, 2, 3, or 4. To do so, we will need a **cumulative distribution function (cdf)** of a binomial distribution. You can use `pbinom()` function to calculate cumulative probabilities:
 
-
-```r
+```{r}
 
 pbinom(q = 4, size = 5, prob = 0.7)
-#> [1] 0.83193
+
 ```
 
 As you noticed, `pbinom()` function is a summation of `dbinom()` functions:
 
-
-```r
+```{r}
 
 dbinom(x = 0, size = 5, prob = 0.7) +
 dbinom(x = 1, size = 5, prob = 0.7) + 
 dbinom(x = 2, size = 5, prob = 0.7) + 
 dbinom(x = 3, size = 5, prob = 0.7) + 
 dbinom(x = 4, size = 5, prob = 0.7)
-#> [1] 0.83193
+
 ```
 
 
@@ -166,11 +162,10 @@ Here is an example that describes a geometric distribution: starting at a fixed 
 `dgeom()` function calculates the probability that a geometric distribution will take a particular value _x_. For instance, let's calculate the probability that we need to observe 6 newborn children to get the first girl:
 
 
-
-```r
+```{r}
 
 dgeom(x = 6, prob = 0.55)
-#> [1] 0.004567071
+
 ```
 
 
@@ -180,11 +175,10 @@ dgeom(x = 6, prob = 0.55)
 Like `pbinom()` function, `pgeom()` calculates cumulative probabilities (cdf's). For example, what is the probability that we need to observe at most 5 newborn children to get the first girl? In other words, what is the probability that our geometric distribution will take either 1, 2, 3, 4, or 5 values?
 
 
-
-```r
+```{r}
 
 pgeom(q = 5, prob = 0.55)
-#> [1] 0.9916962
+
 ```
 
 
@@ -201,7 +195,9 @@ A normal distribution is bell-shaped, symmetric, and is centered at its mean val
 
 Normal distributions can look quite different. Specifically, a normal distribution can be adjusted using its mean and standard deviation. Changing the mean value of a normal distribution shifts the curve to the left or right. Changing the standard deviation of a normal distribution stretches or constricts the curve around the mean. Below are some examples of a normal distribution: 
 
-<img src="images/norm_curve.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/norm_curve.jpg")
+```
 
 
 ### dnorm() Function  {-}
@@ -209,8 +205,7 @@ Normal distributions can look quite different. Specifically, a normal distributi
 `dnorm()` calculates the value of the probability density function (pdf) of a normal distribution at a particular point `x`. In other words, it calculates the height of the normal curve at a certain point `x`. Suppose we have a normal distribution with a mean value 2.5 and standard deviation 0.5. Then, 
 
 
-
-```r
+```{r}
 
 x <- seq(-10, 10, by = .1)
 
@@ -219,31 +214,28 @@ y <- dnorm(x, mean = 2.5, sd = 0.5)
 
 
 plot(x,y)
-```
 
-<img src="09-Lecture_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+```
 
 
 ### pnorm() Function {-}
 
 To calculate the value of the cumulative distribution function (cdf) at a certain value `x`, that is, the probability that a normal distribution will take values less than `x`, use `pnorm()` function. Suppose, we have a normal distribution with mean = 2 and standard deviation = 5. Now let's calculate the probability that a randomly selected observation from this distribution will be less than 3:
 
-
-```r
+```{r}
 
 pnorm(q = 3, mean = 2, sd = 5)
-#> [1] 0.5792597
+
 ```
 
 
 You can even use this function to calculate the probability of obtaining certain intervals. What is the probability that a randomly selected observation from this distribution will be between 1.5 and 3?
 
 
-
-```r
+```{r}
 
 pnorm(q = 3, mean = 2, sd = 5) - pnorm(q = 1.5, mean = 2, sd = 5)
-#> [1] 0.1190875
+
 ```
 
 
@@ -252,25 +244,22 @@ pnorm(q = 3, mean = 2, sd = 5) - pnorm(q = 1.5, mean = 2, sd = 5)
 To calculate the quantiles of a normal distribution, use `qnorm()` function. It takes a probability value and returns a number whose cdf matches with the input value. For example, let's find a 0.6 quantile (also known as 60th percentile) of a normal distribution with mean = 2 and standard deviation = 5:
 
 
-
-```r
+```{r}
 
 qnorm(p = 0.6, mean = 2, sd = 5)
-#> [1] 3.266736
+
 ```
 
 
 You can think of it as an inverse `pnorm()` function. Let's illustrate it:
 
 
-
-```r
+```{r}
 
 qnorm(p = 0.6, mean = 2, sd = 5)
-#> [1] 3.266736
 
 pnorm(q = 3.266736, mean = 2, sd = 5)
-#> [1] 0.6
+
 ```
 
 
@@ -278,8 +267,7 @@ pnorm(q = 3.266736, mean = 2, sd = 5)
 
 `rnorm()` function is used to generate random values from a normal distribution. Suppose, we have a normal distribution with mean = 2 and standard deviation = 5. Let's generate 50 observations from this distribution and visualize them:
 
-
-```r
+```{r}
 
 x <- rnorm(n = 50, mean = 2, sd = 5)
 
@@ -294,9 +282,8 @@ hist(x,
      col = "orange",
      
      border = "black")
-```
 
-<img src="09-Lecture_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+```
 
 
 ## Generating Data {-}
@@ -305,29 +292,22 @@ hist(x,
 
 Let's generate 10 random values from a normal distribution with mean = 3 and standard deviation = 4. We will do it 3 times:
 
-
-```r
+```{r}
 
 rnorm(n = 10, mean = 3, sd = 4)
-#>  [1]  9.77204192  6.15876029 -4.48123109 -4.15907193
-#>  [5] -0.09611143  4.29988429 -2.53878216  2.85434120
-#>  [9]  2.91547610  1.84912830
+
 ```
 
-
-```r
+```{r}
 
 rnorm(n = 10, mean = 3, sd = 4)
-#>  [1] -0.5943194  6.3987403 -2.2405980  0.2002407  4.8442725
-#>  [6]  7.3564173  5.2306761  3.8554263 -4.0965241  6.5279763
+
 ```
 
-
-```r
+```{r}
 
 rnorm(n = 10, mean = 3, sd = 4)
-#>  [1]  2.106838 -4.259677  5.854670  9.660856  5.178804
-#>  [6]  7.908443  1.104891  9.934543  9.027128  5.350806
+
 ```
 
 As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done randomly.
@@ -342,20 +322,16 @@ In R, the `set.seed()` function sets the random number generator to a known stat
 The function returns nothing. It works behind the scenes, initializing (or reinitializing) the random number generator. The key here is that using the same seed restarts the random number generator back at the same place:
 
 
-
-```r
+```{r}
 
 set.seed(1)    # Initialize generator to known state
 
 rnorm(n = 10, mean = 3, sd = 4)   # Generate ten random numbers
-#>  [1]  0.4941848  3.7345733 -0.3425144  9.3811232  4.3180311
-#>  [6] -0.2818735  4.9497162  5.9532988  5.3031254  1.7784465
 
 set.seed(1)    # Reinitialize to the same known state
 
 rnorm(n = 10, mean = 3, sd = 4)   # Generate the same ten "random" numbers
-#>  [1]  0.4941848  3.7345733 -0.3425144  9.3811232  4.3180311
-#>  [6] -0.2818735  4.9497162  5.9532988  5.3031254  1.7784465
+
 ```
 
 
@@ -364,25 +340,23 @@ rnorm(n = 10, mean = 3, sd = 4)   # Generate the same ten "random" numbers
 
 The `sample()` function will randomly select _n_ items from a set of values. For instance:
 
-
-```r
+```{r}
 
 x <- 1:20
 
 sample(x, 6)
-#> [1]  9 15  5 20 17 14
+
 ```
 
 
 The `sample()` function normally samples without replacement, meaning it will not select the same item twice. Some statistical procedures require sampling with replacement, which means that one item can appear multiple times in the sample. Specify `replace=TRUE` to sample with replacement:
 
-
-```r
+```{r}
 
 x <- 1:20
 
 sample(x, 6, replace = TRUE)
-#> [1]  5  5  2 10 12 15
+
 ```
 
 
@@ -390,24 +364,20 @@ sample(x, 6, replace = TRUE)
 
 Sometimes you want to generate a random sequence, such as a simulated sequence of Bernoulli trials. You can do so using the `sample()` function. Sample _n_ draws from the set of possible values, and set `replace=TRUE`. Suppose we toss a coin 15 times and we want generate the results of these 15 trials. Then,
 
-
-```r
+```{r}
 
 sample(c("H", "T"), 15, replace = TRUE)
-#>  [1] "H" "T" "H" "T" "T" "T" "T" "H" "T" "T" "T" "T" "T" "H"
-#> [15] "H"
+
 ```
 
 By default, `sample()` will choose equally among the set elements and so the probability of selecting either `H` or `T` is 0.5. With a Bernoulli trial, the probability _p_ of success is not necessarily 0.5. You can bias the sample by using the `prob` argument of `sample`; this argument is a vector of probabilities, one for each set element.
 
 Suppose we want to generate 20 Bernoulli trials (toss a coin 20 times) with a probability of getting heads `p = 0.8`. Thus, we set the probability of `tails` to be 0.2:
 
-
-```r
+```{r}
 
 sample(c("H", "T"), 20, replace = TRUE, prob = c(0.8, 0.2))
-#>  [1] "H" "T" "H" "H" "H" "H" "H" "H" "H" "H" "T" "H" "H" "H"
-#> [15] "H" "H" "H" "H" "H" "T"
+
 ```
 
 
@@ -416,17 +386,14 @@ sample(c("H", "T"), 20, replace = TRUE, prob = c(0.8, 0.2))
 Sometimes you want to generate a random permutation of a vector. If `v` is your vector, then `sample(v)` returns a random permutation:
 
 
-
-```r
+```{r}
 
 x <- 1:10
 
 print(x)
-#>  [1]  1  2  3  4  5  6  7  8  9 10
 
 sample(x)             # permutation 1
-#>  [1]  6  1  3  8 10  4  2  7  9  5
 
 sample(x)             # permutation 2
-#>  [1]  4  8  1  9  6 10  3  7  5  2
+
 ```
