@@ -158,7 +158,7 @@ g(x; p) = (1-p)^{x-1}p \quad for \quad x = 1, 2, 3,  ...
 \end{align*}
 
 
-Here is an example that describes a geometric distribution: starting at a fixed time, we observe the sex of each newborn child at a certain hospital until a girl (_G_) is born. Let _P(G) = p = 0.55_ and assume that successive births are independent. 
+Here is an example that describes a geometric distribution: starting at a fixed time, we observe each newborn child at a certain hospital until a girl (_G_) is born. Let _P(G) = p = 0.55_ and assume that successive births are independent. 
 
 
 ### dgeom() Function {-}
@@ -309,25 +309,24 @@ Let's generate 10 random values from a normal distribution with mean = 3 and sta
 ```r
 
 rnorm(n = 10, mean = 3, sd = 4)
-#>  [1]  9.77204192  6.15876029 -4.48123109 -4.15907193
-#>  [5] -0.09611143  4.29988429 -2.53878216  2.85434120
-#>  [9]  2.91547610  1.84912830
+#>  [1]  3.3145828 -1.1742664 -1.2299303  5.2823938  8.3839022
+#>  [6]  1.8267379  4.1087590  6.3980222 -0.5784912  3.6294893
 ```
 
 
 ```r
 
 rnorm(n = 10, mean = 3, sd = 4)
-#>  [1] -0.5943194  6.3987403 -2.2405980  0.2002407  4.8442725
-#>  [6]  7.3564173  5.2306761  3.8554263 -4.0965241  6.5279763
+#>  [1] -3.510697  4.745973  4.530426  1.081487 -7.118803
+#>  [6]  8.052430 -1.693957  2.923085  1.064741 -1.331607
 ```
 
 
 ```r
 
 rnorm(n = 10, mean = 3, sd = 4)
-#>  [1]  2.106838 -4.259677  5.854670  9.660856  5.178804
-#>  [6]  7.908443  1.104891  9.934543  9.027128  5.350806
+#>  [1]  3.4016911  2.0297676 -4.6549146  1.0409559  2.7066857
+#>  [6]  6.4840604  2.9898196 -0.2986794  0.3912275  6.5348108
 ```
 
 As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done randomly.
