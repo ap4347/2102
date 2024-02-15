@@ -154,7 +154,7 @@ g(x; p) = (1-p)^{x-1}p \quad for \quad x = 1, 2, 3,  ...
 \end{align*}
 
 
-Here is an example that describes a geometric distribution: starting at a fixed time, we observe the sex of each newborn child at a certain hospital until a girl (_G_) is born. Let _P(G) = p = 0.55_ and assume that successive births are independent. 
+Here is an example that describes a geometric distribution: starting at a fixed time, we observe each newborn child at a certain hospital until a girl (_G_) is born. Let _P(G) = p = 0.55_ and assume that successive births are independent. 
 
 
 ### dgeom() Function {-}
