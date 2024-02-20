@@ -52,18 +52,16 @@ Now the Tidyverse is available in R, but it is not activated yet. Whenever you s
 ```r
 
 library(tidyverse)
-#> ── Attaching packages ─────────────────── tidyverse 1.3.2 ──
-#> ✔ ggplot2 3.4.4      ✔ purrr   1.0.2 
-#> ✔ tibble  3.1.8      ✔ dplyr   1.0.10
-#> ✔ tidyr   1.3.0      ✔ stringr 1.5.0 
-#> ✔ readr   2.1.3      ✔ forcats 0.5.2
-#> Warning: package 'ggplot2' was built under R version 4.2.3
-#> Warning: package 'tidyr' was built under R version 4.2.3
-#> Warning: package 'purrr' was built under R version 4.2.3
-#> Warning: package 'stringr' was built under R version 4.2.3
+#> ── Attaching core tidyverse packages ──── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.4     ✔ readr     2.1.5
+#> ✔ forcats   1.0.0     ✔ stringr   1.5.1
+#> ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+#> ✔ purrr     1.0.2     
 #> ── Conflicts ────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 ```
 
 
@@ -137,25 +135,24 @@ dplyr aims to provide a function for each basic verb of data manipulation. These
 
 filter(flights, month == 1, day == 1)
 #> # A tibble: 842 × 19
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     1     1     517     515       2     830     819
-#>  2  2013     1     1     533     529       4     850     830
-#>  3  2013     1     1     542     540       2     923     850
-#>  4  2013     1     1     544     545      -1    1004    1022
-#>  5  2013     1     1     554     600      -6     812     837
-#>  6  2013     1     1     554     558      -4     740     728
-#>  7  2013     1     1     555     600      -5     913     854
-#>  8  2013     1     1     557     600      -3     709     723
-#>  9  2013     1     1     557     600      -3     838     846
-#> 10  2013     1     1     558     600      -2     753     745
-#> # … with 832 more rows, 11 more variables: arr_delay <int>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>,
-#> #   origin <chr>, dest <chr>, air_time <int>,
-#> #   distance <int>, hour <int>, minute <int>,
-#> #   time_hour <chr>, and abbreviated variable names
-#> #   ¹​dep_time, ²​sched_dep_time, ³​dep_delay, ⁴​arr_time,
-#> #   ⁵​sched_arr_time
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013     1     1      517            515         2
+#>  2  2013     1     1      533            529         4
+#>  3  2013     1     1      542            540         2
+#>  4  2013     1     1      544            545        -1
+#>  5  2013     1     1      554            600        -6
+#>  6  2013     1     1      554            558        -4
+#>  7  2013     1     1      555            600        -5
+#>  8  2013     1     1      557            600        -3
+#>  9  2013     1     1      557            600        -3
+#> 10  2013     1     1      558            600        -2
+#> # ℹ 832 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
+#> #   air_time <int>, distance <int>, hour <int>,
+#> #   minute <int>, time_hour <chr>
 ```
 
 When you run that line of code, dplyr executes the filtering operation and returns a new data frame. dplyr functions never modify their inputs, so if you want to save the result, you’ll need to use the assignment operator, `<-` :
@@ -174,25 +171,24 @@ Let's find all flights that departed in November or December:
 
 filter(flights, month == 11 | month == 12)
 #> # A tibble: 55,403 × 19
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013    11     1       5    2359       6     352     345
-#>  2  2013    11     1      35    2250     105     123    2356
-#>  3  2013    11     1     455     500      -5     641     651
-#>  4  2013    11     1     539     545      -6     856     827
-#>  5  2013    11     1     542     545      -3     831     855
-#>  6  2013    11     1     549     600     -11     912     923
-#>  7  2013    11     1     550     600     -10     705     659
-#>  8  2013    11     1     554     600      -6     659     701
-#>  9  2013    11     1     554     600      -6     826     827
-#> 10  2013    11     1     554     600      -6     749     751
-#> # … with 55,393 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013    11     1        5           2359         6
+#>  2  2013    11     1       35           2250       105
+#>  3  2013    11     1      455            500        -5
+#>  4  2013    11     1      539            545        -6
+#>  5  2013    11     1      542            545        -3
+#>  6  2013    11     1      549            600       -11
+#>  7  2013    11     1      550            600       -10
+#>  8  2013    11     1      554            600        -6
+#>  9  2013    11     1      554            600        -6
+#> 10  2013    11     1      554            600        -6
+#> # ℹ 55,393 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 We could do the same operation using the `%in%` operator:
@@ -202,25 +198,24 @@ We could do the same operation using the `%in%` operator:
 
 filter(flights, month %in% c(11, 12))
 #> # A tibble: 55,403 × 19
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013    11     1       5    2359       6     352     345
-#>  2  2013    11     1      35    2250     105     123    2356
-#>  3  2013    11     1     455     500      -5     641     651
-#>  4  2013    11     1     539     545      -6     856     827
-#>  5  2013    11     1     542     545      -3     831     855
-#>  6  2013    11     1     549     600     -11     912     923
-#>  7  2013    11     1     550     600     -10     705     659
-#>  8  2013    11     1     554     600      -6     659     701
-#>  9  2013    11     1     554     600      -6     826     827
-#> 10  2013    11     1     554     600      -6     749     751
-#> # … with 55,393 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013    11     1        5           2359         6
+#>  2  2013    11     1       35           2250       105
+#>  3  2013    11     1      455            500        -5
+#>  4  2013    11     1      539            545        -6
+#>  5  2013    11     1      542            545        -3
+#>  6  2013    11     1      549            600       -11
+#>  7  2013    11     1      550            600       -10
+#>  8  2013    11     1      554            600        -6
+#>  9  2013    11     1      554            600        -6
+#> 10  2013    11     1      554            600        -6
+#> # ℹ 55,393 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -235,20 +230,19 @@ For instance, let's get observations from rows 5 through 10:
 
 slice(flights, 5:10)
 #> # A tibble: 6 × 19
-#>    year month   day dep_time sched…¹ dep_d…² arr_t…³ sched…⁴
-#>   <int> <int> <int>    <int>   <int>   <int>   <int>   <int>
-#> 1  2013     1     1      554     600      -6     812     837
-#> 2  2013     1     1      554     558      -4     740     728
-#> 3  2013     1     1      555     600      -5     913     854
-#> 4  2013     1     1      557     600      -3     709     723
-#> 5  2013     1     1      557     600      -3     838     846
-#> 6  2013     1     1      558     600      -2     753     745
-#> # … with 11 more variables: arr_delay <int>, carrier <chr>,
+#>    year month   day dep_time sched_dep_time dep_delay
+#>   <int> <int> <int>    <int>          <int>     <int>
+#> 1  2013     1     1      554            600        -6
+#> 2  2013     1     1      554            558        -4
+#> 3  2013     1     1      555            600        -5
+#> 4  2013     1     1      557            600        -3
+#> 5  2013     1     1      557            600        -3
+#> 6  2013     1     1      558            600        -2
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
 #> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​sched_dep_time, ²​dep_delay, ³​arr_time,
-#> #   ⁴​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -259,25 +253,24 @@ Let's select all rows except the first four (this option can be used to drop som
 
 slice(flights, -(1:4))
 #> # A tibble: 336,772 × 19
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     1     1     554     600      -6     812     837
-#>  2  2013     1     1     554     558      -4     740     728
-#>  3  2013     1     1     555     600      -5     913     854
-#>  4  2013     1     1     557     600      -3     709     723
-#>  5  2013     1     1     557     600      -3     838     846
-#>  6  2013     1     1     558     600      -2     753     745
-#>  7  2013     1     1     558     600      -2     849     851
-#>  8  2013     1     1     558     600      -2     853     856
-#>  9  2013     1     1     558     600      -2     924     917
-#> 10  2013     1     1     558     600      -2     923     937
-#> # … with 336,762 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013     1     1      554            600        -6
+#>  2  2013     1     1      554            558        -4
+#>  3  2013     1     1      555            600        -5
+#>  4  2013     1     1      557            600        -3
+#>  5  2013     1     1      557            600        -3
+#>  6  2013     1     1      558            600        -2
+#>  7  2013     1     1      558            600        -2
+#>  8  2013     1     1      558            600        -2
+#>  9  2013     1     1      558            600        -2
+#> 10  2013     1     1      558            600        -2
+#> # ℹ 336,762 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -288,17 +281,16 @@ Similar to `head()` and `tail()` functions, `slice_head()` and `slice_tail()` ca
 
 slice_head(flights, n = 3)
 #> # A tibble: 3 × 19
-#>    year month   day dep_time sched…¹ dep_d…² arr_t…³ sched…⁴
-#>   <int> <int> <int>    <int>   <int>   <int>   <int>   <int>
-#> 1  2013     1     1      517     515       2     830     819
-#> 2  2013     1     1      533     529       4     850     830
-#> 3  2013     1     1      542     540       2     923     850
-#> # … with 11 more variables: arr_delay <int>, carrier <chr>,
+#>    year month   day dep_time sched_dep_time dep_delay
+#>   <int> <int> <int>    <int>          <int>     <int>
+#> 1  2013     1     1      517            515         2
+#> 2  2013     1     1      533            529         4
+#> 3  2013     1     1      542            540         2
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
 #> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​sched_dep_time, ²​dep_delay, ³​arr_time,
-#> #   ⁴​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -306,17 +298,16 @@ slice_head(flights, n = 3)
 
 slice_tail(flights, n = 3)
 #> # A tibble: 3 × 19
-#>    year month   day dep_time sched…¹ dep_d…² arr_t…³ sched…⁴
-#>   <int> <int> <int>    <int>   <int>   <int>   <int>   <int>
-#> 1  2013     9    30       NA    1210      NA      NA    1330
-#> 2  2013     9    30       NA    1159      NA      NA    1344
-#> 3  2013     9    30       NA     840      NA      NA    1020
-#> # … with 11 more variables: arr_delay <int>, carrier <chr>,
+#>    year month   day dep_time sched_dep_time dep_delay
+#>   <int> <int> <int>    <int>          <int>     <int>
+#> 1  2013     9    30       NA           1210        NA
+#> 2  2013     9    30       NA           1159        NA
+#> 3  2013     9    30       NA            840        NA
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
 #> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​sched_dep_time, ²​dep_delay, ³​arr_time,
-#> #   ⁴​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 Use the `slice_sample()` function to randomly select rows. Use the option `prop` to choose a certain proportion of the cases:
@@ -326,24 +317,23 @@ Use the `slice_sample()` function to randomly select rows. Use the option `prop`
 
 slice_sample(flights, n = 10)
 #> # A tibble: 10 × 19
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     5    15     953    1000      -7    1217    1220
-#>  2  2013     4     3    2134    2135      -1      17      21
-#>  3  2013     6    29     858     853       5    1148    1212
-#>  4  2013    11     1    1346    1345       1    1701    1657
-#>  5  2013     5     4    1235    1240      -5    1415    1430
-#>  6  2013     3    25    1309    1310      -1    1653    1706
-#>  7  2013     6    22    1621    1530      51    1938    1848
-#>  8  2013     1     3    1604    1548      16    1855    1830
-#>  9  2013    11    15    1524    1529      -5    1829    1825
-#> 10  2013    12     2    1950    1929      21    2232    2222
-#> # … with 11 more variables: arr_delay <int>, carrier <chr>,
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013     3    17      658            700        -2
+#>  2  2013    12    19     1736           1740        -4
+#>  3  2013    10     7      742            745        -3
+#>  4  2013     4     3      853            859        -6
+#>  5  2013    11     1      813            815        -2
+#>  6  2013     9    26     1503           1500         3
+#>  7  2013    11     4     1355           1355         0
+#>  8  2013     9    21     1256           1300        -4
+#>  9  2013    10     6      721            725        -4
+#> 10  2013     4    22     1856           1742        74
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
 #> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -351,25 +341,24 @@ slice_sample(flights, n = 10)
 
 slice_sample(flights, prop = 0.001)
 #> # A tibble: 336 × 19
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     6    26    1313    1110     123    1459    1245
-#>  2  2013     9     4    2030    2034      -4    2134    2209
-#>  3  2013     3    21    1935    1930       5    2136    2146
-#>  4  2013     3    18    1806    1815      -9    2205    2147
-#>  5  2013     5    20     828     835      -7    1014    1037
-#>  6  2013     1    27    1852    1900      -8    2125    2146
-#>  7  2013     9    15     945     950      -5    1215    1220
-#>  8  2013     4    24    2335    1935     240      48    2100
-#>  9  2013     7    17    1543    1530      13    1716    1650
-#> 10  2013     6    12    1202     920     162    1427    1210
-#> # … with 326 more rows, 11 more variables: arr_delay <int>,
-#> #   carrier <chr>, flight <int>, tailnum <chr>,
-#> #   origin <chr>, dest <chr>, air_time <int>,
-#> #   distance <int>, hour <int>, minute <int>,
-#> #   time_hour <chr>, and abbreviated variable names
-#> #   ¹​dep_time, ²​sched_dep_time, ³​dep_delay, ⁴​arr_time,
-#> #   ⁵​sched_arr_time
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013     7    29     2104           2000        64
+#>  2  2013     3    28      827            800        27
+#>  3  2013    12    10       NA           1520        NA
+#>  4  2013    11    25     1952           2000        -8
+#>  5  2013     4    12      629            630        -1
+#>  6  2013     3    19      752            750         2
+#>  7  2013     1    11     2031           2030         1
+#>  8  2013     3     4      752            755        -3
+#>  9  2013     8     3     1324           1145        99
+#> 10  2013     5     3      750            755        -5
+#> # ℹ 326 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
+#> #   air_time <int>, distance <int>, hour <int>,
+#> #   minute <int>, time_hour <chr>
 ```
 
 Use `replace = TRUE` to take a sample with replacement. 
@@ -384,25 +373,24 @@ The `arrange()` function is used to change the order of rows in a data set. It t
 
 arrange(flights, year, month, day)
 #> # A tibble: 336,776 × 19
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     1     1     517     515       2     830     819
-#>  2  2013     1     1     533     529       4     850     830
-#>  3  2013     1     1     542     540       2     923     850
-#>  4  2013     1     1     544     545      -1    1004    1022
-#>  5  2013     1     1     554     600      -6     812     837
-#>  6  2013     1     1     554     558      -4     740     728
-#>  7  2013     1     1     555     600      -5     913     854
-#>  8  2013     1     1     557     600      -3     709     723
-#>  9  2013     1     1     557     600      -3     838     846
-#> 10  2013     1     1     558     600      -2     753     745
-#> # … with 336,766 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013     1     1      517            515         2
+#>  2  2013     1     1      533            529         4
+#>  3  2013     1     1      542            540         2
+#>  4  2013     1     1      544            545        -1
+#>  5  2013     1     1      554            600        -6
+#>  6  2013     1     1      554            558        -4
+#>  7  2013     1     1      555            600        -5
+#>  8  2013     1     1      557            600        -3
+#>  9  2013     1     1      557            600        -3
+#> 10  2013     1     1      558            600        -2
+#> # ℹ 336,766 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 Use `desc()` to re-order by a column in descending order:
@@ -412,25 +400,24 @@ Use `desc()` to re-order by a column in descending order:
 
 arrange(flights, desc(dep_delay))
 #> # A tibble: 336,776 × 19
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     1     9     641     900    1301    1242    1530
-#>  2  2013     6    15    1432    1935    1137    1607    2120
-#>  3  2013     1    10    1121    1635    1126    1239    1810
-#>  4  2013     9    20    1139    1845    1014    1457    2210
-#>  5  2013     7    22     845    1600    1005    1044    1815
-#>  6  2013     4    10    1100    1900     960    1342    2211
-#>  7  2013     3    17    2321     810     911     135    1020
-#>  8  2013     6    27     959    1900     899    1236    2226
-#>  9  2013     7    22    2257     759     898     121    1026
-#> 10  2013    12     5     756    1700     896    1058    2020
-#> # … with 336,766 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013     1     9      641            900      1301
+#>  2  2013     6    15     1432           1935      1137
+#>  3  2013     1    10     1121           1635      1126
+#>  4  2013     9    20     1139           1845      1014
+#>  5  2013     7    22      845           1600      1005
+#>  6  2013     4    10     1100           1900       960
+#>  7  2013     3    17     2321            810       911
+#>  8  2013     6    27      959           1900       899
+#>  9  2013     7    22     2257            759       898
+#> 10  2013    12     5      756           1700       896
+#> # ℹ 336,766 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -456,7 +443,7 @@ select(flights, year, month, day)
 #>  8  2013     1     1
 #>  9  2013     1     1
 #> 10  2013     1     1
-#> # … with 336,766 more rows
+#> # ℹ 336,766 more rows
 ```
 
 You can select all columns between two variables (inclusive):
@@ -478,7 +465,7 @@ select(flights, year:day)
 #>  8  2013     1     1
 #>  9  2013     1     1
 #> 10  2013     1     1
-#> # … with 336,766 more rows
+#> # ℹ 336,766 more rows
 ```
 
 You can select all columns except some:
@@ -488,24 +475,23 @@ You can select all columns except some:
 
 select(flights, -(year:day))
 #> # A tibble: 336,776 × 16
-#>    dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
-#>       <int>    <int>   <int>   <int>   <int>   <int> <chr>  
-#>  1      517      515       2     830     819      11 UA     
-#>  2      533      529       4     850     830      20 UA     
-#>  3      542      540       2     923     850      33 AA     
-#>  4      544      545      -1    1004    1022     -18 B6     
-#>  5      554      600      -6     812     837     -25 DL     
-#>  6      554      558      -4     740     728      12 UA     
-#>  7      555      600      -5     913     854      19 B6     
-#>  8      557      600      -3     709     723     -14 EV     
-#>  9      557      600      -3     838     846      -8 B6     
-#> 10      558      600      -2     753     745       8 AA     
-#> # … with 336,766 more rows, 9 more variables: flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>    dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>       <int>          <int>     <int>    <int>          <int>
+#>  1      517            515         2      830            819
+#>  2      533            529         4      850            830
+#>  3      542            540         2      923            850
+#>  4      544            545        -1     1004           1022
+#>  5      554            600        -6      812            837
+#>  6      554            558        -4      740            728
+#>  7      555            600        -5      913            854
+#>  8      557            600        -3      709            723
+#>  9      557            600        -3      838            846
+#> 10      558            600        -2      753            745
+#> # ℹ 336,766 more rows
+#> # ℹ 11 more variables: arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​sched_dep_time, ²​dep_delay, ³​arr_time,
-#> #   ⁴​sched_arr_time, ⁵​arr_delay
+#> #   minute <int>, time_hour <chr>
 ```
 
 You can do the same operation with `!` operator:
@@ -515,24 +501,23 @@ You can do the same operation with `!` operator:
 
 select(flights, !(year:day))
 #> # A tibble: 336,776 × 16
-#>    dep_time sched_…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
-#>       <int>    <int>   <int>   <int>   <int>   <int> <chr>  
-#>  1      517      515       2     830     819      11 UA     
-#>  2      533      529       4     850     830      20 UA     
-#>  3      542      540       2     923     850      33 AA     
-#>  4      544      545      -1    1004    1022     -18 B6     
-#>  5      554      600      -6     812     837     -25 DL     
-#>  6      554      558      -4     740     728      12 UA     
-#>  7      555      600      -5     913     854      19 B6     
-#>  8      557      600      -3     709     723     -14 EV     
-#>  9      557      600      -3     838     846      -8 B6     
-#> 10      558      600      -2     753     745       8 AA     
-#> # … with 336,766 more rows, 9 more variables: flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>    dep_time sched_dep_time dep_delay arr_time sched_arr_time
+#>       <int>          <int>     <int>    <int>          <int>
+#>  1      517            515         2      830            819
+#>  2      533            529         4      850            830
+#>  3      542            540         2      923            850
+#>  4      544            545        -1     1004           1022
+#>  5      554            600        -6      812            837
+#>  6      554            558        -4      740            728
+#>  7      555            600        -5      913            854
+#>  8      557            600        -3      709            723
+#>  9      557            600        -3      838            846
+#> 10      558            600        -2      753            745
+#> # ℹ 336,766 more rows
+#> # ℹ 11 more variables: arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​sched_dep_time, ²​dep_delay, ³​arr_time,
-#> #   ⁴​sched_arr_time, ⁵​arr_delay
+#> #   minute <int>, time_hour <chr>
 ```
 
 You can use column indexes for column selection:
@@ -554,7 +539,7 @@ select(flights, c(1, 5, 8))
 #>  8  2013            600            723
 #>  9  2013            600            846
 #> 10  2013            600            745
-#> # … with 336,766 more rows
+#> # ℹ 336,766 more rows
 ```
 
 There are a number of helper functions you can use within `select()`. For example, `starts_with()`, `ends_with()`, `matches()` and `contains()`. These let you quickly match larger blocks of variables that meet some criterion.
@@ -578,7 +563,7 @@ select(flights, starts_with("sched"))
 #>  8            600            723
 #>  9            600            846
 #> 10            600            745
-#> # … with 336,766 more rows
+#> # ℹ 336,766 more rows
 ```
 
 You can select all columns in the data set that end with "time":
@@ -600,7 +585,7 @@ select(flights, ends_with("time"))
 #>  8      557            600      709            723       53
 #>  9      557            600      838            846      140
 #> 10      558            600      753            745      138
-#> # … with 336,766 more rows
+#> # ℹ 336,766 more rows
 ```
 
 Or suppose you want to select all columns in the data set that contain "ar":
@@ -622,7 +607,7 @@ select(flights, contains("ar"))
 #>  8  2013      709            723       -14 EV     
 #>  9  2013      838            846        -8 B6     
 #> 10  2013      753            745         8 AA     
-#> # … with 336,766 more rows
+#> # ℹ 336,766 more rows
 ```
 
 You can even combine these arguments:
@@ -644,7 +629,7 @@ select(flights, starts_with("sched") & ends_with("time"))
 #>  8            600            723
 #>  9            600            846
 #> 10            600            745
-#> # … with 336,766 more rows
+#> # ℹ 336,766 more rows
 ```
 
 
@@ -657,25 +642,24 @@ Use `rename()` function to rename columns in a data frame. Suppose we want to re
 
 rename(flights, YEAR = year, MONTH = month)
 #> # A tibble: 336,776 × 19
-#>     YEAR MONTH   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     1     1     517     515       2     830     819
-#>  2  2013     1     1     533     529       4     850     830
-#>  3  2013     1     1     542     540       2     923     850
-#>  4  2013     1     1     544     545      -1    1004    1022
-#>  5  2013     1     1     554     600      -6     812     837
-#>  6  2013     1     1     554     558      -4     740     728
-#>  7  2013     1     1     555     600      -5     913     854
-#>  8  2013     1     1     557     600      -3     709     723
-#>  9  2013     1     1     557     600      -3     838     846
-#> 10  2013     1     1     558     600      -2     753     745
-#> # … with 336,766 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>     YEAR MONTH   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013     1     1      517            515         2
+#>  2  2013     1     1      533            529         4
+#>  3  2013     1     1      542            540         2
+#>  4  2013     1     1      544            545        -1
+#>  5  2013     1     1      554            600        -6
+#>  6  2013     1     1      554            558        -4
+#>  7  2013     1     1      555            600        -5
+#>  8  2013     1     1      557            600        -3
+#>  9  2013     1     1      557            600        -3
+#> 10  2013     1     1      558            600        -2
+#> # ℹ 336,766 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -688,25 +672,24 @@ rename(flights, YEAR = year, MONTH = month)
 
 relocate(flights, year, .after = month)
 #> # A tibble: 336,776 × 19
-#>    month  year   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1     1  2013     1     517     515       2     830     819
-#>  2     1  2013     1     533     529       4     850     830
-#>  3     1  2013     1     542     540       2     923     850
-#>  4     1  2013     1     544     545      -1    1004    1022
-#>  5     1  2013     1     554     600      -6     812     837
-#>  6     1  2013     1     554     558      -4     740     728
-#>  7     1  2013     1     555     600      -5     913     854
-#>  8     1  2013     1     557     600      -3     709     723
-#>  9     1  2013     1     557     600      -3     838     846
-#> 10     1  2013     1     558     600      -2     753     745
-#> # … with 336,766 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>    month  year   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1     1  2013     1      517            515         2
+#>  2     1  2013     1      533            529         4
+#>  3     1  2013     1      542            540         2
+#>  4     1  2013     1      544            545        -1
+#>  5     1  2013     1      554            600        -6
+#>  6     1  2013     1      554            558        -4
+#>  7     1  2013     1      555            600        -5
+#>  8     1  2013     1      557            600        -3
+#>  9     1  2013     1      557            600        -3
+#> 10     1  2013     1      558            600        -2
+#> # ℹ 336,766 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -714,25 +697,24 @@ relocate(flights, year, .after = month)
 
 relocate(flights, c(year, month), .before = dep_delay)
 #> # A tibble: 336,776 × 19
-#>      day dep_t…¹ sched…²  year month dep_d…³ arr_t…⁴ sched…⁵
-#>    <int>   <int>   <int> <int> <int>   <int>   <int>   <int>
-#>  1     1     517     515  2013     1       2     830     819
-#>  2     1     533     529  2013     1       4     850     830
-#>  3     1     542     540  2013     1       2     923     850
-#>  4     1     544     545  2013     1      -1    1004    1022
-#>  5     1     554     600  2013     1      -6     812     837
-#>  6     1     554     558  2013     1      -4     740     728
-#>  7     1     555     600  2013     1      -5     913     854
-#>  8     1     557     600  2013     1      -3     709     723
-#>  9     1     557     600  2013     1      -3     838     846
-#> 10     1     558     600  2013     1      -2     753     745
-#> # … with 336,766 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>      day dep_time sched_dep_time  year month dep_delay
+#>    <int>    <int>          <int> <int> <int>     <int>
+#>  1     1      517            515  2013     1         2
+#>  2     1      533            529  2013     1         4
+#>  3     1      542            540  2013     1         2
+#>  4     1      544            545  2013     1        -1
+#>  5     1      554            600  2013     1        -6
+#>  6     1      554            558  2013     1        -4
+#>  7     1      555            600  2013     1        -5
+#>  8     1      557            600  2013     1        -3
+#>  9     1      557            600  2013     1        -3
+#> 10     1      558            600  2013     1        -2
+#> # ℹ 336,766 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -741,25 +723,24 @@ relocate(flights, c(year, month), .before = dep_delay)
 
 relocate(flights, c(year, month), .after = last_col())
 #> # A tibble: 336,776 × 19
-#>      day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵
-#>    <int>    <int>      <int>   <int>   <int>   <int>   <int>
-#>  1     1      517        515       2     830     819      11
-#>  2     1      533        529       4     850     830      20
-#>  3     1      542        540       2     923     850      33
-#>  4     1      544        545      -1    1004    1022     -18
-#>  5     1      554        600      -6     812     837     -25
-#>  6     1      554        558      -4     740     728      12
-#>  7     1      555        600      -5     913     854      19
-#>  8     1      557        600      -3     709     723     -14
-#>  9     1      557        600      -3     838     846      -8
-#> 10     1      558        600      -2     753     745       8
-#> # … with 336,766 more rows, 12 more variables:
-#> #   carrier <chr>, flight <int>, tailnum <chr>,
-#> #   origin <chr>, dest <chr>, air_time <int>,
-#> #   distance <int>, hour <int>, minute <int>,
-#> #   time_hour <chr>, year <int>, month <int>, and
-#> #   abbreviated variable names ¹​sched_dep_time, ²​dep_delay,
-#> #   ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
+#>      day dep_time sched_dep_time dep_delay arr_time
+#>    <int>    <int>          <int>     <int>    <int>
+#>  1     1      517            515         2      830
+#>  2     1      533            529         4      850
+#>  3     1      542            540         2      923
+#>  4     1      544            545        -1     1004
+#>  5     1      554            600        -6      812
+#>  6     1      554            558        -4      740
+#>  7     1      555            600        -5      913
+#>  8     1      557            600        -3      709
+#>  9     1      557            600        -3      838
+#> 10     1      558            600        -2      753
+#> # ℹ 336,766 more rows
+#> # ℹ 14 more variables: sched_arr_time <int>,
+#> #   arr_delay <int>, carrier <chr>, flight <int>,
+#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#> #   air_time <int>, distance <int>, hour <int>,
+#> #   minute <int>, time_hour <chr>, year <int>, month <int>
 ```
 
 
@@ -767,25 +748,24 @@ relocate(flights, c(year, month), .after = last_col())
 
 relocate(flights, dep_delay, .before = everything())
 #> # A tibble: 336,776 × 19
-#>    dep_d…¹  year month   day dep_t…² sched…³ arr_t…⁴ sched…⁵
-#>      <int> <int> <int> <int>   <int>   <int>   <int>   <int>
-#>  1       2  2013     1     1     517     515     830     819
-#>  2       4  2013     1     1     533     529     850     830
-#>  3       2  2013     1     1     542     540     923     850
-#>  4      -1  2013     1     1     544     545    1004    1022
-#>  5      -6  2013     1     1     554     600     812     837
-#>  6      -4  2013     1     1     554     558     740     728
-#>  7      -5  2013     1     1     555     600     913     854
-#>  8      -3  2013     1     1     557     600     709     723
-#>  9      -3  2013     1     1     557     600     838     846
-#> 10      -2  2013     1     1     558     600     753     745
-#> # … with 336,766 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <chr>, flight <int>,
-#> #   tailnum <chr>, origin <chr>, dest <chr>,
+#>    dep_delay  year month   day dep_time sched_dep_time
+#>        <int> <int> <int> <int>    <int>          <int>
+#>  1         2  2013     1     1      517            515
+#>  2         4  2013     1     1      533            529
+#>  3         2  2013     1     1      542            540
+#>  4        -1  2013     1     1      544            545
+#>  5        -6  2013     1     1      554            600
+#>  6        -4  2013     1     1      554            558
+#>  7        -5  2013     1     1      555            600
+#>  8        -3  2013     1     1      557            600
+#>  9        -3  2013     1     1      557            600
+#> 10        -2  2013     1     1      558            600
+#> # ℹ 336,766 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <chr>,
+#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​dep_delay, ²​dep_time, ³​sched_dep_time,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <chr>
 ```
 
 
@@ -822,7 +802,7 @@ mutate(flights_2, gain = dep_delay - arr_delay, speed = distance / air_time * 60
 #>  8     1        -3       -14      229       53    11  259.
 #>  9     1        -3        -8      944      140     5  405.
 #> 10     1        -2         8      733      138   -10  319.
-#> # … with 336,766 more rows
+#> # ℹ 336,766 more rows
 ```
 
 Note that you can refer to columns that you've just created:
@@ -832,21 +812,20 @@ Note that you can refer to columns that you've just created:
 
 mutate(flights_2, gain = dep_delay - arr_delay, hours = air_time/60, gain_per_hour = gain/hours)
 #> # A tibble: 336,776 × 8
-#>    month dep_d…¹ arr_d…² dista…³ air_t…⁴  gain hours gain_…⁵
-#>    <int>   <int>   <int>   <int>   <int> <int> <dbl>   <dbl>
-#>  1     1       2      11    1400     227    -9 3.78    -2.38
-#>  2     1       4      20    1416     227   -16 3.78    -4.23
-#>  3     1       2      33    1089     160   -31 2.67   -11.6 
-#>  4     1      -1     -18    1576     183    17 3.05     5.57
-#>  5     1      -6     -25     762     116    19 1.93     9.83
-#>  6     1      -4      12     719     150   -16 2.5     -6.4 
-#>  7     1      -5      19    1065     158   -24 2.63    -9.11
-#>  8     1      -3     -14     229      53    11 0.883   12.5 
-#>  9     1      -3      -8     944     140     5 2.33     2.14
-#> 10     1      -2       8     733     138   -10 2.3     -4.35
-#> # … with 336,766 more rows, and abbreviated variable names
-#> #   ¹​dep_delay, ²​arr_delay, ³​distance, ⁴​air_time,
-#> #   ⁵​gain_per_hour
+#>    month dep_delay arr_delay distance air_time  gain hours
+#>    <int>     <int>     <int>    <int>    <int> <int> <dbl>
+#>  1     1         2        11     1400      227    -9 3.78 
+#>  2     1         4        20     1416      227   -16 3.78 
+#>  3     1         2        33     1089      160   -31 2.67 
+#>  4     1        -1       -18     1576      183    17 3.05 
+#>  5     1        -6       -25      762      116    19 1.93 
+#>  6     1        -4        12      719      150   -16 2.5  
+#>  7     1        -5        19     1065      158   -24 2.63 
+#>  8     1        -3       -14      229       53    11 0.883
+#>  9     1        -3        -8      944      140     5 2.33 
+#> 10     1        -2         8      733      138   -10 2.3  
+#> # ℹ 336,766 more rows
+#> # ℹ 1 more variable: gain_per_hour <dbl>
 ```
 
 If you only want to keep the new variable, use `transmute()` function:
@@ -868,7 +847,7 @@ transmute(flights_2, gain = dep_delay - arr_delay, hours = air_time/60, gain_per
 #>  8    11 0.883         12.5 
 #>  9     5 2.33           2.14
 #> 10   -10 2.3           -4.35
-#> # … with 336,766 more rows
+#> # ℹ 336,766 more rows
 ```
 
 
@@ -893,7 +872,7 @@ select(filter(flights, month == 11 | month == 12), starts_with("sched") & ends_w
 #>  8            600            701
 #>  9            600            827
 #> 10            600            751
-#> # … with 55,393 more rows
+#> # ℹ 55,393 more rows
 ```
 
 This is difficult to read because the order of the operations is from inside to out. Thus, the arguments are a long way away from the function. To get around this problem, dplyr provides the `%>%` operator. The pipe operator, `%>%`, comes from the **magrittr** package by Stefan Milton Bache. Packages in the tidyverse load `%>%` for you automatically, so you don't usually load magrittr explicitly. 
@@ -923,7 +902,7 @@ flights %>%
 #>  8            600            701
 #>  9            600            827
 #> 10            600            751
-#> # … with 55,393 more rows
+#> # ℹ 55,393 more rows
 ```
 
 
@@ -943,24 +922,24 @@ flights %>%
   
   select(-c(1,4))
 #> # A tibble: 30 × 17
-#>    month   day sched_dep_t…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵
-#>    <int> <int>         <int>   <int>   <int>   <int>   <int>
-#>  1    10     1           600      -9     727     730      -3
-#>  2    10     1           600      -2     743     751      -8
-#>  3    10     1           600     -10     649     659     -10
-#>  4    10     1           610      -7     735     745     -10
-#>  5    10     1           600      -9     710     721     -11
-#>  6    10     1           600      -2     650     701     -11
-#>  7    10     1           600      -1     719     730     -11
-#>  8    10     1           600       0     706     717     -11
-#>  9    10     1           600     -10     648     700     -12
-#> 10    10     1           600      -9     655     708     -13
-#> # … with 20 more rows, 10 more variables: carrier <chr>,
-#> #   flight <int>, tailnum <chr>, origin <chr>, dest <chr>,
+#>    month   day sched_dep_time dep_delay arr_time
+#>    <int> <int>          <int>     <int>    <int>
+#>  1    10     1            600        -9      727
+#>  2    10     1            600        -2      743
+#>  3    10     1            600       -10      649
+#>  4    10     1            610        -7      735
+#>  5    10     1            600        -9      710
+#>  6    10     1            600        -2      650
+#>  7    10     1            600        -1      719
+#>  8    10     1            600         0      706
+#>  9    10     1            600       -10      648
+#> 10    10     1            600        -9      655
+#> # ℹ 20 more rows
+#> # ℹ 12 more variables: sched_arr_time <int>,
+#> #   arr_delay <int>, carrier <chr>, flight <int>,
+#> #   tailnum <chr>, origin <chr>, dest <chr>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <chr>, and abbreviated variable
-#> #   names ¹​sched_dep_time, ²​dep_delay, ³​arr_time,
-#> #   ⁴​sched_arr_time, ⁵​arr_delay
+#> #   minute <int>, time_hour <chr>
 ```
 
 
