@@ -7,7 +7,7 @@
 <title>Lecture 11 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
 <meta name="description" content="  dplyr Package (continued) We continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It...">
-<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
 <meta property="og:title" content="Lecture 11 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-11.html">
@@ -17,7 +17,7 @@
 <meta name="twitter:description" content="  dplyr Package (continued) We continue working with the nyc_flights data set that provides information about flights departed New York City in 2013 (the data set is available on Courseworks). It...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -58,16 +58,6 @@
 <li class="book-part">TIDYVERSE</li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
 <li><a class="active" href="lecture-11.html">Lecture 11</a></li>
-<li><a class="" href="lecture-12.html">Lecture 12</a></li>
-<li><a class="" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li class="book-part">STATISTICAL ANALYSIS</li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
 </ul>
 
         <div class="book-extra">
@@ -94,25 +84,24 @@
 <span><span class="va">by_origin</span></span>
 <span><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
 <span><span class="co">#&gt; # Groups:   origin [3]</span></span>
-<span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
-<span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1  2013     1     1     517     515       2     830     819</span></span>
-<span><span class="co">#&gt;  2  2013     1     1     533     529       4     850     830</span></span>
-<span><span class="co">#&gt;  3  2013     1     1     542     540       2     923     850</span></span>
-<span><span class="co">#&gt;  4  2013     1     1     544     545      -1    1004    1022</span></span>
-<span><span class="co">#&gt;  5  2013     1     1     554     600      -6     812     837</span></span>
-<span><span class="co">#&gt;  6  2013     1     1     554     558      -4     740     728</span></span>
-<span><span class="co">#&gt;  7  2013     1     1     555     600      -5     913     854</span></span>
-<span><span class="co">#&gt;  8  2013     1     1     557     600      -3     709     723</span></span>
-<span><span class="co">#&gt;  9  2013     1     1     557     600      -3     838     846</span></span>
-<span><span class="co">#&gt; 10  2013     1     1     558     600      -2     753     745</span></span>
-<span><span class="co">#&gt; # … with 336,766 more rows, 11 more variables:</span></span>
-<span><span class="co">#&gt; #   arr_delay &lt;int&gt;, carrier &lt;fct&gt;, flight &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   tailnum &lt;fct&gt;, origin &lt;fct&gt;, dest &lt;fct&gt;,</span></span>
+<span><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay</span></span>
+<span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1  2013     1     1      517            515         2</span></span>
+<span><span class="co">#&gt;  2  2013     1     1      533            529         4</span></span>
+<span><span class="co">#&gt;  3  2013     1     1      542            540         2</span></span>
+<span><span class="co">#&gt;  4  2013     1     1      544            545        -1</span></span>
+<span><span class="co">#&gt;  5  2013     1     1      554            600        -6</span></span>
+<span><span class="co">#&gt;  6  2013     1     1      554            558        -4</span></span>
+<span><span class="co">#&gt;  7  2013     1     1      555            600        -5</span></span>
+<span><span class="co">#&gt;  8  2013     1     1      557            600        -3</span></span>
+<span><span class="co">#&gt;  9  2013     1     1      557            600        -3</span></span>
+<span><span class="co">#&gt; 10  2013     1     1      558            600        -2</span></span>
+<span><span class="co">#&gt; # ℹ 336,766 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 13 more variables: arr_time &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;int&gt;, carrier &lt;fct&gt;,</span></span>
+<span><span class="co">#&gt; #   flight &lt;int&gt;, tailnum &lt;fct&gt;, origin &lt;fct&gt;, dest &lt;fct&gt;,</span></span>
 <span><span class="co">#&gt; #   air_time &lt;int&gt;, distance &lt;int&gt;, hour &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   minute &lt;int&gt;, time_hour &lt;fct&gt;, and abbreviated variable</span></span>
-<span><span class="co">#&gt; #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,</span></span>
-<span><span class="co">#&gt; #   ⁴​arr_time, ⁵​sched_arr_time</span></span></code></pre></div>
+<span><span class="co">#&gt; #   minute &lt;int&gt;, time_hour &lt;fct&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">by_origin_carrier</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span><span class="op">)</span></span>
@@ -120,25 +109,24 @@
 <span><span class="va">by_origin_carrier</span></span>
 <span><span class="co">#&gt; # A tibble: 336,776 × 19</span></span>
 <span><span class="co">#&gt; # Groups:   origin, carrier [35]</span></span>
-<span><span class="co">#&gt;     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵</span></span>
-<span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1  2013     1     1     517     515       2     830     819</span></span>
-<span><span class="co">#&gt;  2  2013     1     1     533     529       4     850     830</span></span>
-<span><span class="co">#&gt;  3  2013     1     1     542     540       2     923     850</span></span>
-<span><span class="co">#&gt;  4  2013     1     1     544     545      -1    1004    1022</span></span>
-<span><span class="co">#&gt;  5  2013     1     1     554     600      -6     812     837</span></span>
-<span><span class="co">#&gt;  6  2013     1     1     554     558      -4     740     728</span></span>
-<span><span class="co">#&gt;  7  2013     1     1     555     600      -5     913     854</span></span>
-<span><span class="co">#&gt;  8  2013     1     1     557     600      -3     709     723</span></span>
-<span><span class="co">#&gt;  9  2013     1     1     557     600      -3     838     846</span></span>
-<span><span class="co">#&gt; 10  2013     1     1     558     600      -2     753     745</span></span>
-<span><span class="co">#&gt; # … with 336,766 more rows, 11 more variables:</span></span>
-<span><span class="co">#&gt; #   arr_delay &lt;int&gt;, carrier &lt;fct&gt;, flight &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   tailnum &lt;fct&gt;, origin &lt;fct&gt;, dest &lt;fct&gt;,</span></span>
+<span><span class="co">#&gt;     year month   day dep_time sched_dep_time dep_delay</span></span>
+<span><span class="co">#&gt;    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1  2013     1     1      517            515         2</span></span>
+<span><span class="co">#&gt;  2  2013     1     1      533            529         4</span></span>
+<span><span class="co">#&gt;  3  2013     1     1      542            540         2</span></span>
+<span><span class="co">#&gt;  4  2013     1     1      544            545        -1</span></span>
+<span><span class="co">#&gt;  5  2013     1     1      554            600        -6</span></span>
+<span><span class="co">#&gt;  6  2013     1     1      554            558        -4</span></span>
+<span><span class="co">#&gt;  7  2013     1     1      555            600        -5</span></span>
+<span><span class="co">#&gt;  8  2013     1     1      557            600        -3</span></span>
+<span><span class="co">#&gt;  9  2013     1     1      557            600        -3</span></span>
+<span><span class="co">#&gt; 10  2013     1     1      558            600        -2</span></span>
+<span><span class="co">#&gt; # ℹ 336,766 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 13 more variables: arr_time &lt;int&gt;,</span></span>
+<span><span class="co">#&gt; #   sched_arr_time &lt;int&gt;, arr_delay &lt;int&gt;, carrier &lt;fct&gt;,</span></span>
+<span><span class="co">#&gt; #   flight &lt;int&gt;, tailnum &lt;fct&gt;, origin &lt;fct&gt;, dest &lt;fct&gt;,</span></span>
 <span><span class="co">#&gt; #   air_time &lt;int&gt;, distance &lt;int&gt;, hour &lt;int&gt;,</span></span>
-<span><span class="co">#&gt; #   minute &lt;int&gt;, time_hour &lt;fct&gt;, and abbreviated variable</span></span>
-<span><span class="co">#&gt; #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,</span></span>
-<span><span class="co">#&gt; #   ⁴​arr_time, ⁵​sched_arr_time</span></span></code></pre></div>
+<span><span class="co">#&gt; #   minute &lt;int&gt;, time_hour &lt;fct&gt;</span></span></code></pre></div>
 <p>Grouping does not change how the data looks apart from listing how it is grouped.</p>
 <p>Grouping is most useful when used in conjunction with the <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> function. <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> creates a new data frame. It returns one row for each combination of grouping variables; if there are no grouping variables, the output will have a single row summarizing all observations in the input. It will contain one column for each grouping variable and one column for each of the summary statistics that you have specified. Thus, it changes the unit of analysis from the complete dataset to individual groups. Together <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise()</a></code> provide one of the tools that you’ll use most commonly when working with dplyr: grouped summaries.</p>
 <p>For instance, let’s calculate the average arrival delay time for each group in the <code>by_origin</code> grouped data:</p>
@@ -262,20 +250,20 @@
 <span><span class="co">#&gt; override using the `.groups` argument.</span></span>
 <span><span class="co">#&gt; # A tibble: 35 × 5</span></span>
 <span><span class="co">#&gt; # Groups:   origin [3]</span></span>
-<span><span class="co">#&gt;    origin carrier Mean_dep_delay Mean_arrival_delay Mean_a…¹</span></span>
-<span><span class="co">#&gt;    &lt;fct&gt;  &lt;fct&gt;            &lt;dbl&gt;              &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 EWR    9E                5.95              1.62     103. </span></span>
-<span><span class="co">#&gt;  2 EWR    AA               10.0               0.978    196. </span></span>
-<span><span class="co">#&gt;  3 EWR    AS                5.80             -9.93     326. </span></span>
-<span><span class="co">#&gt;  4 EWR    B6               13.1               9.39     118. </span></span>
-<span><span class="co">#&gt;  5 EWR    DL               12.1               8.78     125. </span></span>
-<span><span class="co">#&gt;  6 EWR    EV               20.2              17.0       94.0</span></span>
-<span><span class="co">#&gt;  7 EWR    MQ               17.5              16.3      112. </span></span>
-<span><span class="co">#&gt;  8 EWR    OO               20.8              21.5      137. </span></span>
-<span><span class="co">#&gt;  9 EWR    UA               12.5               3.48     207. </span></span>
-<span><span class="co">#&gt; 10 EWR    US                3.74              0.977    138. </span></span>
-<span><span class="co">#&gt; # … with 25 more rows, and abbreviated variable name</span></span>
-<span><span class="co">#&gt; #   ¹​Mean_air_time</span></span></code></pre></div>
+<span><span class="co">#&gt;    origin carrier Mean_dep_delay Mean_arrival_delay</span></span>
+<span><span class="co">#&gt;    &lt;fct&gt;  &lt;fct&gt;            &lt;dbl&gt;              &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 EWR    9E                5.95              1.62 </span></span>
+<span><span class="co">#&gt;  2 EWR    AA               10.0               0.978</span></span>
+<span><span class="co">#&gt;  3 EWR    AS                5.80             -9.93 </span></span>
+<span><span class="co">#&gt;  4 EWR    B6               13.1               9.39 </span></span>
+<span><span class="co">#&gt;  5 EWR    DL               12.1               8.78 </span></span>
+<span><span class="co">#&gt;  6 EWR    EV               20.2              17.0  </span></span>
+<span><span class="co">#&gt;  7 EWR    MQ               17.5              16.3  </span></span>
+<span><span class="co">#&gt;  8 EWR    OO               20.8              21.5  </span></span>
+<span><span class="co">#&gt;  9 EWR    UA               12.5               3.48 </span></span>
+<span><span class="co">#&gt; 10 EWR    US                3.74              0.977</span></span>
+<span><span class="co">#&gt; # ℹ 25 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 1 more variable: Mean_air_time &lt;dbl&gt;</span></span></code></pre></div>
 <p>Instead, we can use <code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> function, which lets you rewrite the previous code more succinctly:</p>
 <div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -306,13 +294,13 @@
 <span><span class="co">#&gt;  8 EWR    OO          20.8     21.5      137. </span></span>
 <span><span class="co">#&gt;  9 EWR    UA          12.5      3.48     207. </span></span>
 <span><span class="co">#&gt; 10 EWR    US           3.74     0.977    138. </span></span>
-<span><span class="co">#&gt; # … with 25 more rows</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 25 more rows</span></span></code></pre></div>
 <p><code><a href="https://dplyr.tidyverse.org/reference/across.html">across()</a></code> has two primary arguments: (1) the first argument, <code>.col</code>, selects the columns you want to operate on; (2) the second argument, <code>.fns</code>, is a function or list of functions to apply to each column. Here are some examples:</p>
 <div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.factor</span><span class="op">)</span>, <span class="va">n_distinct</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.factor</span><span class="op">)</span>, <span class="va">n_distinct</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 5</span></span>
 <span><span class="co">#&gt;   carrier tailnum origin  dest time_hour</span></span>
 <span><span class="co">#&gt;     &lt;int&gt;   &lt;int&gt;  &lt;int&gt; &lt;int&gt;     &lt;int&gt;</span></span>
@@ -323,18 +311,16 @@
 <span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">.x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 15</span></span>
-<span><span class="co">#&gt;   origin  year month   day dep_time sched_…¹ dep_d…² arr_t…³</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 EWR     2013  6.49  15.7    1337.    1322.    15.1   1492.</span></span>
-<span><span class="co">#&gt; 2 JFK     2013  6.50  15.7    1399.    1402.    12.1   1520.</span></span>
-<span><span class="co">#&gt; 3 LGA     2013  6.67  15.7    1310.    1308.    10.3   1494.</span></span>
-<span><span class="co">#&gt; # … with 7 more variables: sched_arr_time &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt;   origin  year month   day dep_time sched_dep_time dep_delay</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;          &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 EWR     2013  6.49  15.7    1337.          1322.      15.1</span></span>
+<span><span class="co">#&gt; 2 JFK     2013  6.50  15.7    1399.          1402.      12.1</span></span>
+<span><span class="co">#&gt; 3 LGA     2013  6.67  15.7    1310.          1308.      10.3</span></span>
+<span><span class="co">#&gt; # ℹ 8 more variables: arr_time &lt;dbl&gt;, sched_arr_time &lt;dbl&gt;,</span></span>
 <span><span class="co">#&gt; #   arr_delay &lt;dbl&gt;, flight &lt;dbl&gt;, air_time &lt;dbl&gt;,</span></span>
-<span><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;, and</span></span>
-<span><span class="co">#&gt; #   abbreviated variable names ¹​sched_dep_time, ²​dep_delay,</span></span>
-<span><span class="co">#&gt; #   ³​arr_time</span></span></code></pre></div>
+<span><span class="co">#&gt; #   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;</span></span></code></pre></div>
 <p>You can transform each variable with more than one function by supplying a named list of functions or lambda functions in the second argument:</p>
 <div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -350,14 +336,14 @@
 <span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">min_max</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">min_max</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 29</span></span>
-<span><span class="co">#&gt;   origin year_min year_max month_min month…¹ day_min day_max</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;     &lt;int&gt;    &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 EWR        2013     2013         1      12       1      31</span></span>
-<span><span class="co">#&gt; 2 JFK        2013     2013         1      12       1      31</span></span>
-<span><span class="co">#&gt; 3 LGA        2013     2013         1      12       1      31</span></span>
-<span><span class="co">#&gt; # … with 22 more variables: dep_time_min &lt;int&gt;,</span></span>
+<span><span class="co">#&gt;   origin year_min year_max month_min month_max day_min</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;     &lt;int&gt;    &lt;int&gt;     &lt;int&gt;     &lt;int&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 EWR        2013     2013         1        12       1</span></span>
+<span><span class="co">#&gt; 2 JFK        2013     2013         1        12       1</span></span>
+<span><span class="co">#&gt; 3 LGA        2013     2013         1        12       1</span></span>
+<span><span class="co">#&gt; # ℹ 23 more variables: day_max &lt;int&gt;, dep_time_min &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   dep_time_max &lt;int&gt;, sched_dep_time_min &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   sched_dep_time_max &lt;int&gt;, dep_delay_min &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   dep_delay_max &lt;int&gt;, arr_time_min &lt;int&gt;,</span></span>
@@ -371,18 +357,18 @@
 <span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu">where</span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">min_max</span>,</span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/where.html">where</a></span><span class="op">(</span><span class="va">is.numeric</span><span class="op">)</span>, <span class="va">min_max</span>,</span>
 <span>                   </span>
 <span>                   .names <span class="op">=</span> <span class="st">"{.fn}.{.col}"</span></span>
 <span>                   </span>
 <span>                   <span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 3 × 29</span></span>
-<span><span class="co">#&gt;   origin min.year max.year min.month max.m…¹ min.day max.day</span></span>
-<span><span class="co">#&gt;   &lt;fct&gt;     &lt;int&gt;    &lt;int&gt;     &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;int&gt;</span></span>
-<span><span class="co">#&gt; 1 EWR        2013     2013         1      12       1      31</span></span>
-<span><span class="co">#&gt; 2 JFK        2013     2013         1      12       1      31</span></span>
-<span><span class="co">#&gt; 3 LGA        2013     2013         1      12       1      31</span></span>
-<span><span class="co">#&gt; # … with 22 more variables: min.dep_time &lt;int&gt;,</span></span>
+<span><span class="co">#&gt;   origin min.year max.year min.month max.month min.day</span></span>
+<span><span class="co">#&gt;   &lt;fct&gt;     &lt;int&gt;    &lt;int&gt;     &lt;int&gt;     &lt;int&gt;   &lt;int&gt;</span></span>
+<span><span class="co">#&gt; 1 EWR        2013     2013         1        12       1</span></span>
+<span><span class="co">#&gt; 2 JFK        2013     2013         1        12       1</span></span>
+<span><span class="co">#&gt; 3 LGA        2013     2013         1        12       1</span></span>
+<span><span class="co">#&gt; # ℹ 23 more variables: max.day &lt;int&gt;, min.dep_time &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   max.dep_time &lt;int&gt;, min.sched_dep_time &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   max.sched_dep_time &lt;int&gt;, min.dep_delay &lt;int&gt;,</span></span>
 <span><span class="co">#&gt; #   max.dep_delay &lt;int&gt;, min.arr_time &lt;int&gt;,</span></span>
@@ -478,6 +464,12 @@
 <span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in inner_join(., df2, by = "a"): Detected an unexpected many-to-many relationship between</span></span>
+<span><span class="co">#&gt; `x` and `y`.</span></span>
+<span><span class="co">#&gt; ℹ Row 2 of `x` matches multiple rows in `y`.</span></span>
+<span><span class="co">#&gt; ℹ Row 2 of `y` matches multiple rows in `x`.</span></span>
+<span><span class="co">#&gt; ℹ If a many-to-many relationship is expected, set</span></span>
+<span><span class="co">#&gt;   `relationship = "many-to-many"` to silence this warning.</span></span>
 <span><span class="co">#&gt;   a b.x   c b.y  x   z</span></span>
 <span><span class="co">#&gt; 1 1  10 100  10 15 150</span></span>
 <span><span class="co">#&gt; 2 2  20 200  40 25 200</span></span>
@@ -529,6 +521,12 @@
 <span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in left_join(., df2, by = "a"): Detected an unexpected many-to-many relationship between</span></span>
+<span><span class="co">#&gt; `x` and `y`.</span></span>
+<span><span class="co">#&gt; ℹ Row 2 of `x` matches multiple rows in `y`.</span></span>
+<span><span class="co">#&gt; ℹ Row 2 of `y` matches multiple rows in `x`.</span></span>
+<span><span class="co">#&gt; ℹ If a many-to-many relationship is expected, set</span></span>
+<span><span class="co">#&gt;   `relationship = "many-to-many"` to silence this warning.</span></span>
 <span><span class="co">#&gt;   a b.x   c b.y  x   z</span></span>
 <span><span class="co">#&gt; 1 1  10 100  10 15 150</span></span>
 <span><span class="co">#&gt; 2 2  20 200  40 25 200</span></span>
@@ -575,6 +573,12 @@
 <span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in right_join(., df2, by = "a"): Detected an unexpected many-to-many relationship between</span></span>
+<span><span class="co">#&gt; `x` and `y`.</span></span>
+<span><span class="co">#&gt; ℹ Row 2 of `x` matches multiple rows in `y`.</span></span>
+<span><span class="co">#&gt; ℹ Row 2 of `y` matches multiple rows in `x`.</span></span>
+<span><span class="co">#&gt; ℹ If a many-to-many relationship is expected, set</span></span>
+<span><span class="co">#&gt;   `relationship = "many-to-many"` to silence this warning.</span></span>
 <span><span class="co">#&gt;   a b.x   c b.y  x   z</span></span>
 <span><span class="co">#&gt; 1 1  10 100  10 15 150</span></span>
 <span><span class="co">#&gt; 2 2  20 200  40 25 200</span></span>
@@ -624,6 +628,12 @@
 <span><span class="va">df1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span><span class="va">df2</span>, by <span class="op">=</span> <span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in full_join(., df2, by = "a"): Detected an unexpected many-to-many relationship between</span></span>
+<span><span class="co">#&gt; `x` and `y`.</span></span>
+<span><span class="co">#&gt; ℹ Row 2 of `x` matches multiple rows in `y`.</span></span>
+<span><span class="co">#&gt; ℹ Row 2 of `y` matches multiple rows in `x`.</span></span>
+<span><span class="co">#&gt; ℹ If a many-to-many relationship is expected, set</span></span>
+<span><span class="co">#&gt;   `relationship = "many-to-many"` to silence this warning.</span></span>
 <span><span class="co">#&gt;   a b.x   c b.y  x   z</span></span>
 <span><span class="co">#&gt; 1 1  10 100  10 15 150</span></span>
 <span><span class="co">#&gt; 2 2  20 200  40 25 200</span></span>
@@ -887,7 +897,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-10.html">Lecture 10</a></div>
-<div class="next"><a href="lecture-12.html">Lecture 12</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -920,7 +930,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-12-05.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2024-02-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

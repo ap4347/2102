@@ -29,25 +29,24 @@ by_origin <- flights %>% group_by(origin)
 by_origin
 #> # A tibble: 336,776 × 19
 #> # Groups:   origin [3]
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     1     1     517     515       2     830     819
-#>  2  2013     1     1     533     529       4     850     830
-#>  3  2013     1     1     542     540       2     923     850
-#>  4  2013     1     1     544     545      -1    1004    1022
-#>  5  2013     1     1     554     600      -6     812     837
-#>  6  2013     1     1     554     558      -4     740     728
-#>  7  2013     1     1     555     600      -5     913     854
-#>  8  2013     1     1     557     600      -3     709     723
-#>  9  2013     1     1     557     600      -3     838     846
-#> 10  2013     1     1     558     600      -2     753     745
-#> # … with 336,766 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <fct>, flight <int>,
-#> #   tailnum <fct>, origin <fct>, dest <fct>,
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013     1     1      517            515         2
+#>  2  2013     1     1      533            529         4
+#>  3  2013     1     1      542            540         2
+#>  4  2013     1     1      544            545        -1
+#>  5  2013     1     1      554            600        -6
+#>  6  2013     1     1      554            558        -4
+#>  7  2013     1     1      555            600        -5
+#>  8  2013     1     1      557            600        -3
+#>  9  2013     1     1      557            600        -3
+#> 10  2013     1     1      558            600        -2
+#> # ℹ 336,766 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <fct>,
+#> #   flight <int>, tailnum <fct>, origin <fct>, dest <fct>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <fct>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <fct>
 ```
 
 
@@ -58,25 +57,24 @@ by_origin_carrier <- flights %>% group_by(origin, carrier)
 by_origin_carrier
 #> # A tibble: 336,776 × 19
 #> # Groups:   origin, carrier [35]
-#>     year month   day dep_t…¹ sched…² dep_d…³ arr_t…⁴ sched…⁵
-#>    <int> <int> <int>   <int>   <int>   <int>   <int>   <int>
-#>  1  2013     1     1     517     515       2     830     819
-#>  2  2013     1     1     533     529       4     850     830
-#>  3  2013     1     1     542     540       2     923     850
-#>  4  2013     1     1     544     545      -1    1004    1022
-#>  5  2013     1     1     554     600      -6     812     837
-#>  6  2013     1     1     554     558      -4     740     728
-#>  7  2013     1     1     555     600      -5     913     854
-#>  8  2013     1     1     557     600      -3     709     723
-#>  9  2013     1     1     557     600      -3     838     846
-#> 10  2013     1     1     558     600      -2     753     745
-#> # … with 336,766 more rows, 11 more variables:
-#> #   arr_delay <int>, carrier <fct>, flight <int>,
-#> #   tailnum <fct>, origin <fct>, dest <fct>,
+#>     year month   day dep_time sched_dep_time dep_delay
+#>    <int> <int> <int>    <int>          <int>     <int>
+#>  1  2013     1     1      517            515         2
+#>  2  2013     1     1      533            529         4
+#>  3  2013     1     1      542            540         2
+#>  4  2013     1     1      544            545        -1
+#>  5  2013     1     1      554            600        -6
+#>  6  2013     1     1      554            558        -4
+#>  7  2013     1     1      555            600        -5
+#>  8  2013     1     1      557            600        -3
+#>  9  2013     1     1      557            600        -3
+#> 10  2013     1     1      558            600        -2
+#> # ℹ 336,766 more rows
+#> # ℹ 13 more variables: arr_time <int>,
+#> #   sched_arr_time <int>, arr_delay <int>, carrier <fct>,
+#> #   flight <int>, tailnum <fct>, origin <fct>, dest <fct>,
 #> #   air_time <int>, distance <int>, hour <int>,
-#> #   minute <int>, time_hour <fct>, and abbreviated variable
-#> #   names ¹​dep_time, ²​sched_dep_time, ³​dep_delay,
-#> #   ⁴​arr_time, ⁵​sched_arr_time
+#> #   minute <int>, time_hour <fct>
 ```
 
 
@@ -196,20 +194,20 @@ flights %>%
 #> override using the `.groups` argument.
 #> # A tibble: 35 × 5
 #> # Groups:   origin [3]
-#>    origin carrier Mean_dep_delay Mean_arrival_delay Mean_a…¹
-#>    <fct>  <fct>            <dbl>              <dbl>    <dbl>
-#>  1 EWR    9E                5.95              1.62     103. 
-#>  2 EWR    AA               10.0               0.978    196. 
-#>  3 EWR    AS                5.80             -9.93     326. 
-#>  4 EWR    B6               13.1               9.39     118. 
-#>  5 EWR    DL               12.1               8.78     125. 
-#>  6 EWR    EV               20.2              17.0       94.0
-#>  7 EWR    MQ               17.5              16.3      112. 
-#>  8 EWR    OO               20.8              21.5      137. 
-#>  9 EWR    UA               12.5               3.48     207. 
-#> 10 EWR    US                3.74              0.977    138. 
-#> # … with 25 more rows, and abbreviated variable name
-#> #   ¹​Mean_air_time
+#>    origin carrier Mean_dep_delay Mean_arrival_delay
+#>    <fct>  <fct>            <dbl>              <dbl>
+#>  1 EWR    9E                5.95              1.62 
+#>  2 EWR    AA               10.0               0.978
+#>  3 EWR    AS                5.80             -9.93 
+#>  4 EWR    B6               13.1               9.39 
+#>  5 EWR    DL               12.1               8.78 
+#>  6 EWR    EV               20.2              17.0  
+#>  7 EWR    MQ               17.5              16.3  
+#>  8 EWR    OO               20.8              21.5  
+#>  9 EWR    UA               12.5               3.48 
+#> 10 EWR    US                3.74              0.977
+#> # ℹ 25 more rows
+#> # ℹ 1 more variable: Mean_air_time <dbl>
 ```
 
 
@@ -245,7 +243,7 @@ flights %>%
 #>  8 EWR    OO          20.8     21.5      137. 
 #>  9 EWR    UA          12.5      3.48     207. 
 #> 10 EWR    US           3.74     0.977    138. 
-#> # … with 25 more rows
+#> # ℹ 25 more rows
 ```
 
 
@@ -273,16 +271,14 @@ flights %>%
   
   summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE)))
 #> # A tibble: 3 × 15
-#>   origin  year month   day dep_time sched_…¹ dep_d…² arr_t…³
-#>   <fct>  <dbl> <dbl> <dbl>    <dbl>    <dbl>   <dbl>   <dbl>
-#> 1 EWR     2013  6.49  15.7    1337.    1322.    15.1   1492.
-#> 2 JFK     2013  6.50  15.7    1399.    1402.    12.1   1520.
-#> 3 LGA     2013  6.67  15.7    1310.    1308.    10.3   1494.
-#> # … with 7 more variables: sched_arr_time <dbl>,
+#>   origin  year month   day dep_time sched_dep_time dep_delay
+#>   <fct>  <dbl> <dbl> <dbl>    <dbl>          <dbl>     <dbl>
+#> 1 EWR     2013  6.49  15.7    1337.          1322.      15.1
+#> 2 JFK     2013  6.50  15.7    1399.          1402.      12.1
+#> 3 LGA     2013  6.67  15.7    1310.          1308.      10.3
+#> # ℹ 8 more variables: arr_time <dbl>, sched_arr_time <dbl>,
 #> #   arr_delay <dbl>, flight <dbl>, air_time <dbl>,
-#> #   distance <dbl>, hour <dbl>, minute <dbl>, and
-#> #   abbreviated variable names ¹​sched_dep_time, ²​dep_delay,
-#> #   ³​arr_time
+#> #   distance <dbl>, hour <dbl>, minute <dbl>
 ```
 
 
@@ -305,12 +301,12 @@ flights %>%
   
   summarise(across(where(is.numeric), min_max))
 #> # A tibble: 3 × 29
-#>   origin year_min year_max month_min month…¹ day_min day_max
-#>   <fct>     <int>    <int>     <int>   <int>   <int>   <int>
-#> 1 EWR        2013     2013         1      12       1      31
-#> 2 JFK        2013     2013         1      12       1      31
-#> 3 LGA        2013     2013         1      12       1      31
-#> # … with 22 more variables: dep_time_min <int>,
+#>   origin year_min year_max month_min month_max day_min
+#>   <fct>     <int>    <int>     <int>     <int>   <int>
+#> 1 EWR        2013     2013         1        12       1
+#> 2 JFK        2013     2013         1        12       1
+#> 3 LGA        2013     2013         1        12       1
+#> # ℹ 23 more variables: day_max <int>, dep_time_min <int>,
 #> #   dep_time_max <int>, sched_dep_time_min <int>,
 #> #   sched_dep_time_max <int>, dep_delay_min <int>,
 #> #   dep_delay_max <int>, arr_time_min <int>,
@@ -334,12 +330,12 @@ flights %>%
                    
                    ))
 #> # A tibble: 3 × 29
-#>   origin min.year max.year min.month max.m…¹ min.day max.day
-#>   <fct>     <int>    <int>     <int>   <int>   <int>   <int>
-#> 1 EWR        2013     2013         1      12       1      31
-#> 2 JFK        2013     2013         1      12       1      31
-#> 3 LGA        2013     2013         1      12       1      31
-#> # … with 22 more variables: min.dep_time <int>,
+#>   origin min.year max.year min.month max.month min.day
+#>   <fct>     <int>    <int>     <int>     <int>   <int>
+#> 1 EWR        2013     2013         1        12       1
+#> 2 JFK        2013     2013         1        12       1
+#> 3 LGA        2013     2013         1        12       1
+#> # ℹ 23 more variables: max.day <int>, min.dep_time <int>,
 #> #   max.dep_time <int>, min.sched_dep_time <int>,
 #> #   max.sched_dep_time <int>, min.dep_delay <int>,
 #> #   max.dep_delay <int>, min.arr_time <int>,
@@ -444,6 +440,12 @@ Below are some examples of inner join:
 df1 %>%
   
   inner_join(df2, by = "a")
+#> Warning in inner_join(., df2, by = "a"): Detected an unexpected many-to-many relationship between
+#> `x` and `y`.
+#> ℹ Row 2 of `x` matches multiple rows in `y`.
+#> ℹ Row 2 of `y` matches multiple rows in `x`.
+#> ℹ If a many-to-many relationship is expected, set
+#>   `relationship = "many-to-many"` to silence this warning.
 #>   a b.x   c b.y  x   z
 #> 1 1  10 100  10 15 150
 #> 2 2  20 200  40 25 200
@@ -510,6 +512,12 @@ df1 %>%
 df1 %>%
   
   left_join(df2, by = "a")
+#> Warning in left_join(., df2, by = "a"): Detected an unexpected many-to-many relationship between
+#> `x` and `y`.
+#> ℹ Row 2 of `x` matches multiple rows in `y`.
+#> ℹ Row 2 of `y` matches multiple rows in `x`.
+#> ℹ If a many-to-many relationship is expected, set
+#>   `relationship = "many-to-many"` to silence this warning.
 #>   a b.x   c b.y  x   z
 #> 1 1  10 100  10 15 150
 #> 2 2  20 200  40 25 200
@@ -568,6 +576,12 @@ df1 %>%
 df1 %>%
   
   right_join(df2, by = "a")
+#> Warning in right_join(., df2, by = "a"): Detected an unexpected many-to-many relationship between
+#> `x` and `y`.
+#> ℹ Row 2 of `x` matches multiple rows in `y`.
+#> ℹ Row 2 of `y` matches multiple rows in `x`.
+#> ℹ If a many-to-many relationship is expected, set
+#>   `relationship = "many-to-many"` to silence this warning.
 #>   a b.x   c b.y  x   z
 #> 1 1  10 100  10 15 150
 #> 2 2  20 200  40 25 200
@@ -628,6 +642,12 @@ df1 %>%
 df1 %>%
   
   full_join(df2, by = "a")
+#> Warning in full_join(., df2, by = "a"): Detected an unexpected many-to-many relationship between
+#> `x` and `y`.
+#> ℹ Row 2 of `x` matches multiple rows in `y`.
+#> ℹ Row 2 of `y` matches multiple rows in `x`.
+#> ℹ If a many-to-many relationship is expected, set
+#>   `relationship = "many-to-many"` to silence this warning.
 #>   a b.x   c b.y  x   z
 #> 1 1  10 100  10 15 150
 #> 2 2  20 200  40 25 200
