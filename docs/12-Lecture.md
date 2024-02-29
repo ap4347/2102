@@ -199,7 +199,7 @@ tidy4b <- table4b %>%
 
 
 tidy_4a_4b <- left_join(tidy4a, tidy4b)
-#> Joining, by = c("country", "year")
+#> Joining with `by = join_by(country, year)`
 
 print(tidy_4a_4b)
 #> # A tibble: 6 × 4
@@ -638,7 +638,7 @@ relig_income %>%
 #>  8 Agnostic $100-150k                109
 #>  9 Agnostic >150k                     84
 #> 10 Agnostic Don't know/refused        96
-#> # … with 170 more rows
+#> # ℹ 170 more rows
 ```
 
 
@@ -673,7 +673,7 @@ print(who1)
 #>  8 Afghanistan AF    AFG    1997 new_sp_f014      5
 #>  9 Afghanistan AF    AFG    1997 new_sp_f1524    38
 #> 10 Afghanistan AF    AFG    1997 new_sp_f2534    36
-#> # … with 76,036 more rows
+#> # ℹ 76,036 more rows
 ```
 
 
@@ -709,7 +709,7 @@ print(who3)
 #>  8 Afghanistan AF    AFG    1997 new   sp    f014       5
 #>  9 Afghanistan AF    AFG    1997 new   sp    f1524     38
 #> 10 Afghanistan AF    AFG    1997 new   sp    f2534     36
-#> # … with 76,036 more rows
+#> # ℹ 76,036 more rows
 ```
 
 
@@ -733,7 +733,7 @@ print(who4)
 #>  8 Afghanis… AF    AFG    1997 new   sp    f     014       5
 #>  9 Afghanis… AF    AFG    1997 new   sp    f     1524     38
 #> 10 Afghanis… AF    AFG    1997 new   sp    f     2534     36
-#> # … with 76,036 more rows
+#> # ℹ 76,036 more rows
 ```
 
 
@@ -768,7 +768,7 @@ print(billboard2)
 #>  8 2Ge+her The Hardest Part Of ... 2000-09-02   wk1      91
 #>  9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87
 #> 10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92
-#> # … with 5,297 more rows
+#> # ℹ 5,297 more rows
 ```
 
 
@@ -806,7 +806,7 @@ print(billboard3)
 #>  8 2Ge+her The Hardest Part Of ... 2000-09-02       1    91
 #>  9 2Ge+her The Hardest Part Of ... 2000-09-02       2    87
 #> 10 2Ge+her The Hardest Part Of ... 2000-09-02       3    92
-#> # … with 5,297 more rows
+#> # ℹ 5,297 more rows
 ```
 
 
@@ -829,5 +829,5 @@ billboard3 %>%
 #>  8 2Ge+her The Hardest Part Of ... 2000-09-02       1    91
 #>  9 2Ge+her The Hardest Part Of ... 2000-09-02       2    87
 #> 10 2Ge+her The Hardest Part Of ... 2000-09-02       3    92
-#> # … with 5,297 more rows
+#> # ℹ 5,297 more rows
 ```

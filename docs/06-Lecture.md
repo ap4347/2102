@@ -102,7 +102,7 @@ new_function
 #>   }
 #>   
 #> }
-#> <bytecode: 0x0000022779afa4f0>
+#> <bytecode: 0x000001b4634c9368>
 ```
 
 
