@@ -10,7 +10,15 @@ output:
 
 ## ggplot2 Package {-}
 
+```{r, include=FALSE}
 
+library(tidyverse)
+
+mpg <- mpg
+
+mpg$cyl <- as.factor(mpg$cyl)
+
+```
 
 
 We have already learned how to visualize data using `Base R`. In this (and the following) lecture(s) we are going to learn how to do it using `ggplot2` package. R has several systems for making graphs, but `ggplot2` is one of the most elegant and most versatile. `ggplot2` implements the grammar of graphics, a coherent system for describing and building graphs. With `ggplot2`, you can do more faster by learning one system and applying it in many places.
@@ -19,25 +27,10 @@ We have already learned how to visualize data using `Base R`. In this (and the f
 We will use `mpg` dataset to illustrate functionality of the `ggplot2` package. It contains a subset of the fuel economy data that the EPA makes available. It contains only models which had a new release every year between 1999 and 2008 - this was used as a proxy for the popularity of the car.
 
 
-
-```r
+```{r}
 
 print(mpg)
-#> # A tibble: 234 × 11
-#>    manufacturer model    displ  year cyl   trans drv     cty
-#>    <chr>        <chr>    <dbl> <int> <fct> <chr> <chr> <int>
-#>  1 audi         a4         1.8  1999 4     auto… f        18
-#>  2 audi         a4         1.8  1999 4     manu… f        21
-#>  3 audi         a4         2    2008 4     manu… f        20
-#>  4 audi         a4         2    2008 4     auto… f        21
-#>  5 audi         a4         2.8  1999 6     auto… f        16
-#>  6 audi         a4         2.8  1999 6     manu… f        18
-#>  7 audi         a4         3.1  2008 6     auto… f        18
-#>  8 audi         a4 quat…   1.8  1999 4     manu… 4        18
-#>  9 audi         a4 quat…   1.8  1999 4     auto… 4        16
-#> 10 audi         a4 quat…   2    2008 4     manu… 4        20
-#> # ℹ 224 more rows
-#> # ℹ 3 more variables: hwy <int>, fl <chr>, class <chr>
+
 ```
 
 Among the variables in `mpg` are:
@@ -51,10 +44,10 @@ Among the variables in `mpg` are:
 
 Before we start exploring the `ggplot2` package, let's convert one of the variables into a factor:
 
-
-```r
+```{r}
 
 mpg$cyl <- as.factor(mpg$cyl)
+
 ```
 
 
@@ -68,25 +61,21 @@ Every ggplot2 plot has three key components:
 
 To produce a scatterplot, you need to pass your data to `ggplot()` function:
 
-
-```r
+```{r}
 
 ggplot(data = mpg)
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+```
 
 As you can notice, it creates a plot object but does not display data. To add datapoints to this object, we add a `geom_point()` function with a `+` sign and inside the function we specify `x` and `y` variables from the dataset, which will be `x` and `y` axes, respectively:
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
   
   geom_point(mapping = aes(x = displ, y = hwy))
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+```
 
 Note that we’ve put each command on a new line. It is recommended doing this in your code, so it’s easy to scan a plot specification and see exactly what’s there.
 
@@ -95,8 +84,7 @@ Note that we’ve put each command on a new line. It is recommended doing this i
 
 We can change a color, size, and shape of datapoints by passing these arguments to the `geom_point()` function:
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
     
@@ -107,30 +95,26 @@ We can change a color, size, and shape of datapoints by passing these arguments 
                size = 3,
              
                shape = 24)
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+```
 
 
 In this plot the color, size, and shape of points are static, meaning that they are the same for every point. If you want a color to change based on another variable in the dataset to reflect its categories, you need to specify this inside the `aes()` function:
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
     
     geom_point(mapping = aes(x = displ, y = hwy, color = cyl),
                
                size = 3) 
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+```
 
 `ggplot2` automatically assigned colors to the levels of `cyl` variable. If you want to change them manually, you need to do so using `scale_colour_manual()` function:
 
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
     
@@ -145,54 +129,39 @@ In this plot the color, size, and shape of points are static, meaning that they 
                                    `6` = "orange", 
                                    
                                    `8` = "yellow"))
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+```
 
 
 You can also change the shape of points to reflect another variable in the dataset:
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
     
     geom_point(mapping = aes(x = displ, y = hwy, color = cyl, shape = class),
                
                size = 3)
-#> Warning: The shape palette can deal with a maximum of 6 discrete
-#> values because more than 6 becomes difficult to
-#> discriminate
-#> ℹ you have requested 7 values. Consider specifying shapes
-#>   manually if you need that many have them.
-#> Warning: Removed 62 rows containing missing values
-#> (`geom_point()`).
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+```
 
 Or you can do so by changing the transparency of the points:
 
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
     
     geom_point(mapping = aes(x = displ, y = hwy, alpha = cyl),
                
                size = 3)
-#> Warning: Using alpha for a discrete variable is not
-#> advised.
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+```
 
 To change the legend title, add `labs()` function and use `color` argument:
 
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
     
@@ -201,15 +170,13 @@ To change the legend title, add `labs()` function and use `color` argument:
                size = 3) +
     
   labs(color = "Number of Cylinders")
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+```
 
 
 Let's save the ggplot object. We will be adding new layers to this object shortly:
 
-
-```r
+```{r}
 
   gg <-   ggplot(data = mpg) + 
     
@@ -218,6 +185,7 @@ Let's save the ggplot object. We will be adding new layers to this object shortl
                size = 3) +
     
     labs(color = "Number of Cylinders")
+
 ```
 
 
@@ -226,8 +194,7 @@ Let's save the ggplot object. We will be adding new layers to this object shortl
 
 To add labels to your ggplot object, you can use `labs()` function once again. Inside this function, you specify the plot title, subtitle, labels of `x` and `y` axes:
 
-
-```r
+```{r}
 
 gg <- gg +
   
@@ -241,9 +208,8 @@ gg <- gg +
 
 
 print(gg)
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+```
 
 
 ### Adjusting Limits of Axes {-}
@@ -253,39 +219,32 @@ The `x` and `y` axes limits can be controlled in 2 ways:
 You can change the axis limits using `xlim()` and `ylim()` functions. You need to pass a numeric vector of length 2 (with max and min values) or just the max and min values:
 
 
-
-```r
+```{r}
 
   gg +
   
   xlim(c(0, 4)) +
   
   ylim(c(0, 25))
-#> Warning: Removed 170 rows containing missing values
-#> (`geom_point()`).
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+```
 
 The limitation of this approach is that it deletes the points outside the specified range. The other approach is to change the `x` and `y` limits by zooming in to the region of interest without deleting points. It is achieved using the `coord_cartesian()` function:
 
-
-```r
+```{r}
 
   gg +
   
   coord_cartesian(xlim = c(0, 4),
                   
                   ylim = c(0, 25))
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+```
 
 
 There is a primary argument that affects the appearance of the ticks on the axes: `breaks`. Breaks controls the position of the ticks, or the values associated with the keys. You pass this argument to either `scale_x_continuous()` or `scale_y_continuous()` functions, depending which axis you want to modify:
 
-
-```r
+```{r}
 
   gg <- gg +
     
@@ -295,106 +254,90 @@ There is a primary argument that affects the appearance of the ticks on the axes
 
 
 print(gg)
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+```
 
 
 ### Themes {-}
 
 You can customize the non-data elements of your plot with a `theme()` function. For example, you can change the background of the plot:
 
-
-```r
+```{r}
 
   gg +
    
     theme_bw() 
+
 ```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
-
-
-```r
+```{r}
 
   gg +
    
     theme_classic() 
+
 ```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
-
-
-```r
+```{r}
 
   gg +
    
     theme_dark() 
+
 ```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
-
-
-```r
+```{r}
 
   gg +
    
     theme_light() 
+
 ```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
-
-
-```r
+```{r}
 
   gg +
    
     theme_linedraw() 
+
 ```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
-
-
-```r
+```{r}
 
   gg +
    
     theme_minimal() 
+
 ```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-22-1.png" width="672" />
-
-
-```r
+```{r}
 
   gg +
    
     theme_void() 
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+```
 
 
 Let's select `theme_bw()` option and update our plot:
 
 
-
-```r
+```{r}
 
   gg <- gg +
     
     theme_bw()
+
 ```
 
 Further, we can change the color and size of titles, size and angle of ticks on axes, and the location of legends:
 
-
-```r
+```{r}
 
   gg <- gg +
     
@@ -411,9 +354,8 @@ Further, we can change the color and size of titles, size and angle of ticks on 
              legend.position = "top") 
 
 print(gg)
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-25-1.png" width="672" />
+```
 
 
 ### Facets {-}
@@ -423,45 +365,39 @@ When working with categorical variables, it becomes particularly useful to split
 
 To facet your plot by a single variable, use the `facet_wrap()` function. The first argument of `facet_wrap()` should be a formula, which you create with `~` followed by a variable name (here “formula” is the name of a data structure in R, not a synonym for “equation”). The variable that you pass to `facet_wrap()` should be discrete. Let's plot `displ` against `hwy` for each level of the `class` variable separately:
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
     
   geom_point(mapping = aes(x = displ, y = hwy)) +
     
   facet_wrap(~ class)
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+```
 
 You can decide how the plots should be displayed by specifying the number of rows in the final plot:
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
     
   geom_point(mapping = aes(x = displ, y = hwy)) +
     
   facet_wrap(~ class, nrow = 2)
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+```
 
 
 To facet your plot on the combination of two variables, add `facet_grid()` to your plot call. Let's plot `displ` against `hwy` for different combinations of levels of the `class` and `drv` variables:
 
-
-```r
+```{r}
 
   ggplot(data = mpg) + 
     
   geom_point(mapping = aes(x = displ, y = hwy)) +
     
   facet_grid(drv ~ class)
-```
 
-<img src="13-Lecture_files/figure-html/unnamed-chunk-28-1.png" width="672" />
+```
 
 

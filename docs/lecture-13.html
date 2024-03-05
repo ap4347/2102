@@ -7,7 +7,7 @@
 <title>Lecture 13 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
 <meta name="description" content="  ggplot2 Package We have already learned how to visualize data using Base R. In this (and the following) lecture(s) we are going to learn how to do it using ggplot2 package. R has several systems...">
-<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
 <meta property="og:title" content="Lecture 13 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-13.html">
@@ -17,7 +17,7 @@
 <meta name="twitter:description" content="  ggplot2 Package We have already learned how to visualize data using Base R. In this (and the following) lecture(s) we are going to learn how to do it using ggplot2 package. R has several systems...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -60,14 +60,6 @@
 <li><a class="" href="lecture-11.html">Lecture 11</a></li>
 <li><a class="" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="active" href="lecture-13.html">Lecture 13</a></li>
-<li><a class="" href="lecture-14.html">Lecture 14</a></li>
-<li class="book-part">STATISTICAL ANALYSIS</li>
-<li><a class="" href="lecture-15.html">Lecture 15</a></li>
-<li><a class="" href="lecture-16.html">Lecture 16</a></li>
-<li><a class="" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
 </ul>
 
         <div class="book-extra">
@@ -88,21 +80,20 @@
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">mpg</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 234 × 11</span></span>
-<span><span class="co">#&gt;    manufac…¹ model displ  year cyl   trans drv     cty   hwy</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;fct&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt;</span></span>
-<span><span class="co">#&gt;  1 audi      a4      1.8  1999 4     auto… f        18    29</span></span>
-<span><span class="co">#&gt;  2 audi      a4      1.8  1999 4     manu… f        21    29</span></span>
-<span><span class="co">#&gt;  3 audi      a4      2    2008 4     manu… f        20    31</span></span>
-<span><span class="co">#&gt;  4 audi      a4      2    2008 4     auto… f        21    30</span></span>
-<span><span class="co">#&gt;  5 audi      a4      2.8  1999 6     auto… f        16    26</span></span>
-<span><span class="co">#&gt;  6 audi      a4      2.8  1999 6     manu… f        18    26</span></span>
-<span><span class="co">#&gt;  7 audi      a4      3.1  2008 6     auto… f        18    27</span></span>
-<span><span class="co">#&gt;  8 audi      a4 q…   1.8  1999 4     manu… 4        18    26</span></span>
-<span><span class="co">#&gt;  9 audi      a4 q…   1.8  1999 4     auto… 4        16    25</span></span>
-<span><span class="co">#&gt; 10 audi      a4 q…   2    2008 4     manu… 4        20    28</span></span>
-<span><span class="co">#&gt; # … with 224 more rows, 2 more variables: fl &lt;chr&gt;,</span></span>
-<span><span class="co">#&gt; #   class &lt;chr&gt;, and abbreviated variable name</span></span>
-<span><span class="co">#&gt; #   ¹​manufacturer</span></span></code></pre></div>
+<span><span class="co">#&gt;    manufacturer model    displ  year cyl   trans drv     cty</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;fct&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt;</span></span>
+<span><span class="co">#&gt;  1 audi         a4         1.8  1999 4     auto… f        18</span></span>
+<span><span class="co">#&gt;  2 audi         a4         1.8  1999 4     manu… f        21</span></span>
+<span><span class="co">#&gt;  3 audi         a4         2    2008 4     manu… f        20</span></span>
+<span><span class="co">#&gt;  4 audi         a4         2    2008 4     auto… f        21</span></span>
+<span><span class="co">#&gt;  5 audi         a4         2.8  1999 6     auto… f        16</span></span>
+<span><span class="co">#&gt;  6 audi         a4         2.8  1999 6     manu… f        18</span></span>
+<span><span class="co">#&gt;  7 audi         a4         3.1  2008 6     auto… f        18</span></span>
+<span><span class="co">#&gt;  8 audi         a4 quat…   1.8  1999 4     manu… 4        18</span></span>
+<span><span class="co">#&gt;  9 audi         a4 quat…   1.8  1999 4     auto… 4        16</span></span>
+<span><span class="co">#&gt; 10 audi         a4 quat…   2    2008 4     manu… 4        20</span></span>
+<span><span class="co">#&gt; # ℹ 224 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 3 more variables: hwy &lt;int&gt;, fl &lt;chr&gt;, class &lt;chr&gt;</span></span></code></pre></div>
 <p>Among the variables in <code>mpg</code> are:</p>
 <ul>
 <li>
@@ -193,10 +184,11 @@
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, color <span class="op">=</span> <span class="va">cyl</span>, shape <span class="op">=</span> <span class="va">class</span><span class="op">)</span>,</span>
 <span>               </span>
 <span>               size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: The shape palette can deal with a maximum of 6</span></span>
-<span><span class="co">#&gt; discrete values because more than 6 becomes difficult</span></span>
-<span><span class="co">#&gt; to discriminate; you have 7. Consider specifying</span></span>
-<span><span class="co">#&gt; shapes manually if you must have them.</span></span>
+<span><span class="co">#&gt; Warning: The shape palette can deal with a maximum of 6 discrete</span></span>
+<span><span class="co">#&gt; values because more than 6 becomes difficult to</span></span>
+<span><span class="co">#&gt; discriminate</span></span>
+<span><span class="co">#&gt; ℹ you have requested 7 values. Consider specifying shapes</span></span>
+<span><span class="co">#&gt;   manually if you need that many have them.</span></span>
 <span><span class="co">#&gt; Warning: Removed 62 rows containing missing values</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
 <div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
@@ -208,7 +200,8 @@
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">displ</span>, y <span class="op">=</span> <span class="va">hwy</span>, alpha <span class="op">=</span> <span class="va">cyl</span><span class="op">)</span>,</span>
 <span>               </span>
 <span>               size <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Using alpha for a discrete variable is not advised.</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: Using alpha for a discrete variable is not</span></span>
+<span><span class="co">#&gt; advised.</span></span></code></pre></div>
 <div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
 <p>To change the legend title, add <code><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></code> function and use <code>color</code> argument:</p>
 <div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
@@ -398,7 +391,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-12.html">Lecture 12</a></div>
-<div class="next"><a href="lecture-14.html">Lecture 14</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -430,7 +423,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-12-05.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2024-03-04.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
