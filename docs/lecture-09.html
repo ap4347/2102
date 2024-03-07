@@ -60,6 +60,7 @@
 <li><a class="" href="lecture-11.html">Lecture 11</a></li>
 <li><a class="" href="lecture-12.html">Lecture 12</a></li>
 <li><a class="" href="lecture-13.html">Lecture 13</a></li>
+<li><a class="" href="lecture-14.html">Lecture 14</a></li>
 </ul>
 
         <div class="book-extra">
@@ -365,19 +366,19 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  0.6535410 -1.5481969  2.0992781  3.2369902  6.8463622</span></span>
-<span><span class="co">#&gt;  [6]  8.2502353 -2.8241848  7.0750150 -1.7419537 -0.3978065</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  0.1834277  6.3579524  3.5155205 -2.2404784  8.1216888</span></span>
+<span><span class="co">#&gt;  [6] -3.3575255 -3.9986407 12.0200552  2.3082975  5.0743070</span></span></code></pre></div>
 <div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] -0.03289304  2.16812618 -0.64717508  3.27057129</span></span>
-<span><span class="co">#&gt;  [5]  9.19477371  2.24407339 11.49877340  6.60736184</span></span>
-<span><span class="co">#&gt;  [9]  3.51178883  3.02069147</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] -0.98211622  5.84974642  3.12227542 -2.26703924</span></span>
+<span><span class="co">#&gt;  [5] -0.72211121  0.06196076  7.27479849  3.17918938</span></span>
+<span><span class="co">#&gt;  [9]  8.44385929  5.67208641</span></span></code></pre></div>
 <div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  4.898301 12.436466  6.038735  7.533170  3.274272</span></span>
-<span><span class="co">#&gt;  [6]  1.589260  6.029358  6.678832  1.368477  7.777140</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  2.172407  5.447673  1.989039 -7.145729  2.260920</span></span>
+<span><span class="co">#&gt;  [6]  6.443606 -3.404667  4.575957  8.364183  7.775853</span></span></code></pre></div>
 <p>As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done randomly.</p>
 <p>After generating random numbers, you may often want to reproduce the same sequence of “random” numbers every time your program executes. That way, you get the same results from run to run.</p>
 <p>In R, the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function sets the random number generator to a known state. The function takes one argument, an integer. Any positive integer will work, but you must use the same one in order to get the same initial state.</p>
@@ -508,7 +509,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2024-03-04.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2024-03-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
