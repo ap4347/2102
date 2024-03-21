@@ -7,7 +7,7 @@
 <title>Lecture 09 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
 <meta name="description" content="  Probability Probability theory is the foundation of statistics, and R has plenty of machinery for working with probability, probability distributions, and random variables. The recipes in this...">
-<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta name="generator" content="bookdown 0.38 with bs4_book()">
 <meta property="og:title" content="Lecture 09 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-09.html">
@@ -63,6 +63,7 @@
 <li><a class="" href="lecture-14.html">Lecture 14</a></li>
 <li class="book-part">STATISTICAL ANALYSIS</li>
 <li><a class="" href="lecture-15.html">Lecture 15</a></li>
+<li><a class="" href="lecture-16.html">Lecture 16</a></li>
 </ul>
 
         <div class="book-extra">
@@ -368,19 +369,18 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  7.98066888  0.04305674  2.10440812  0.64611710</span></span>
-<span><span class="co">#&gt;  [5]  2.12183054  7.98341563  6.58931142  2.33503167</span></span>
-<span><span class="co">#&gt;  [9] -0.88362360  4.40723927</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] 10.396245  2.695077 -2.321166  2.599175  6.484528</span></span>
+<span><span class="co">#&gt;  [6] -7.454000 -1.267658  6.836392  2.696907  5.384802</span></span></code></pre></div>
 <div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  3.2377986  6.1869809  0.6389503  7.3270487  1.1850614</span></span>
-<span><span class="co">#&gt;  [6]  4.0778020  4.7752735 -0.1554865  3.1003786 -4.5376848</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] 11.487131  2.545388  4.414310  1.867286  4.156747</span></span>
+<span><span class="co">#&gt;  [6] 10.041429  4.585665  1.275913  4.790810  3.061418</span></span></code></pre></div>
 <div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] -1.629602  9.747877  7.250951  4.042934 -1.199952</span></span>
-<span><span class="co">#&gt;  [6]  2.978813 -2.729361  5.809140  3.898278  8.437912</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  1.721552  4.563275  6.722436 -1.858999  8.711517</span></span>
+<span><span class="co">#&gt;  [6]  2.373128  8.153257  5.225805  2.246719  5.681891</span></span></code></pre></div>
 <p>As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done randomly.</p>
 <p>After generating random numbers, you may often want to reproduce the same sequence of “random” numbers every time your program executes. That way, you get the same results from run to run.</p>
 <p>In R, the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function sets the random number generator to a known state. The function takes one argument, an integer. Any positive integer will work, but you must use the same one in order to get the same initial state.</p>
@@ -511,7 +511,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2024-03-19.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2024-03-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

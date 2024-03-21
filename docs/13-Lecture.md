@@ -165,8 +165,8 @@ You can also change the shape of points to reflect another variable in the datas
 #> discriminate
 #> ℹ you have requested 7 values. Consider specifying shapes
 #>   manually if you need that many have them.
-#> Warning: Removed 62 rows containing missing values
-#> (`geom_point()`).
+#> Warning: Removed 62 rows containing missing values or values outside
+#> the scale range (`geom_point()`).
 ```
 
 <img src="13-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672" />
@@ -261,8 +261,8 @@ You can change the axis limits using `xlim()` and `ylim()` functions. You need t
   xlim(c(0, 4)) +
   
   ylim(c(0, 25))
-#> Warning: Removed 170 rows containing missing values
-#> (`geom_point()`).
+#> Warning: Removed 170 rows containing missing values or values
+#> outside the scale range (`geom_point()`).
 ```
 
 <img src="13-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672" />

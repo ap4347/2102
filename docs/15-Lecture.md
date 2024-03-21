@@ -286,9 +286,7 @@ As it was mentioned, one of the assumptions of a two-sample t-test is that the p
 ```r
 
 library(car)
-#> Warning: package 'car' was built under R version 4.3.3
 #> Loading required package: carData
-#> Warning: package 'carData' was built under R version 4.3.3
 #> 
 #> Attaching package: 'car'
 #> The following object is masked from 'package:dplyr':

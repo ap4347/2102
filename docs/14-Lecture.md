@@ -62,7 +62,7 @@ geom_bar(mapping = aes(x = Status),
          
          width = 1.1)
 #> Warning: `position_stack()` requires non-overlapping x
-#> intervals
+#> intervals.
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672" />
@@ -111,8 +111,8 @@ geom_bar(mapping = aes(x = Status, fill = Status),
          width = 0.9) +
   
 scale_x_discrete(limits = c("HEALTHY", "STAGE_3"))
-#> Warning: Removed 269 rows containing non-finite values
-#> (`stat_count()`).
+#> Warning: Removed 269 rows containing non-finite outside the scale
+#> range (`stat_count()`).
 ```
 
 <img src="14-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672" />

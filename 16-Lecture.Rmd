@@ -12,7 +12,19 @@ output:
 
 ### Introduction {-}
 
+```{r, include=FALSE}
 
+library(tidyverse)
+
+
+dataset1 <- read.csv(file = "C:/Users/alexp/OneDrive/Desktop/lung_capacity_2.csv",
+                   
+                   header = T,
+                   
+                   stringsAsFactors = TRUE)
+
+
+```
 
 Patterns in your data provide clues about relationships among variables. If a systematic relationship exists between two variables it will appear as a pattern in the data. If you spot a pattern, ask yourself:
 
@@ -112,8 +124,7 @@ As you noticed, SLR model contains three parameters: $\beta_0$, $\beta_1$, and $
 Before we introduce the estimation method, let's consider an example. Recall the lung capacity dataset that we've used in our lectures notes. Suppose you believe that an SLR model can be used to predict _lung capacity_ based on patient's _height_. As adviced earlier, it is always a good idea to visualize your data as a part of EDA (Explanatory Data Analysis):
 
 
-
-```r
+```{r}
 
  gg = ggplot(data = dataset1, aes(x = Height, y = LungCap)) + 
   
@@ -129,9 +140,8 @@ Before we introduce the estimation method, let's consider an example. Recall the
 
 
 plot(gg)
-```
 
-<img src="16-Lecture_files/figure-html/unnamed-chunk-2-1.png" width="672" />
+```
 
 
 From the scatterplot it becomes clear that a linear model will indeed be a good fit to our data as it displays a strong linear pattern/trend. Now it's time to estimate the parameters and set up the model. 
@@ -150,8 +160,7 @@ where $b_0$ and $b_1$ are the estimates of the model parameters $\beta_0$ and $\
 
 Let's plot some of them. For example, we could try to model the data with a horizontal line representing the mean value of the _lung capacity_ variable. That is, we are building a model where the response outcome does not depend on the predictor variable:
 
-
-```r
+```{r}
 
 mean_lungcap = mean(dataset1$LungCap)
 
@@ -159,20 +168,12 @@ mean_lungcap = mean(dataset1$LungCap)
 gg + 
 
 geom_hline(yintercept = mean_lungcap, size = 1)
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2
-#> 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where
-#> this warning was generated.
+           
 ```
-
-<img src="16-Lecture_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 In the plot above, we see this doesn’t seem to do a very good job. Many of the data points are very far from the line representing the mean value of the response variable. This is an example of **underfitting**. The obvious fix is to make the fitted model actually depend on the predictor. Below we illustrate a few of these models: 
 
-
-```r
+```{r}
 
 set.seed(4)
 models <- tibble(
@@ -184,9 +185,9 @@ models <- tibble(
 gg +
   
 geom_abline(aes(intercept = b0, slope = b1), data = models)
-```
+   
 
-<img src="16-Lecture_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+```
 
 
 Each line on the plot represents a fitted model. There are 250 models on the plot (not all of them are depicted on the plot). Most of these models are really bad! But how are we going to decide which one is the best? And what should the selection criterion be?
@@ -200,12 +201,25 @@ Y_i - \hat{Y}_i
 \end{align*}
 
 
+```{r, echo = FALSE}
+model <- lm(LungCap ~ Height, data = dataset1)
+
+dataset1$predicted = predict(model)
+
+dataset1$residuals <- residuals(model)
+
+ggplot(dataset1, aes(x = Height, y = LungCap)) +
+  
+  geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +  
+  
+  geom_segment(aes(xend = Height, yend = predicted), alpha = .2) + 
+  
+  geom_point(color = "steelblue") +
+  
+  geom_point(aes(y = predicted), shape = 1)
+  
 
 ```
-#> `geom_smooth()` using formula = 'y ~ x'
-```
-
-<img src="16-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 Next, we need some way to compute an overall distance between the predicted and actual values. One common way to do this in statistics is to use the sum of squared deviations (also known as **Error Sum of Squares (SSE)**). We compute the difference between actual and predicted, square them, and add them up:
 
@@ -239,8 +253,7 @@ b_0 = \bar{y} - b_1\bar{x}
 
 Now when we know the best estimates of the model parameters, let's calculate their values. First, we will do it manually using the formulas:
 
-
-```r
+```{r}
 
 x <- dataset1$Height
 
@@ -255,12 +268,11 @@ Syy <- sum((y - mean(y)) ^ 2)
 b_1 <- Sxy / Sxx
 
 print(b_1)
-#> [1] 0.3371566
 
 b_0 <- mean(y) - b_1 * mean(x)
 
 print(b_0)
-#> [1] -13.99683
+          
 ```
 
 Thus, a fitted function for our fitted model is given by
@@ -290,60 +302,35 @@ In given context, it makes no sense to interpret the intercept as the scope of t
 
 Now, instead of doing calculations manually we can use the `lm()` function:
 
-
-```r
+```{r}
 
 model <- lm(LungCap ~ Height, data = dataset1)
 
 summary(model)
-#> 
-#> Call:
-#> lm(formula = LungCap ~ Height, data = dataset1)
-#> 
-#> Residuals:
-#>     Min      1Q  Median      3Q     Max 
-#> -3.3619 -0.7014 -0.0032  0.7787  3.2938 
-#> 
-#> Coefficients:
-#>               Estimate Std. Error t value Pr(>|t|)    
-#> (Intercept) -13.996829   0.367451  -38.09   <2e-16 ***
-#> Height        0.337157   0.005633   59.86   <2e-16 ***
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#> Residual standard error: 1.092 on 723 degrees of freedom
-#> Multiple R-squared:  0.8321,	Adjusted R-squared:  0.8319 
-#> F-statistic:  3583 on 1 and 723 DF,  p-value: < 2.2e-16
+
 ```
 
 The `summary()` function provides a model summary (we will come back to it shortly).
 
 Now we can visualize our results and plot the fitted regression line:
 
-
-```r
+```{r}
 
 gg +
   
   geom_smooth(method = 'lm')
-#> `geom_smooth()` using formula = 'y ~ x'
-```
 
-<img src="16-Lecture_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+```
 
 Set `se = FALSE` if you want to remove the confidence band around the regression line:
 
-
-```r
+```{r}
 
 gg +
   
   geom_smooth(method = 'lm', se = FALSE)
-#> `geom_smooth()` using formula = 'y ~ x'
-```
 
-<img src="16-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+```
 
 &nbsp;
 
@@ -359,23 +346,19 @@ To do so, we simply plug this value into the model and calculate the correspondi
 
 Thus, the expected lung capacity for a patient with `Height = 75` is 11.289. Most of the time, you will want to make predictions for multiple values, and the number of inputs might be quite large. So instead of doing it manually, you can use the `predict()` function. You need to pass the fitted model object to the function and values of the predictor variable that you are trying to make predictions for: 
  
-
-```r
+```{r}
 
 predict(model, data.frame(Height = 75))
-#>        1 
-#> 11.28991
+
 ```
 
 
 You can even make predictions for multiple values. For example let's calculate the expected mean lung capacity for `Height = 67.5`, `Height = 64`, and `Height = 53.8`:
 
-
-```r
+```{r}
 
 predict(model, data.frame(Height = c(67.5, 64, 53.8)))
-#>        1        2        3 
-#> 8.761240 7.581192 4.142195
+
 ```
 
 
@@ -406,47 +389,33 @@ e = Y - \hat{Y}
 Residuals play a crucial role in a model building process and they are used in many statistical procedures. To obtained residuals for your data, use `residuals()` function (we will display the first 10 residuals as the dataset is large and displaying all residuals will take up much space):
 
 
-
-```r
+```{r}
 
 # Obtaining first 10 residuals
 
 residuals(model)[1:10]  
-#>           1           2           3           4           5 
-#> -0.46559420 -1.06376699  0.04701586  1.18371232 -0.38738003 
-#>           6           7           8           9          10 
-#>  0.43073814 -2.39518208 -2.41399374 -0.89770940  0.83715986
+
+
 ```
 
 It is a good idea to bind together the residuals and the predictor variable in one data frame so that you know what residual corresponds to what predictor value (values of the independent variable, **not predictions!**):
 
-
-```r
+```{r}
 
 # Obtaining first 10 residuals and corresponding predictor values
 
 data.frame(Height = dataset1$Height, Residuals = residuals(model))[1:10, ]
-#>    Height   Residuals
-#> 1    62.1 -0.46559420
-#> 2    74.7 -1.06376699
-#> 3    69.7  0.04701586
-#> 4    71.0  1.18371232
-#> 5    56.9 -0.38738003
-#> 6    58.7  0.43073814
-#> 7    63.3 -2.39518208
-#> 8    70.4 -2.41399374
-#> 9    70.5 -0.89770940
-#> 10   59.2  0.83715986
+
+
 ```
 
 
 One of the main properties of residuals is that their summation is equal to zero. This property is used to derive some other important features of linear regression models. Let's show that the residuals for our model indeed add up to zero:
 
-
-```r
+```{r}
 
 sum(residuals(model))
-#> [1] -2.658464e-14
+
 ```
 
 &nbsp;
@@ -466,29 +435,19 @@ MSE = \frac{\sum_{i = 1}^{n}(Y_i - \hat{Y}_i)^2}{n-2} = \frac{SSE}{n-2} = \frac{
 Let's estimate the model variance based on our data. First, let's do it manually:
 
 
-
-```r
+```{r}
 
 sum(residuals(model)^2)/(dim(dataset1)[1]-2)
-#> [1] 1.191535
+
 ```
 
 
 The output of the `anova()` function includes MSE, that is, an estimate of the model variance. Thus, it can be used for variance estimation:
 
-
-```r
+```{r}
 
 anova(model)
-#> Analysis of Variance Table
-#> 
-#> Response: LungCap
-#>            Df Sum Sq Mean Sq F value    Pr(>F)    
-#> Height      1 4269.0  4269.0  3582.8 < 2.2e-16 ***
-#> Residuals 723  861.5     1.2                      
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
 ```
 
 In this output the value in the intersection of the `Mean.Sq` column and the `Residuals` row is MSE. Here, it is equal to 1.2.
@@ -504,29 +463,10 @@ In this section I would like to share with you some useful functions that will a
 
 `summary()` function, as you've already seen, summarizes the fitted model:
 
-
-```r
+```{r}
 
 summary(model)
-#> 
-#> Call:
-#> lm(formula = LungCap ~ Height, data = dataset1)
-#> 
-#> Residuals:
-#>     Min      1Q  Median      3Q     Max 
-#> -3.3619 -0.7014 -0.0032  0.7787  3.2938 
-#> 
-#> Coefficients:
-#>               Estimate Std. Error t value Pr(>|t|)    
-#> (Intercept) -13.996829   0.367451  -38.09   <2e-16 ***
-#> Height        0.337157   0.005633   59.86   <2e-16 ***
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#> Residual standard error: 1.092 on 723 degrees of freedom
-#> Multiple R-squared:  0.8321,	Adjusted R-squared:  0.8319 
-#> F-statistic:  3583 on 1 and 723 DF,  p-value: < 2.2e-16
+
 ```
 
 It contains all sorts of information presented in one output.
@@ -536,12 +476,10 @@ It contains all sorts of information presented in one output.
 
 If your goal is to extract just the model coefficients (estimates), then use the `coef()` function:
 
-
-```r
+```{r}
 
 coef(model)
-#> (Intercept)      Height 
-#> -13.9968289   0.3371566
+
 ```
 
 
@@ -549,16 +487,12 @@ coef(model)
 
 The `resid()` function is the same as the `residuals()` functions and displays residuals for the fitted model:
 
-
-```r
+```{r}
 
 # Obtaining residuals for the first 10 observations in the dataset
 
 resid(model)[1:10]
-#>           1           2           3           4           5 
-#> -0.46559420 -1.06376699  0.04701586  1.18371232 -0.38738003 
-#>           6           7           8           9          10 
-#>  0.43073814 -2.39518208 -2.41399374 -0.89770940  0.83715986
+
 ```
 
 
@@ -566,24 +500,19 @@ resid(model)[1:10]
 
 The `fitted()` function is used to obtain the fitted values:
 
-
-```r
+```{r}
 
 # Obtaining fitted values for the first 10 observations in the dataset
 
 fitted(model)[1:10]
-#>         1         2         3         4         5         6 
-#>  6.940594 11.188767  9.502984  9.941288  5.187380  5.794262 
-#>         7         8         9        10 
-#>  7.345182  9.738994  9.772709  5.962840
+
 ```
 
 
 As you understand, there is relationship among the actual response values, fitted values, and the residuals:
 
 
-
-```r
+```{r}
 
 actual <- dataset1$LungCap[1:10]
 
@@ -593,15 +522,5 @@ residuals <- resid(model)[1:10]
 
 
 data.frame(residuals, actual - fitted)
-#>      residuals actual...fitted
-#> 1  -0.46559420     -0.46559420
-#> 2  -1.06376699     -1.06376699
-#> 3   0.04701586      0.04701586
-#> 4   1.18371232      1.18371232
-#> 5  -0.38738003     -0.38738003
-#> 6   0.43073814      0.43073814
-#> 7  -2.39518208     -2.39518208
-#> 8  -2.41399374     -2.41399374
-#> 9  -0.89770940     -0.89770940
-#> 10  0.83715986      0.83715986
+
 ```

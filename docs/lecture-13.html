@@ -7,7 +7,7 @@
 <title>Lecture 13 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
 <meta name="description" content="  ggplot2 Package We have already learned how to visualize data using Base R. In this (and the following) lecture(s) we are going to learn how to do it using ggplot2 package. R has several systems...">
-<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta name="generator" content="bookdown 0.38 with bs4_book()">
 <meta property="og:title" content="Lecture 13 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-13.html">
@@ -63,6 +63,7 @@
 <li><a class="" href="lecture-14.html">Lecture 14</a></li>
 <li class="book-part">STATISTICAL ANALYSIS</li>
 <li><a class="" href="lecture-15.html">Lecture 15</a></li>
+<li><a class="" href="lecture-16.html">Lecture 16</a></li>
 </ul>
 
         <div class="book-extra">
@@ -192,8 +193,8 @@
 <span><span class="co">#&gt; discriminate</span></span>
 <span><span class="co">#&gt; ℹ you have requested 7 values. Consider specifying shapes</span></span>
 <span><span class="co">#&gt;   manually if you need that many have them.</span></span>
-<span><span class="co">#&gt; Warning: Removed 62 rows containing missing values</span></span>
-<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: Removed 62 rows containing missing values or values outside</span></span>
+<span><span class="co">#&gt; the scale range (`geom_point()`).</span></span></code></pre></div>
 <div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
 <p>Or you can do so by changing the transparency of the points:</p>
 <div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
@@ -260,8 +261,8 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">xlim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">25</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: Removed 170 rows containing missing values</span></span>
-<span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: Removed 170 rows containing missing values or values</span></span>
+<span><span class="co">#&gt; outside the scale range (`geom_point()`).</span></span></code></pre></div>
 <div class="inline-figure"><img src="13-Lecture_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
 <p>The limitation of this approach is that it deletes the points outside the specified range. The other approach is to change the <code>x</code> and <code>y</code> limits by zooming in to the region of interest without deleting points. It is achieved using the <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html">coord_cartesian()</a></code> function:</p>
 <div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
@@ -426,7 +427,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2024-03-19.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2024-03-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
