@@ -7,7 +7,7 @@
 <title>Lecture 17 | STAT 2102: Applied Statistical Computing</title>
 <meta name="author" content="Alex Pijyan">
 <meta name="description" content="  Sampling Methods When working on a research project/study, you always have a specific population of interest that you would like to target. For instance, if you want to do some research on...">
-<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta name="generator" content="bookdown 0.38 with bs4_book()">
 <meta property="og:title" content="Lecture 17 | STAT 2102: Applied Statistical Computing">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://ap4347.github.io/2102/lecture-17.html">
@@ -17,7 +17,7 @@
 <meta name="twitter:description" content="  Sampling Methods When working on a research project/study, you always have a specific population of interest that you would like to target. For instance, if you want to do some research on...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.1/transition.js"></script><script src="libs/bs3compat-0.6.1/tabs.js"></script><script src="libs/bs3compat-0.6.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -65,9 +65,6 @@
 <li><a class="" href="lecture-15.html">Lecture 15</a></li>
 <li><a class="" href="lecture-16.html">Lecture 16</a></li>
 <li><a class="active" href="lecture-17.html">Lecture 17</a></li>
-<li><a class="" href="lecture-18.html">Lecture 18</a></li>
-<li><a class="" href="lecture-19.html">Lecture 19</a></li>
-<li><a class="" href="lecture-20.html">Lecture 20</a></li>
 </ul>
 
         <div class="book-extra">
@@ -204,7 +201,7 @@
 <span><span class="co">#&gt; 4  0.29 Premium  I     VS2      62.4    58   334  4.2   4.23</span></span>
 <span><span class="co">#&gt; 5  0.31 Good     J     SI2      63.3    58   335  4.34  4.35</span></span>
 <span><span class="co">#&gt; 6  0.24 Very Go… J     VVS2     62.8    57   336  3.94  3.96</span></span>
-<span><span class="co">#&gt; # … with 1 more variable: z &lt;dbl&gt;</span></span></code></pre></div>
+<span><span class="co">#&gt; # ℹ 1 more variable: z &lt;dbl&gt;</span></span></code></pre></div>
 <p> </p>
 <p><strong>Attrition - </strong> a dataset (available in <code>tidymodels</code> package) containing employee attrition information originally provided by IBM Watson Analytics Lab. It contains 1470 observations and 31 variables, among which:</p>
 <ul>
@@ -224,13 +221,13 @@
 <div class="sourceCode" id="cb461"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidymodels.tidymodels.org">tidymodels</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; ── Attaching packages ────────────────── tidymodels 1.0.0 ──</span></span>
-<span><span class="co">#&gt; ✔ broom        1.0.1     ✔ rsample      1.1.0</span></span>
-<span><span class="co">#&gt; ✔ dials        1.1.0     ✔ tune         1.0.1</span></span>
-<span><span class="co">#&gt; ✔ infer        1.0.3     ✔ workflows    1.1.0</span></span>
-<span><span class="co">#&gt; ✔ modeldata    1.0.1     ✔ workflowsets 1.0.0</span></span>
-<span><span class="co">#&gt; ✔ parsnip      1.0.3     ✔ yardstick    1.1.0</span></span>
-<span><span class="co">#&gt; ✔ recipes      1.0.3</span></span>
+<span><span class="co">#&gt; ── Attaching packages ────────────────── tidymodels 1.1.1 ──</span></span>
+<span><span class="co">#&gt; ✔ broom        1.0.5      ✔ rsample      1.2.0 </span></span>
+<span><span class="co">#&gt; ✔ dials        1.2.1      ✔ tune         1.2.0 </span></span>
+<span><span class="co">#&gt; ✔ infer        1.0.6      ✔ workflows    1.1.4 </span></span>
+<span><span class="co">#&gt; ✔ modeldata    1.3.0      ✔ workflowsets 1.0.1 </span></span>
+<span><span class="co">#&gt; ✔ parsnip      1.2.0      ✔ yardstick    1.3.0 </span></span>
+<span><span class="co">#&gt; ✔ recipes      1.0.10</span></span>
 <span><span class="co">#&gt; ── Conflicts ───────────────────── tidymodels_conflicts() ──</span></span>
 <span><span class="co">#&gt; ✖ scales::discard() masks purrr::discard()</span></span>
 <span><span class="co">#&gt; ✖ dplyr::filter()   masks stats::filter()</span></span>
@@ -238,7 +235,7 @@
 <span><span class="co">#&gt; ✖ dplyr::lag()      masks stats::lag()</span></span>
 <span><span class="co">#&gt; ✖ yardstick::spec() masks readr::spec()</span></span>
 <span><span class="co">#&gt; ✖ recipes::step()   masks stats::step()</span></span>
-<span><span class="co">#&gt; • Search for functions across packages at https://www.tidymodels.org/find/</span></span>
+<span><span class="co">#&gt; • Use suppressPackageStartupMessages() to eliminate package startup messages</span></span>
 <span></span>
 <span><span class="va">attrition</span> <span class="op">&lt;-</span> <span class="va">attrition</span></span>
 <span></span>
@@ -333,7 +330,6 @@
 <div class="sourceCode" id="cb463"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'patchwork' was built under R version 4.2.3</span></span>
 <span></span>
 <span></span>
 <span><span class="va">original</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">diamonds</span><span class="op">)</span> <span class="op">+</span></span>
@@ -551,6 +547,80 @@
 <p>Consequently, with k-fold CV, every observation in the training data will be held out one time to be included in the test set as illustrated in the figure above. In practice, one typically uses <strong>k = 5</strong> or <strong>k = 10</strong>. There is no formal rule as to the size of <em>k</em>; however, as <em>k</em> gets larger, the difference between the estimated performance and the true performance to be seen on the test set will decrease. On the other hand, using too large <em>k</em> can introduce computational burdens.</p>
 <p>One special variation of cross-validation is <strong>Leave-One-Out (LOO) Cross-Validation</strong>. If there are <em>n</em> training set samples, <em>n</em> models (<em>n</em> folds) are fit using <em>n − 1</em> observations from the training set. Each model predicts the single excluded data point. At the end of resampling, the <em>n</em> predictions are pooled to produce a single performance statistic.</p>
 <p>Leave-one-out methods are deficient compared to almost any other method. For anything but pathologically small samples, LOO is computationally excessive, and it may not have good statistical properties.</p>
+<p> </p>
+</div>
+<div id="bootstrapping" class="section level4 unnumbered">
+<h4>Bootstrapping<a class="anchor" aria-label="anchor" href="#bootstrapping"><i class="fas fa-link"></i></a>
+</h4>
+<p>A bootstrap sample is a random sample of the data taken with replacement. This means that, after a data point is selected for inclusion in the subset, it’s still available for further selection. A bootstrap sample is the same size as the original data set from which it was constructed.</p>
+<p>The figure below provides a schematic of bootstrap sampling where each bootstrap sample contains 12 observations just as in the original data set. Furthermore, bootstrap sampling will contain approximately the same distribution of values (represented by colors) as the original data set.</p>
+<div class="inline-figure"><img src="images/boot.jpg" width="100%"></div>
+<p>Since samples are drawn with replacement, each bootstrap sample is likely to contain duplicate values. In fact, on average, approximately 63.21% of the original sample ends up in any particular bootstrap sample. The original observations not contained in a particular bootstrap sample are considered <strong>out-of-bag (OOB)</strong>. When bootstrapping, a model can be built on the selected samples and validated on the OOB samples.</p>
+<p> </p>
+</div>
+</div>
+<div id="model-evaluation" class="section level3 unnumbered">
+<h3>Model Evaluation<a class="anchor" aria-label="anchor" href="#model-evaluation"><i class="fas fa-link"></i></a>
+</h3>
+<p>Today, it has become widely accepted that a more sound approach to assessing model performance is to assess the predictive accuracy via <strong>loss functions</strong>. Loss functions are metrics that compare the predicted values to the actual value. When performing resampling methods, we assess the predicted values for a validation set compared to the actual target value.</p>
+<p>For example, in regression, one way to measure error is to take the difference between the actual and predicted value for a given observation (this is the usual definition of a residual in ordinary linear regression). The overall validation error of the model is computed by aggregating the errors across the entire validation data set.</p>
+<p>There are many loss functions to choose from when assessing the performance of a predictive model, each providing a unique understanding of the predictive accuracy and differing between regression and classification models. Furthermore, the way a loss function is computed will tend to emphasize certain types of errors over others and can lead to drastic differences in how we interpret the “optimal model”.</p>
+<p>Its important to consider the problem context when identifying the preferred performance metric to use. And when comparing multiple models, we need to compare them across the same metric.</p>
+<p>Depending on the problem context, we can divide them into two groups: <strong>Regression</strong> and <strong>Classification</strong> problems.</p>
+<p> </p>
+<div id="regression-metrics" class="section level4 unnumbered">
+<h4>Regression Metrics<a class="anchor" aria-label="anchor" href="#regression-metrics"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li><p><strong>MSE - Mean Squared Error:</strong> Mean squared error is the average of the squared error (<span class="math inline">\(MSE = \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}\)</span>). The squared component results in larger errors having larger penalties. This (along with RMSE) is the most common error metric to use. <strong>Objective: minimize</strong></p></li>
+<li><p><strong>RMSE - Root Mean Squared Error:</strong> Root mean squared error. This simply takes the square root of the MSE metric (<span class="math inline">\(RMSE =\sqrt{ \frac{\sum_{i=1}^{n}(y_i - \hat{y_i})^2}{n}}\)</span>) so that your error is in the same units as your response variable. If your response variable units are dollars, the units of MSE are dollars-squared, but the RMSE will be in dollars. <strong>Objective: minimize</strong></p></li>
+<li><p><strong><span class="math inline">\(R^2\)</span>:</strong> This is a popular metric that represents the proportion of the variance in the dependent variable that is predictable from the independent variable(s). Unfortunately, it has several limitations. For example, two models built from two different data sets could have the exact same RMSE but if one has less variability in the response variable then it would have a lower <span class="math inline">\(R^2\)</span> than the other. You should not place too much emphasis on this metric. <strong>Objective: maximize</strong></p></li>
+</ul>
+<p> </p>
+</div>
+<div id="classification-metrics" class="section level4 unnumbered">
+<h4>Classification Metrics<a class="anchor" aria-label="anchor" href="#classification-metrics"><i class="fas fa-link"></i></a>
+</h4>
+<p>Before we discuss evaluation metrics for classification problems, I would like to introduce a <strong>confusion matrix</strong>. In the field of statistics and machine learning, a confusion matrix is a table that visualizes the performance of a model. Each row of the confusion matrix represents the instances in an actual class while each column represents the instances in a predicted class, or vice versa (both variants are accepted and found in the literature).</p>
+<p>It is a special kind of contingency table, with two dimensions (“actual” and “predicted”), and identical sets of “classes” in both dimensions (each combination of dimension and class is a variable in the contingency table):</p>
+<div class="inline-figure"><img src="images/conf.jpg" width="100%"></div>
+<ul>
+<li>
+<strong>Accuracy:</strong> accuracy tells you, overall, how often the classifier is correct.</li>
+</ul>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+Accuracy = \frac{TP + TN}{Total}
+\end{align*}\]</span></p>
+<p> </p>
+<div class="inline-figure"><img src="images/conf2.jpg" width="100%"></div>
+<ul>
+<li>
+<strong>Sensitivity (aka Recall):</strong> sensitivity tells you how accurately the classifier classifies actual events.</li>
+</ul>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+Sensitivity = \frac{TP}{TP + FN}
+\end{align*}\]</span></p>
+<p> </p>
+<ul>
+<li>
+<strong>Specificity:</strong> specificity tells you how accurately the classifier classifies actual non-events.</li>
+</ul>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+Specificity = \frac{TN}{FP + TN}
+\end{align*}\]</span></p>
+<p> </p>
+<ul>
+<li>
+<strong>Precision:</strong> precision tells you how accurately the classifier predicts actual events.</li>
+</ul>
+<p> </p>
+<p><span class="math display">\[\begin{align*}
+Precision = \frac{TP}{TP + FP}
+\end{align*}\]</span></p>
+<p> </p>
 
 </div>
 </div>
@@ -558,7 +628,7 @@
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-16.html">Lecture 16</a></div>
-<div class="next"><a href="lecture-18.html">Lecture 18</a></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -572,7 +642,10 @@
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#resampling-methods">Resampling Methods</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#data-splitting">Data Splitting</a></li></ul>
+<a class="nav-link" href="#resampling-methods">Resampling Methods</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-splitting">Data Splitting</a></li>
+<li><a class="nav-link" href="#model-evaluation">Model Evaluation</a></li>
+</ul>
 </li>
 </ul>
 
@@ -591,7 +664,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2023-12-05.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2024-03-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
