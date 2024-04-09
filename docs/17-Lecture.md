@@ -206,7 +206,7 @@ library(tidymodels)
 #> ✖ dplyr::lag()      masks stats::lag()
 #> ✖ yardstick::spec() masks readr::spec()
 #> ✖ recipes::step()   masks stats::step()
-#> • Use suppressPackageStartupMessages() to eliminate package startup messages
+#> • Learn how to get started at https://www.tidymodels.org/start/
 
 attrition <- attrition
 
