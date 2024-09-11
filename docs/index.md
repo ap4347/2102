@@ -1,7 +1,7 @@
 --- 
 title: "STAT 2102: Applied Statistical Computing"
 author: "Alex Pijyan"
-date: "2024-09-09"
+date: "2024-09-11"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
