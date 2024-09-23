@@ -25,17 +25,16 @@ One of the most commonly used functions for importing data into R is the `read.t
 
 Now let's import a data set `lung_capacity.txt` available on Courseworks (download it to your computer). In order to import this data into R, we need the following information: a path to this file (its location in your computer), whether it has column names (our data does have column names, so we will pass `TRUE` to the `header` argument, `header = TRUE`), and column separation method (columns of this data were created by separating them with white space, so we will use `sep = ""`):
 
-
-```r
+```{r}
 
 data1 <- read.table(file = "C:/Users/alexp/OneDrive/Desktop/lung_capacity.txt", header = T, sep = "")
+
 ```
 
 
 Now your data is imported into R and available in the global environment. To view it, use `View()` function:
 
-
-```r
+```{r, eval = FALSE}
 
 View(data1)
 
@@ -43,26 +42,24 @@ View(data1)
 
 If your data is stored in your working directory, then you can simply pass the name your file without specifying the exact path to it. To see where your working directory is located, use `getwd()` function:
 
-
-```r
+```{r}
 
 getwd()
-#> [1] "C:/Users/alexp/OneDrive/Desktop/2102/Fall 24/2102"
+
 ```
 
 If you want to change the location of your working directory, do it by passing a path to this location to the `setwd()` function:
 
 
-
-```r
+```{r}
 
 setwd("C:/Users/alexp/OneDrive/Desktop")
+
 ```
 
 Now the working directory is my desktop. So any file stored on my desktop can be imported into R by passing just their name to the `read.table()` function:
 
-
-```r
+```{r, eval = FALSE}
 
 data1 <- read.table(file = "lung_capacity.txt", header = T, sep = "")
 
@@ -73,8 +70,7 @@ data1 <- read.table(file = "lung_capacity.txt", header = T, sep = "")
 
 The file that you are trying to import into R can be comma-delimited (columns are separated with comma). Normally, these files have the `.csv` file extensions. This is a common file extension and statisticians use it frequently, so R has a separate function that allows you to import such files. This function is called `read.csv()`:
 
-
-```r
+```{r, eval = FALSE}
 
 data2 <- read.csv(file = "C:/Users/alexp/OneDrive/Desktop/lung_capacity_2.csv", header = T)
 
@@ -98,8 +94,7 @@ After manipulating your data in R (for example, adding or removing columns/row, 
 
 For instance, let's save the `data2` data set in your computer under `new_data` name:
 
-
-```r
+```{r, eval = FALSE}
 
 write.table(data2, file = "new_data.csv", col.names = TRUE, row.names = FALSE, sep = ",")
 
@@ -109,8 +104,7 @@ write.table(data2, file = "new_data.csv", col.names = TRUE, row.names = FALSE, s
 
 Like `read.csv()` function, you can use `write.csv()` function to save your data with `csv` extension (comma-delimited file):
 
-
-```r
+```{r, eval = FALSE}
 
 write.csv(data2, file = "new_data_2.csv", row.names = FALSE)
 
@@ -131,12 +125,10 @@ R has built-in functions for a large number of `summary statistics`. In this cla
 
 `summary()` function provides basic summary statistics for numerical data:
 
-
-```r
+```{r}
 
 summary(data1$Age)
-#>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>    3.00    9.00   13.00   12.33   15.00   19.00
+
 ```
 
 ### Central Tendency {-}
@@ -145,11 +137,10 @@ summary(data1$Age)
 
 As the name suggests, `mean()` function computes a mean value of numerical data:
 
-
-```r
+```{r}
 
 mean(data1$Age)
-#> [1] 12.3269
+
 ```
 
 Type `?mean()` in the console to see what other arguments `mean()` function has.
@@ -159,11 +150,10 @@ Type `?mean()` in the console to see what other arguments `mean()` function has.
 
 `median()` function computes a median of a numerical variable:
 
-
-```r
+```{r}
 
 median(data1$Age)
-#> [1] 13
+
 ```
 
 
@@ -174,11 +164,10 @@ median(data1$Age)
 `var()` function computes a variance of a numerical variable:
 
 
-
-```r
+```{r}
 
 var(data1$Age)
-#> [1] 16.03802
+
 ```
 
 
@@ -186,42 +175,36 @@ var(data1$Age)
 
 `sd()` function computes a standard deviation of a numerical variable:
 
-
-```r
+```{r}
 
 sd(data1$Age)
-#> [1] 4.00475
+
 ```
 
 Another way of computing a standard deviation is taking a square root of the variance:
 
-
-```r
+```{r}
 
 sqrt(var(data1$Age))
-#> [1] 4.00475
+
 ```
 
 #### Quantiles {-}
 
 You can use `quantile()` function to calculate quantiles (a.k.a quartiles, a.k.a percentiles) of a numerical variable. By default, it gives you basic quantiles:
 
-
-```r
+```{r}
 
 quantile(data1$Age)
-#>   0%  25%  50%  75% 100% 
-#>    3    9   13   15   19
+
 ```
 
 But you can make `quantile()` function compute specific quantiles. For examples, let's compute 0.30 and 0.80 quantiles (that is, 30-th and 80-th percentiles):
 
-
-```r
+```{r}
 
 quantile(data1$Age, c(0.3, 0.8))
-#> 30% 80% 
-#>  10  16
+
 ```
 
 
@@ -229,11 +212,10 @@ quantile(data1$Age, c(0.3, 0.8))
 
 Suppose given an observation `x` from your data, you want to know its corresponding quantile. That is, you want to know what fraction of the data is less than `x`. For example, let's find what is the corresponding quantile for 11 in the `Age` variable:
 
-
-```r
+```{r}
 
 mean(data1$Age < 11)
-#> [1] 0.3213793
+
 ```
 
 
@@ -244,22 +226,19 @@ The expression `data1$Age < 11` compares every element of the `Age` variable aga
 
 IQR is the difference between Q3 (third quartile, 75-th percentile) and Q1 (first quartile, 25-th percentile):
 
-
-```r
+```{r}
 
 IQR(data1$Age)
-#> [1] 6
+
 ```
 
 Another way of computing IQR is using `quantile()` functions:
 
 
-
-```r
+```{r}
 
 quantile(data1$Age, 0.75) - quantile(data1$Age, 0.25)
-#> 75% 
-#>   6
+
 ```
 
 
@@ -268,22 +247,20 @@ quantile(data1$Age, 0.75) - quantile(data1$Age, 0.25)
 `min()` function calculates a minimum value of a numerical variable:
 
 
-
-```r
+```{r}
 
 min(data1$Age)
-#> [1] 3
+
 ```
 
 ##### which.min() {-}
 
 You can use `which.min()` function to find the index position of the minimum value in the variable:
 
-
-```r
+```{r}
 
 which.min(data1$Age)
-#> [1] 114
+
 ```
 
 #### Maximum {-}
@@ -291,43 +268,39 @@ which.min(data1$Age)
 `max()` function calculates a maximum value of a numerical variable:
 
 
-
-```r
+```{r}
 
 max(data1$Age)
-#> [1] 19
+
 ```
 
 ##### which.max() {-}
 
 You can use `which.max()` function to find the index position of the maximum value in the variable:
 
-
-```r
+```{r}
 
 which.max(data1$Age)
-#> [1] 11
+
 ```
 
 #### Range {-}
 
 Another way of calculating a maximum and a minimum of a numerical variable is using `range()` function.
 
-
-```r
+```{r}
 
 range(data1$Age)
-#> [1]  3 19
+
 ```
 
 
 By definition, _range_ is the difference between the maximum and minimum values of a numerical variable. To compute this quantity, we can utilize `max()` and `min()` functions:
 
-
-```r
+```{r}
 
 max(data1$Age) - min(data1$Age)
-#> [1] 16
+
 ```
 
 
@@ -335,43 +308,39 @@ max(data1$Age) - min(data1$Age)
 
 `sum()` function adds up the elements of a numerical variable:
 
-
-```r
+```{r}
 
 sum(data1$Age)
-#> [1] 8937
+
 ```
 
 Let's use `sum()` and `length()` functions to compute the mean value:
 
-
-```r
+```{r}
 
 sum(data1$Age)/length(data1$Age)
-#> [1] 12.3269
+
 ```
 
 ##### Cumulative Summation {-}
 
 `cumsum()` function produces a vector containing the cumulative sum of the input vector (that is, it adds the values up sequentially displaying the results after each addition). For simplicity, let's use the following vector:
 
-
-```r
+```{r}
 
 x <- c(2, 4, 3, 5, 10)
 
 print(x)
-#> [1]  2  4  3  5 10
+
 ```
 
 
 So the cumulative summation of the vector `x` would be:
 
-
-```r
+```{r}
 
 cumsum(x)
-#> [1]  2  6  9 14 24
+
 ```
 
 
@@ -393,8 +362,7 @@ Fortunately, R has built-in functions that overcome aforementioned challenges. T
 
 The `apply()` function enables applying a function to the rows or columns of a matrix or data frame. Depending on what function you specify when using the apply function, you will get back either a vector or a matrix. The general structure of the `apply()` function is as follows:
 
-
-```r
+```{r, eval = FALSE}
 
 apply(X, MARGIN, FUN, ...)
 
@@ -409,45 +377,36 @@ apply(X, MARGIN, FUN, ...)
 
 For example, let's create a matrix with `5x4` dimensions:
 
-
-```r
+```{r}
 
 matrix1 <- matrix(1:20, nrow = 5, byrow = T)
 
 print(matrix1)
-#>      [,1] [,2] [,3] [,4]
-#> [1,]    1    2    3    4
-#> [2,]    5    6    7    8
-#> [3,]    9   10   11   12
-#> [4,]   13   14   15   16
-#> [5,]   17   18   19   20
+
 ```
 
 Now, suppose you want to calculate a mean value of each column in this matrix. You can do so using `apply()` function:
 
-
-```r
+```{r}
 
 apply(matrix1, 2, mean)
-#> [1]  9 10 11 12
+
 ```
 
 
 We can do the same thing row-wise:
 
-
-```r
+```{r}
 
 apply(matrix1, 1, mean)
-#> [1]  2.5  6.5 10.5 14.5 18.5
+
 ```
 
 
 We can even pass a user-defined function. For example, first let's create a function that calculates a range:
 
 
-
-```r
+```{r}
 
 function_1 <- function(x){
   
@@ -455,16 +414,16 @@ function_1 <- function(x){
   
   return(range)
 }
+
 ```
 
 Now, let's apply this function to columns of the `matrix1`:
 
 
-
-```r
+```{r}
 
 apply(matrix1, 2, function_1)
-#> [1] 16 16 16 16
+
 ```
 
 
@@ -473,46 +432,29 @@ apply(matrix1, 2, function_1)
 If you use `apply()` function with lists, it will throw an error. Suppose we have a list:
 
 
-
-```r
+```{r}
 
 list1 <- list(c(1, 4, 10), 24, 1:5)
 
 print(list1)
-#> [[1]]
-#> [1]  1  4 10
-#> 
-#> [[2]]
-#> [1] 24
-#> 
-#> [[3]]
-#> [1] 1 2 3 4 5
+
 ```
 
 And now we want to calculate the length of each element in `list1`. If you use `apply()` function, it will cause an error:
 
-
-```r
+```{r, error = TRUE}
 
 apply(list1, 2, length)
-#> Error in apply(list1, 2, length): dim(X) must have a positive length
+
 ```
 
 
 Instead use `lapply()` function:
 
-
-```r
+```{r}
 
 lapply(list1, length)
-#> [[1]]
-#> [1] 3
-#> 
-#> [[2]]
-#> [1] 1
-#> 
-#> [[3]]
-#> [1] 5
+
 ```
 
 
@@ -520,11 +462,10 @@ lapply(list1, length)
 
 As you noticed, the previous command returned a list. If you want your output to be a vector, use `sapply()` function:
 
-
-```r
+```{r}
 
 sapply(list1, length)
-#> [1] 3 1 5
+
 ```
 
 
@@ -532,38 +473,16 @@ sapply(list1, length)
 
 The `mapply()` function is a multivariate `apply() function`  which applies a function in parallel over a set of arguments. It is used to iterate over multiple R objects in parallel. The `mapply()` function has a different argument order from `lapply()` because the function to apply comes first rather than the object to iterate over. For example, you want to create the following list:
 
-
-```r
+```{r}
 
 list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))
-#> [[1]]
-#> [1] 1 1 1 1
-#> 
-#> [[2]]
-#> [1] 2 2 2
-#> 
-#> [[3]]
-#> [1] 3 3
-#> 
-#> [[4]]
-#> [1] 4
+
 ```
 
 Instead, you can use `mapply()` function as follows:
 
-
-```r
+```{r}
 
 mapply(rep, 1:4, 4:1)
-#> [[1]]
-#> [1] 1 1 1 1
-#> 
-#> [[2]]
-#> [1] 2 2 2
-#> 
-#> [[3]]
-#> [1] 3 3
-#> 
-#> [[4]]
-#> [1] 4
+
 ```
