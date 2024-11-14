@@ -8,7 +8,11 @@ output:
 &nbsp;
 
 
+```{r, include=FALSE}
 
+library(tidyverse)
+
+```
 
 ## Sampling Methods {-}
 
@@ -157,20 +161,10 @@ For illustrative purposes, we will be using `Diamonds` and `Attrition`datasets. 
 * `width` - Width in mm
 * `depth` - Depth in mm
 
-
-```r
+```{r}
 
 head(diamonds)
-#> # A tibble: 6 × 10
-#>   carat cut      color clarity depth table price     x     y
-#>   <dbl> <ord>    <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl>
-#> 1  0.23 Ideal    E     SI2      61.5    55   326  3.95  3.98
-#> 2  0.21 Premium  E     SI1      59.8    61   326  3.89  3.84
-#> 3  0.23 Good     E     VS1      56.9    65   327  4.05  4.07
-#> 4  0.29 Premium  I     VS2      62.4    58   334  4.2   4.23
-#> 5  0.31 Good     J     SI2      63.3    58   335  4.34  4.35
-#> 6  0.24 Very Go… J     VVS2     62.8    57   336  3.94  3.96
-#> # ℹ 1 more variable: z <dbl>
+
 ```
 
 &nbsp;
@@ -188,99 +182,14 @@ head(diamonds)
 &nbsp;
 
 
-
-```r
+```{r}
 
 library(tidymodels)
-#> ── Attaching packages ────────────────── tidymodels 1.1.1 ──
-#> ✔ broom        1.0.5      ✔ rsample      1.2.0 
-#> ✔ dials        1.2.1      ✔ tune         1.2.0 
-#> ✔ infer        1.0.6      ✔ workflows    1.1.4 
-#> ✔ modeldata    1.3.0      ✔ workflowsets 1.0.1 
-#> ✔ parsnip      1.2.0      ✔ yardstick    1.3.0 
-#> ✔ recipes      1.0.10
-#> ── Conflicts ───────────────────── tidymodels_conflicts() ──
-#> ✖ scales::discard() masks purrr::discard()
-#> ✖ dplyr::filter()   masks stats::filter()
-#> ✖ recipes::fixed()  masks stringr::fixed()
-#> ✖ dplyr::lag()      masks stats::lag()
-#> ✖ yardstick::spec() masks readr::spec()
-#> ✖ recipes::step()   masks stats::step()
-#> • Use tidymodels_prefer() to resolve common conflicts.
 
 attrition <- attrition
 
 head(attrition)
-#>   Age Attrition    BusinessTravel DailyRate
-#> 1  41       Yes     Travel_Rarely      1102
-#> 2  49        No Travel_Frequently       279
-#> 4  37       Yes     Travel_Rarely      1373
-#> 5  33        No Travel_Frequently      1392
-#> 7  27        No     Travel_Rarely       591
-#> 8  32        No Travel_Frequently      1005
-#>             Department DistanceFromHome     Education
-#> 1                Sales                1       College
-#> 2 Research_Development                8 Below_College
-#> 4 Research_Development                2       College
-#> 5 Research_Development                3        Master
-#> 7 Research_Development                2 Below_College
-#> 8 Research_Development                2       College
-#>   EducationField EnvironmentSatisfaction Gender HourlyRate
-#> 1  Life_Sciences                  Medium Female         94
-#> 2  Life_Sciences                    High   Male         61
-#> 4          Other               Very_High   Male         92
-#> 5  Life_Sciences               Very_High Female         56
-#> 7        Medical                     Low   Male         40
-#> 8  Life_Sciences               Very_High   Male         79
-#>   JobInvolvement JobLevel               JobRole
-#> 1           High        2       Sales_Executive
-#> 2         Medium        2    Research_Scientist
-#> 4         Medium        1 Laboratory_Technician
-#> 5           High        1    Research_Scientist
-#> 7           High        1 Laboratory_Technician
-#> 8           High        1 Laboratory_Technician
-#>   JobSatisfaction MaritalStatus MonthlyIncome MonthlyRate
-#> 1       Very_High        Single          5993       19479
-#> 2          Medium       Married          5130       24907
-#> 4            High        Single          2090        2396
-#> 5            High       Married          2909       23159
-#> 7          Medium       Married          3468       16632
-#> 8       Very_High        Single          3068       11864
-#>   NumCompaniesWorked OverTime PercentSalaryHike
-#> 1                  8      Yes                11
-#> 2                  1       No                23
-#> 4                  6      Yes                15
-#> 5                  1      Yes                11
-#> 7                  9       No                12
-#> 8                  0       No                13
-#>   PerformanceRating RelationshipSatisfaction
-#> 1         Excellent                      Low
-#> 2       Outstanding                Very_High
-#> 4         Excellent                   Medium
-#> 5         Excellent                     High
-#> 7         Excellent                Very_High
-#> 8         Excellent                     High
-#>   StockOptionLevel TotalWorkingYears TrainingTimesLastYear
-#> 1                0                 8                     0
-#> 2                1                10                     3
-#> 4                0                 7                     3
-#> 5                0                 8                     3
-#> 7                1                 6                     3
-#> 8                0                 8                     2
-#>   WorkLifeBalance YearsAtCompany YearsInCurrentRole
-#> 1             Bad              6                  4
-#> 2          Better             10                  7
-#> 4          Better              0                  0
-#> 5          Better              8                  7
-#> 7          Better              2                  2
-#> 8            Good              7                  7
-#>   YearsSinceLastPromotion YearsWithCurrManager
-#> 1                       0                    5
-#> 2                       1                    7
-#> 4                       0                    0
-#> 5                       3                    0
-#> 7                       2                    2
-#> 8                       3                    6
+
 ```
 
 &nbsp;
@@ -297,8 +206,7 @@ Most of the time, a simple random sample does a good job in preserving the targe
 
 For example, let's take a simple random sample from the `Diamonds` datasets containing 20\% of the original data. 
 
-
-```r
+```{r}
 
 library(tidymodels)
 
@@ -306,14 +214,15 @@ set.seed(1)
 
 sample_SRS <- diamonds %>% initial_split(prop = 0.2) %>% training()
 
+
+
 ```
 
 
 To see how well the target distribution was preserved in the sample, we can plot a histogram of the target distribution for both original and sample data side-by-side:
 
 
-
-```r
+```{r}
 
 library(patchwork)
 
@@ -347,13 +256,10 @@ sample <- ggplot(data = sample_SRS) +
 
 
 original + sample
-#> `stat_bin()` using `bins = 30`. Pick better value with
-#> `binwidth`.
-#> `stat_bin()` using `bins = 30`. Pick better value with
-#> `binwidth`.
-```
 
-<img src="17-Lecture_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+
+
+```
 
 You can see that the original and sample distributions of the target variable are almost identical. Thus, for this case, SRS does a great job in preserving the underlying distribution.
 
@@ -365,19 +271,18 @@ To take a systematic sample from our data, we have to first order the dataset in
 
 Let's use the _price_ variable to re-order the observations in the dataset in descending order. Then, we will select every 5-th observation in the dataset starting from the 1-st observation (in this case _k_ = 5, because we want our sample to contain 20\% of original data):
 
-
-```r
+```{r}
 
 set.seed(1)
 
 sample_sys <- diamonds %>% arrange(desc(price)) %>%
   
               slice(seq(1, dim(diamonds)[1], 5))
+
 ```
 
 
-
-```r
+```{r}
 
 library(patchwork)
 
@@ -411,13 +316,8 @@ sample <- ggplot(data = sample_sys) +
 
 
 original + sample
-#> `stat_bin()` using `bins = 30`. Pick better value with
-#> `binwidth`.
-#> `stat_bin()` using `bins = 30`. Pick better value with
-#> `binwidth`.
-```
 
-<img src="17-Lecture_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+```
 
 Once again, we can observe that the original and sample distributions of the target variable are almost identical.
 
@@ -430,13 +330,10 @@ Sometimes a target variable in your data is a categorical variable (a factor). T
 `Attrition` dataset is one of such examples. Here, roughly 84\% of the observations belong to `No` category and the remaining 16\% of observations belong to `Yes` category.
 
 
-
-```r
+```{r}
 
 table(attrition$Attrition)/dim(attrition)[1]
-#> 
-#>        No       Yes 
-#> 0.8387755 0.1612245
+
 ```
 
 
@@ -445,8 +342,7 @@ In this scenario, we would want to explicitly control the underlying distributio
 In such cases, the solutions is using stratified sampling. To take a stratified sample, you need to add `strata` argument to the `initial_split` function and pass the name of variable whose distribution you want to preserve in a sample:
 
 
-
-```r
+```{r}
 
 set.seed(1)
 
@@ -456,11 +352,11 @@ sample_strata <- attrition %>%
   
                  training()
 
+
 ```
 
 
-
-```r
+```{r}
 
 library(patchwork)
 
@@ -508,15 +404,8 @@ geom_text(aes(x = Attrition,label = scales::percent((..count..)/sum(..count..)))
 
 
 original + sample
-#> Warning: The dot-dot notation (`..count..`) was deprecated in
-#> ggplot2 3.4.0.
-#> ℹ Please use `after_stat(count)` instead.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where
-#> this warning was generated.
-```
 
-<img src="17-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+```
 
 As illustrated in the barplots above, stratified sampling method perfectly preserves the underlying distribution of the `Attrition` variable. 
 
@@ -569,7 +458,9 @@ So far we've discussed splitting our data into training and testing sets. Furthe
 
 **Solution 2:** Use a validation approach, which involves splitting the training set further to create two parts: a training set and a **validation set** (a.k.a. **holdout set**). Disadvantages - validation using a single holdout set can be highly variable and unreliable unless you are working with very large data sets.
 
-<img src="images/val.webp" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/val.webp")
+```
 
 **Solution 3:** Resampling methods. They allow to repeatedly fit a model to parts of the training data and test its performance on other parts. The two commonly used resampling methods include **k-fold cross validation** and **bootstrapping**.
 
@@ -582,7 +473,9 @@ k-fold cross-validation (aka k-fold CV) is a resampling method that randomly div
 This procedure is repeated _k_ times; each time, a different fold is treated as the validation set. This process results in _k_ estimates of the generalization error. Thus, the k-fold CV estimate is computed by averaging the _k_ test errors, providing us with an approximation of the error we might expect on unseen data.
 
 
-<img src="images/folds.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/folds.jpg")
+```
 
 
 Consequently, with k-fold CV, every observation in the training data will be held out one time to be included in the test set as illustrated in the figure above. In practice, one typically uses **k = 5** or **k = 10**. There is no formal rule as to the size of _k_; however, as _k_ gets larger, the difference between the estimated performance and the true performance to be seen on the test set will decrease. On the other hand, using too large _k_ can introduce computational burdens.
@@ -600,7 +493,9 @@ A bootstrap sample is a random sample of the data taken with replacement. This m
 
 The figure below provides a schematic of bootstrap sampling where each bootstrap sample contains 12 observations just as in the original data set. Furthermore, bootstrap sampling will contain approximately the same distribution of values (represented by colors) as the original data set.
 
-<img src="images/boot.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/boot.jpg")
+```
 
 
 Since samples are drawn with replacement, each bootstrap sample is likely to contain duplicate values. In fact, on average, approximately 63.21\% of the original sample ends up in any particular bootstrap sample. The original observations not contained in a particular bootstrap sample are considered **out-of-bag (OOB)**. When bootstrapping, a model can be built on the selected samples and validated on the OOB samples.
@@ -637,7 +532,9 @@ Before we discuss evaluation metrics for classification problems, I would like t
 
 It is a special kind of contingency table, with two dimensions ("actual" and "predicted"), and identical sets of "classes" in both dimensions (each combination of dimension and class is a variable in the contingency table):
 
-<img src="images/conf.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/conf.jpg")
+```
 
 * **Accuracy:** accuracy tells you, overall, how often the classifier is correct.
 
@@ -649,7 +546,9 @@ Accuracy = \frac{TP + TN}{Total}
 
 &nbsp;
 
-<img src="images/conf2.jpg" width="100%" />
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics("images/conf2.jpg")
+```
 
 * **Sensitivity (aka Recall):** sensitivity tells you how accurately the classifier classifies actual events.
 
