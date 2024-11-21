@@ -1,0 +1,363 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+# Lecture 19 {-}
+
+&nbsp;
+
+
+```{r, include=FALSE}
+
+Sonar <- read.csv(file = "C:/Users/alexp/OneDrive/Documents/sonar.csv",
+                   
+                   header = T,
+                   
+                   stringsAsFactors = TRUE)
+
+
+```
+
+## Resampling Methods: Example {-}
+
+In this lecture, we are going to illustrate a model-building and evaluation processes using resampling methods. To do so, we will utilize `rsample` and `caret` packages. As mentioned earlier, `rsample` package is a part of the family of packages `tidymodels`, thus, installing and loading `tidymodels` package should be enough to activate it.
+
+Similarly, if you have not done it yet, first install the `caret` package in your machine. Then, you can load/activate both packages using a `library()` function as shown below:
+
+
+```{r}
+
+library(tidymodels)
+
+library(caret)
+
+library(tidyverse)
+
+```
+
+
+The `caret` package (short for **C**lassification **A**nd **RE**gression **T**raining) is a set of functions that attempt to streamline the process for creating predictive models. The package contains tools for:
+
+* Data splitting
+* Pre-processing
+* Feature selection
+* Model tuning using resampling
+* Variable importance estimation
+* And more
+
+There are many different modeling functions in R. Some have different syntax for model training and/or prediction. The package started off as a way to provide a uniform interface the functions themselves, as well as a way to standardize common tasks (such as parameter tuning and variable importance).
+
+To illustrate a model-building and evaluations procedures, we will use `sonar.csv` dataset (available on Courseworks). This is the data set used by Gorman and Sejnowski in their study of the classification of sonar signals. It contains 61 variables and 208 observations. Each observation is a set  f 60 numbers in the range 0.0 to 1.0. Each number represents the energy within a particular frequency band, integrated over a certain period of time. The integration aperture for higher frequencies occur later in time, since these frequencies are transmitted later during the chirp.
+
+The response variable `Class` has two levels: `R` if the object is a rock and `M` if it is a mine (mental cylinder).
+
+Our goal is to build a predictive model that will predict a class (`R` or `M`) of an observation. We will do it using a random forest method.
+
+
+&nbsp;
+
+### Data Splitting {-}
+
+As mentioned in **Lecture 17**, we can split our data into training and test data sets to provide an accurate understanding of the generalizability of our final optimal model: training set is used to develop feature sets, train our algorithms, tune hyperparameters, compare models, and all of the other activities required to choose a final model; test set is used to  estimate an unbiased assessment of the model’s performance, which we refer to as the _generalization error_.
+
+In our example, we will use a stratified sampling method to preserve the underlying distribution of the response variable `Class`. 65\% of the original data will be used to train the model and tune its parameters, and the remaining 35\% will be used to assess its performance.
+
+
+**Note:** It is fair to say that a simple random sample method will be equally good in this example, because the `Class` variable is not severely imbalanced.
+
+```{r}
+
+data_split <- Sonar %>% initial_split(prop = 0.65, strata = Class)
+
+data_training <- data_split %>% training()
+
+data_test <- data_split %>% testing()
+
+```
+
+
+You've noticed that the sampling indices are chosen using random numbers, that is, observations are randomly selected into the sample. If you or someone else need to reproduce your results later, then you have to ensure that the same samples will be used between calls. This can be done using `set.seed()` function:
+
+
+```{r}
+
+set.seed(1)
+
+
+data_split <- Sonar %>% initial_split(prop = 0.65, strata = Class)
+
+data_training <- data_split %>% training()
+
+data_test <- data_split %>% testing()
+
+```
+
+
+&nbsp;
+
+### Model Training and Parameter Tuning {-}
+
+The model-training process starts with a parameter tuning procedure. As mentioned in the previous lecture, a random forest method has multiple hyperparameters and optimal values for these parameters must be chosen in order to achieve a better performance. In other words, we have to choose a combination of hyperparameter values that enhances the model's performance.
+
+We are going to consider the following hyperparameters: splitting rule (`splitrule`), minimal node size to split at (`min.node.size`), and a number of variables to possibly split at in each node (`mtry`). 
+
+The tuning parameter grid can be specified by the user. Suppose we have the following set of values for our hyperparameters: `splitrule = {"gini", "extratrees"}`, `min.node.size = {5, 7, 9, 11, 13}`, `mtry = {13, 15, 17, 19, 21, 23, 25}`. Use `expand.grid()` function to create all possible combinations of these parameters:
+
+```{r}
+
+rf_grid <- expand.grid(.mtry = c(13, 15, 17, 19, 21, 23, 25),
+                        
+                       .min.node.size = c(5, 7, 9, 11, 13),
+                        
+                       .splitrule = c("gini", "extratrees"))
+
+```
+
+This approach is called _full Cartesian grid searches_ where we assess every combination of hyperparameters of interest:
+
+```{r}
+
+print(rf_grid)
+
+```
+
+
+Next, we need to select a resampling method. It is done using a `trainControl()` function. This function has the following arguments:
+
+* `method` - the resampling method: `boot`, `cv`, `LOOCV`, `LGOCV`, `repeatedcv`, and so on
+* `number` and `repeats` - `number` controls the number of folds in _K_-fold cross validation or number of resampling iterations for bootstrapping and leave-group-out cross-validation. `repeats` applies only to repeated _K_-fold cross validation and indicates how many times it should be repeated
+* `classProbs` - a logical value determining whether class probabilities should be computed for held-out samples during resample
+* `summaryFunction` -  a function to compute alternate performance summaries
+
+&nbsp;
+
+For instance, the following function performs 5-fold cross validation:
+
+```{r}
+
+# keep classProbs and summaryFunction values as they are 
+
+set.seed(1)
+
+fitControl_1 <- trainControl(method = "cv",
+                           
+                             number = 5,
+                           
+                             classProbs = TRUE,
+                           
+                             summaryFunction = twoClassSummary)
+
+```
+
+And the next function performs 10-fold cross validation:
+
+```{r}
+
+fitControl_2 <- trainControl(method = "cv",
+                           
+                             number = 10,
+                           
+                             classProbs = TRUE,
+                           
+                             summaryFunction = twoClassSummary)
+
+```
+
+
+Use the following function if you want to perform a 5-fold cross validation repeated 7 times:
+
+```{r}
+
+fitControl_3 <- trainControl(method = "repeatedcv",
+                           
+                             number = 5,
+                           
+                             repeats = 7,
+                           
+                             classProbs = TRUE,
+                           
+                             summaryFunction = twoClassSummary)
+
+```
+
+
+Finally, the next function can be utilized for generating 10 bootstrap samples:
+
+
+```{r}
+
+fitControl_3 <- trainControl(method = "boot",
+                             
+                             number = 10,
+                             
+                             classProbs = TRUE,
+                             
+                             summaryFunction = twoClassSummary)
+
+```
+
+
+For our analysis we will stick with a 5-fold cross validation technique. In order to identify an optimal combination of hyperparameter values, that is to train the model, we will use a `train()` function. After resampling, the `train` function produces a profile of performance measures to guide the user as to which tuning parameter values should be chosen:
+
+```{r}
+
+set.seed(1)
+
+RF_model <- train(Class ~ ., data = data_training,
+             
+             method = "ranger",
+             
+             trControl = fitControl_1,
+             
+             verbose = FALSE,
+             
+             tuneGrid = rf_grid,
+             
+             metric = "ROC",
+             
+             num.tree = 600)
+
+
+```
+
+Note that `num.tree` is also a hyperparameter, but instead of tuning this parameter, we've decided to just give it a default value of 600. Here, method argument specifies a type of model you are going to use (in this case, `ranger` corresponds to a random forest model); keep `verbose` and `metric` arguments as they are.
+
+Model-training process might take some time, so be patient. After the process is complete, it will produce the following output:
+
+```{r}
+
+print(RF_model$results)
+
+```
+
+
+For each of these combinations in the grid, it provides resampling results. In this case these metrics are `ROC`, `Sens` (Sensitivity), and `Spec` (Specificity). You can pick one of these metrics to decide which of these combinations performed better than others.
+
+Let's make this decision using a Sensitivity metric. To make the search process easier, you can arrange the `Sens` column in descending order:
+
+```{r}
+
+print(RF_model$results %>% arrange(desc(Sens)))
+
+```
+
+Since the highest Sensitivity (almost 0.93) is achieved when `mtry = 13`, `min.mode.size = 5`, and `splitrule = "extratrees"`, we will use these hyperparameter values to fit the final model. **Note**: if there are multiple models with the same results, then pick the one with the simpliest model structure.
+
+Before we move on, let's visualize the resampling results. We can do it in two ways: (1) using regular plots (ggplot objects) and (2) using a heat map, where darker colors represent higher results. Below are some examples:
+
+```{r}
+
+ggplot(RF_model, metric = "Spec")
+
+```
+
+
+```{r}
+
+ggplot(RF_model, metric = "Sens")
+
+```
+
+
+```{r}
+
+## Heat map
+
+trellis.par.set(caretTheme())
+
+plot(RF_model, metric = "ROC", plotType = "level",
+     
+     scales = list(x = list(rot = 90))) 
+
+```
+
+
+&nbsp;
+
+
+
+### Building the Final Model and Assesing the Model's Performance {-}
+
+Now when we know the optimal combination of hyperparameter values, we can start fitting the final model. We build the final model on the entire training dataset. This is done using the same `train` function. The only difference is that we now pass specific values to our hyperparameters and we DO NOT perform resampling (this is done by passing `"none"` to the method argument in the `trainControl` function):
+
+```{r}
+
+fitControl_final <- trainControl(method = "none", classProbs = TRUE)
+
+
+RF_final <- train(Class ~., data = data_training,
+                   
+                   method = "ranger",
+                   
+                   trControl = fitControl_final,
+                   
+                   verbose = FALSE,
+                   
+                   metric = "ROC",
+                   
+                   tuneGrid = data.frame(.mtry = 13,
+                                         
+                                         .min.node.size = 5,
+                                         
+                                         .splitrule = "extratrees"),
+                   
+                   num.tree = 600)
+
+```
+
+
+
+Use `predict()` function to make predictions based on the final model: pass the final model to this function along with the dataset you are making predictions for. We will do it for both training and test sets:
+
+```{r}
+
+RF_pred_train <- predict(RF_final, newdata = data_training)
+
+RF_pred_test <- predict(RF_final, newdata = data_test)
+
+```
+
+
+To assess the model's performance, we build a confusion matrix. It is done using a `confusionMatrix()` function. It requires two input vector: predictions and actual values of the response variable. First, let's build it for the training set:
+
+
+```{r}
+
+RF_train_results <- confusionMatrix(RF_pred_train, data_training$Class)
+
+print(RF_train_results)
+
+```
+
+To simply the output, we can extract the confusion matrix and take a transpose of it:
+
+```{r}
+
+print(RF_train_results$table)
+
+print(t(RF_train_results$table))
+
+```
+
+Now using this table, we can calculate metrics such as accuracy, sensitivity, specificity, and precision (see **lecture 18** for more information on these metrics).
+
+As mentioned earlier, the model performance is mainly assessed using the unseen test set. Thus, we are more interested in obtaining a confusion matrix for the test set:
+
+```{r}
+
+RF_test_results <- confusionMatrix(RF_pred_test, data_test$Class)
+
+print(RF_test_results)
+
+```
+
+
+```{r}
+
+print(RF_test_results$table)
+
+print(t(RF_test_results$table)) 
+
+```
+

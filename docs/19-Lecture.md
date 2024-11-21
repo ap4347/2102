@@ -35,7 +35,7 @@ library(tidymodels)
 #> ✖ dplyr::filter()  masks stats::filter()
 #> ✖ dplyr::lag()     masks stats::lag()
 #> ✖ recipes::step()  masks stats::step()
-#> • Learn how to get started at https://www.tidymodels.org/start/
+#> • Search for functions across packages at https://www.tidymodels.org/find/
 
 library(caret)
 #> Loading required package: lattice
@@ -763,7 +763,7 @@ print(t(RF_train_results$table))
 #>         R  0 63
 ```
 
-Now using this table, we can calculate metrics such as accuracy, sensitivity, specificity, and precision (see **lecture 19** for more information on these metrics).
+Now using this table, we can calculate metrics such as accuracy, sensitivity, specificity, and precision (see **lecture 18** for more information on these metrics).
 
 As mentioned earlier, the model performance is mainly assessed using the unseen test set. Thus, we are more interested in obtaining a confusion matrix for the test set:
 
