@@ -28,7 +28,7 @@ knitr::include_graphics("images/r_and_rstudio.png")
 
 The first thing we need to do is to install `R` on your computer. It works on pretty much every platform available, including the widely used Windows, Mac OS, and Linux systems. You can download R [here](https://cran.r-project.org/). Pick your operating system and follow the instructions stated on that page. After you download `R`, install it on your machine.  
 
-### Installing RStudio (now known as Posit) {-}
+### Installing RStudio {-}
 
 R itself has an old-fashion, old-school interface, which is less intuitive and makes coding harder (especially for beginners). Thus, we will be using RStudio instead. RStudio is an IDE, Integrated Development Environment, which has a user-friendly interface and is equipped with many useful features. It facilitates extensive code editing, development as well as various features that make R an easy language to implement. We will be using RStudio to call `R`. You can dowload RStudio [here](https://posit.co/download/rstudio-desktop/#download).
 
