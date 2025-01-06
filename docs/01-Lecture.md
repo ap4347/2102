@@ -26,7 +26,7 @@ Nowadays, many companies, universities, and individuals of all backgrounds are s
 
 The first thing we need to do is to install `R` on your computer. It works on pretty much every platform available, including the widely used Windows, Mac OS, and Linux systems. You can download R [here](https://cran.r-project.org/). Pick your operating system and follow the instructions stated on that page. After you download `R`, install it on your machine.  
 
-### Installing RStudio (now known as Posit) {-}
+### Installing RStudio {-}
 
 R itself has an old-fashion, old-school interface, which is less intuitive and makes coding harder (especially for beginners). Thus, we will be using RStudio instead. RStudio is an IDE, Integrated Development Environment, which has a user-friendly interface and is equipped with many useful features. It facilitates extensive code editing, development as well as various features that make R an easy language to implement. We will be using RStudio to call `R`. You can dowload RStudio [here](https://posit.co/download/rstudio-desktop/#download).
 
@@ -99,14 +99,14 @@ R supports various arithmetic operations. In other words, you can use R as a sim
 
 
 
-```r
+``` r
 print(2 + 3)
 #> [1] 5
 ```
 
 
 
-```r
+``` r
 print(4*5 - 2/3)
 #> [1] 19.33333
 ```
@@ -135,7 +135,7 @@ In order to create a variable in R, you can use `<-` assignment symbol. For exam
 
 
 
-```r
+``` r
 x <- 4
 print(x)
 #> [1] 4
@@ -144,7 +144,7 @@ print(x)
 Let's create another variable `y`, which is equal to 10:
 
 
-```r
+``` r
 y <- 10
 print(y)
 #> [1] 10
@@ -153,7 +153,7 @@ print(y)
 Once we create these variables, they will be stored in the global environment and will be available to use for further operations. Now R knows that `x = 4` and `y = 10`.
 
 
-```r
+``` r
 print(x + y)
 #> [1] 14
 ```
@@ -162,9 +162,9 @@ print(x + y)
 Note, R is case sensitive. What does that mean? This means that for R `x` and `X` are different objects. So, now if we call `X` variable, R will throw an error and will tell you that such an object does exist in the global environment:
 
 
-```r
+``` r
 print(X)
-#> Error in eval(expr, envir, enclos): object 'X' not found
+#> Error: object 'X' not found
 ```
 
 
@@ -175,7 +175,7 @@ print(X)
 After you've run a long code and produced some valuable results, you might want to save your output that is being stored in the global environment now. To do so, you can execute the following line of code, which saves the global environment in the _working directory_ (a place in your computer where R saves your files):
 
 
-```r
+``` r
 save.image()
 ```
 
@@ -185,14 +185,14 @@ save.image()
 To remove a specific object (suppose a variable `x`) from the Global Environment, use `rm()` function:
 
 
-```r
+``` r
 rm(x)
 ```
 
 To remove all objects stored in the Global Environment, use `rm(list = ls())` function:
 
 
-```r
+``` r
 rm(list = ls())
 ```
 
@@ -201,7 +201,7 @@ rm(list = ls())
 To list the objects stored in the Global Environment, use `ls()` function:
 
 
-```r
+``` r
 ls()
 ```
 
@@ -212,9 +212,9 @@ ls()
 As mentioned, R stores files in the working directory. To check where the working directory on your machine is, use `getwd()` function:
 
 
-```r
+``` r
 getwd()
-#> [1] "C:/Users/alexp/OneDrive/Desktop/2102/Fall 24/2102"
+#> [1] "C:/Users/alexp/OneDrive/Desktop/2102/Spring 25/2102"
 ```
 
 ## Getting Help {-}
@@ -222,7 +222,7 @@ getwd()
 Sometimes you don't exactly know how the certain functions work. You can use `?` in the console followed by the function name to figure what the inputs (arguments) of this function are and how it can be utilized. For example, let's check how the `mean()` function works:
 
 
-```r
+``` r
 ?mean
 ```
 
