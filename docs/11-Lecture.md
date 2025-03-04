@@ -22,7 +22,7 @@ We continue working with the `nyc_flights` data set that provides information ab
 Most data operations are done on groups defined by variables. `dplyr` verbs are particularly powerful when you apply them to grouped data frames. The most important grouping verb is `group_by()`. It takes an existing data frame and converts it into a grouped data frame where operations are performed "by group". In other words, it takes a data frame and one or more variables to group by:
 
 
-```r
+``` r
 
 by_origin <- flights %>% group_by(origin)
 
@@ -50,7 +50,7 @@ by_origin
 ```
 
 
-```r
+``` r
 
 by_origin_carrier <- flights %>% group_by(origin, carrier)
 
@@ -85,7 +85,7 @@ Grouping is most useful when used in conjunction with the `summarise()` function
 For instance, let's calculate the average arrival delay time for each group in the `by_origin` grouped data:
 
 
-```r
+``` r
 
 by_origin %>% summarise(Mean = mean(arr_delay, na.rm = T))
 #> # A tibble: 3 × 2
@@ -99,7 +99,7 @@ by_origin %>% summarise(Mean = mean(arr_delay, na.rm = T))
 You can even pass several variables to it:
 
 
-```r
+``` r
 
 by_origin %>% 
   
@@ -134,7 +134,7 @@ Logical | `any()`, `all()`
 
 
 
-```r
+``` r
 
 by_carrier <- flights %>% group_by(carrier)
 
@@ -161,7 +161,7 @@ by_carrier %>%
 If you need to remove grouping and return to operations on ungrouped data, use `ungroup()`:
 
 
-```r
+``` r
 
 by_carrier %>%
   
@@ -179,7 +179,7 @@ It’s often useful to perform the same operation on multiple columns, but copyi
 
 
 
-```r
+``` r
 
 flights %>% 
   
@@ -214,7 +214,7 @@ flights %>%
 Instead, we can use `across()` function, which  lets you rewrite the previous code more succinctly:
 
 
-```r
+``` r
 
 flights %>% 
   
@@ -250,7 +250,7 @@ flights %>%
 `across()` has two primary arguments: (1) the first argument, `.col`, selects the columns you want to operate on; (2) the second argument, `.fns`, is a function or list of functions to apply to each column. Here are some examples:
 
 
-```r
+``` r
 
 flights %>% 
   
@@ -263,7 +263,7 @@ flights %>%
 
 
 
-```r
+``` r
 
 flights %>% 
   
@@ -285,7 +285,7 @@ flights %>%
 You can transform each variable with more than one function by supplying a named list of functions or lambda functions in the second argument:
 
 
-```r
+``` r
 
 
 min_max <- list(
@@ -318,7 +318,7 @@ flights %>%
 You can control how the names are created with the `.names` argument:
 
 
-```r
+``` r
 
 flights %>% 
   
@@ -378,7 +378,7 @@ The output is always a new table. By default, if an observation in `x` matches m
 To illustrative how these functions work, we will be using the following toy data frames:
 
 
-```r
+``` r
 
 df1 <- data.frame(
   
@@ -401,7 +401,7 @@ print(df1)
 
 
 
-```r
+``` r
 
 df2 <- data.frame(
   
@@ -433,7 +433,7 @@ The simplest type of join is the **inner join**. An inner join matches pairs of 
 Below are some examples of inner join:
 
 
-```r
+``` r
 
 # Merging tables by the "a" variable
 
@@ -457,7 +457,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 # Merging tables by the "a" and "b" variable
 
@@ -471,7 +471,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 ## Merging tables by the "c" and "z" variable (Have different variable names)
 
@@ -486,7 +486,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 ## Merging tables by the "c" and "z" variable (Have different variable names) and keeping both key variables in the output table
 
@@ -505,7 +505,7 @@ df1 %>%
 `left_join()` includes all observations in `x`, regardless of whether they match or not. This is the most commonly used join because it ensures that you don’t lose observations from your primary table:
 
 
-```r
+``` r
 
 # Merging tables by the "a" variable
 
@@ -530,7 +530,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 # Merging tables by the "a" and "b" variable
 
@@ -547,7 +547,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 ## Merging tables by the "c" and "z" variable (Have different variable names)
 
@@ -569,7 +569,7 @@ df1 %>%
 `right_join()` includes all observations in `y`:
 
 
-```r
+``` r
 
 # Merging tables by the "a" variable
 
@@ -595,7 +595,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 # Merging tables by the "a" and "b" variable
 
@@ -613,7 +613,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 ## Merging tables by the "c" and "z" variable (Have different variable names)
 
@@ -635,7 +635,7 @@ df1 %>%
 `full_join()` includes all observations from both `x` and `y`:
 
 
-```r
+``` r
 
 # Merging tables by the "a" variable
 
@@ -662,7 +662,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 # Merging tables by the "a" and "b" variable
 
@@ -683,7 +683,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 ## Merging tables by the "c" and "z" variable (Have different variable names)
 
@@ -711,7 +711,7 @@ Filtering joins match observations in the same way as mutating joins, but affect
 
 
 
-```r
+``` r
 
 df1 %>%
   
@@ -725,7 +725,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 df1 %>%
   
@@ -737,7 +737,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 df1 %>%
   
@@ -748,7 +748,7 @@ df1 %>%
 
 
 
-```r
+``` r
 
 df1 %>%
   
@@ -773,7 +773,7 @@ We will first create toy data frames and then apply these functions to them:
 
 
 
-```r
+``` r
 
 df1 <- data.frame(
   
@@ -793,7 +793,7 @@ df1
 ```
 
 
-```r
+``` r
 
 df2 <- data.frame(
   
@@ -813,7 +813,7 @@ df2
 ```
 
 
-```r
+``` r
 
 intersect(df1, df2)
 #>   a  b
@@ -822,7 +822,7 @@ intersect(df1, df2)
 ```
 
 
-```r
+``` r
 
 union(df1, df2)
 #>   a  b
@@ -837,7 +837,7 @@ union(df1, df2)
 ```
 
 
-```r
+``` r
 
 setdiff(df1, df2)
 #>   a  b
@@ -847,7 +847,7 @@ setdiff(df1, df2)
 ```
 
 
-```r
+``` r
 
 setdiff(df2, df1)
 #>   a  b
@@ -865,7 +865,7 @@ Here are two data sets that you can use to practice two-table verbs:
 
 
 
-```r
+``` r
 
 data1 <- data.frame(
   
@@ -902,7 +902,7 @@ data1
 
 
 
-```r
+``` r
 
 data2 <- data.frame(
   
