@@ -22,7 +22,7 @@ Most statistical datasets are data frames made up of **rows** and **columns**. A
 
 
 
-```r
+``` r
 
 print(table1)
 #> # A tibble: 6 × 4
@@ -37,7 +37,7 @@ print(table1)
 ```
 
 
-```r
+``` r
 
 print(table2)
 #> # A tibble: 12 × 4
@@ -58,7 +58,7 @@ print(table2)
 ```
 
 
-```r
+``` r
 
 print(table3)
 #> # A tibble: 6 × 3
@@ -73,7 +73,7 @@ print(table3)
 ```
 
 
-```r
+``` r
 
 print(table4a) # cases
 #> # A tibble: 3 × 3
@@ -85,7 +85,7 @@ print(table4a) # cases
 ```
 
 
-```r
+``` r
 
 print(table4b) # population
 #> # A tibble: 3 × 3
@@ -121,7 +121,7 @@ Unfortunately, most data that you will encounter will be untidy. For example, co
 
 
 
-```r
+``` r
 
 print(table4a) # cases
 #> # A tibble: 3 × 3
@@ -145,7 +145,7 @@ To tidy a dataset like this, we need to **pivot** the offending columns into a n
 Together those parameters generate the call to `pivot_longer()` function:
 
 
-```r
+``` r
 
 table4a %>% 
   
@@ -166,7 +166,7 @@ Let's repeat the same procedure with `table4b`:
 
 
 
-```r
+``` r
 
 table4b %>%
   
@@ -185,7 +185,7 @@ table4b %>%
 Now let's put them together and create a complete dataset:
 
 
-```r
+``` r
 
 tidy4a <- table4a %>% 
   
@@ -220,7 +220,7 @@ print(tidy_4a_4b)
 `pivot_wider()` is the opposite of `pivot_longer()`. You use it when an observation is scattered across multiple rows. For instance, in `table2` an observation is a country in a year, but each observation is spread across two rows:
 
 
-```r
+``` r
 
 print(table2)
 #> # A tibble: 12 × 4
@@ -248,7 +248,7 @@ To tidy this up, we only need two parameters:
 
 
 
-```r
+``` r
 
 table2 %>%
   
@@ -273,7 +273,7 @@ table2 %>%
 `separate()` pulls apart one column into multiple columns, by splitting wherever a separator character appears. For example, in `table3` the `rate` column contains both `cases` and `population` variables, and we need to split it into two variables:
 
 
-```r
+``` r
 
 print(table3)
 #> # A tibble: 6 × 3
@@ -290,7 +290,7 @@ print(table3)
 `separate()` takes the name of the column to separate, and the names of the columns to separate into as well as the specific character to separate a column:
 
 
-```r
+``` r
 
 table3 %>%
   
@@ -310,7 +310,7 @@ table3 %>%
 `separate()` leaves the type of the column as is. However, we can ask it to try and convert to better types using `convert = TRUE`:
 
 
-```r
+``` r
 
 table3 %>% 
   
@@ -330,7 +330,7 @@ table3 %>%
 You can also pass a vector of integers to `sep`. `separate()` will interpret the integers as positions to split at. Positive values start at 1 on the far-left of the strings; negative value start at -1 on the far-right of the strings. Here are some examples:
 
 
-```r
+``` r
 
 table3 %>% 
   
@@ -347,7 +347,7 @@ table3 %>%
 ```
 
 
-```r
+``` r
 
 table3 %>% 
   
@@ -364,7 +364,7 @@ table3 %>%
 ```
 
 
-```r
+``` r
 
 table3 %>% 
   
@@ -386,7 +386,7 @@ table3 %>%
 `unite()` is the inverse of `separate()`: it combines multiple columns into a single column. We can use `unite()` to rejoin the _century_ and _year_ columns in the `table5`:
 
 
-```r
+``` r
 
 print(table5)
 #> # A tibble: 6 × 4
@@ -404,7 +404,7 @@ print(table5)
 `unite()` takes a data frame, the name of the new variable to create, and a set of columns to combine:
 
 
-```r
+``` r
 
 table5 %>% 
   
@@ -425,7 +425,7 @@ The default will place an underscore `_` between the values from different colum
 
 
 
-```r
+``` r
 
 table5 %>% 
   
@@ -452,7 +452,7 @@ A value can be missing in one of two possible ways:
 Consider the following dataset:
 
 
-```r
+``` r
 
 stocks <- data.frame(
   
@@ -482,7 +482,7 @@ There are two missing values in this dataset:
 We can make  implicit missing values explicit. One way of doing it is using `pivot_wider()` function:
 
 
-```r
+``` r
 
 stocks %>% 
   
@@ -499,7 +499,7 @@ stocks %>%
 Or we can simply use `complete()` function. It takes a set of columns, and finds all unique combinations. It then ensures the original dataset contains all those values, filling in explicit `NA`s where necessary:
 
 
-```r
+``` r
 
 stocks %>% 
   
@@ -520,7 +520,7 @@ stocks %>%
 You can fill in these missing values with `fill()`. It takes a set of columns where you want missing values to be replaced by the most recent non-missing value (sometimes called last observation carried forward):
 
 
-```r
+``` r
 
 stocks %>% 
   
@@ -544,7 +544,7 @@ stocks %>%
 You can change the direction in which to fill in missing values. For instance, let's fill in the missing values with the value that comes right after these missing values:
 
 
-```r
+``` r
 
 stocks %>% 
   
@@ -569,7 +569,7 @@ stocks %>%
 
 
 
-```r
+``` r
 
 stocks %>% 
   
@@ -593,7 +593,7 @@ stocks %>%
 Finally, you can drop missing values from your dataset:
 
 
-```r
+``` r
 
 stocks %>% 
   
@@ -620,7 +620,7 @@ Here are some datasets to practice tidyr functions with. In addition, below you 
 #### Relationship between Income and Religion in the US {-}
 
 
-```r
+``` r
 
 relig_income %>% 
   
@@ -645,7 +645,7 @@ relig_income %>%
 #### Tuberculosis data from World Health Organization (WHO) {-}
 
 
-```r
+``` r
 
 who1 <- who %>%
   
@@ -678,18 +678,19 @@ print(who1)
 
 
 
-```r
+``` r
 
 ## just run this code
 
 who2 <- who1 %>% 
   
   mutate(key = stringr::str_replace(key, "newrel", "new_rel"))
+
 ```
 
 
 
-```r
+``` r
 
 who3 <- who2 %>% 
   
@@ -713,7 +714,7 @@ print(who3)
 ```
 
 
-```r
+``` r
 
 who4 <- who3 %>%
   
@@ -740,7 +741,7 @@ print(who4)
 #### Billboard charts data {-}
 
 
-```r
+``` r
 
 billboard2 <- billboard %>% 
   
@@ -773,7 +774,7 @@ print(billboard2)
 
 
 
-```r
+``` r
 
 billboard3 <- billboard %>% 
   
@@ -811,7 +812,7 @@ print(billboard3)
 
 
 
-```r
+``` r
 
 billboard3 %>%
   
