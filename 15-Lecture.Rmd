@@ -11,7 +11,22 @@
 
 ### Introduction {-}
 
+```{r, include=FALSE}
 
+library(tidyverse)
+
+library(ggExtra)
+
+library(patchwork)
+
+dataset1 <- read.csv(file = "C:/Users/alexp/OneDrive/Desktop/carseats_full.csv",
+                   
+                   header = T,
+                   
+                   stringsAsFactors = TRUE)
+
+
+```
 
 
 Now that we are equipped with enough programming tools we can finally move to the Data Analysis part of this course. You will use your new tools of data wrangling and programming to perform certain statistical procedures, including Exploratory Data Analysis (EDA) and Formal Inference. In general, EDA is an iterative process that involves
@@ -162,8 +177,7 @@ To perform a test, we use a `t.test()` function from R. It has the following arg
 
 Now since we work with a single population, we don't need the `y` argument (we will come back to it shortly). Here `x` is a vector of the `Advertising` variable, `mu` is 5, `alternative` is `greater` (this options should correspond to the alternative hypothesis), `conf.level` is 0.95, and for a one-sample test with don't need the `var.equal` argument (again, we will come back to this argument shortly). Thus,
 
-
-``` r
+```{r}
 
 t.test(x = dataset1$Advertising,
        
@@ -172,17 +186,8 @@ t.test(x = dataset1$Advertising,
        mu = 5,
        
        conf.level = 0.95)
-#> 
-#> 	One Sample t-test
-#> 
-#> data:  dataset1$Advertising
-#> t = 4.917, df = 399, p-value = 6.431e-07
-#> alternative hypothesis: true mean is greater than 5
-#> 95 percent confidence interval:
-#>  6.086783      Inf
-#> sample estimates:
-#> mean of x 
-#>     6.635
+
+
 ```
 
 The function output provides information about the test statistic (t = 4.917), degrees of freedom (df = 399) and the p-value. From the output we can see that the p-value is approximately 0 and it is less than the significance level $\alpha = 0.05$, thus, we reject the $H_0$ hypothesis.
@@ -244,8 +249,7 @@ H_0: \mu_R - \mu_U = 0  \quad versus \quad H_a: \mu_R - \mu_U > 0
 
 Before we perform a formal test, let's visualize our data:
 
-
-``` r
+```{r}
 
 data_summary = dataset1 %>% 
   
@@ -267,49 +271,25 @@ geom_vline(data = data_summary,
            aes(xintercept=grp.mean, color=Urban),
                
            size = 1) 
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2
-#> 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where
-#> this warning was generated.
-#> `stat_bin()` using `bins = 30`. Pick better value with
-#> `binwidth`.
-```
 
-<img src="15-Lecture_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+
+```
 
 
 As it was mentioned, one of the assumptions of a two-sample t-test is that the populations variances must be equal. First, we have to check this assumption by performing another test called **Levene's test**. To do so, we will use the `LeveneTest()` function. This function is available in the `car` package, thus, first you will need to install this package:
 
-
-``` r
+```{r}
 
 library(car)
-#> Warning: package 'car' was built under R version 4.4.3
-#> Loading required package: carData
-#> Warning: package 'carData' was built under R version 4.4.3
-#> 
-#> Attaching package: 'car'
-#> The following object is masked from 'package:dplyr':
-#> 
-#>     recode
-#> The following object is masked from 'package:purrr':
-#> 
-#>     some
 
 leveneTest(Sales ~ Urban, data = dataset1)
-#> Levene's Test for Homogeneity of Variance (center = median)
-#>        Df F value Pr(>F)
-#> group   1       0 0.9986
-#>       398
+
 ```
 
 The p-value of this test is extremely high, which indicates that the variances of two populations are equal. Thus, in the `t.test` the `var.equal` argument will be set to `TRUE`:
 
 
-
-``` r
+```{r}
 
 Rural <- dataset1 %>%
   
@@ -335,17 +315,6 @@ t.test(x = Rural,
        var.equal = TRUE,
        
        conf.level = 0.98)
-#> 
-#> 	Two Sample t-test
-#> 
-#> data:  Rural and Urban
-#> t = 0.30765, df = 398, p-value = 0.3793
-#> alternative hypothesis: true difference in means is greater than 0
-#> 98 percent confidence interval:
-#>  -0.543356       Inf
-#> sample estimates:
-#> mean of x mean of y 
-#>  7.563559  7.468191
 ```
 
 
@@ -364,8 +333,7 @@ H_0: \mu_{US} - \mu_{non\_US} = 0  \quad versus \quad H_a: \mu_{US} - \mu_{non\_
 Let's visualize our data:
 
 
-
-``` r
+```{r}
 
 ggplot(data = dataset1) +
   
@@ -378,32 +346,23 @@ stat_summary(aes(x = US, y = Sales, fill = US),
              geom = "point",
                
              color = "black")
-```
 
-<img src="15-Lecture_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+```
 
 From the plot we observe that on average sales in the stores located in the US are higher than the sales in the stores located outside of the US. But is this difference statistically significant? We are about to find it out. 
 
 As usual, before we perform a formal t-test, let's test the assumption of equal variances at the 5% significance level:
 
-
-``` r
+```{r}
 
 leveneTest(Sales ~ US, data = dataset1)
-#> Levene's Test for Homogeneity of Variance (center = median)
-#>        Df F value  Pr(>F)  
-#> group   1  3.6316 0.05741 .
-#>       398                  
-#> ---
-#> Signif. codes:  
-#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
 ```
 
 Since the p-value 0.05741 is greater than 0.05, we assume that the variances are equal. Now we move on to the t-test:
 
 
-
-``` r
+```{r}
 
 t.test(Sales ~ US, 
        
@@ -416,17 +375,7 @@ t.test(Sales ~ US,
        var.equal = TRUE,
        
        conf.level = 0.95)
-#> 
-#> 	Two Sample t-test
-#> 
-#> data:  Sales by US
-#> t = -3.5897, df = 398, p-value = 0.0003723
-#> alternative hypothesis: true difference in means between group No and group Yes is not equal to 0
-#> 95 percent confidence interval:
-#>  -1.6155534 -0.4721887
-#> sample estimates:
-#>  mean in group No mean in group Yes 
-#>          6.823028          7.866899
+
 ```
 
 Since the p-value of 0.00037 is less than the significance level 0.05, we reject the null hypothesis and conclude that on average stores in the US and outside of the US have different profitability.
@@ -475,8 +424,7 @@ $H_a$: The distribution of shelve locations is **different from** the distributi
 
 Before we test these hypotheses, let's visualize our sample data:
 
-
-``` r
+```{r}
 
 ggplot(data = dataset1) +
   
@@ -495,21 +443,13 @@ geom_text(aes(x = ShelveLoc,label = ..count..),
             size = 6,
             
             colour = "white")
-#> Warning: The dot-dot notation (`..count..`) was deprecated in
-#> ggplot2 3.4.0.
-#> ℹ Please use `after_stat(count)` instead.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where
-#> this warning was generated.
-```
 
-<img src="15-Lecture_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+```
 
 
 Let's convert the count frequency into percentages:
 
-
-``` r
+```{r}
 
 ggplot(data = dataset1) +
   
@@ -528,9 +468,8 @@ geom_text(aes(x = ShelveLoc,label = scales::percent((..count..)/sum(..count..)))
             size = 6,
             
             colour = "white")
-```
 
-<img src="15-Lecture_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+```
 
 As you can notice, the sample distribution differs from the desired distribution of the shelve locations. But is this difference statistically significant? We are going to figure this out. 
 
@@ -552,15 +491,10 @@ Now we use these observed and expected counts to calculate the chi-squared test 
 
 Let's test our hypothesis at the $\alpha = 0.05$ significance level:
 
-
-``` r
+```{r}
 
 chisq.test(x = c(96, 219, 85), p = c(0.2, 0.55, 0.25))
-#> 
-#> 	Chi-squared test for given probabilities
-#> 
-#> data:  c(96, 219, 85)
-#> X-squared = 5.4545, df = 2, p-value = 0.0654
+
 ```
 The function output contains the test statistic ($\chi^2$ = 5.4545), degrees of freedom (df = 2), and the p-value. Since the p-value 0.0654 is greater than the significance level 0.05, we fail to reject the $H_0$. Thus, based on our data, the actual distribution of the `ShelveLoc` variable follows the desired distribution.
 
@@ -606,18 +540,14 @@ $H_a:$ Variables `ShelveLoc` and `Urban` are **not independent**. The observed d
 We are going to test these hypotheses using our sample data at the $\alpha = 0.1$ significance level. The best way to display your sample data is using a two-way contingency table. In a two-way contingency table, rows represent levels(categories) of one categorical variable and columns represent levels of the other categorical variable:
 
 
-
-``` r
+```{r}
 
 dataset1 %>%
   
   select(Urban, ShelveLoc) %>%
   
   table()
-#>      ShelveLoc
-#> Urban Bad Good Medium
-#>   No   22   28     68
-#>   Yes  74   57    151
+
 ```
 
 If the variables are independent, that is, they are not related, then the distribution of the `ShelveLoc` variable should the same for every level of the `Urban` variable and vice versa.
@@ -625,31 +555,25 @@ If the variables are independent, that is, they are not related, then the distri
 We can visualize our data using a stacked barplot:
 
 
-
-``` r
+```{r}
 
 ggplot(data = dataset1) +
   
 geom_bar(mapping = aes(x = ShelveLoc, fill = Urban),
          
          position = "fill") 
-```
 
-<img src="15-Lecture_files/figure-html/unnamed-chunk-13-1.png" width="672" />
+
+```
 
 
 Stacked barplots are particularly useful at describing the relationship (or lack of it) between two categorical variables. If some columns on the plot are divided in different vertical locations than others, then this might be an indication that the variable are related, that is, they are not independent. But per usual, to formally test our hypothesis, we need to perform a statistical test. in this case, this would be chi-squared test of independence:
 
 
-
-``` r
+```{r}
 
 chisq.test(dataset1$ShelveLoc, dataset1$Urban)
-#> 
-#> 	Pearson's Chi-squared test
-#> 
-#> data:  dataset1$ShelveLoc and dataset1$Urban
-#> X-squared = 2.7376, df = 2, p-value = 0.2544
+
 ```
 
 Since the p-value of 0.2544 is greater than the significance level of 0.1, we fail to reject the null hypothesis. We conclude that, based on our sample data, the `ShelveLoc` and `Urban` variables are independent of one another.
