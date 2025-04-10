@@ -101,7 +101,7 @@ new_function
 #>         print(i^2)
 #>     }
 #> }
-#> <bytecode: 0x00000222e443e5b8>
+#> <bytecode: 0x000002d34f4755b8>
 ```
 
 
