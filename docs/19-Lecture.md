@@ -18,26 +18,42 @@ Similarly, if you have not done it yet, first install the `caret` package in you
 
 
 
-```r
+``` r
 
 library(tidymodels)
-#> ── Attaching packages ────────────────── tidymodels 1.1.1 ──
-#> ✔ broom        1.0.5      ✔ recipes      1.0.10
-#> ✔ dials        1.2.1      ✔ rsample      1.2.0 
-#> ✔ dplyr        1.1.4      ✔ tibble       3.2.1 
-#> ✔ ggplot2      3.5.0      ✔ tidyr        1.3.1 
-#> ✔ infer        1.0.6      ✔ tune         1.2.0 
-#> ✔ modeldata    1.3.0      ✔ workflows    1.1.4 
-#> ✔ parsnip      1.2.0      ✔ workflowsets 1.0.1 
-#> ✔ purrr        1.0.2      ✔ yardstick    1.3.0
+#> Warning: package 'tidymodels' was built under R version
+#> 4.4.3
+#> ── Attaching packages ────────────────── tidymodels 1.3.0 ──
+#> ✔ broom        1.0.7     ✔ recipes      1.2.1
+#> ✔ dials        1.4.0     ✔ rsample      1.3.0
+#> ✔ dplyr        1.1.4     ✔ tibble       3.2.1
+#> ✔ ggplot2      3.5.1     ✔ tidyr        1.3.1
+#> ✔ infer        1.0.7     ✔ tune         1.3.0
+#> ✔ modeldata    1.4.0     ✔ workflows    1.2.0
+#> ✔ parsnip      1.3.1     ✔ workflowsets 1.1.0
+#> ✔ purrr        1.0.4     ✔ yardstick    1.3.2
+#> Warning: package 'dials' was built under R version 4.4.3
+#> Warning: package 'infer' was built under R version 4.4.3
+#> Warning: package 'modeldata' was built under R version
+#> 4.4.3
+#> Warning: package 'parsnip' was built under R version 4.4.3
+#> Warning: package 'recipes' was built under R version 4.4.3
+#> Warning: package 'rsample' was built under R version 4.4.3
+#> Warning: package 'tune' was built under R version 4.4.3
+#> Warning: package 'workflows' was built under R version
+#> 4.4.3
+#> Warning: package 'workflowsets' was built under R version
+#> 4.4.3
+#> Warning: package 'yardstick' was built under R version
+#> 4.4.3
 #> ── Conflicts ───────────────────── tidymodels_conflicts() ──
 #> ✖ purrr::discard() masks scales::discard()
 #> ✖ dplyr::filter()  masks stats::filter()
 #> ✖ dplyr::lag()     masks stats::lag()
 #> ✖ recipes::step()  masks stats::step()
-#> • Search for functions across packages at https://www.tidymodels.org/find/
 
 library(caret)
+#> Warning: package 'caret' was built under R version 4.4.3
 #> Loading required package: lattice
 #> 
 #> Attaching package: 'caret'
@@ -51,7 +67,7 @@ library(caret)
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──── tidyverse 2.0.0 ──
 #> ✔ forcats   1.0.0     ✔ readr     2.1.5
-#> ✔ lubridate 1.9.3     ✔ stringr   1.5.1
+#> ✔ lubridate 1.9.4     ✔ stringr   1.5.1
 #> ── Conflicts ────────────────────── tidyverse_conflicts() ──
 #> ✖ readr::col_factor() masks scales::col_factor()
 #> ✖ purrr::discard()    masks scales::discard()
@@ -94,13 +110,14 @@ In our example, we will use a stratified sampling method to preserve the underly
 **Note:** It is fair to say that a simple random sample method will be equally good in this example, because the `Class` variable is not severely imbalanced.
 
 
-```r
+``` r
 
 data_split <- Sonar %>% initial_split(prop = 0.65, strata = Class)
 
 data_training <- data_split %>% training()
 
 data_test <- data_split %>% testing()
+
 ```
 
 
@@ -108,7 +125,7 @@ You've noticed that the sampling indices are chosen using random numbers, that i
 
 
 
-```r
+``` r
 
 set.seed(1)
 
@@ -118,6 +135,7 @@ data_split <- Sonar %>% initial_split(prop = 0.65, strata = Class)
 data_training <- data_split %>% training()
 
 data_test <- data_split %>% testing()
+
 ```
 
 
@@ -132,19 +150,20 @@ We are going to consider the following hyperparameters: splitting rule (`splitru
 The tuning parameter grid can be specified by the user. Suppose we have the following set of values for our hyperparameters: `splitrule = {"gini", "extratrees"}`, `min.node.size = {5, 7, 9, 11, 13}`, `mtry = {13, 15, 17, 19, 21, 23, 25}`. Use `expand.grid()` function to create all possible combinations of these parameters:
 
 
-```r
+``` r
 
 rf_grid <- expand.grid(.mtry = c(13, 15, 17, 19, 21, 23, 25),
                         
                        .min.node.size = c(5, 7, 9, 11, 13),
                         
                        .splitrule = c("gini", "extratrees"))
+
 ```
 
 This approach is called _full Cartesian grid searches_ where we assess every combination of hyperparameters of interest:
 
 
-```r
+``` r
 
 print(rf_grid)
 #>    .mtry .min.node.size .splitrule
@@ -233,7 +252,7 @@ Next, we need to select a resampling method. It is done using a `trainControl()`
 For instance, the following function performs 5-fold cross validation:
 
 
-```r
+``` r
 
 # keep classProbs and summaryFunction values as they are 
 
@@ -246,12 +265,13 @@ fitControl_1 <- trainControl(method = "cv",
                              classProbs = TRUE,
                            
                              summaryFunction = twoClassSummary)
+
 ```
 
 And the next function performs 10-fold cross validation:
 
 
-```r
+``` r
 
 fitControl_2 <- trainControl(method = "cv",
                            
@@ -260,13 +280,14 @@ fitControl_2 <- trainControl(method = "cv",
                              classProbs = TRUE,
                            
                              summaryFunction = twoClassSummary)
+
 ```
 
 
 Use the following function if you want to perform a 5-fold cross validation repeated 7 times:
 
 
-```r
+``` r
 
 fitControl_3 <- trainControl(method = "repeatedcv",
                            
@@ -277,6 +298,7 @@ fitControl_3 <- trainControl(method = "repeatedcv",
                              classProbs = TRUE,
                            
                              summaryFunction = twoClassSummary)
+
 ```
 
 
@@ -284,7 +306,7 @@ Finally, the next function can be utilized for generating 10 bootstrap samples:
 
 
 
-```r
+``` r
 
 fitControl_3 <- trainControl(method = "boot",
                              
@@ -293,13 +315,14 @@ fitControl_3 <- trainControl(method = "boot",
                              classProbs = TRUE,
                              
                              summaryFunction = twoClassSummary)
+
 ```
 
 
 For our analysis we will stick with a 5-fold cross validation technique. In order to identify an optimal combination of hyperparameter values, that is to train the model, we will use a `train()` function. After resampling, the `train` function produces a profile of performance measures to guide the user as to which tuning parameter values should be chosen:
 
 
-```r
+``` r
 
 set.seed(1)
 
@@ -324,7 +347,7 @@ Note that `num.tree` is also a hyperparameter, but instead of tuning this parame
 Model-training process might take some time, so be patient. After the process is complete, it will produce the following output:
 
 
-```r
+``` r
 
 print(RF_model$results)
 #>    mtry min.node.size  splitrule       ROC      Sens
@@ -477,7 +500,7 @@ For each of these combinations in the grid, it provides resampling results. In t
 Let's make this decision using a Sensitivity metric. To make the search process easier, you can arrange the `Sens` column in descending order:
 
 
-```r
+``` r
 
 print(RF_model$results %>% arrange(desc(Sens)))
 #>    mtry min.node.size  splitrule       ROC      Sens
@@ -629,7 +652,7 @@ Since the highest Sensitivity (almost 0.93) is achieved when `mtry = 13`, `min.m
 Before we move on, let's visualize the resampling results. We can do it in two ways: (1) using regular plots (ggplot objects) and (2) using a heat map, where darker colors represent higher results. Below are some examples:
 
 
-```r
+``` r
 
 ggplot(RF_model, metric = "Spec")
 ```
@@ -638,7 +661,7 @@ ggplot(RF_model, metric = "Spec")
 
 
 
-```r
+``` r
 
 ggplot(RF_model, metric = "Sens")
 ```
@@ -647,7 +670,7 @@ ggplot(RF_model, metric = "Sens")
 
 
 
-```r
+``` r
 
 ## Heat map
 
@@ -670,7 +693,7 @@ plot(RF_model, metric = "ROC", plotType = "level",
 Now when we know the optimal combination of hyperparameter values, we can start fitting the final model. We build the final model on the entire training dataset. This is done using the same `train` function. The only difference is that we now pass specific values to our hyperparameters and we DO NOT perform resampling (this is done by passing `"none"` to the method argument in the `trainControl` function):
 
 
-```r
+``` r
 
 fitControl_final <- trainControl(method = "none", classProbs = TRUE)
 
@@ -692,6 +715,7 @@ RF_final <- train(Class ~., data = data_training,
                                          .splitrule = "extratrees"),
                    
                    num.tree = 600)
+
 ```
 
 
@@ -699,11 +723,12 @@ RF_final <- train(Class ~., data = data_training,
 Use `predict()` function to make predictions based on the final model: pass the final model to this function along with the dataset you are making predictions for. We will do it for both training and test sets:
 
 
-```r
+``` r
 
 RF_pred_train <- predict(RF_final, newdata = data_training)
 
 RF_pred_test <- predict(RF_final, newdata = data_test)
+
 ```
 
 
@@ -711,7 +736,7 @@ To assess the model's performance, we build a confusion matrix. It is done using
 
 
 
-```r
+``` r
 
 RF_train_results <- confusionMatrix(RF_pred_train, data_training$Class)
 
@@ -748,7 +773,7 @@ print(RF_train_results)
 To simply the output, we can extract the confusion matrix and take a transpose of it:
 
 
-```r
+``` r
 
 print(RF_train_results$table)
 #>           Reference
@@ -768,7 +793,7 @@ Now using this table, we can calculate metrics such as accuracy, sensitivity, sp
 As mentioned earlier, the model performance is mainly assessed using the unseen test set. Thus, we are more interested in obtaining a confusion matrix for the test set:
 
 
-```r
+``` r
 
 RF_test_results <- confusionMatrix(RF_pred_test, data_test$Class)
 
@@ -804,7 +829,7 @@ print(RF_test_results)
 
 
 
-```r
+``` r
 
 print(RF_test_results$table)
 #>           Reference
