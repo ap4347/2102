@@ -214,7 +214,7 @@ As mentioned, R stores files in the working directory. To check where the workin
 
 ``` r
 getwd()
-#> [1] "C:/Users/alexp/OneDrive/Desktop/2102/Spring 25/2102"
+#> [1] "C:/Users/alexp/OneDrive/Desktop/2102/Fall 25/2102"
 ```
 
 ## Getting Help {-}
