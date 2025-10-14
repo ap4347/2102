@@ -57,6 +57,7 @@
 <li><a class="active" href="lecture-09.html">Lecture 09</a></li>
 <li class="book-part">TIDYVERSE</li>
 <li><a class="" href="lecture-10.html">Lecture 10</a></li>
+<li><a class="" href="lecture-11.html">Lecture 11</a></li>
 </ul>
 
         <div class="book-extra">
@@ -362,18 +363,18 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  1.0972409 11.0831137  2.9545560  5.6262072  0.3142788</span></span>
-<span><span class="co">#&gt;  [6] -4.0452601  6.4602228 -1.7122767 -1.1371587 -6.4758336</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] 12.560831  5.325883  6.242560 -1.558311 -6.261101</span></span>
+<span><span class="co">#&gt;  [6]  2.209532  8.314766 -4.743426  8.182024  6.024592</span></span></code></pre></div>
 <div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1]  7.3535835 -3.2761349  6.9761695  0.1409814 -0.9317023</span></span>
-<span><span class="co">#&gt;  [6]  4.6045339  6.9208667  2.3160244 -0.1421072  2.5272932</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  4.6440772 -0.6260445  2.7445865 -0.1742698  7.8305828</span></span>
+<span><span class="co">#&gt;  [6] -1.6491016  5.1305863  8.2246173  1.7091784  1.7164578</span></span></code></pre></div>
 <div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span>, mean <span class="op">=</span> <span class="fl">3</span>, sd <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] 6.4316904 4.2427358 5.4098191 0.2144270 0.8999789</span></span>
-<span><span class="co">#&gt;  [6] 1.4169182 4.2621314 4.1018293 9.9541084 2.3986069</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  4.4857055  6.3068198  8.3255718 -1.8171613  2.2450637</span></span>
+<span><span class="co">#&gt;  [6] -3.5999235 10.2064782  2.3328287 -2.1996740 -0.4709903</span></span></code></pre></div>
 <p>As you notice, every time you generate a sample of random numbers, it generates a different set of values, because it is done randomly.</p>
 <p>After generating random numbers, you may often want to reproduce the same sequence of “random” numbers every time your program executes. That way, you get the same results from run to run.</p>
 <p>In R, the <code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> function sets the random number generator to a known state. The function takes one argument, an integer. Any positive integer will work, but you must use the same one in order to get the same initial state.</p>
@@ -504,7 +505,7 @@ f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi}\sigma} e^{\frac{-(x - \mu)^2}{2\sigma^2
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2025-10-09.</p>
+    <p>"<strong>STAT 2102: Applied Statistical Computing</strong>" was written by Alex Pijyan. It was last built on 2025-10-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
